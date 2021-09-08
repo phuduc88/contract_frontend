@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-12 col-md-3 ">
+    <div class="drop"
+      style="border: 0px solid #DADFE3; margin: 0px; border-radius: 0px; background: transparent !important;"
+      (click)="openSignaturePad()">
+      <label class="d-flex align-items-center justify-content-center m-0 bg-white border border-1">
+        <app-image-base [base64] = "signPadDefault.data" [imageOption] = "imageOption"></app-image-base>
+      </label>
+    </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-12 d-flex bd-highlight ">
+    <div class="p-2 flex-grow-1 bd-highlight">
+      <h6 class="font-weight-bold ">
+        <span class="text-primary"> Danh sách chữ ký </span> <span style="font-size: 14px; font-weight: normal;"> (Tổng
+          có {{signPadOfUser.length}} chữ ký)</span>
+        <small class="text-black-50 ng-binding">
+        </small>
+      </h6>
+    </div>
+  </div>
+  <div class="col-12 table-responsive">
+    <table class="table table-hover table-vertical-center">
+      <thead>
+        <tr>
+          <th class="text-danger">#</th>
+          <th>Thời gian tạo</th>
+          <th>Hình ảnh</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let signature of signPadOfUser; let i = index">
+          <td class="text-danger ng-binding">{{i + 1}}</td>
+          <td class="ng-binding">{{signature.dateCreate}}</td>
+          <td>
+            <app-image-base [base64] = "signature.data" [imageOption] = "imageOption"></app-image-base>
+          </td>
+          <td>
+            <div type="button" class="btn btn-sm border border-1" style="color:#386fdc;"
+              *ngIf="signature.useDefault">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Đang sử dụng
+            </div>
+            <div *ngIf="!signature.useDefault">
+              <button type="button" class="btn btn-sm text-danger border border-1" (click)="deleteSignature(signature)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Xóa chữ ký
+              </button>
+              <button type="button" class="btn btn-sm text-primary border border-1" style="margin-left: 5px;"
+                (click)="setDefaultSignature(signature)">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Sử dụng làm mặc định
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

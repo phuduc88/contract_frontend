@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex bd-highlight text-primary">
+      <div class="mr-auto p-2 flex-grow-1 bd-highlight">
+        <h6 class="font-weight-bold">
+          Danh sách thành viên
+          <small class="text-black-50 ng-binding">
+          </small>
+        </h6>
+      </div>
+      <div class="p-2 bd-highlight">
+        <button type="button" class="btn text-primary m-2 border border-1" (click)="adddEmployee()">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Thêm thành viên
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tree">
+  <ul>
+    <li class="parent_li">
+      {{user.username}}
+      <app-tree-employee (chooseEmployee) = "chooseEmployee($event)" [treeEmployeeData]="employees"></app-tree-employee>
+    </li>
+  </ul>
+</div>

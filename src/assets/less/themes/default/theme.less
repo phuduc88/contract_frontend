@@ -1,0 +1,37 @@
+@import "./_components.less";
+
+@primary-color: #2254BF;
+
+.ant-form-item-label {
+  &.white {
+    color: #fff;
+
+    label {
+      color: #fff;
+    }
+  }
+}
+
+.ant-tree {
+  .ant-tree-treenode .ant-tree-indent[ng-reflect-nz-tree-level="0"] {
+    color: #f00 !important;
+  }
+  .ant-tree-treenode .ant-tree-indent[ng-reflect-nz-tree-level="0"] ~ .ant-tree-treenode .ant-tree-node-content-wrapper {
+    font-weight: 700;
+  }
+
+  .ant-tree-child-tree {
+    .ant-tree-title {
+      font-weight: 400;
+    }
+  }
+}
+.ant-modal-confirm .ant-modal-body {
+  padding: 22px 22px 14px !important;
+}
+
+.page-container {
+  &__spinning .ant-spin-container {
+    height: 100%;
+  }
+}

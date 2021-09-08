@@ -1,0 +1,27 @@
+{
+  "common": {
+    "languages": {
+      "vi": "Vietnamese",
+      "en": "English"
+    },
+    "title": "meContact – Phần mềm chữ ký điện tử",
+    "search": "Search...",
+    "footer": {
+      "copyright": "Copyrights © 2020 Phần mềm Chữ ký điện tử. All Rights"
+    }
+  },
+  "auth": {
+    "login": {
+      "pageTitle": "Đăng nhập",
+      "form": {
+        "company": "Đơn vị",
+        "username": "Tên đăng nhập",
+        "password": "Mật khẩu",
+        "remember": "Ghi nhớ?",
+        "submit": "Đăng nhập",
+        "forgot": "Quên mật khẩu",
+        "register": "Đăng ký"
+      }
+    }
+  }
+}

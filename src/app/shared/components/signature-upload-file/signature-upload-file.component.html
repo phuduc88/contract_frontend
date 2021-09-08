@@ -1,0 +1,51 @@
+<nz-spin [nzSpinning]="isSpinning">
+<div class="row no-gutters">
+  <div class="col-12">
+    <div class="d-flex item_file p-2 mb-1 ng-scope" *ngFor="let file of filesSign;index as i ">
+      <div class="icon_file align-self-center">
+        <img src="{{file.icon}}" />
+      </div>
+      <div class="flex-grow-1 info_file d-flex align-items-center">
+        <div>
+          <p style="margin-top: 0px;">{{file.fileName}}</p>
+          <!-- DUCLV -> em dịnh nghĩa stype cho imput này nhé -->
+          <!-- <p style="margin-top: 0px;"> <input type="text" class="form-control" [(ngModel)]="file.fileName"></p> -->
+          <span>{{file.fileSize}} Kb</span>
+        </div>
+      </div>
+      <div class="action_file d-flex align-items-center">
+        <div class="dropdown">
+          <span class="fa fa-ellipsis-v" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <!-- <a class="dropdown-item" (click)="UploadOtherFile(file)">Tải lên file
+                        khác</a> -->
+            <a class="dropdown-item" (click)="removeFile(file, i)">Xóa file</a>
+            <a class="dropdown-item" (click)="renameFile(file, i)">Đổi tên file</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 progressBar">
+    <p class="m-0 text-right ng-binding ng-scope" *ngIf="filesSign.length > 0">
+      {{filesSign.length}} file được tải lên</p>
+  </div>
+  <div class="col-12">
+    <div class="drop">
+      <div class="cont">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+        <div class="browse">
+          Tải file
+        </div>
+        <div style="margin: 15px 10px;">
+          <span class="text-danger">*</span>
+          Định dạng được hỗ trợ: .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png,
+          .webp
+        </div>
+      </div>
+      <input id="files" type="file" (change)="fileChange($event)" multiple=""
+        accept=".xlsx, .xls, .doc, .docx, .pdf">
+    </div>
+  </div>
+</div>
+</nz-spin>

@@ -1,0 +1,97 @@
+  <div class="block_email" *ngFor="let item of employeesSign; let i = index">
+      <div class="form-row">
+          <div class="col-6">
+              <nz-radio-group [(ngModel)]="item.groupType">
+                <label nz-radio [nzValue]=1>Tổ chức</label>
+                <label nz-radio [nzValue]=2>Cá nhân</label>
+                <label nz-radio [nzValue]=3>Người nhận bản sao</label>
+              </nz-radio-group>
+          </div>
+          <div class="col-6 text-right" *ngIf="employeesSign.length > 1">
+              <button class="btn btn-sm btn-outline-secondary" (click)="removeEmployeeSing(i)">Xóa</button>
+          </div>
+      </div>
+      <div class="form-row padding-5" *ngIf="item.groupType != groupType.ISCC">
+          <label nz-checkbox [(ngModel)]="item.receptionFileCopy">Không nhận email hoàn thành</label>
+          <label nz-checkbox [(ngModel)]="item.receptionEmail">Không nhận email ký kết</label>
+      </div>
+      <div class="form-row padding-5" *ngIf="item.groupType == groupType.ISCC">
+          <label nz-checkbox [(ngModel)]="item.ISCCFINISH">Chỉ nhận bản sao khi hoàn thành</label>
+      </div>
+      <div class="form-row">
+          <div class="form-group form-group-sm " [ngClass]="(item.groupType == groupType.HSMUSB) ? 'col-12' : 'col-6'">
+            <label> Tên 
+                <span *ngIf="item.groupType == groupType.HSMUSB">
+                  tổ chức/doanh nghiệp
+                </span>
+                <span *ngIf="item.groupType == groupType.ONSIGN || item.groupType == groupType.ISCC ">
+                  cá nhân
+                </span>
+                <span class="text-danger">*</span>
+            </label>
+            <input type="text" style="text-transform:uppercase" class="form-control input26custom"
+                  [(ngModel)]="item.groupName" *ngIf="item.groupType == groupType.HSMUSB" name="fullName"
+                  placeholder="CÔNG TY CỔ PHẦN ABC" required (change)="item.groupName=item.groupName.toUpperCase();" />
+            <input type="text" style="text-transform:uppercase" class="form-control" [(ngModel)]="item.name"
+                  *ngIf="item.groupType == groupType.ONSIGN || item.groupType == groupType.ISCC" name="fullName"
+                  placeholder="NGUYỄN VĂN A" required (change)="item.groupName=item.name=item.name.toUpperCase();" />
+          </div>
+          <div class="form-group col-6 " *ngIf="item.groupType == groupType.HSMUSB">
+              <label>
+                  Mã số thuế
+                  <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="item.taxCode" placeholder="0123456789-123">
+                <div class="input-group-append">
+                  <span id="basic-addon2">
+                    <button class="btn btn-sm btn-primary" ng-click="LoadInfoByTaxcode(p)" data-toggle="tooltip"
+                      title="Lấy thông tin từ tổng cục thuế">
+                      <i class="fa fa-search"></i>
+                    </button>
+                    <span id="loadTaxinfo" class="d-none"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6 ">
+              <label>
+                  Địa chỉ email
+                  <span class="text-danger">*</span>
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="item.email" placeholder="Email">
+            </div>
+      </div>
+      <div class="form-row " *ngIf="item.groupType == groupType.ONSIGN">
+          <div class="form-group col-6">
+            <label>
+                Địa chỉ
+                <span class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control" name="address"
+                ng-class="{true : 'border border-danger'}[myForm.address.$error.required]" [(ngModel)]="item.address"
+                placeholder="Tầng 9, tòa nhà Công đoàn Ngân hàng Việt Nam, Duy Tân, Cầu Giấy, Hà Nội" />
+          </div>
+          <div class="form-group col-3">
+              <label>
+                CMND/CCCD
+                <span class="text-danger">*</span>
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="item.idNumber" placeholder="0106507946" name="IdNumber"
+                (ngClass)="{true : 'border border-danger'}[myForm.IdNumber.$error.required]" />
+          </div>
+          <div class="form-group col-3">
+            <label>
+              Số điện thoại
+              <span class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control" [(ngModel)]="item.phoneNumber" placeholder="02422319999"
+              name="PhoneNumber" ng-class="{true : 'border border-danger'}[myForm.PhoneNumber.$error.required]" />
+          </div>
+        </div>
+  </div>
+  <small class="text-danger">*Lưu ý: thông tin đánh dấu sao (*) là thông tin bắt buộc, không được để trống</small>
+  <div class="mt-2">
+      <button type="button" class="btn btn-sm btn-primary mb-2" 
+        (click)="addEmployeeSign()"> Thêm người nhận</button>
+  </div>

@@ -1,0 +1,65 @@
+<form nz-form nzLayout="vertical" [formGroup]="loginForm" (ngSubmit)="handleSubmit()" class="login-page">
+  <!-- <h1>{{ 'auth.login.title' | translate }}</h1> -->
+
+  <div class="img_logo">
+    <img style="text-align: center;" src="../../../../../assets/img/logo_login.png" alt="me-Contract">
+  </div>
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="userNameTpl">
+      <input nz-input formControlName="username" class="input-me"
+        placeholder="{{ 'auth.login.form.username' | translate }}">
+      <ng-template #userNameTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Tài khoản không được trống
+        </ng-container>
+        <ng-container *ngIf="control.hasError('pattern')">
+          Tài khoản không hợp lệ
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="passWordTpl">
+      <input type="password" class="input-me" nz-input formControlName="password"
+        placeholder="{{ 'auth.login.form.password' | translate }}">
+      <ng-template #passWordTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Mật khẩu không được để trống
+        </ng-container>
+        <ng-container *ngIf="control.hasError('pattern')">
+          Mật khẩu không hợp lệ
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <div class="form-group-remember">
+    <label nz-checkbox formControlName="remember" class="form-group-remember__checkbox">
+      <span>{{'auth.login.form.remember' | translate }}</span>
+    </label>
+    <a [routerLink]="['/auth/forgot']" class="form-group-remember__forgot pull-left">
+      <i class="fa fa-key" aria-hidden="true"></i> {{ 'auth.login.form.forgot' | translate }}
+    </a>
+  </div>
+
+  <div class="form-group">
+    <button class="btn-login" nz-button nzType="primary" type="submit">{{'auth.login.form.submit' | translate}}</button>
+  </div>
+
+  <div class="form-group">
+    Bạn muốn đăng ký dùng thử?
+    <a [routerLink]="['/auth/resigter']" class="form-group-reset">
+      {{ 'auth.login.form.register' | translate }}
+    </a>
+  </div>
+  <div class="form-group">
+    <a href="#" title="facebook">
+      <img src="../../../../../assets/img/icon/facebook.png"></a>
+    <a href="#" title="youtube">
+      <img src="../../../../../assets/img/icon/youtube.png"></a>
+    <a href="#" title="web">
+      <img src="../../../../../assets/img/icon/global.png"></a>
+  </div>
+
+</form>

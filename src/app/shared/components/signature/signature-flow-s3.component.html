@@ -1,0 +1,154 @@
+<div id="loader-pdf">
+  <div class="card">
+    <div class="card-body p-0">
+      <div id="mainViewer" class="d-flex col-12 p-0">
+        <div class="col-md-3 col-lg-2 content-left p-0">
+          <div class="header-left"></div>
+          <div class="container-foreign onscrollbar">
+            <div class="col-auto my-1" *ngIf="!documentSign.myselfSign">
+              <nz-select nzAllowClear (ngModelChange)="changeEmailAssignment($event)" nzPlaceHolder="Chọn người ký"
+                [(ngModel)]="documentSign.emailAssignment">
+                <nz-option [nzValue]="person.email" [nzLabel]="person.groupName"
+                  *ngFor="let person of documentSign.employeesSign">
+                </nz-option>
+              </nz-select>
+            </div>
+            <span class="header">TRƯỜNG THÔNG TIN</span>
+            <div class="note">
+              Kéo thả các trường thông tin dưới đây để thêm ô nhập hoặc ô ký vào bản
+              hợp
+              đồng
+            </div>
+
+            <div class="field-icon-left">
+              <div data-image="signature" class="btn signature-icon"></div>
+            </div>
+
+            <div class="field-icon-left">
+              <div data-image="initial_signature" class="btn signature-icon-img">
+              </div>
+            </div>
+
+            <hr />
+            <div *ngIf="documentSign.listSign.length > 0">
+              <span>
+                <span class="text-left">THỨ TỰ KÝ</span>
+              </span>
+              <ol class="noselect">
+                <li class="m-2 p-1 text-left border border-primary rounded" style="cursor: pointer; font-size: 12px"
+                  *ngFor="let sign of documentSign.listSign; let page = index" (click)="signSelected(sign)">
+                  <strong>{{sign.name}}</strong>
+                  <br />
+                  <span *ngIf="sign.emailAssignment == currentUser.email">
+                    Người ký: Tôi ({{sign.emailAssignment}})
+                  </span>
+                  <span *ngIf="sign.emailAssignment != currentUser.email && !documentSign.myselfSign">
+                    Người ký: {{sign.emailAssignment}}
+                  </span>
+                  <br />
+                  <span>
+                    Thứ tự ký kết: <span class="text-primary">{{page + 1}}</span>
+                  </span>
+                  <br />
+                  <span class="text-muted">
+                    Loại:
+                    <span *ngIf="!sign.isinitial" class="text-primary">Ký
+                      thường</span>
+                    <span *ngIf="sign.isinitial" class="text-warning">Ký
+                      nháy</span>
+                  </span>
+                  <br />
+                  <span>Trang: <span class="text-muted">{{sign.page}}</span></span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8 content-center p-0">
+          <app-pdf-viewer [documentSign]="documentSign" [currentUser]="currentUser"></app-pdf-viewer>
+        </div>
+        <div class="col-md-3 col-lg-2 content-right p-0">
+          <div class="header-right"></div>
+          <app-pdf-list-thumbnail [filesSign]="documentSign.filesSign"></app-pdf-list-thumbnail>
+          <div *ngIf="isDisplay" class="properties">
+            <div class="sender-info">
+              <div class="header-title d-flex bd-highlight">
+                <div class="flex-grow-1 bd-highlight">THÔNG TIN CHUNG</div>
+                <div class="mr-2 bd-highlight text-danger" (click)="closeSignatureProperties()">
+                  <i class="fa fa-times " aria-hidden="true"></i>
+                </div>
+              </div>
+              <hr />
+              <div *ngIf="!documentSign.myselfSign">
+                <div class="header-title">NGƯỜI NHẬN</div>
+                <div class="card-body">
+                  {{selectedSignature.emailAssignment}}
+                </div>
+              </div>
+            </div>
+            <div class="sign-info">
+              <div class="header-title">VỊ TRÍ - KÍCH THƯỚC</div>
+              <div class="card-body">
+                <div class="d-flex mb-2">
+                  <h6>
+                    Loại chữ ký:
+                    <span class="badge badge-warning" *ngIf="selectedSignature.isinitial">Nháy</span>
+                    <span class="badge badge-primary" *ngIf="!selectedSignature.isinitial">Thường</span>
+                  </h6>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Trang ký</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="selectedSignature.page" readonly>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="input-group input-group-sm mr-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">X</span>
+                    </div>
+                    <input type="text" class="form-control" value="{{selectedSignature.left | number:'1.2-2'}}"
+                      readonly>
+                  </div>
+                  <div class="input-group input-group-sm ml-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Y</span>
+                    </div>
+                    <input type="text" class="form-control" value="{{selectedSignature.top | number:'1.2-2'}}" readonly>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Tỷ lệ (Scale)</span>
+                    </div>
+                    <input type="text" class="form-control" value="{{selectedSignature.scaleX | number:'1.2-2'}}"
+                      readonly>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="input-group input-group-sm mr-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Rộng</span>
+                    </div>
+                    <input type="text" class="form-control"
+                      value="{{selectedSignature.width * selectedSignature.scaleX | number:'1.2-2'}}" readonly>
+                  </div>
+                  <div class="input-group input-group-sm ml-1">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Cao</span>
+                    </div>
+                    <input type="text" class="form-control"
+                      value="{{selectedSignature.height * selectedSignature.scaleX | number:'1.2-2'}}" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

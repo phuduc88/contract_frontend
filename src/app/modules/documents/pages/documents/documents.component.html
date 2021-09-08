@@ -1,0 +1,61 @@
+<div class="d-flex flex-column bd-highlight manage-documents">
+  <nz-tabset>
+    <nz-tab [nzTitle]="myselfSign" (nzSelectChange)="changeTab($event)">
+      <ng-template #myselfSign>
+        <div>
+          Tôi ký
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="sended">
+      <ng-template #sended>
+        <div>
+          Đã gửi
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="draft">
+      <ng-template #draft>
+        <div>
+          Nháp
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="deleted">
+      <ng-template #deleted>
+        <div>
+          Đã xóa
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="cancel">
+      <ng-template #cancel>
+        <div>
+          Đã hủy
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="receptionCopy">
+      <ng-template #receptionCopy>
+        <div>
+          Tôi nhận bản sao (CC)
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="manageMember">
+      <ng-template #manageMember>
+        <div>
+          Quản lý thành viên
+        </div>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+  <div class="formWapper">
+    <app-document-form></app-document-form>
+    <app-document-table [documents]="documents" (editDocument)="editDocument($event)"
+      (continueSignDocument)="continueSignDocument($event)" 
+      (viewDocument)="viewDocument($event)"
+      (singDocument)="singDocument($event)"
+      ></app-document-table>
+  </div>
+</div>

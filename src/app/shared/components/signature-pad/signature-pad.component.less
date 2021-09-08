@@ -1,0 +1,117 @@
+#signatureControl {
+  .modal-dialog {
+    max-width: 768px;
+    margin: 0 !important;
+  }
+
+  .modal-body {
+    padding: 0 !important;
+  }
+
+  .modal-footer {
+    padding: 10px 0 !important;
+  }
+
+  .modal-signature {
+    .modal-content {
+      height: 100%;
+    }
+  }
+
+  .signature-pad {
+    position: relative;
+    margin: 0 auto;
+    cursor: pointer;
+    width: 100%;
+    height: 300px;
+    background: #F1F3F4;
+
+    canvas {
+      border: 1px dashed #ccc;
+      margin: 0 auto;
+      cursor: pointer;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+    }
+  }
+
+  .modal-content {
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  .content-upload-img {
+    position: relative;
+    border: 1px dashed #ccc;
+    height: 300px;
+    width: 100%;
+  }
+
+  /* tool*/
+  .tool-setting-area {
+    .active {
+      border-bottom: 2px solid #386fdc;
+      border-radius: 0px;
+      color: #386fdc !important;
+    }
+
+    .btn-switch {
+      /*width: 200px;*/
+      padding: 5px 10px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #676867;
+    }
+
+    .btn-switch:hover {
+      text-decoration: none;
+      color: #386fdc;
+    }
+
+    .dashboard-review-box {
+      .title-review-box {
+        position: relative;
+        z-index: 4;
+        height: 300px;
+        font-size: 18px;
+        background-color: #fff;
+        padding: 80px;
+        margin-bottom: 20px;
+        -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, .3);
+        -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, .3);
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, .3);
+        border-radius: 6px;
+      }
+    }
+
+    .custom-control {
+      transform: scale(1.5);
+    }
+  }
+}
+
+
+::ng-deep .ant-modal.signature-pad-custom {
+  width: 750px !important;
+
+  .ant-modal-header {
+    .ant-modal-title {
+      font-size: 24px !important;
+      font-weight: bold !important;
+    }
+  }
+
+  .ant-modal-footer {
+    display: none;
+  }
+
+  .ant-modal-body {
+    height: 342px !important;
+  }
+
+  .ant-modal-content {
+    width: 750px !important;
+    height: 512px !important;
+  }
+}

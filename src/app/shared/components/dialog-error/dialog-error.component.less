@@ -1,0 +1,50 @@
+#signatureControl {
+  .modal-dialog {
+    max-width: 450px;
+    margin: 0 !important;
+  }
+
+  .modal-body {
+    padding: 0 !important;
+  }
+
+  .modal-footer {
+    padding: 10px 0 !important;
+  }
+
+  .modal-signature {
+    .modal-content {
+      height: 100%;
+    }
+  }
+
+  .signature-pad {
+    position: relative;
+    margin: 0 auto;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    background: #F1F3F4;
+  }
+
+  .modal-content {
+    padding: 0 !important;
+    border: 0 !important;
+  }
+}
+
+::ng-deep .ant-modal.signature-pad-custom {
+  width: 750px !important;
+
+  .ant-modal-header {
+    .ant-modal-title {
+      font-size: 24px !important;
+      font-weight: bold !important;
+    }
+  }
+
+  .ant-modal-footer {
+    display: none;
+  }
+   
+}

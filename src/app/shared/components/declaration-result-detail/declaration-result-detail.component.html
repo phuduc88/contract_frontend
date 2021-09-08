@@ -1,0 +1,41 @@
+<div class="declaration-result">
+  <div class="declaration-result__content">
+  <h2><span>Cán bộ xử lý</span> : {{declarationInfo.employeeHandler}} </h2>
+  <h1>KẾT QUẢ CÁ BƯỚC XỬ LÝ HỒ SƠ</h1>
+  <nz-table
+      nzBordered
+      #ajaxTable
+      nzShowSizeChanger
+      [nzFrontPagination]="false"
+      [nzData]="declarationInfo.historyProcessDeclarations"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      class="table-editor "
+    >
+      <thead>
+        <tr>
+          <th style="width: 40px;">STT</th>
+          <th>Cán bộ xử lý</th>
+          <th style="width: 135px;">Thời gian</th>
+          <th>Hành động</th>          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;index as i">
+          <td>{{i + 1}}</td>
+          <td>{{ data.employeeHandler }}</td>
+          <td>{{ data.timeProcess }}</td>
+          <td>{{ data.action }}</td>        
+        </tr>
+      </tbody>
+    </nz-table>
+        <!-- ROW START -->
+  </div>
+  <div class="declaration-result__footer" *nzModalFooter>
+    <button nz-button nzType="default" (click)="dismiss()">
+      <i nz-icon nzType="rollback"></i>Đóng
+    </button>
+  </div>
+</div>

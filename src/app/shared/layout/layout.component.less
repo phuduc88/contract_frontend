@@ -1,0 +1,80 @@
+#top-header {
+  position: relative;
+  z-index: 1;
+  height: 4.0rem;
+  padding: 0 30px 0 20px;
+  background: #fff;
+  /*background: #2ca01c;*/
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+
+  .header-company-name {
+    font-size: 16px;
+  }
+
+  .navi-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #386fdc;
+
+    i {
+      font-size: 28px;
+    }
+  }
+
+  .navi-search {
+    width: 320px;
+    height: 40px;
+    margin-left: 20px;
+    padding-left: 40px;
+    border: 1px solid #D9DEDB;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .icon-search {
+    position: absolute;
+    left: 95px;
+    color: #676867;
+  }
+}
+
+@media (max-width: 1024px) {
+  #top-header {
+    height: 2.7rem;
+    padding: 0;
+    background: #386fdc;
+    color: white;
+
+    .navi-icon img {
+      width: 25px;
+    }
+
+    .header-company-name {
+      font-size: 12px;
+    }
+
+    .show-comtax-code {
+      font-size: 10px;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  #top-header .header-company-name {
+    font-size: 11px !important;
+  }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  #top-header {
+    .icon-search {
+      display: none !important;
+    }
+  }
+}
+
+::ng-deep .sidebar-mini {
+  overflow: auto;
+}

@@ -1,0 +1,105 @@
+<button aria-label="Close" (click)="closeModal()" nz-modal-close=""
+  class="ant-modal-close ng-tns-c42-1 ng-star-inserted"><span class="ant-modal-close-x"><i nz-icon=""
+      class="anticon ant-modal-close-icon anticon-close ng-star-inserted" ng-reflect-nz-type="close"><svg
+        viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="close"
+        aria-hidden="true">
+        <path
+          d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z">
+        </path>
+      </svg></i>
+  </span></button>
+<div id="signature-flow">
+  <div id="process" class="row d-flex justify-content-center" *ngIf="documentSign.currentStep !== 2"
+    style="display: flex !important">
+    <div class="progressbar-wrapper justify-content-center">
+      <ul class="progressbar">
+        <li class="active" ng-class="{true: 'active'}[documentSign.currentStep === 0]">
+          Chọn file để ký
+        </li>
+        <li ng-class="{true: 'active'}[documentSign.currentStep !== 0]" *ngIf="!documentSign.myselfSign"
+          class="ng-scope">Thêm người nhận
+        </li>
+        <li ng-class="{true: 'active'}[documentSign.currentStep === 2]">Hoàn thành</li>
+      </ul>
+    </div>
+  </div>
+  <hr id="hr-top" class="mt-0" style="display: flex !important" *ngIf="!documentSign.currentStep == 1">
+  <div class="container container-custom p-0" *ngIf="documentSign.currentStep === 0">
+    <div class="d-flex bd-highlight" style="margin: 15px 0px;">
+      <span class="bd-highlight align-self-center mr-1">Phân loại</span>
+      <div class="bd-highlight">
+        <nz-select nzAllowClear nzPlaceHolder="Loại tài liệu">
+          <nz-option [nzValue]="documentType.id" [nzLabel]="documentType.documentName"
+            *ngFor="let documentType of documentsType">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+
+    <app-signature-upload-file [filesSign]="documentSign.filesSign" [documentId]="documentSign.id"
+      [documentType]="documentSign.documentType" (changeFilesUpload)="changeFilesUpload($event)">
+    </app-signature-upload-file>
+
+  </div>
+  <div class="container" *ngIf="documentSign.currentStep === 1">
+    <signature-flow-s2 [employeesSign]="documentSign.employeesSign" (onFormValid)="formEmployeeSingValid($event)"
+      (onAddEmployeeSing)="addEmployeeSing($event)"></signature-flow-s2>
+  </div>
+
+  <div *ngIf="documentSign.currentStep === 2" class="ng-hide">
+    <signature-flow-s3 [documentSign]="documentSign"></signature-flow-s3>
+  </div>
+
+  <div class="modal-footer d-flex bd-highlight">
+    <div class="flex-grow-1 bd-highlight d-none">
+      <button class="btn btn-secondary" (click)="CloseRequest()">
+        <span class="fa fa-ban"></span>&nbsp;Đóng
+      </button>
+    </div>
+    <div class="bd-highlight" *ngIf="documentSign.currentStep !== 0">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="prevStep()">
+          <span class="fa fa-arrow-left">
+          </span>&nbsp; Quay lại
+        </button>
+      </div>
+    </div>
+    <div class="bd-highlight text-center" *ngIf="documentSign.currentStep === 0 && documentSign.filesSign.length > 0">
+      <label for="cbx_id" class="label-cbx">
+        <input id="cbx_id" type="checkbox" class="invisible" [(ngModel)]="documentSign.myselfSign">
+        <span class="checkbox" style="top: 0px;">
+          <svg width="32px" height="32px" viewBox="0 0 32 32">
+            <path
+              d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z">
+            </path>
+            <polyline points="4 11 8 15 16 6"></polyline>
+          </svg>
+        </span>
+        <span class="cbx-text">&nbsp;Tôi là người ký duy nhất</span>
+      </label>
+    </div>
+
+    <div class="bd-highlight" *ngIf="documentSign.currentStep !== 2 && documentSign.filesSign.length > 0">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" (click)="nextStep()" *ngIf="!documentSign.myselfSign">
+          Tiếp theo <span class="fa fa-arrow-right"></span>
+        </button>
+        <button type="button" class="btn btn-success" (click)="nextStep()" *ngIf="documentSign.myselfSign">
+          Tiến hành ký <span class="fa fa-arrow-right"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="bd-highlight" *ngIf="documentSign.currentStep === 2 && documentSign.filesSign.length > 0">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" *ngIf="!documentSign.myselfSign"
+          (click)="showPreviewRequestSign()">
+          Xem và gửi <span class="fa fa-send"></span>
+        </button>
+        <button type="button" class="btn btn-success" (click)="requestSign()" *ngIf="documentSign.myselfSign">
+          Hoàn thành <span class="fa fa-check"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

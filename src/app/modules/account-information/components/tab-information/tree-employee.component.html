@@ -1,0 +1,10 @@
+<ul>
+  <li class="parent_li" *ngFor="let employee of treeEmployeeData">
+    <span (click)="eidtEmployee(employee)" class="ng-binding ng-scope">{{employee.fullName}}
+      <span *ngIf="employee.active"><i class="fa fa-check text-success"></i></span>
+      <span *ngIf="!employee.active"><i class="fa fa-times text-danger"></i></span>
+      <br>
+    </span>
+    <app-tree-employee  (chooseEmployee) = "eidtEmployee($event)"  [treeEmployeeData]="employee.children"></app-tree-employee>
+  </li>
+</ul>

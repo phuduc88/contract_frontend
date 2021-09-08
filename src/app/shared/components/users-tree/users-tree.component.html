@@ -1,0 +1,28 @@
+<div class="users-tree">
+  <nz-input-group [nzSuffix]="suffixIcon">
+    <input type="text" nz-input placeholder="Tìm kiếm" [(ngModel)]="searchValue" (ngModelChange)="changeSearch($event)" />
+  </nz-input-group>
+  <ng-template #suffixIcon>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+  <nz-spin [nzSpinning]="isLoading">
+    <nz-tree
+      nzCheckable
+      nzMultiple
+      [nzData]="employees"
+      [nzCheckedKeys]="defaultCheckedKeys"
+      [nzSelectedKeys]="defaultSelectedKeys"
+      [nzAsyncData]="false"
+      [nzTreeTemplate]="nzTreeTemplate"
+      (nzCheckBoxChange)="nzCheck($event)"
+    >
+    </nz-tree>
+    <ng-template #nzTreeTemplate let-node let-origin="origin">
+      <div [ngStyle]="{'font-weight': !origin.isLeaf ? '700' : '400'}" class="users-tree-item" id="users-tree-item-{{origin.id}}">
+        <span class="folder-name">{{ node.title }}</span>
+        <i nz-icon nzType="edit" *ngIf="origin.isLeaf" nzTheme="outline" class="users-tree-item__icon" (click)="editUser(origin)"></i>
+        <i nz-icon nzType="delete" *ngIf="origin.isLeaf" nzTheme="outline" class="users-tree-item__icon_delete" (click)="deleteUser(origin)"></i>
+      </div>
+    </ng-template>
+  </nz-spin>
+</div>

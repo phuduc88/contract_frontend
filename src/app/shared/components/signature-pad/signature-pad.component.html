@@ -1,0 +1,45 @@
+<div id="signatureControl">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 form-group tool-setting-area">
+            <div class=" btn-filter ">
+              <a href="javascript:;" class="btn-switch" (click)="tabClick(1)" [ngClass]="{true: 'active'}[isDraw]">Vẽ
+                chữ ký</a>
+              <a href="javascript:;" class="btn-switch" (click)="tabClick(2)" [ngClass]="{false: 'active'}[isDraw]">Tải
+                lên ảnh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="signature-pad" *ngIf="isDraw">
+          <signature-pad [options]="signaturePadOptions">
+          </signature-pad>
+        </div>
+
+        <div *ngIf="!isDraw" class="content-upload-img">
+          <label style="display: inline-block;">
+            <img id="imgUpload" src="{{imageUpload != null ? imageUpload : '/assets/img/image-add.png'}}" />
+            <input type="file" (change)="signImageChange($event)" accept=".png, .jpg" img-upload modelimg="imageUpload"
+              class="display-none" />
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex bd-highlight">
+        <div class="flex-grow-1 bd-highlight">
+          <button class="btn btn-secondary" (click)="signaturePadClear()">
+            <span class="fa fa-eraser"></span> Xóa
+          </button>
+        </div>
+        <div class="bd-highlight">
+          <div class="btn-group">
+            <button type="button" class="btn btn-success" (click)="signatureSave()">
+              <span class="fa fa-arrow-right"></span>&nbsp;Lưu
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="main-sidebar" id="left-mainnavi">
+  <div class="pb-2 top-left-navi main-header d-flex align-items-center justify-content-center">
+    <a [routerLink]="['/dashboard']" class="logo">
+      <div class="img"></div>
+    </a>
+  </div>
+  <div class="main-sidebar">
+    <section class="sidebar">
+      <ul class="sidebar-menu" data-widget="tree">
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('dashboard')]">
+          <a [routerLink]="['/dashboard']">
+            <i class="fa fa-pie-chart"></i>
+            <span>Tổng quan</span>
+          </a>
+        </li>
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('manage-documents')]">
+          <a [routerLink]="['/manage-documents']">
+            <i class="fa fa-file-text-o"></i>
+            <span>Quản lý tài liệu</span>
+          </a>
+        </li>
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('manage-template-documents')]">
+          <a [routerLink]="['/manage-template-documents']">
+            <i class="fa fa fa-files-o"></i>
+            <span>Quản lý mẫu tài liệu</span>
+          </a>
+        </li>
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('account-information')]">
+          <a [routerLink]="['/account-information']">
+            <i class="fa fa-user-circle-o"></i>
+            <span>Thông tin tài khoản</span>
+          </a>
+        </li>
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('cai-dat-chung')]">
+          <a [routerLink]="['/cai-dat-chung']">
+            <i class="fa fa-gear"></i>
+            <span>Cài đặt chung</span>
+          </a>
+        </li>
+
+        <li class="">
+          <a class="logout" (click)="logout()">
+            <i class="fa fa-sign-out"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>
+<div id="right-maincontent">
+  <div id="top-header" class="d-flex align-items-center bd-highlight">
+    <span id="sidebar" class="navi-icon bd-highlight sidebar-toggle d-flex justify-content-center align-items-center"
+      data-toggle="push-menu" role="button">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </span>
+    <div class="nav-link navbar-avatar waves-effect waves-light waves-round" role="button">
+      <div class="header-company-name">{{currentUser.username}}</div>
+    </div>
+    <div class="fc-button flex-grow-1 bd-highlight d-flex justify-content-end align-items-center">
+      <div id="fc-add" class="fc-icons flyout-button d-flex align-items-center justify-content-center"
+        (click)="modalSignDocument()">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      </div>
+
+      <a href="" target="_blank" style="text-decoration: none;">
+        <div id="fc-help" class="fc-icons d-flex align-items-center justify-content-center">
+          <span class="fa fa-question-circle-o"></span>
+        </div>
+      </a>
+      <div id="fc-account" class="flyout-button align-items-center justify-content-between" data-popup="#flyout-account"
+        (click)="popupAlert($event)">
+        <img
+          src="{{currentUser.avatar != null ? (currentUser.avatar.includes('data:') ? currentUser.avatar : currentUser.avatar + '?v=' + randomNumber) : 'assets/img/logo_sm.png?v=' + randomNumber}}"
+          id="avata-favicon" src='assets/img/logo_sm.png' />
+        <div class="arrow-down"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flyout-view flyout-left" id="flyout-account">
+  <div class="header">{{currentUser.email}}</div>
+  <div class="d-flex flex-column bd-highlight p-3">
+    <a [routerLink]="['/account-information']">
+      <span class="fa fa-user"></span>
+      Thông tin tài khoản
+    </a>
+    <a class="logout" (click)="logout()">
+      <span class="fa fa-sign-out"></span>
+      Đăng xuất
+    </a>
+  </div>
+</div>
+<div id="spa-viewer">
+  <div class="flyout-overview"></div>
+  <div class="full-overlay" id="overlay"></div>
+  <div id="main_content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

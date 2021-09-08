@@ -1,0 +1,37 @@
+<nz-table #fixedTable nzBordered [nzData]="departments" [nzShowPagination]="false" class="editable-row">
+  <thead>
+    <tr>
+      <th style="width: 50px;"> STT</th>
+      <th style="width: 200px;">Mã phòng ban</th>
+      <th style="width: 660px;"> Tên phòng ban</th>
+      <th style="width: 50px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of departments;index as i">
+      <td class="text-center">{{ i +1}}</td>
+      <td>
+        <input (change)="codeChange($event, i)" [ngClass]="{ 'error_border': (isError && editIndex == i) }" nz-input
+          nzSize="small" placeholder="Nhập mã phòng ban" [(ngModel)]="row.id" />
+
+        <p class="error-text" *ngIf="(isError && editIndex == i)">
+          {{ errorTitleCode }}
+        </p>
+
+      </td>
+      <td>
+        <input nz-input nzSize="small" placeholder="Nhập tên phòng ban" [(ngModel)]="row.name" />
+      </td>
+      <td>
+        <button class="app-button-delete" nz-button nzType="link" (click)="remove(i)" title="Xóa">
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<div nz-col nzMd="24" class="footer-botton">
+  <button class="manage-unit-form__button-save" nz-button (click)="addRow()">
+    <i nz-icon nzType="plus" nzTheme="outline"></i>
+  </button>
+</div>

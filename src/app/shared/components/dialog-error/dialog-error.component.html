@@ -1,0 +1,12 @@
+<div id="signatureControl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="block_email" *ngFor="let item of errorsData;">
+              <p><strong>{{item.columnName}}</strong> {{item.message}}</p>
+              <p>{{item.note}}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
