@@ -1,0 +1,26 @@
+<nz-card nzTitle="Cài đặt Bảo mật" class="security">
+  <div nz-form [nzLayout]="'inline'">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="checkbox">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-label><strong>Xác thực 2 bước khi <span class="pl-1 text-danger">đăng nhập</span></strong>
+      </nz-form-label>
+      <small>
+        Nếu bật tính năng này, mỗi lần đăng nhập vào OnSign bạn sẽ nhận được email chứa <strong class="text-danger">Mã
+          xác thực</strong> và được yêu cầu nhập vào chính xác Mã xác thực đó để tiếp tục quá trình sử dụng
+        <br>
+        <span class="text-danger">Mã xác thực bao gồm <strong>6 chữ số,</strong> thời gian hết hạn là 5 phút từ lúc hệ
+          thống nhận được yêu cầu</span>
+      </small>
+    </div>
+  </div>
+</nz-card>
+<div class="card-footer">
+  <button nz-button nzType="primary" class="btn-success"><i nz-icon nzType="save" nzTheme="outline"></i>
+    Lưu Cài đặt bảo mật
+  </button>
+</div>

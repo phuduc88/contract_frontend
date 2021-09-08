@@ -1,0 +1,86 @@
+<div nz-row class="manage-template-documents-table">
+  <div nz-col nzSpan="24">
+    <h5>Danh sách mẫu tài liệu</h5>
+    <div class="manage-template-documents-table__container">
+      <div class="manage-template-documents-table__header">
+        <div nz-row>
+          <div nz-col nzSpan="12" class="manage-template-documents-table__info">
+            <label>
+              <span class="align-items-center ng-binding">
+                1 - 10 trong
+              </span>
+              <strong class="ng-binding">62</strong> bản ghi
+            </label>
+          </div>
+          <div nz-col nzSpan="12" class="manage-template-documents-table__pagintion">
+            <button nz-button nzType="link" [disabled]="currentPage===1">Đầu tiên</button>
+            <button nz-button nzType="link" [disabled]="currentPage===1">Sau</button>
+            <label class="pagintion-current">
+              <input class="current-page" type="number" [(ngModel)]="currentPage" />
+              <span class="total-page"> / 7</span>
+            </label>
+            <button nz-button nzType="link" [disabled]="currentPage===7">Sau</button>
+            <button nz-button nzType="link" [disabled]="currentPage===7">Cuối cùng</button>
+          </div>
+        </div>
+      </div>
+      <div class="manage-template-documents-table__table">
+        <table class="table table-bordered table-vertical-center table-fixed">
+          <thead>
+            <tr>
+              <th style="width: 50px;">STT</th>
+              <th style="width: 150px;">Thời gian khởi tạo</th>
+              <th style="width: 130px;">Người khởi tạo</th>
+              <th>Tệp tin</th>
+              <th style="width: 160px;">Thông tin thêm</th>
+              <th style="width: 250px;">Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of datas">
+              <td class="text-center">{{ data.stt }}</td>
+              <td class="text-center">{{ data.createdDate }}</td>
+              <td class="text-center">{{ data.createdBy }}</td>
+              <td>
+                <strong class="text-primary">
+                  {{ data.fileName }}
+                </strong>
+              </td>
+              <td>
+                <div [innerHtml]="data.infomation"></div>
+              </td>
+              <td>
+                <button nz-button nzType="link" class="text-success">
+                  <i class="fa fa-files-o pr-1" aria-hidden="true"></i>
+                  Tệp tin đã tạo
+                </button>
+
+                <div class="btn-group">
+                  <button type="button" class="btn-more btn-success" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" autocomplete="off">
+                    <i class="fa fa-ellipsis-v" style="font-size: 22px;color: #2CA01C;" aria-hidden="true"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Xem tài liệu liên quan</a>
+                    <a class="dropdown-item" href="#">Xóa</a>
+                    <a class="dropdown-item" href="#">Tải xuống Mẫu</a>
+                    <a class="dropdown-item" href="#">Tải xuống file Excel dữ liệu bookmark mẫu</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nz-dropdown-menu #menu0="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>Xem tài liệu liên quan</li>
+    <li nz-menu-item>Xóa</li>
+    <li nz-menu-item>Tải xuống mẫu</li>
+    <li nz-menu-item> Tải xuống file Excel dữ liệu bookmark mẫu</li>
+  </ul>
+</nz-dropdown-menu>

@@ -1,0 +1,104 @@
+<div nz-row class="sign-documents">
+  <div nz-col [nzSpan]="24" class="sign-documents-table">
+    <h6 class="text-primary">
+      Thứ tự ký tài liệu:
+      <small class="ng-binding">(gồm có 1 tài liệu)</small>
+    </h6>
+    <table class="table table-bordered table-vertical-center table-fixed table-striped">
+      <thead>
+        <tr>
+          <th class="text-center">Tệp tài liệu</th>
+          <th class="text-center">Người nhận</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of datas">
+          <td class="text-center">{{ data.documnent_name }}</td>
+          <td>
+            <table class="table table-bordered table-vertical-center table-fixed table-striped">
+              <tbody>
+                <tr *ngFor="let documentSign of data.documentSigns">
+                  <td>
+                    <strong>
+                      {{ documentSign.signInfo.fullName }}
+                    </strong>
+                    <br>
+                    <small> {{ documentSign.signInfo.email }}</small>
+
+                    <br>
+                    <span class="text-info font-italic">
+                      Bao gồm <strong> {{ documentSign.signInfo.signCount }}</strong> chữ ký
+                    </span>
+                  </td>
+                  <td>
+                    <table class="table-sign-data table table-bordered table-vertical-center table-fixed table-striped">
+                      <thead class="text-center">
+                        <tr>
+                          <th>Thứ tự ký</th>
+                          <th>Vị trí ký</th>
+                          <th>Trạng thái ký</th>
+                          <th>Hoạt động sau cùng</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let signData of documentSign.signDatas">
+                          <td>
+                            <span>
+                              Thứ tự ký:
+                              <strong class="text-danger ng-binding">{{ signData.signOrder.order }}</strong>
+                            </span>
+
+                            <br />
+
+                            <span>
+                              Ký bằng:
+                              <strong class="text-danger">
+                                <span>{{ signData.signOrder.tool }}</span>
+                              </strong>
+                            </span>
+
+                            <br />
+
+                            <span>
+                              Loại chữ ký:
+                              <strong class="text-danger">
+                                <span>{{ signData.signOrder.type }}</span>
+                              </strong>
+                            </span>
+                          </td>
+                          <td>
+                            <span>
+                              Trang ký: <strong>{{ signData.signLocation.pageNumber }}</strong>
+                            </span>
+                            <br />
+                            <span>
+                              <small class="font-italic">
+                                Tọa độ chữ ký theo x, y: {{ signData.signLocation.locationX }},
+                                {{ signData.signLocation.locationy }}
+                              </small>
+                            </span>
+                          </td>
+                          <td class="text-center">
+                            <i class="text-success fa fa-check ng-scope" *ngIf="signData.signStatus"></i>
+                          </td>
+                          <td class="text-center">
+                            <button class="btn btn-success">
+                              <i class="fa fa-eye pr-1" aria-hidden="true"></i>
+                              Xem chi tiết
+                            </button>
+                            <br />
+                            {{ signData.lastDateAction }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

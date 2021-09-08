@@ -1,0 +1,55 @@
+<div nz-row class="recipient-list">
+  <div nz-col [nzSpan]="24" class="d-flex flex-row-reverse">
+    <div class="control">
+      <button type="button" class="btn btn-sm btn-primary" autocomplete="off">
+        <i class="fa fa-download" aria-hidden="true"></i>Tải xuống
+      </button>
+    </div>
+  </div>
+
+  <div class="pb-2"></div>
+
+  <div nz-col [nzSpan]="24" class="recipient-list-table">
+    <h6 class="text-info">
+      Danh sách người nhận:
+    </h6>
+    <table class="table table-bordered table-vertical-center table-fixed table-striped">
+      <thead class="text-center">
+        <tr>
+          <th style="width: 50px;">#</th>
+          <th>Người nhận</th>
+          <th style="width: 150px;">Tham gia ký kết</th>
+          <th style="width: 150px;">Nhận bản sao</th>
+          <th style="width: 180px;">Nhận bản sao khi hoàn thành (CC)</th>
+          <th style="width: 180px;">Không nhận email khi có yêu cầu ký kểt</th>
+          <th style="width: 180px;">Không nhận email khi hoàn thành</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of datas">
+          <td class="text-center">{{ data.stt }}</td>
+          <td>
+            <div [innerHtml]="data.nguoi_nhan"></div>
+          </td>
+          <td class="text-center">
+            <strong class="text-success">
+              {{ data.tham_gia_ky }}
+            </strong>
+          </td>
+          <td class="text-center">
+            <i class="text-success fa fa-check" *ngIf="data.nhan_ban_sao"></i>
+          </td>
+          <td class="text-center">
+            <i class="text-success fa fa-check" *ngIf="data.nhan_ban_sao_hoan_thanh"></i>
+          </td>
+          <td class="text-center">
+            <i class="text-success fa fa-check" *ngIf="data.khong_nhan_email_ky"></i>
+          </td>
+          <td class="text-center">
+            <i class="text-success fa fa-check" *ngIf="data.khong_nhan_email_hoanthanh"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

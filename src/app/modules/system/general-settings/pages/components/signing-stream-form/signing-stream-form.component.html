@@ -1,0 +1,179 @@
+<form nz-form [formGroup]="form" class="signing-stream-form" [nzLayout]="'vertical'">
+  <div class="page-container">
+    <div class="page-signing-stream" cardFullHeight>
+      <div class="page-signing-stream__blank"></div>
+      <div class="page-signing-stream__main">
+
+        <div class="signing-stream-form__header">
+          <div nz-row nzGutter="10">
+            <input nz-input placeholder="Nhập vào tên luồng làm việc" />
+          </div>
+        </div>
+
+        <div class="pb-2"></div>
+
+        <div class="signing-stream-form__body">
+
+          <div nz-row nzGutter="10">
+            <nz-form-control [nzSpan]="24">
+              <nz-radio-group>
+                <label nz-radio nzValue="1">Tổ chức</label>
+                <label nz-radio nzValue="2">Cá nhân</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </div>
+
+          <div class="pb-2"></div>
+
+          <div nz-row>
+            <nz-checkbox-wrapper>
+              <label nz-checkbox>Không nhận email hoàn thành</label>
+              <label nz-checkbox>Không nhận email cam kết</label>
+            </nz-checkbox-wrapper>
+          </div>
+
+          <div class="pb-2"></div>
+
+          <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label class="text-left" [nzRequired]="true" [nzSpan]="10">Tên cá nhân</nz-form-label>
+                <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTplCustomerName">
+                  <input nz-input placeholder="Tên cá nhân" formControlName="customerName" />
+                  <ng-template #errorTplCustomerName let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Tên cá nhân không để trống
+                    </ng-container>
+
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div><!-- col -->
+
+            <div nz-col [nzSpan]="12">
+
+              <nz-form-item>
+                <nz-form-label class="text-left" [nzRequired]="true" [nzSpan]="10">Địa chỉ email</nz-form-label>
+                <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTplEmail">
+                  <input nz-input placeholder="Email" formControlName="email" />
+                  <ng-template #errorTplEmail let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Email không để trống
+                    </ng-container>
+
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div><!-- col -->
+          </div>
+
+          <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label class="text-left" [nzRequired]="true" [nzSpan]="10">Địa chỉ</nz-form-label>
+                <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTplCustomerAddress">
+                  <input nz-input placeholder="Địa chỉ" formControlName="customerAddress" />
+                  <ng-template #errorTplCustomerAddress let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Địa chỉ không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div><!-- col -->
+
+            <div nz-col [nzSpan]="12">
+              <div nz-row>
+                <div nz-col [nzSpan]="12">
+                  <nz-form-item>
+                    <nz-form-label class="text-left" [nzRequired]="true" [nzSpan]="23">CMND/CCCD</nz-form-label>
+                    <nz-form-control [nzSpan]="23" [nzErrorTip]="errorTplCmnd">
+                      <input nz-input placeholder="CMND/CCCD" formControlName="cmnd" />
+                      <ng-template #errorTplCmnd let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          CMND/CCCD không để trống
+                        </ng-container>
+                      </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <div nz-col [nzSpan]="12">
+                  <nz-form-item>
+                    <nz-form-label class="text-left" [nzRequired]="true" [nzSpan]="23">Số điện thoại</nz-form-label>
+                    <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTplMobile">
+                      <input nz-input placeholder="Số điện thoại" formControlName="mobile" />
+                      <ng-template #errorTplMobile let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Số điện thoại không để trống
+                        </ng-container>
+                      </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+
+
+            </div><!-- col -->
+          </div>
+
+          <hr style="margin-top: 0.5rem; margin-bottom: 0.5rem;" />
+
+          <div nz-row nzGutter="10" style="margin-left: 0;">
+            <div nz-col [nzSpan]="8">
+              <nz-form-item>
+                <nz-form-label class="text-left" [nzSpan]="23">Cài đặt cho việc sử dụng mẫu:</nz-form-label>
+                <nz-form-label class="text-left text-danger" [nzSpan]="10">(Không bắt buộc)</nz-form-label>
+              </nz-form-item>
+            </div><!-- col -->
+
+            <div nz-col [nzSpan]="16">
+              <nz-form-item>
+                <nz-form-label class="text-left" [nzSpan]="10">Thứ tự ký kết</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                  <input nz-input placeholder="Thứ tự ký kết" formControlName="orderSign" />
+                </nz-form-control>
+              </nz-form-item>
+            </div><!-- col -->
+          </div>
+
+          <small>
+            <span class="text-danger">Lưu ý khi bạn sử dụng Tính năng "Tài liệu mẫu"</span>: Nếu thứ tự ký kết nhiều hơn
+            1, vui lòng khai báo thứ tự ngăn cách nhau bởi dấu phẩy (,).
+            Ví dụ cần ký kết lần lượt theo thứ tự 1, 3,4 thì bạn cần nhập vào ô "Thứ tự ký kết": 1, 3, 4
+          </small>
+
+        </div>
+
+        <div class="pb-2"></div>
+
+        <div class="signing-stream-form__footer">
+          <div nz-row>
+            <label nz-checkbox [(ngModel)]="checked">Đặt làm luồng ký mặc định</label>
+          </div>
+
+          <small class="text-danger">*Lưu ý: thông tin đánh dấu sao (*) là thông tin bắt buộc, không được để
+            trống</small>
+          <div class="pb-1"></div>
+          <div nz-row nzGutter="10">
+            <button nz-button nzType="default" class="btn-success">
+              Thêm người nhận
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="igning-stream-form__footer" *nzModalFooter>
+
+  <button nz-button nzType="default">
+    <i nz-icon nzType="stop"></i>Hủy
+  </button>
+
+  <button nz-button nzType="default" class="btn-success">
+    <i nz-icon nzType="save"></i>Lưu
+  </button>
+</div>

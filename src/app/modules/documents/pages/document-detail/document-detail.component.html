@@ -1,0 +1,50 @@
+<div class="d-flex flex-column bd-highlight document-detail">
+  <div class="back">
+    <button class="btn btn-secondary" (click)="back()">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      <span class="pl-1" >Quay lại</span>
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="document-detail-infomation">
+    <div class="document-detail-infomation__status">
+      <h6 class="text-success font-weight-bold">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        <span class="pl-1">Hoàn thành</span>
+        <span class="pl-1 text-dark">hợp đồng kinh tế</span>
+      </h6>
+    </div>
+    <div class="document-detail-infomation__detail">
+      <div class="document-info">
+        Mã <a href="https://test-s.onfinance.asia/tra-cuu" target="_blank">tra cứu</a>:
+        <span class="text-danger ng-binding">1.8042</span>
+      </div>
+      <div class="document-info">
+        Mã định danh:
+        <span class="text-muted ng-binding">f9fa572e-5924-4496-be44-7be859876414-1624009414</span>
+      </div>
+      <div class="document-info">
+        Khởi tạo lúc:
+        <span class="text-info ng-binding">16:53 18/06/2021</span>
+      </div>
+
+      <div class="document-info">
+        Phân loại:
+        <span class="text-info ng-binding">Hợp đồng</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="document-detail-recipient-list">
+   <app-document-detail-recipient-list></app-document-detail-recipient-list>
+  </div>
+
+  <hr />
+
+  <div class="document-detail-sign-documents">
+    <app-document-detail-sign-documents></app-document-detail-sign-documents>
+  </div>
+</div>

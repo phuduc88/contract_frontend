@@ -1,0 +1,31 @@
+<nz-card nzTitle="Cài đặt Luồng ký kết" class="signing-stream" [nzExtra]="addNewTemplate">
+  <div nz-row>
+    <nz-table #basicTable [nzData]="datas" class="signing-stream-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Thời gian tạo</th>
+          <th>Tên luồng ký</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.stt}}</td>
+          <td>{{data.createdDate}}</td>
+          <td>{{data.signingStreamName}}</td>
+          <td>
+            <button nz-button nzType="default" class="text-primary"><i nz-icon nzType="form" nzTheme="outline"></i>Chỉnh sửa</button>
+            <span class="pl-2"></span>
+            <button nz-button nzType="default" class="text-danger"><i nz-icon nzType="close" nzTheme="outline"></i>Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
+<ng-template #addNewTemplate>
+  <button nz-button nzType="primary" (click)="add()" class="btn-success"><i nz-icon nzType="plus" nzTheme="outline"></i>
+    Thêm luồng
+  </button>
+</ng-template>
