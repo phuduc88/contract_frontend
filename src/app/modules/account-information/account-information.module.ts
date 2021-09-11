@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -29,6 +30,7 @@ import {
     CommonModule,
     ReactiveFormsModule,
     NzButtonModule,
+    NzCollapseModule,
     NzDatePickerModule,
     NzFormModule,
     NzInputModule,
