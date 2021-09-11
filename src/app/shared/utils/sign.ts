@@ -32,7 +32,7 @@ export default {
     img.src = imageOriganal.src;
     img.onload = function () {
       ctx.drawImage(img, 0, 0, option.width, option.height);
-      var resultImg = canvasTmp.toDataURL('image/' + format);
+      const resultImg = canvasTmp.toDataURL('image/' + format);
       callback(resultImg);
     }
   },

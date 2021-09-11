@@ -23,8 +23,17 @@
         </div>
     </div>
     <div class="flex-grow-1 info_file">
+        <div class="form-row-no-back-ground">
+          <span class="bd-highlight align-self-center mr-1">Người nhận</span>
+          <div class="bd-highlight">
+            <nz-select nzShowSearch nzAllowClear [(ngModel)]="threadGroupId" (ngModelChange)="changeThreadGroup($event)" nzPlaceHolder="Chọn luồng làm việc">
+              <nz-option [nzValue]="group.id" [nzLabel]="group.name"
+                *ngFor="let group of threadGroups">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
       <div class="ml-lg-2">
-        <p class="mt-lg-2 mb-lg-2 header-mobile">Người nhận</p>
         <app-form-employee-sign 
           [employeesSign] ="employeesSign"
           (onFormValid) = "formValid($event)"

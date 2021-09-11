@@ -13,7 +13,7 @@ import { SignFlowService, FileSignService } from "@app/core/services";
 export class SignatureUploadFileComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() filesSign: any = [];
   @Input() documentId:any;
-  @Input() documenType:any;
+  @Input() documentType:any;
   @Output() changeFilesUpload: EventEmitter<any> = new EventEmitter();
   isSpinning: boolean;
   constructor(
@@ -52,7 +52,7 @@ export class SignatureUploadFileComponent implements OnInit, OnDestroy, AfterVie
 
   private uploadFile(files:any) {
     this.isSpinning = true;
-    const documentTypeDefault =  this.documenType || 1;
+    const documentTypeDefault =  this.documentType || 1;
     this.signFlowService.uploadFiles(files, documentTypeDefault).subscribe((res) => {
         this.documentId = res.id;
         this.fomatFileUpload(res.filesSign);

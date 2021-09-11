@@ -1,9 +1,103 @@
-.signing-stream-form__body {
-  border: 1px solid rgb(157, 189, 222);
-  padding: 5px;
+.signing-stream-form
+{
+  &__header {
+    padding-bottom: 10px;
+    input {
+      border-radius: 3px;
+    }
+  } 
+}
 
-  .ant-form-item{
-    margin-bottom: 12px !important;
+.block_email {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffff;
+  padding: 10px;
+  margin-bottom: 10px;
+  &:hover {
+    .icon_delete {
+      display: none;
+    }
+  }
+
+  .padding-5 {
+      padding: 5px;
   }
 }
+
+.icon_file {
+  width: 48px;
+  position: relative;
+
+  img {
+    width: 24px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    filter: invert(49%) sepia(70%) saturate(7493%) hue-rotate(201deg);
+  }
+
+  p {
+    color: #3E3F3E;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .form-row {
+    padding: 0px 24px;
+    background: #fff;
+    /*    border-left: 2px solid #386fdc;*/
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  div {
+    border: 1px solid #D9DEDB;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    position: relative;
+  }
+
+  &:after {
+    content: '';
+    width: 1px;
+    height: 90%;
+    background: #D9DEDB;
+    display: block;
+    position: absolute;
+    left: 50%;
+  }
+}
+
+&:last-child {
+  .icon_file {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.info_file {
+  .form-row {
+    padding: 5px 12px;
+    background: #fff;
+  }
+
+  
+}
+
+#basic-addon2 {
+  i {
+    font-size: small;
+  }
+
+  .btn-sm {
+    line-height: 2.4;
+  }
+}
+
 

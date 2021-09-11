@@ -12,7 +12,9 @@ import {
   RoleService,
   ContractService,
   SignOfUserService,
-  SignFlowService
+  SignFlowService,
+  ThreadGroupService,
+  ThreadedSignTemplateService,
 } from './services';
 
 @NgModule({
@@ -30,7 +32,9 @@ import {
     RoleService,
     ContractService,
     SignOfUserService,
-    SignFlowService
+    SignFlowService,
+    ThreadGroupService,
+    ThreadedSignTemplateService,
   ],
   declarations: []
 })

@@ -38,6 +38,11 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    
+    if (this.documentSign.myselfSign) {
+      this.emailAssignment = this.documentSign.emailAssignment;
+    }
+    
     this.handlers = [
       eventEmitter.on('pdf:View', ({ fileSign, employeesSign }) => {
         this.currentFile = fileSign;
@@ -110,23 +115,22 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     callback();
   }
 
+
+  // Phước thức kéo thả chữ ký
   private droppableHandleCanvas(canvas, pageNumber) {
     let that = this;
+    
     $(canvas).droppable({
       drop: function (event, ui) {
         if (!that.emailAssignment) {
           eventEmitter.emit("sign:NotEmailAssignment", false);
           return false;
         }
-
-        if (ui.draggable != ui.helper) {
-          let img = that.generateSignImg(ui);
+        if (ui.draggable != ui.helper) {         
 
           let scrollTop = $(SIGNATURE.SELECTOR.ScrollViewer).scrollTop();
-
           let top = ui.position.top + scrollTop;
           let left = ui.position.left - $(this).offset().left;
-
 
           let width = SIGNATURE.WIDTH_ICON * SIGNATURE.PDF_SCALE;
           let height = SIGNATURE.HEIGHT_ICON * SIGNATURE.PDF_SCALE;
@@ -143,6 +147,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
             height = 40 * SIGNATURE.PDF_SCALE;
           }
 
+          const img = that.generateSignImg(ui, width, height);
           let signType = img.attributes['src'].value.includes('sign-icon.svg') ? 1 : 0;
           // sortByKey(canvasFs, 'index');
 
@@ -197,17 +202,10 @@ export class PdfViewComponent implements OnInit, OnDestroy {
       targetFindTolerance: 2,
       objectCaching: false
     };
-    if (img && img.src.indexOf('.svg') == img.src.length - 4) {
-      setTimeout(() => {
-        that.addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment);
-      }, 100);
-    } else {
-      signUtils.resize2img(img, option, 'png', (result) => {
-        let imgTemp = new Image();
-        imgTemp.src = result;
-        that.addsigntodoc(imgTemp, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment);
-      });
-    }
+
+    setTimeout(() => {
+      that.addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment);
+    }, 100);
   }
 
   addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signIndex, emailAssignment) {
@@ -281,14 +279,22 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     return { top, left };
   }
 
-  private generateSignImg(ui) {
+  private generateSignImg(ui, width, height) {
     const img = document.createElement('img');
     if (!this.documentSign.myselfSign) {
-      img.src = this.getBackgroundImageUrl($(ui.helper));
+      img.src = this.getBackgroundImageUrl($(ui.helper));    
+      return img;
     }
-    else {
-      img.src = signUtils.convertBase64ToImage(this.currentUser.signatureImage);
-    }
+    
+    img.src = signUtils.convertBase64ToImage(this.currentUser.signatureImage);
+    const option = {
+      width: width,
+      height: height,
+    };
+    signUtils.resize2img(img, option ,'png', (result) => {
+      img.src = result;
+    });
+
     return img;
   }
 
@@ -323,7 +329,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
         index: parseInt(fcanvas.pageIndex),
         size: { width: viewport.width, height: viewport.height }
       };
-      console.log(obj);
       const index = canvas.id.split('_')[1];
 
       //Các sự kiện trên canvas
@@ -338,6 +343,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     const lsSign = this.documentSign.listSign.filter(sign => sign.fileSignId === this.currentFile.id);
     if (lsSign && lsSign.length > 0) {
       lsSign.forEach((sign) => {
+        console.log(sign);
         if (fcanvas.pageIndex == sign.page) {
           this.addSign(
             fcanvas,
@@ -490,6 +496,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
       if (notePrev && dragNPPage) {
         const contentBottomPrev = notePrev.height / this.zoomX - SIGNATURE.INTMARGIN - objSelect.height * objSelect.scaleX;
         const leftPrev = objSelect.left * ((notePrev.width / this.zoomX) / containerWidth);
+        console.log(objSelect);
         this.addSign(
           notePrev,
           objSelect._element,
@@ -698,7 +705,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     }
     if (canvasSelected) {
       const listObjectsCanvas = canvasSelected.canvasF.getObjects();
-      console.log(listObjectsCanvas);
       const signObjectSelected = listObjectsCanvas.find(object => object.privateId == sign.privateId);
       canvasSelected.canvasF.setActiveObject(signObjectSelected);
       canvasSelected.canvasF.requestRenderAll();

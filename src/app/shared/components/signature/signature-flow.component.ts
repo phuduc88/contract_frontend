@@ -5,7 +5,10 @@ import * as $ from 'jquery';
 import 'jqueryui';
 import {
   AuthenticationService,
-  SignFlowService, DocumentTypeService,
+  SignFlowService, 
+  DocumentTypeService,
+  ThreadGroupService,
+  ThreadedSignTemplateService,
 } from "@app/core/services";
 import { Credential } from '@app/core/models';
 import { DialogErrorComponent } from "../dialog-error/dialog-error.component";
@@ -22,6 +25,7 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
   isSpinning: boolean;
   isSaveFile: boolean;
   currentUser: Credential;
+  threadGroups: any;
   formEmployeesSignError: any = [];
   RequestSend: any;
   ListMailRoot: any = [];
@@ -32,6 +36,8 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     private modalService: NzModalService,
     private signatureFlowService: SignFlowService,
     private authService: AuthenticationService,
+    private threadGroupService: ThreadGroupService,
+    private threadedSignTemplateService: ThreadedSignTemplateService,
     private documentTypeService: DocumentTypeService) {
   }
 
@@ -43,7 +49,9 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       this.loadSelectedEmail();
     }
     this.loadDocumentType();
+    this.loadThreadGroup();
   }
+
   ngAfterViewInit() {
     if (!this.documentSign.myselfSign && this.documentSign.emailAssignment) {
       eventEmitter.emit("sign:changeEmailAssignment", this.documentSign.emailAssignment);
@@ -75,11 +83,11 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
           if (employee.employeesSignDetail && employee.employeesSignDetail.length > 0) {
             employee.employeesSignDetail.forEach(sign => {
               const file = this.getFileName(filesSign, sign.fileSignId);
-              const image = this.generateImageByType(sign.signType);
               sign.name = file.fileName;
-              sign.img = image;
+              sign.img = this.getImage(sign);
               sign.emailAssignment = employee.email;
               sign.privateId = signUtils.createGuid(),
+              console.log(sign);
               this.documentSign.listSign.push(sign);
             });
           }
@@ -88,8 +96,28 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     } 
   }
 
+  private getImage(sign) {
+    if (!this.documentSign.myselfSign) {
+      return this.generateImageByType(sign.signType);
+    }
+
+    const currentSign = this.currentUser.signatureImage;
+    const img = document.createElement('img');
+    img.src = signUtils.convertBase64ToImage(this.currentUser.signatureImage);
+    const option = {
+      width: sign.width,
+      height: sign.height,
+    };
+
+    signUtils.resize2img(img, option ,'png', (result) => {
+      img.src = result;
+    });
+
+    return img;
+  }
+
   private generateImageByType(type) {
-    var img = document.createElement('img');
+    const img = document.createElement('img');
     img.src = type == 1 ? "/assets/img/pdfjs/sign-icon.svg" : "/assets/img/pdfjs/signimage.svg";
     return img;
   }
@@ -115,9 +143,27 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       this.showDialogError(formVale.validForm);
       return;
     }
-    const employeesSign = formVale.employeeSign;
+    const employeesSign = formVale.employeesSign;
     employeesSign.push(this.addEmployeeSignBlank());
     this.documentSign.employeesSign = employeesSign;
+  }
+
+  onChangeThreadGroup(threadGroupId) {
+    if (!threadGroupId) {
+      this.documentSign.employeesSign = [this.addEmployeeSignBlank()];
+
+      return;
+    }
+
+    this.threadedSignTemplateService.filter({
+      threadGroupId: threadGroupId,
+    }).subscribe(result => {
+      this.documentSign.employeesSign = [];
+      result.data.forEach((item) => {
+        item.id = null;
+        this.documentSign.employeesSign.push(item);
+      });
+    });
   }
 
   showDialogError(errorsData: any) {
@@ -138,8 +184,8 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       name: null,
       groupName: null,
       groupType: GROUP_TYPE.HSMUSB,
-      receptionEmail: true,
-      receptionFileCopy: true,
+      receptionEmail: false,
+      receptionFileCopy: false,
       address: null,
       idNumer: null,
       phoneNumber: null,
@@ -311,6 +357,14 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     });
   }
 
+  private loadThreadGroup() {
+    this.threadGroupService.filter().subscribe((item) => {
+      this.threadGroups = item.data;
+    });
+  }
+
+
+
   //handlers event valid on the form employee sign;
   formEmployeeSingValid(formValue) {
     if (formValue.validForm.length > 0) {
@@ -319,7 +373,7 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     this.formEmployeesSignError = [];
-    this.documentSign.employeeSign = formValue.employeeSign;
+    this.documentSign.employeesSign = formValue.employeesSign;
     this.saveStep2();
   }
 

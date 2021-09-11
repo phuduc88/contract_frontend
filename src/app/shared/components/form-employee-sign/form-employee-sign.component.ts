@@ -42,7 +42,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
 
   addEmployeeSign() {
     const formVale =  {
-      employeeSign: this.employeesSign,
+      employeesSign: this.employeesSign,
       validForm : this.validationEmployeeSign(),
     }
     this.onAddEmployeeSing.emit(formVale);
@@ -56,7 +56,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
 
   validForm() {
     const formVale =  {
-      employeeSign: this.employeesSign,
+      employeesSign: this.employeesSign,
       validForm : this.validationEmployeeSign(),
     }
 
@@ -75,7 +75,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
       return result;
     }
 
-    // const isDuplicate = CheckDuplicate(this.employeesSign, 'email');
+    //  const isDuplicate = CheckDuplicate(this.employeesSign, 'email');
     // if (isDuplicate) {
     //   result.push({
     //     columnName: 'Email',

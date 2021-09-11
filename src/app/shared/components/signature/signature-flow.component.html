@@ -42,8 +42,12 @@
 
   </div>
   <div class="container" *ngIf="documentSign.currentStep === 1">
-    <signature-flow-s2 [employeesSign]="documentSign.employeesSign" (onFormValid)="formEmployeeSingValid($event)"
-      (onAddEmployeeSing)="addEmployeeSing($event)"></signature-flow-s2>
+    <signature-flow-s2 
+      [threadGroups]= "threadGroups" 
+      [employeesSign]= "documentSign.employeesSign"
+      (onFormValid)= "formEmployeeSingValid($event)"
+      (onChangeThreadGroup) = "onChangeThreadGroup($event)"
+      (onAddEmployeeSing)= "addEmployeeSing($event)"></signature-flow-s2>
   </div>
 
   <div *ngIf="documentSign.currentStep === 2" class="ng-hide">
