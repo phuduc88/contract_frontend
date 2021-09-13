@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { eventEmitter } from "@app/shared/utils/event-emitter";
-import { CheckDuplicate, GROUP_TYPE, REGEX, ValidateEmail, ValidatePhone } from '@app/shared/constant';
+import { CheckDuplicateEmail, GROUP_TYPE, REGEX, ValidateEmail, ValidatePhone } from '@app/shared/constant';
 @Component({
   selector: "app-general-settings-signing-stream-form",
   templateUrl: "./signing-stream-form.component.html",
@@ -85,14 +85,14 @@ export class SigningStreamFormComponent implements OnInit {
       return result;
     }
 
-    //  const isDuplicate = CheckDuplicate(this.employeesSign, 'email');
-    // if (isDuplicate) {
-    //   result.push({
-    //     columnName: 'Email',
-    //     message: 'Có sự trùng lặp địa người nhận (chỉ Email), vui lòng kiểm tra lại!',
-    //     note: '',
-    //   });
-    // }
+    const isDuplicate = CheckDuplicateEmail(this.threadGroup.threadedSignTemplate);
+    if (isDuplicate) {
+      result.push({
+        columnName: 'Email',
+        message: 'Có sự trùng lặp địa người nhận (chỉ Email), vui lòng kiểm tra lại!',
+        note: '',
+      });
+    }
 
     this.threadGroup.threadedSignTemplate.forEach(item => {
       if (item.groupType ===  this.groupType.HSMUSB) {

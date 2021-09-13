@@ -38,7 +38,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+
     if (this.documentSign.myselfSign) {
       this.emailAssignment = this.documentSign.emailAssignment;
     }
@@ -157,9 +157,9 @@ export class PdfViewComponent implements OnInit, OnDestroy {
               calHeight += item.canvasF.height + SIGNATURE.INTMARGIN / SIGNATURE.PDF_SCALE;
             }
           });
+            
           let signIndex = SIGNATURE.SIGN_NUM++;
-
-          top = (top - calHeight) / that.zoomX;
+          top =  ((top - calHeight) / that.zoomX) - 50;
           left = left / that.zoomX;
           if (that.canvasFs && that.canvasFs.length > 0) {
             that.canvasFs.forEach((item, index) => {
@@ -343,7 +343,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     const lsSign = this.documentSign.listSign.filter(sign => sign.fileSignId === this.currentFile.id);
     if (lsSign && lsSign.length > 0) {
       lsSign.forEach((sign) => {
-        console.log(sign);
         if (fcanvas.pageIndex == sign.page) {
           this.addSign(
             fcanvas,

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, Output, EventEmitter, OnDestroy, OnInit, ViewContainerRef, OnChanges } from "@angular/core";
-import { CheckDuplicate, GROUP_TYPE, REGEX, ValidateEmail, ValidatePhone } from '@app/shared/constant';
+import { CheckDuplicateEmail, GROUP_TYPE, REGEX, ValidateEmail, ValidatePhone } from '@app/shared/constant';
 import * as $ from 'jquery';
 import { NzModalService } from "ng-zorro-antd/modal";
 import 'jqueryui';
@@ -75,14 +75,14 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
       return result;
     }
 
-    //  const isDuplicate = CheckDuplicate(this.employeesSign, 'email');
-    // if (isDuplicate) {
-    //   result.push({
-    //     columnName: 'Email',
-    //     message: 'Có sự trùng lặp địa người nhận (chỉ Email), vui lòng kiểm tra lại!',
-    //     note: '',
-    //   });
-    // }
+    const isDuplicate = CheckDuplicateEmail(this.employeesSign);
+    if (isDuplicate) {
+      result.push({
+        columnName: 'Email',
+        message: 'Có sự trùng lặp địa người nhận (chỉ Email), vui lòng kiểm tra lại!',
+        note: '',
+      });
+    }
 
     this.employeesSign.forEach(item => {
       if (item.groupType ===  this.groupType.HSMUSB) {

@@ -404,11 +404,13 @@ export function GetIcon(fileType) {
   }
 }
 
-export function CheckDuplicate(array: any, propety) {
-  const i = array.map(n => array.email);
-  return i.some(function (array, propety) {
-    return i.indexOf(array) != propety
-  })
+export function CheckDuplicateEmail(array: any) {
+  const valueArr = array.map(function(item){ return item.email });
+  const isDuplicate = valueArr.some(function(item, idx){ 
+    return valueArr.indexOf(item) != idx 
+  });
+
+  return isDuplicate;
 }
 
 export function ValidatePhone(phoneNumber: any) {

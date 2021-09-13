@@ -37,7 +37,6 @@ export class SignatureFlowS3Component implements OnInit, OnDestroy, AfterViewIni
 
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
-
     this.handlers = [
       eventEmitter.on("sign:add", (sign) => {
         this.addSignToDoc(sign);

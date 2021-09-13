@@ -11,12 +11,12 @@ import { Credential } from '@app/core/models';
 export class SignatureFlowS2Component implements OnInit, OnDestroy, AfterViewInit {
   @Input() employeesSign: any;
   @Input() threadGroups: any;
+  @Input() threadGroupId: any;
   @Output() onFormValid: EventEmitter<any> = new EventEmitter();
   @Output() onAddEmployeeSing: EventEmitter<any> = new EventEmitter();
   @Output() onChangeThreadGroup: EventEmitter<any> = new EventEmitter();
   GroupType = GROUP_TYPE;
   currentUser: Credential;
-  threadGroupId: any;
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {

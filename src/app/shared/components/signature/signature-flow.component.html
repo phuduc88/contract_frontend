@@ -24,6 +24,7 @@
     </div>
   </div>
   <hr id="hr-top" class="mt-0" style="display: flex !important" *ngIf="!documentSign.currentStep == 1">
+  <!-- tính chiều cao ở đây -->
   <div class="container container-custom p-0" *ngIf="documentSign.currentStep === 0">
     <div class="d-flex bd-highlight" style="margin: 15px 0px;">
       <span class="bd-highlight align-self-center mr-1">Phân loại</span>
@@ -43,7 +44,8 @@
   </div>
   <div class="container" *ngIf="documentSign.currentStep === 1">
     <signature-flow-s2 
-      [threadGroups]= "threadGroups" 
+      [threadGroups]= "threadGroups"   
+      [threadGroupId] = "documentSign.threadGroupId"
       [employeesSign]= "documentSign.employeesSign"
       (onFormValid)= "formEmployeeSingValid($event)"
       (onChangeThreadGroup) = "onChangeThreadGroup($event)"

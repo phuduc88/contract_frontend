@@ -73,27 +73,28 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
   loadDocumentFromHistory() {
     const listEmployeeSign = this.documentSign.employeesSign;
     this.documentSign.listSign = [];
-    // load sign
-    if (listEmployeeSign.length > 0) {
-      const filesSign = this.documentSign.filesSign;
-      const currentFileId = filesSign.length > 0 ? filesSign[0].id : 0;
-      if (currentFileId > 0) {
-        // add sign to doc
-        listEmployeeSign.forEach(employee => {
-          if (employee.employeesSignDetail && employee.employeesSignDetail.length > 0) {
-            employee.employeesSignDetail.forEach(sign => {
-              const file = this.getFileName(filesSign, sign.fileSignId);
-              sign.name = file.fileName;
-              sign.img = this.getImage(sign);
-              sign.emailAssignment = employee.email;
-              sign.privateId = signUtils.createGuid(),
-              console.log(sign);
-              this.documentSign.listSign.push(sign);
-            });
-          }
+    if (listEmployeeSign.length === 0) {
+      return;
+    }
+
+    const filesSign = this.documentSign.filesSign;
+    const currentFileId = filesSign.length > 0 ? filesSign[0].id : 0;
+    if (currentFileId < 1) {
+      return;
+    }
+
+    listEmployeeSign.forEach(employee => {
+      if (employee.employeesSignDetail && employee.employeesSignDetail.length > 0) {
+        employee.employeesSignDetail.forEach(sign => {
+          const file = this.getFileName(filesSign, sign.fileSignId);
+          sign.name = file.fileName;
+          sign.img = this.getImage(sign);
+          sign.emailAssignment = employee.email;
+          sign.privateId = signUtils.createGuid(),
+          this.documentSign.listSign.push(sign);
         });
       }
-    } 
+    });
   }
 
   private getImage(sign) {
@@ -149,9 +150,10 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   onChangeThreadGroup(threadGroupId) {
+
+    this.documentSign.threadGroupId = threadGroupId;
     if (!threadGroupId) {
       this.documentSign.employeesSign = [this.addEmployeeSignBlank()];
-
       return;
     }
 
@@ -275,19 +277,16 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     if (this.formEmployeesSignError.length > 0) {
-      this.showDialogError(this.formEmployeesSignError);
-      return;
+        this.showDialogError(this.formEmployeesSignError);
+        return;
     }
 
     this.documentSign.currentStep = this.documentSign.currentStep + 1;
-
   }
 
   private saveStep2() {
     this.signatureFlowService.employeeSign(this.documentSign).subscribe((res) => {
       this.documentSign = res;
-      // this.filesSign = res.filesSign;
-      // init list sign if undefined
       if (!this.documentSign.listSign) {
         this.documentSign.listSign = [];
       }
@@ -314,10 +313,9 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   showPreviewRequestSign() {
-    let that = this;
     if (this.documentSign.employeesSign) {
       this.documentSign.employeesSign.forEach(employee => {
-        employee.employeesSignDetail = that.getSignByEmailAssignment(employee.email);;
+        employee.employeesSignDetail = this.getSignByEmailAssignment(employee.email);
       });
       this.serviceSignPosition();
     }
@@ -329,24 +327,22 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
 
   // complete
   requestSign() {
-    let that = this;
     if (this.documentSign.employeesSign) {
-      let employee = this.documentSign.employeesSign[0];
+      const employee = this.documentSign.employeesSign[0];
       employee.employeesSignDetail = this.getSignByEmailAssignment(employee.email);
       this.serviceSignPosition();
     }
   }
 
   private serviceSignPosition() {
-    let that = this;
     this.signatureFlowService.signaturePosition(this.documentSign).subscribe((res) => {
       if (res) {
-        if (!that.isSaveFile) {
-          that.modalService.success({ nzTitle: 'Ký file thành công!' });
+        if (!this.isSaveFile) {
+          this.modalService.success({ nzTitle: 'Ký file thành công!' });
         } else {
-          that.modalService.success({ nzTitle: 'Lưu file thành công!' });
+          this.modalService.success({ nzTitle: 'Lưu file thành công!' });
         }
-        that.modal.destroy();
+        this.modal.destroy();
       }
     });
   }
@@ -362,8 +358,6 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       this.threadGroups = item.data;
     });
   }
-
-
 
   //handlers event valid on the form employee sign;
   formEmployeeSingValid(formValue) {
