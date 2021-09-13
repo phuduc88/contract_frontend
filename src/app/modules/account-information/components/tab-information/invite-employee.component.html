@@ -1,38 +1,106 @@
-<form nz-form [formGroup]="inviteForm">
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fullName" nzRequired>
-      <span>Họ và tên</span>
-    </nz-form-label>
-    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập họ và tên!">
-      <input nz-input id="fullName" formControlName="fullName" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
-    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Email không hợp lệ!">
-      <input nz-input formControlName="email" id="email" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item nz-row class="invite-area">
-    <nz-form-control [nzSpan]="18" [nzOffset]="6">
-      <label nz-checkbox formControlName="active">
-        <span> Hoạt động </span> <span class="text-danger" style="font-size: 12px;">(Bỏ tích nếu tài khoản không còn là
-          thành viên)</span>
-      </label>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item nz-row class="invite-area">
-    <nz-form-control [nzSpan]="18" [nzOffset]="6">
-      <label nz-checkbox formControlName="usingHSM">
-        <span> Được sử dụng HSM không? </span> <span class="text-danger" style="font-size: 12px;">(Tích vào nếu bạn cho
-          phép)</span>
-      </label>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item nz-row class="invite-area">
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button (click)="closeModal()" style="margin-right: 5px;">Đóng</button>
-      <button nz-button (click)="inviteEmployee()" nzType="primary">Gủi lời mời</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+<div class="invite-employee-content">
+  <div nz-row>
+    <div nz-col nzSpan="11">
+      <nz-form-item>
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateFullName">
+          <input type="text" nz-input />
+          <ng-template #addOnBeforeTemplateFullName>
+            <label class="mb-0">Họ và tên <span class="text-danger"> * </span></label>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="2"></div>
+
+    <div nz-col nzSpan="11">
+      <nz-form-item>
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateEmail">
+          <input type="text" nz-input />
+          <ng-template #addOnBeforeTemplateEmail>
+            <label class="mb-0">Email <span class="text-danger"> * </span></label>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-item>
+    </div>
+  </div>
+  <hr />
+
+  <div class="invite-employee-company">
+    <div class="invite-employee-company-header widget-header" (click)="toggleCompany()">
+      <span>
+        <i *ngIf="!showCompany" class="fa fa-arrow-right pr-1 d-inline"></i>
+        <i *ngIf="showCompany" class="fa fa-arrow-down pr-1 d-inline"></i>
+        Chọn đơn vị:
+      </span>
+    </div>
+    <div *ngIf="showCompany" class="invite-employee-company-table">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>
+              <div class="form-check">
+                <input class="form-check-input check-custom" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label pl-1" for="flexCheckDefault">
+                  0109403896
+                </label>
+              </div>
+              <!-- <label class="company-checkbox" nz-checkbox [(ngModel)]="checked">0109403896</label> -->
+            </td>
+            <td>CÔNG TY CỔ PHẦN CHUYỂN ĐỔI SỐ NOVAON DX</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="invite-employee-permission">
+    <div class="invite-employee-permission-header widget-header">
+      <span>Phân quyền cho người dùng:</span>
+    </div>
+    <div class="invite-employee-permission-table">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th style="width: 90%;">Danh sách quyền</th>
+            <th style="width: 10%;">0109403896</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let data of datas">
+            <tr class="td-parent">
+              <td (click)="togglePermission(data.id)">
+                <span>
+                  <i *ngIf="!this.showPermission[data.id]" class="fa fa-arrow-right pr-1 d-inline"></i>
+                  <i *ngIf="this.showPermission[data.id]" class="fa fa-arrow-down pr-1 d-inline"></i>
+                  {{ data.title }}
+                </span>
+              </td>
+              <td> <input class="check-custom" type="checkbox" [(ngModel)]="data.check" name="permission-{{ data.id }}"
+                  (click)="parentCheck($event, data.id)" /></td>
+            </tr>
+            <ng-template [ngIf]="togglePermissionChildren(data.id)">
+              <tr *ngFor="let children of data.childrens;index as i" class="td-children">
+                <td class="td-children-title">{{ children.title }}</td>
+                <td> <input class="check-custom" type="checkbox" [(ngModel)]="children.check"
+                    name="permission-{{ data.id }}-{{ children.id }}"
+                    (click)="childrenCheck($event, data.id, children.id)" /></td>
+              </tr>
+            </ng-template>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="invite-employee-footer">
+    <div class="d-flex bd-highlight justify-content-end">
+      <button type="button" class="btn btn-secondary mr-1" (click)="closeModal()">
+        <span class="fa fa-times"></span> Đóng
+      </button>
+      <button type="button" class="btn btn-success" (click)="inviteEmployee()">
+        <span class="fa fa-paper-plane-o"></span>&nbsp;Gửi lời mời
+      </button>
+    </div>
+  </div>
+</div>
