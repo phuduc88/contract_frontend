@@ -7,4 +7,5 @@ export class Credential {
   company: any;
   role: any;
   signatureImage: any;
+  systemConfig: any;
 }

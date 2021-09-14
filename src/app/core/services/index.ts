@@ -16,4 +16,5 @@ export * from './sign-flow.service';
 export * from './sign-of-user.service';
 export * from './thread-group.service';
 export * from './threaded-sign-template.service';
+export * from './system-config.service';
 

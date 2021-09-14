@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { NzModalService } from "ng-zorro-antd/modal";
-import { SIGNING_STREAM_DATA } from "../../../data/signing-stream-table";
 import { SigningStreamFormComponent } from "../signing-stream-form/signing-stream-form.component";
 import { ThreadGroupService } from "@app/core/services";
 import { PAGE_SIZE, GROUP_TYPE } from '@app/shared/constant';

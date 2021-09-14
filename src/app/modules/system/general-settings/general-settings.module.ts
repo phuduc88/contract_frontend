@@ -24,7 +24,7 @@ import { GeneralSettingsRoutingModule } from "./general-settings-routing.module"
 import {
   GeneralSettingsComponent,
   DefaultDocumentComponent,
-  Securityomponent,
+  SecurityComponent,
   SigningStreamComponent,
   SigningStreamFormComponent,
 } from "./pages";
@@ -55,7 +55,7 @@ import {
   declarations: [
     GeneralSettingsComponent,
     DefaultDocumentComponent,
-    Securityomponent,
+    SecurityComponent,
     SigningStreamComponent,
     SigningStreamFormComponent,
   ],
