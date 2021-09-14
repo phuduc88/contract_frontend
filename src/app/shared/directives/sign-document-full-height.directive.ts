@@ -39,7 +39,7 @@ export class SignDocumentFullHeightDirective
   updateElementHeight() {
     const element = this.elementRef.nativeElement;
     const header = document.getElementsByClassName("ant-modal-header")[0];
-    const footer = document.getElementsByClassName("modal-footer")[0];
+    const footer = document.getElementsByClassName("signature-flow-footer")[0];
     const headerLeft = document.getElementsByClassName("header-left")[0];
 
     element.style.height = `${
