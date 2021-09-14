@@ -1,64 +1,64 @@
 <nz-card nzTitle="Cài đặt Gửi tài liệu mặc định" class="default-document">
-  <div nz-form [nzLayout]="'inline'">
-    <div nz-row>
-      <nz-form-item>
-        <nz-form-control>
-          <input nz-input type="checkbox">
-        </nz-form-control>
-      </nz-form-item>
+  <form nz-form [formGroup]="configSendEmailForm">
+      <div nz-form [nzLayout]="'inline'">
+        <div nz-row>
+          <nz-form-item>
+            <nz-form-control>
+              <input nz-input type="checkbox" formControlName="enableSendEmailConfrim"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-label>Gửi email nhắc nhở mỗi</nz-form-label>
+          <nz-form-control [nzSpan]="2">
+            <input nz-input formControlName="timeAutoSendEmail"/>
+          </nz-form-control>
 
-      <nz-form-label>Gửi email nhắc nhở mỗi</nz-form-label>
+          <nz-form-label class="pl-2">ngày tính từ thời điểm khởi tạo <span class="pl-2 text-danger">*</span>
+          </nz-form-label>
 
-      <nz-form-control [nzSpan]="2">
-        <input nz-input name="email" type="email" id="email">
-      </nz-form-control>
+          <small>
+            Cứ sau
+            <strong class="text-danger">mỗi X ngày</strong>, hệ thống sẽ tự động gửi email nhắc ký đến người ký tiếp
+            theo
+            <br />
+            <span class="text-danger">Nếu bỏ tích chọn hoặc <strong>thời gian cài đặt = 0</strong>, hệ thống sẽ không
+              gửi email nhắc ký</span>
+          </small>
+        </div>
 
-      <nz-form-label class="pl-2">ngày tính từ thời điểm khởi tạo <span class="pl-2 text-danger">*</span>
-      </nz-form-label>
+        <hr />
 
-      <small>
-        Cứ sau
-        <strong class="text-danger">mỗi X ngày</strong>, hệ thống sẽ tự động gửi email nhắc ký đến người ký tiếp
-        theo
-        <br />
-        <span class="text-danger">Nếu bỏ tích chọn hoặc <strong>thời gian cài đặt = 0</strong>, hệ thống sẽ không
-          gửi email nhắc ký</span>
-      </small>
+        <div nz-row>
+          <nz-form-item>
+            <nz-form-control>
+              <input nz-input type="checkbox" formControlName="enableTimeDocumentExpire" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-label>Thời gian hết hạn của tài liệu sau</nz-form-label>
+          <nz-form-control [nzSpan]="2">
+            <input nz-input  formControlName="timeDocumentExpire"/>
+          </nz-form-control>
+          <nz-form-label class="pl-2">ngày<span class="pl-2 text-danger">*</span></nz-form-label>
+
+          <small>
+            <strong class="text-danger">Sau X ngày</strong>, đường dẫn ký kết sẽ bị vô hiệu hóa
+            <br />
+            <span class="text-danger">Nếu bỏ tích chọn hoặc <strong>thời gian cài đặt = 0</strong>, luồng ký sẽ không
+              hết hạn</span>
+          </small>
+        </div>
+
+        <hr />
+
+        <div nz-row>
+          <strong>*Lưu ý: <span class="text-danger">X là số ngày bạn cài đặt, 1 ngày = 24 giờ, thời gian sẽ được tính từ lúc
+              luồng ký được khởi tạo</span></strong>
+        </div>
     </div>
-
-    <hr />
-
-    <div nz-row>
-      <nz-form-item>
-        <nz-form-control>
-          <input nz-input type="checkbox">
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-label>Thời gian hết hạn của tài liệu sau</nz-form-label>
-      <nz-form-control [nzSpan]="2">
-        <input nz-input name="email" type="email" id="email">
-      </nz-form-control>
-      <nz-form-label class="pl-2">ngày<span class="pl-2 text-danger">*</span></nz-form-label>
-
-      <small>
-        <strong class="text-danger">Sau X ngày</strong>, đường dẫn ký kết sẽ bị vô hiệu hóa
-        <br />
-        <span class="text-danger">Nếu bỏ tích chọn hoặc <strong>thời gian cài đặt = 0</strong>, luồng ký sẽ không
-          hết hạn</span>
-      </small>
-    </div>
-
-    <hr />
-
-    <div nz-row>
-      <strong>*Lưu ý: <span class="text-danger">X là số ngày bạn cài đặt, 1 ngày = 24 giờ, thời gian sẽ được tính từ lúc
-          luồng ký được khởi tạo</span></strong>
-    </div>
-  </div>
+  </form>
 </nz-card>
 <div class="card-footer">
-  <button nz-button nzType="primary" class="btn-success"><i nz-icon nzType="save" nzTheme="outline"></i>
+  <button nz-button nzType="primary" (click)="save()" class="btn-success"><i nz-icon nzType="save" nzTheme="outline"></i>
     Lưu Cài đặt Gửi tài liệu
   </button>
 </div>

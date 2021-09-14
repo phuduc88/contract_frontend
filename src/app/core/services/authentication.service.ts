@@ -7,6 +7,7 @@ import { ApplicationHttpClient } from '@app/core/http';
 import { Credential } from '@app/core/models';
 
 const CREDENTIAL_STORAGE = 'CREDENTIALS';
+const REMEMBERME_STORAGE = 'REMEMBERME';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -75,7 +76,8 @@ export class AuthenticationService {
       company: data.company,
       role: data.role,
       userId: data.userId,
-      signatureImage: data.signatureImage
+      signatureImage: data.signatureImage,
+      systemConfig: data.systemConfig,
     };
 
     localStorage.setItem(CREDENTIAL_STORAGE, JSON.stringify(credentials));
@@ -90,5 +92,24 @@ export class AuthenticationService {
     credentials.company = company;
     localStorage.setItem(CREDENTIAL_STORAGE, JSON.stringify(credentials));
     this.credentialSubject.next(credentials);
+  }
+
+  public updateSystemConfigInStorage(systemConfig) {
+    const credentials = JSON.parse(localStorage.getItem(CREDENTIAL_STORAGE));
+    credentials.systemConfig = systemConfig;
+    localStorage.setItem(CREDENTIAL_STORAGE, JSON.stringify(credentials));
+    this.credentialSubject.next(credentials);
+  }
+
+  public saveRememberMe(objectLoginFrom) {
+    if (objectLoginFrom.remember) {
+      localStorage.setItem(REMEMBERME_STORAGE, JSON.stringify(objectLoginFrom));
+    } else {
+      localStorage.removeItem(REMEMBERME_STORAGE);
+    }    
+  }
+
+  public getAutoLogin() {
+    return JSON.parse(localStorage.getItem(REMEMBERME_STORAGE));
   }
 }

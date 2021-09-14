@@ -12,7 +12,6 @@ import { SignaturePadComponent } from '@app/shared/components';
 export class AccountInformationComponent implements OnInit {
   isTabSignature: boolean;
   isTabInfomation: boolean;
-  isTabReport: boolean;
   currentUser: Credential;
   signPadOfUsers: any = [];
   constructor(private authService: AuthenticationService,
@@ -32,17 +31,14 @@ export class AccountInformationComponent implements OnInit {
       case 1:
         this.isTabSignature = true;
         this.isTabInfomation = false;
-        this.isTabReport = false;
         break;
       case 2:
         this.isTabSignature = false;
         this.isTabInfomation = true;
-        this.isTabReport = false;
         break;
       case 3:
         this.isTabSignature = false;
         this.isTabInfomation = false;
-        this.isTabReport = true;
         break;
     }
   }

@@ -46,10 +46,26 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       remember: [false],
       // companyName: ['', Validators.required]
     });
+
+    this.setDefault();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  private setDefault() {
+    const lcLoginForm = this.authService.getAutoLogin();
+    if (lcLoginForm) {
+      this.loading = true;
+      this.loginForm.patchValue({
+        username: lcLoginForm.username,
+        password: lcLoginForm.password,
+        remember: lcLoginForm.remember,
+      });
+    
+      this.loginAction(lcLoginForm.username, lcLoginForm.password);
+    }
   }
 
   handleSubmit() {
@@ -63,6 +79,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       .login(this.form.username.value, this.form.password.value)
       .pipe(
         finalize(() => {
+          this.authService.saveRememberMe(this.loginForm.value);
           this.loginForm.markAsPristine();
           this.loading = false;
         })
@@ -79,6 +96,28 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       );
   }
 
+  private loginAction(username, password) {
+    this.authService
+    .login(username, password)
+    .pipe(
+      finalize(() => {
+        this.loginForm.markAsPristine();
+        this.loading = false;
+      })
+    )
+    .subscribe(
+      () => {
+        this.authService.saveRememberMe(this.loginForm.value);
+        this.navigatePageDefault();
+      },
+      (error) => {
+        this.modalService.warning({
+          nzTitle: error.message
+        });
+      }
+    );
+  }
+  
   get form() {
     return this.loginForm.controls;
   }

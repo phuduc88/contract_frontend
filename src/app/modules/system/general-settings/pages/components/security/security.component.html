@@ -1,9 +1,10 @@
 <nz-card nzTitle="Cài đặt Bảo mật" class="security">
+<form nz-form [formGroup]="configLoginForm">
   <div nz-form [nzLayout]="'inline'">
     <div nz-row>
       <nz-form-item>
         <nz-form-control>
-          <input nz-input type="checkbox">
+          <input nz-input type="checkbox" formControlName="isCheckPoint">
         </nz-form-control>
       </nz-form-item>
 
@@ -18,9 +19,10 @@
       </small>
     </div>
   </div>
+</form>
 </nz-card>
 <div class="card-footer">
-  <button nz-button nzType="primary" class="btn-success"><i nz-icon nzType="save" nzTheme="outline"></i>
+  <button nz-button nzType="primary" (click)="save()"  class="btn-success"><i nz-icon nzType="save" nzTheme="outline"></i>
     Lưu Cài đặt bảo mật
   </button>
 </div>
