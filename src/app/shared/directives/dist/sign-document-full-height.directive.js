@@ -27,7 +27,7 @@ var SignDocumentFullHeightDirective = /** @class */ (function () {
     SignDocumentFullHeightDirective.prototype.updateElementHeight = function () {
         var element = this.elementRef.nativeElement;
         var header = document.getElementsByClassName("ant-modal-header")[0];
-        var footer = document.getElementsByClassName("modal-footer")[0];
+        var footer = document.getElementsByClassName("signature-flow-footer")[0];
         var headerLeft = document.getElementsByClassName("header-left")[0];
         element.style.height = window.innerHeight -
             header.clientHeight -
