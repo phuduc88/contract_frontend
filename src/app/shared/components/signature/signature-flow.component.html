@@ -8,7 +8,7 @@
         </path>
       </svg></i>
   </span></button>
-<div id="signature-flow">
+<div id="signature-flow" [signDocumentFullHeight] [currentStep]="documentSign.currentStep">
   <div id="process" class="row d-flex justify-content-center" *ngIf="documentSign.currentStep !== 2"
     style="display: flex !important">
     <div class="progressbar-wrapper justify-content-center">
@@ -43,13 +43,10 @@
 
   </div>
   <div class="container" *ngIf="documentSign.currentStep === 1">
-    <signature-flow-s2 
-      [threadGroups]= "threadGroups"   
-      [threadGroupId] = "documentSign.threadGroupId"
-      [employeesSign]= "documentSign.employeesSign"
-      (onFormValid)= "formEmployeeSingValid($event)"
-      (onChangeThreadGroup) = "onChangeThreadGroup($event)"
-      (onAddEmployeeSing)= "addEmployeeSing($event)"></signature-flow-s2>
+    <signature-flow-s2 [threadGroups]="threadGroups" [threadGroupId]="documentSign.threadGroupId"
+      [employeesSign]="documentSign.employeesSign" (onFormValid)="formEmployeeSingValid($event)"
+      (onChangeThreadGroup)="onChangeThreadGroup($event)" (onAddEmployeeSing)="addEmployeeSing($event)">
+    </signature-flow-s2>
   </div>
 
   <div *ngIf="documentSign.currentStep === 2" class="ng-hide">

@@ -4,7 +4,7 @@
       <div id="mainViewer" class="d-flex col-12 p-0">
         <div class="col-md-3 col-lg-2 content-left p-0">
           <div class="header-left"></div>
-          <div class="container-foreign onscrollbar">
+          <div class="container-foreign onscrollbar" [signDocument2FullHeight]>
             <div class="col-auto my-1" *ngIf="!documentSign.myselfSign">
               <nz-select nzAllowClear (ngModelChange)="changeEmailAssignment($event)" nzPlaceHolder="Chọn người ký"
                 [(ngModel)]="documentSign.emailAssignment">
@@ -34,9 +34,10 @@
               <span>
                 <span class="text-left">THỨ TỰ KÝ</span>
               </span>
-              <ol class="noselect">
-                <li class="m-2 p-1 text-left border border-primary rounded" style="cursor: pointer; font-size: 12px"
-                  *ngFor="let sign of documentSign.listSign; let page = index" (click)="signSelected(sign)">
+              <ol class="noselect" id="listSignViewer" cdkDropList (cdkDropListDropped)="drop($event)">
+                <li cdkDrag class="m-2 p-1 text-left border border-primary sign-item rounded"
+                  style="cursor: move; font-size: 12px" *ngFor="let sign of documentSign.listSign; let page = index"
+                  (click)="signSelected(sign)">
                   <strong>{{sign.name}}</strong>
                   <br />
                   <span *ngIf="sign.emailAssignment == currentUser.email">

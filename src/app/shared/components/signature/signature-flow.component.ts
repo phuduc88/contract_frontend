@@ -1,26 +1,37 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewContainerRef, OnChanges } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
+  OnChanges,
+} from "@angular/core";
 import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
-import { SIGNATURE, GROUP_TYPE, STEP } from '@app/shared/constant';
-import * as $ from 'jquery';
-import 'jqueryui';
+import { SIGNATURE, GROUP_TYPE, STEP } from "@app/shared/constant";
+import * as $ from "jquery";
+import "jqueryui";
 import {
   AuthenticationService,
-  SignFlowService, 
+  SignFlowService,
   DocumentTypeService,
   ThreadGroupService,
   ThreadedSignTemplateService,
 } from "@app/core/services";
-import { Credential } from '@app/core/models';
+import { Credential } from "@app/core/models";
 import { DialogErrorComponent } from "../dialog-error/dialog-error.component";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
-import signUtils from '@app/shared/utils/sign';
+import signUtils from "@app/shared/utils/sign";
+import { SignatureFlowSaveComponent } from "./signature-save/signature-flow-save.component";
 
 @Component({
-  selector: 'signature-flow',
-  templateUrl: './signature-flow.component.html',
-  styleUrls: ['signature-flow.component.less']
+  selector: "signature-flow",
+  templateUrl: "./signature-flow.component.html",
+  styleUrls: ["signature-flow.component.less"],
 })
-export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SignatureFlowComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @Input() documentSign?: any;
   isSpinning: boolean;
   isSaveFile: boolean;
@@ -38,8 +49,8 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     private authService: AuthenticationService,
     private threadGroupService: ThreadGroupService,
     private threadedSignTemplateService: ThreadedSignTemplateService,
-    private documentTypeService: DocumentTypeService) {
-  }
+    private documentTypeService: DocumentTypeService
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
@@ -54,19 +65,23 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit() {
     if (!this.documentSign.myselfSign && this.documentSign.emailAssignment) {
-      eventEmitter.emit("sign:changeEmailAssignment", this.documentSign.emailAssignment);
+      eventEmitter.emit(
+        "sign:changeEmailAssignment",
+        this.documentSign.emailAssignment
+      );
     }
   }
 
   private loadSelectedEmail() {
- // load email assign
+    // load email assign
     if (this.documentSign.myselfSign) {
       this.documentSign.emailAssignment = this.currentUser.email;
       return;
     }
 
     if (this.documentSign.employeesSign.length > 0) {
-      this.documentSign.emailAssignment = this.documentSign.employeesSign[0].email;
+      this.documentSign.emailAssignment =
+        this.documentSign.employeesSign[0].email;
     }
   }
 
@@ -83,15 +98,18 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       return;
     }
 
-    listEmployeeSign.forEach(employee => {
-      if (employee.employeesSignDetail && employee.employeesSignDetail.length > 0) {
-        employee.employeesSignDetail.forEach(sign => {
+    listEmployeeSign.forEach((employee) => {
+      if (
+        employee.employeesSignDetail &&
+        employee.employeesSignDetail.length > 0
+      ) {
+        employee.employeesSignDetail.forEach((sign) => {
           const file = this.getFileName(filesSign, sign.fileSignId);
           sign.name = file.fileName;
           sign.img = this.getImage(sign);
           sign.emailAssignment = employee.email;
-          sign.privateId = signUtils.createGuid(),
-          this.documentSign.listSign.push(sign);
+          (sign.privateId = signUtils.createGuid()),
+            this.documentSign.listSign.push(sign);
         });
       }
     });
@@ -103,14 +121,14 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     const currentSign = this.currentUser.signatureImage;
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = signUtils.convertBase64ToImage(this.currentUser.signatureImage);
     const option = {
       width: sign.width,
       height: sign.height,
     };
 
-    signUtils.resize2img(img, option ,'png', (result) => {
+    signUtils.resize2img(img, option, "png", (result) => {
       img.src = result;
     });
 
@@ -118,18 +136,25 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   private generateImageByType(type) {
-    const img = document.createElement('img');
-    img.src = type == 1 ? "/assets/img/pdfjs/sign-icon.svg" : "/assets/img/pdfjs/signimage.svg";
+    const img = document.createElement("img");
+    img.src =
+      type == 1
+        ? "/assets/img/pdfjs/sign-icon.svg"
+        : "/assets/img/pdfjs/signimage.svg";
     return img;
   }
 
   private getFileName(documents, fileSignId) {
-    let fileTemp = documents.find(file => file.id == fileSignId);
+    let fileTemp = documents.find((file) => file.id == fileSignId);
     return fileTemp;
   }
 
   ngOnChanges(changes) {
-    if (changes.documentSign && changes.documentSign.currentValue && changes.documentSign.currentValue.length) {
+    if (
+      changes.documentSign &&
+      changes.documentSign.currentValue &&
+      changes.documentSign.currentValue.length
+    ) {
       this.documentSign = changes.documentSign.currentValue;
     }
   }
@@ -150,34 +175,35 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   onChangeThreadGroup(threadGroupId) {
-
     this.documentSign.threadGroupId = threadGroupId;
     if (!threadGroupId) {
       this.documentSign.employeesSign = [this.addEmployeeSignBlank()];
       return;
     }
 
-    this.threadedSignTemplateService.filter({
-      threadGroupId: threadGroupId,
-    }).subscribe(result => {
-      this.documentSign.employeesSign = [];
-      result.data.forEach((item) => {
-        item.id = null;
-        this.documentSign.employeesSign.push(item);
+    this.threadedSignTemplateService
+      .filter({
+        threadGroupId: threadGroupId,
+      })
+      .subscribe((result) => {
+        this.documentSign.employeesSign = [];
+        result.data.forEach((item) => {
+          item.id = null;
+          this.documentSign.employeesSign.push(item);
+        });
       });
-    });
   }
 
   showDialogError(errorsData: any) {
     this.modalService.create({
       nzClosable: true,
-      nzTitle: 'Lỗi thông tin người ký',
+      nzTitle: "Lỗi thông tin người ký",
       nzClassName: "signature-pad-custom",
       nzContent: DialogErrorComponent,
-      nzOnOk: (data) => console.log('Click ok', data),
+      nzOnOk: (data) => console.log("Click ok", data),
       nzComponentParams: {
-        errorsData
-      }
+        errorsData,
+      },
     });
   }
 
@@ -194,11 +220,11 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       email: null,
       taxCode: null,
       orders: 1,
-      orderSign: 1
-    }
+      orderSign: 1,
+    };
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 
   closeModal() {
     if (this.documentSign.filesSign.length < 1) {
@@ -206,58 +232,65 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       return;
     }
     const modalConfirm = this.modalService.create({
-      nzTitle: '<i class="fa fa-question-circle" aria-hidden="true"></i></i>Bạn có muốn lưu bản nháp không?',
-      nzContent: 'Những thay đổi của bạn sẽ bị mất nếu bạn không lưu lại',
-      nzIconType: 'anticon-question-circle',
+      nzTitle:
+        '<i class="fa fa-question-circle" aria-hidden="true"></i></i>Bạn có muốn lưu bản nháp không?',
+      nzContent: "Những thay đổi của bạn sẽ bị mất nếu bạn không lưu lại",
+      nzIconType: "anticon-question-circle",
       nzFooter: [
         {
-          label: 'Lưu và đóng',
-          type: 'primary',
-          shape: 'round',
+          label: "Lưu và đóng",
+          type: "primary",
+          shape: "round",
           onClick: () => {
             this.isSaveFile = true;
             this.showPreviewRequestSign();
             modalConfirm.destroy();
             this.modal.destroy();
-          }
+          },
         },
         {
-          label: 'Không cần lưu',
-          type: 'primary',
-          shape: 'round',
+          label: "Không cần lưu",
+          type: "primary",
+          shape: "round",
           onClick: () => {
             modalConfirm.destroy();
             this.modal.destroy();
-          }
+          },
         },
         {
-          label: 'Bỏ qua',
-          shape: 'round',
-          onClick: () => modalConfirm.destroy()
-        }
-      ]
+          label: "Bỏ qua",
+          shape: "round",
+          onClick: () => modalConfirm.destroy(),
+        },
+      ],
     });
-
   }
 
   prevStep() {
-    this.documentSign.currentStep = (this.documentSign.currentStep == STEP.THREE && this.documentSign.myselfSign)
-      ? STEP.ONE : (this.documentSign.currentStep || STEP.ONE) - 1;
+    this.documentSign.currentStep =
+      this.documentSign.currentStep == STEP.THREE &&
+      this.documentSign.myselfSign
+        ? STEP.ONE
+        : (this.documentSign.currentStep || STEP.ONE) - 1;
 
     this.documentSign.CurrentDoc = {};
     this.documentSign.CurrentDoc.SIGN = [];
     this.documentSign.listSign = [];
-    $(SIGNATURE.SELECTOR.ContentViewer).html('');
+    $(SIGNATURE.SELECTOR.ContentViewer).html("");
   }
 
   nextStep() {
-
     if (this.documentSign.filesSign.length == 0) {
-      this.modalService.warning({ nzTitle: 'Vui lòng tải file lên trước khi ký!' });
+      this.modalService.warning({
+        nzTitle: "Vui lòng tải file lên trước khi ký!",
+      });
       return;
     }
 
-    if ((this.documentSign.currentStep || STEP.ONE) === STEP.ONE && this.documentSign.myselfSign) {
+    if (
+      (this.documentSign.currentStep || STEP.ONE) === STEP.ONE &&
+      this.documentSign.myselfSign
+    ) {
       this.addCurrenUseToEmployeesSign();
       this.documentSign.currentStep = STEP.THREE;
       this.documentSign.emailAssignment = this.currentUser.email;
@@ -265,32 +298,43 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
       return;
     }
 
-    if ((this.documentSign.currentStep || STEP.ONE) === STEP.ONE && !this.documentSign.myselfSign) {
-      if (!this.documentSign.employeesSign || this.documentSign.employeesSign.length === 0) {
+    if (
+      (this.documentSign.currentStep || STEP.ONE) === STEP.ONE &&
+      !this.documentSign.myselfSign
+    ) {
+      if (
+        !this.documentSign.employeesSign ||
+        this.documentSign.employeesSign.length === 0
+      ) {
         this.documentSign.employeesSign.push(this.addEmployeeSignBlank());
       }
     }
 
-    if ((this.documentSign.currentStep || STEP.ONE) === STEP.TWO && !this.documentSign.myselfSign) {
+    if (
+      (this.documentSign.currentStep || STEP.ONE) === STEP.TWO &&
+      !this.documentSign.myselfSign
+    ) {
       // Emit event valid employeeSing
       this.validFormEmployeeSign();
     }
 
     if (this.formEmployeesSignError.length > 0) {
-        this.showDialogError(this.formEmployeesSignError);
-        return;
+      this.showDialogError(this.formEmployeesSignError);
+      return;
     }
 
     this.documentSign.currentStep = this.documentSign.currentStep + 1;
   }
 
   private saveStep2() {
-    this.signatureFlowService.employeeSign(this.documentSign).subscribe((res) => {
-      this.documentSign = res;
-      if (!this.documentSign.listSign) {
-        this.documentSign.listSign = [];
-      }
-    });
+    this.signatureFlowService
+      .employeeSign(this.documentSign)
+      .subscribe((res) => {
+        this.documentSign = res;
+        if (!this.documentSign.listSign) {
+          this.documentSign.listSign = [];
+        }
+      });
   }
 
   private addCurrenUseToEmployeesSign() {
@@ -301,50 +345,73 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
         groupType: GROUP_TYPE.HSMUSB,
         receptionEmail: true,
         receptionFileCopy: true,
-        address: '',
-        idNumer: '',
-        phoneNumber: '',
+        address: "",
+        idNumer: "",
+        phoneNumber: "",
         email: this.currentUser.email,
-        taxCode: '',
+        taxCode: "",
         orders: 1,
-        orderSign: 1
-      }
+        orderSign: 1,
+      },
     ];
   }
 
   showPreviewRequestSign() {
     if (this.documentSign.employeesSign) {
-      this.documentSign.employeesSign.forEach(employee => {
-        employee.employeesSignDetail = this.getSignByEmailAssignment(employee.email);
+      this.documentSign.employeesSign.forEach((employee) => {
+        employee.employeesSignDetail = this.getSignByEmailAssignment(
+          employee.email
+        );
       });
-      this.serviceSignPosition();
+      // this.serviceSignPosition();
+
+      this.modalService.create({
+        nzClosable: true,
+        nzMaskClosable: false,
+        nzTitle: "Xem lại và gửi",
+        nzStyle: { top: 0 },
+        nzClassName: "signature-flow-save",
+        nzKeyboard: false,
+        nzContent: SignatureFlowSaveComponent,
+        nzOnOk: () => new Promise((resolve) => setTimeout(resolve, 1000)),
+        nzFooter: [],
+        nzComponentParams: {
+          documentSign: this.documentSign,
+        },
+      });
     }
   }
 
   getSignByEmailAssignment(emailAssignment) {
-    return this.documentSign.listSign.filter(sign => sign.emailAssignment == emailAssignment);
+    return this.documentSign.listSign.filter(
+      (sign) => sign.emailAssignment == emailAssignment
+    );
   }
 
   // complete
   requestSign() {
     if (this.documentSign.employeesSign) {
       const employee = this.documentSign.employeesSign[0];
-      employee.employeesSignDetail = this.getSignByEmailAssignment(employee.email);
+      employee.employeesSignDetail = this.getSignByEmailAssignment(
+        employee.email
+      );
       this.serviceSignPosition();
     }
   }
 
   private serviceSignPosition() {
-    this.signatureFlowService.signaturePosition(this.documentSign).subscribe((res) => {
-      if (res) {
-        if (!this.isSaveFile) {
-          this.modalService.success({ nzTitle: 'Ký file thành công!' });
-        } else {
-          this.modalService.success({ nzTitle: 'Lưu file thành công!' });
+    this.signatureFlowService
+      .signaturePosition(this.documentSign)
+      .subscribe((res) => {
+        if (res) {
+          if (!this.isSaveFile) {
+            this.modalService.success({ nzTitle: "Ký file thành công!" });
+          } else {
+            this.modalService.success({ nzTitle: "Lưu file thành công!" });
+          }
+          this.modal.destroy();
         }
-        this.modal.destroy();
-      }
-    });
+      });
   }
 
   private loadDocumentType() {
@@ -373,8 +440,8 @@ export class SignatureFlowComponent implements OnInit, OnDestroy, AfterViewInit 
 
   //Emit event valid employeeSing
   private validFormEmployeeSign() {
-    eventEmitter.emit('employeeSing:validFrom', {
-      action: 'set_2'
+    eventEmitter.emit("employeeSing:validFrom", {
+      action: "set_2",
     });
   }
 }

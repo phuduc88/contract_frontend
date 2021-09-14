@@ -20,6 +20,7 @@ export * from './image-base/image-base.component';
 export * from './signature/signature-flow.component';
 export * from './signature/signature-flow-s2.component';
 export * from './signature/signature-flow-s3.component';
+export * from './signature/signature-save/signature-flow-save.component';
 export * from './signature-upload-file/signature-upload-file.component';
 export * from './form-employee-sign/form-employee-sign.component';
 export * from './dialog-error/dialog-error.component';

@@ -30,7 +30,6 @@ export class InviteEmployeeComponent implements OnInit {
   }
 
   inviteEmployee() {
-    debugger;
     var a = this.datas;
   }
 
@@ -67,7 +66,6 @@ export class InviteEmployeeComponent implements OnInit {
   }
 
   parentCheck(event, id) {
-    debugger;
     this.datas = this.datas.map((item) => {
       return item.id === id
         ? {

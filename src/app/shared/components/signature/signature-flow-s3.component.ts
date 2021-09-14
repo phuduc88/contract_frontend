@@ -1,20 +1,30 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { SIGNATURE } from '@app/shared/constant';
-import { PDFDocumentProxy } from 'pdfjs-dist';
-import { eventEmitter } from '@app/shared/utils/event-emitter';
-import * as $ from 'jquery';
-import 'jqueryui';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { SIGNATURE } from "@app/shared/constant";
+import { PDFDocumentProxy } from "pdfjs-dist";
+import { eventEmitter } from "@app/shared/utils/event-emitter";
+import * as $ from "jquery";
+import "jqueryui";
 import { AuthenticationService } from "@app/core/services";
-import { Credential } from '@app/core/models';
-import signUtils from '@app/shared/utils/sign';
+import { Credential } from "@app/core/models";
+import signUtils from "@app/shared/utils/sign";
 import { NzModalService } from "ng-zorro-antd/modal";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 
 @Component({
-  selector: 'signature-flow-s3',
-  templateUrl: './signature-flow-s3.component.html',
-  styleUrls: ['signature-flow-s3.component.less']
+  selector: "signature-flow-s3",
+  templateUrl: "./signature-flow-s3.component.html",
+  styleUrls: ["signature-flow-s3.component.less"],
 })
-export class SignatureFlowS3Component implements OnInit, OnDestroy, AfterViewInit {
+export class SignatureFlowS3Component
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @Input() documentSign: any;
   pdfDoc: PDFDocumentProxy;
   height = 0;
@@ -32,8 +42,8 @@ export class SignatureFlowS3Component implements OnInit, OnDestroy, AfterViewIni
   private handlers;
   constructor(
     private authService: AuthenticationService,
-    private modalService: NzModalService,
-  ) { }
+    private modalService: NzModalService
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
@@ -42,29 +52,31 @@ export class SignatureFlowS3Component implements OnInit, OnDestroy, AfterViewIni
         this.addSignToDoc(sign);
       }),
       eventEmitter.on("sign:clear-properties", () => {
-        this.clearProperties()
+        this.clearProperties();
       }),
       eventEmitter.on("sign:set-properties", (obj) => {
         this.setProperties(obj);
       }),
-      eventEmitter.on('sign:remove', (sign) => {
+      eventEmitter.on("sign:remove", (sign) => {
         this.removeSign(sign);
       }),
       eventEmitter.on("sign:NotEmailAssignment", () => {
-        this.modalService.warning({ nzTitle: 'Vui lòng chọn người ký !' });
-      })
+        this.modalService.warning({ nzTitle: "Vui lòng chọn người ký !" });
+      }),
     ];
   }
 
   addSignToDoc(sign) {
-    if(!this.documentSign.listSign || this.documentSign.listSign.length == 0) {
+    if (!this.documentSign.listSign || this.documentSign.listSign.length == 0) {
       this.documentSign.listSign = [];
       this.documentSign.listSign.push(sign);
       return;
     }
-    const currentSign = this.documentSign.listSign.find(signed => signed.privateId == sign.privateId);
+    const currentSign = this.documentSign.listSign.find(
+      (signed) => signed.privateId == sign.privateId
+    );
     if (!currentSign) {
-      this.documentSign.listSign.push(sign);     
+      this.documentSign.listSign.push(sign);
       return;
     }
   }
@@ -81,7 +93,7 @@ export class SignatureFlowS3Component implements OnInit, OnDestroy, AfterViewIni
   }
 
   signSelected(sign) {
-    eventEmitter.emit('sign:selection', sign);
+    eventEmitter.emit("sign:selection", sign);
   }
 
   clearProperties() {
@@ -111,35 +123,41 @@ export class SignatureFlowS3Component implements OnInit, OnDestroy, AfterViewIni
 
   updateLocationOfSign(currentSign) {
     const listSignCopy = [...this.documentSign.listSign];
-    listSignCopy.forEach(item => {
+    listSignCopy.forEach((item) => {
       if (item.privateId == currentSign.privateId) {
         item.coordinateY = currentSign.top;
         item.coordinateX = currentSign.left;
         item.page = currentSign.page;
-        item.scale = currentSign.scaleX; 
+        item.scale = currentSign.scaleX;
       }
     });
     this.documentSign.listSign = listSignCopy;
   }
 
-   
   ngAfterViewInit() {
     // Init drag for Signature Image
     $(SIGNATURE.SELECTOR.ObjDragToViewer).draggable({
-      cursor: 'move',
+      cursor: "move",
       containment: $(SIGNATURE.SELECTOR.Containment),
-      helper: 'clone',
+      helper: "clone",
       drag: function (e) {
         let parent = e.target["offsetParent"];
         if (parent) {
-          $(parent).addClass('width');
+          $(parent).addClass("width");
         }
-      }
+      },
     });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.documentSign.listSign,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   ngOnDestroy() {
     eventEmitter.destroy(this.handlers);
   }
-
 }

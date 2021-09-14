@@ -7,6 +7,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { DragDropModule} from '@angular/cdk/drag-drop';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -57,6 +58,7 @@ import {
   SignatureFlowComponent,
   SignatureFlowS2Component,
   SignatureFlowS3Component,
+  SignatureFlowSaveComponent,
   SignatureUploadFileComponent,
   FormEployeeSingComponent,
   DialogErrorComponent,
@@ -69,6 +71,8 @@ import {
   EditorAutoSizeDirective,
   PluploadDirective,
   PluploadExcelDirective,
+  SignDocumentFullHeightDirective,
+  SignDocument2FullHeightDirective,
 } from './directives';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
@@ -81,6 +85,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     TranslateModule,
     NzButtonModule,
     NzDatePickerModule,
+    DragDropModule,
     NzDropDownModule,
     NzFormModule,
     NzGridModule,
@@ -112,6 +117,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     EditorAutoSizeDirective,
     PluploadDirective,
     PluploadExcelDirective,
+    SignDocumentFullHeightDirective,
+    SignDocument2FullHeightDirective,
     ManageUnitFormComponent,
     DepartmentComponent,
     AcountFormComponent,
@@ -128,6 +135,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     SignatureFlowComponent,
     SignatureFlowS2Component,
     SignatureFlowS3Component,
+    SignatureFlowSaveComponent,
     SignatureUploadFileComponent,
     FormEployeeSingComponent,
     DialogErrorComponent,
@@ -147,6 +155,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     EditorAutoSizeDirective,
     PluploadDirective,
     PluploadExcelDirective,
+    SignDocumentFullHeightDirective,
+    SignDocument2FullHeightDirective,
     NzCheckboxModule,
     NzToolTipModule,
     ManageUnitFormComponent,
@@ -163,6 +173,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     SignatureFlowComponent,
     SignatureFlowS2Component,
     SignatureFlowS3Component,
+    SignatureFlowSaveComponent,
     SignatureUploadFileComponent,
     FormEployeeSingComponent,
     DialogErrorComponent,
@@ -192,6 +203,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     SignatureFlowComponent,
     SignatureFlowS2Component,
     SignatureFlowS3Component,
+    SignatureFlowSaveComponent,
     SignatureUploadFileComponent,
     FormEployeeSingComponent,
     DialogErrorComponent,

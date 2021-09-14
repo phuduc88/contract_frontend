@@ -40,7 +40,6 @@ var InviteEmployeeComponent = /** @class */ (function () {
         this.modal.destroy();
     };
     InviteEmployeeComponent.prototype.inviteEmployee = function () {
-        debugger;
         var a = this.datas;
     };
     InviteEmployeeComponent.prototype.toggleCompany = function () {
@@ -71,7 +70,6 @@ var InviteEmployeeComponent = /** @class */ (function () {
         return childrensCount === childrensCheckCount;
     };
     InviteEmployeeComponent.prototype.parentCheck = function (event, id) {
-        debugger;
         this.datas = this.datas.map(function (item) {
             return item.id === id
                 ? __assign(__assign({}, item), { childrens: item.childrens.map(function (children) {

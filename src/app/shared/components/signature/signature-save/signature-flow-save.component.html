@@ -1,0 +1,132 @@
+<div class="card">
+    <nz-tabset nzType="card">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.title">
+            <div class="p-2">
+
+                <div class="tab-content" *ngIf="tab.id === 1">
+                    <div class="tab-container">
+                        <form nz-form [formGroup]="form" [nzLayout]="'vertical'" class="message-send-form">
+                            <div class="message-send-form__container">
+                                <nz-form-item>
+                                    <nz-form-label class="text-left font-weight-bold" [nzSpan]="24">
+                                        Tiêu đề email: </nz-form-label>
+                                    <nz-form-control [nzSpan]="24">
+                                        <input nz-input placeholder="Nhập vào tiêu đề" [nzErrorTip]="titleError"
+                                            formControlName="title" />
+                                        <ng-template #titleError let-control>
+                                            <ng-container
+                                                *ngIf="validateControl('title') && hasError('title', 'required')">
+                                                TIêu đề không được để trống
+                                            </ng-container>
+                                        </ng-template>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <nz-form-item>
+                                    <nz-form-label class="text-left font-weight-bold" [nzSpan]="24">
+                                        Tin nhắn gửi đi email: </nz-form-label>
+                                    <nz-form-control [nzSpan]="24">
+                                        <textarea nz-input placeholder="Tin nhắn đến người nhận" formControlName="message"></textarea>
+                                    </nz-form-control>
+                                </nz-form-item>
+
+                                <div class="message-send-setting">
+                                    <label class="requetTime-item">
+                                        <input type="checkbox" nz-checkbox/>
+                                        &nbsp; Gửi email nhắc nhở mỗi &nbsp; 
+                                        <input type="number" nz-input class="w-50px" formControlName="requetTime" /> &nbsp; ngày tính từ thời điểm khởi tạo &nbsp;<span class="text-danger">*</span>
+                                    </label>
+                                    <br />
+                                    <span style="font-size: 80%;">
+                                        Cứ sau <span class="font-weight-bold">mỗi X ngày</span> hệ thống sẽ tự động gửi email nhắc ký đến người ký tiếp theo
+                                        <br />
+                                        <span class="text-danger">Nếu bỏ tích chọn hoặc <span class="font-weight-bold">thời gian cài đặt = 0, &nbsp;</span>hệ thống sẽ không gửi email nhắc ký</span>
+                                    </span>
+                                    
+                                </div>
+                                <hr />
+                                <div class="message-send-setting"> 
+                                    <label class="dealine-item">
+                                        <input type="checkbox" nz-checkbox />
+                                        &nbsp; Thời gian hết hạn của tài liệu sau  &nbsp;
+                                        <input type="number" nz-input class="w-50px" formControlName="dealineTime" /> &nbsp; ngày &nbsp;<span class="text-danger">*</span>
+                                    </label>
+                                    <br />
+                                    <span style="font-size: 80%;">
+                                        <span class="font-weight-bold text-danger">Sau X ngày</span>&nbsp; đường dẫn ký kết sẽ bị vô hiệu hóa
+                                        <br />
+                                        <span class="text-danger">Nếu bỏ tích chọn hoặc <span class="font-weight-bold">&nbsp;thời gian cài đặt = 0, &nbsp;</span>luồng ký sẽ không hết hạn</span>
+                                    </span>
+                                </div>
+                                <hr />
+                                <div class="note font-weight-bold">
+                                    *Lưu ý: <span class="text-danger">&nbsp; X là số ngày bạn cài đặt, 1 ngày = 24 giờ, thời gian sẽ được tính từ lúc luồng ký được khởi tạo</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tab-content" *ngIf="tab.id === 2">
+                    <ol class="noselect">
+                        <li class="m-2 p-1 text-left border border-primary rounded"
+                            style="cursor: pointer; font-size: 12px"
+                            *ngFor="let item of documentSign.employeesSign; let page = index">
+                            <p>
+                                {{ item.groupName }}
+                                <br />
+                                {{ item.email }}
+                            </p>
+                            <div>
+                                <p>
+                                    Mã số thuế: {{ item.taxCode }}
+                                    <br />
+                                    Địa chỉ: {{ item.adrress }}
+                                </p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="tab-content" *ngIf="tab.id === 3">
+                    <ol class="noselect">
+                        <li class="m-2 p-1 text-left border border-primary rounded"
+                            style="cursor: pointer; font-size: 12px"
+                            *ngFor="let sign of documentSign.listSign; let page = index">
+                            <strong>{{sign.name}}</strong>
+                            <br />
+                            <span>
+                                Người ký: {{sign.emailAssignment}}
+                            </span>
+                            <br />
+                            <span>
+                                Thứ tự ký kết: <span class="text-primary">{{page + 1}}</span>
+                            </span>
+                            <br />
+                            <span class="text-muted">
+                                Loại:
+                                <span class="{{sign.signType === 1 ? 'text-primary' : 'text-warning'}}">Ký
+                                    {{ sign.signType === 1 ? 'thường' : 'nháy' }}</span>
+                            </span>
+                            <br />
+                            <span>Trang: <span class="text-muted">{{sign.signIndex}}</span></span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </nz-tab>
+    </nz-tabset>
+    <div class="modal-footer signature-flow-save-footer">
+        <div class="d-flex justify-content-between p-0 pt-2">
+            <div class="d-flex justify-content-start">
+                <button class="btn btn-secondary mr-3">
+                    <span class="fa fa-ban"></span>&nbsp;Hủy bỏ
+                </button>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-success">
+                    Gửi <span class="fa fa-send"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
