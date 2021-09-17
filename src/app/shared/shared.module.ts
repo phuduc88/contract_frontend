@@ -74,6 +74,7 @@ import {
   PluploadExcelDirective,
   SignDocumentFullHeightDirective,
   SignDocument2FullHeightDirective,
+  PdfViewerFullHeightDirective
 } from './directives';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
@@ -120,6 +121,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PluploadExcelDirective,
     SignDocumentFullHeightDirective,
     SignDocument2FullHeightDirective,
+    PdfViewerFullHeightDirective,
     ManageUnitFormComponent,
     DepartmentComponent,
     AcountFormComponent,
@@ -159,6 +161,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PluploadExcelDirective,
     SignDocumentFullHeightDirective,
     SignDocument2FullHeightDirective,
+    PdfViewerFullHeightDirective,
     NzCheckboxModule,
     NzToolTipModule,
     ManageUnitFormComponent,
