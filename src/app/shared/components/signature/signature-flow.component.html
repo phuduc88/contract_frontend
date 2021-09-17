@@ -29,12 +29,18 @@
     <div class="d-flex bd-highlight" style="margin: 15px 0px;">
       <span class="bd-highlight align-self-center mr-1">Phân loại</span>
       <div class="bd-highlight">
-        <nz-select nzAllowClear nzPlaceHolder="Loại tài liệu">
+        <nz-select nzAllowClear  [(ngModel)]="documentSign.documentType" nzPlaceHolder="Loại tài liệu">
           <nz-option [nzValue]="documentType.id" [nzLabel]="documentType.documentName"
             *ngFor="let documentType of documentsType">
           </nz-option>
         </nz-select>
       </div>
+      <div class="bd-highlight">
+        <button class="btn btn-plus" (click)="addDocumentType()">
+          <span class="fa fa-plus"></span>
+        </button>
+      </div>
+     
     </div>
 
     <app-signature-upload-file [filesSign]="documentSign.filesSign" [documentId]="documentSign.id"

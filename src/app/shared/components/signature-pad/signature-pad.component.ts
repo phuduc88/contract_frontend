@@ -103,8 +103,6 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
       this.showDialogSuccess(this);
     });
   }
-
-
   private updateSignPad() {
     const signPadOfUse = this.getData();
     this.signOfUserService.update(this.signPadOfUse.id, signPadOfUse).subscribe((data) => {

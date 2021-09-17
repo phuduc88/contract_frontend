@@ -26,4 +26,5 @@ export * from './form-employee-sign/form-employee-sign.component';
 export * from './dialog-error/dialog-error.component';
 export * from './pdf-list-thumbnail/pdf-list-thumbnail.component';
 export * from './pdf-viewer/pdf-viewer.component';
+export * from './form-document/form-document.component';
 

@@ -5,7 +5,7 @@
 
                 <div class="tab-content" *ngIf="tab.id === 1">
                     <div class="tab-container">
-                        <form nz-form [formGroup]="form" [nzLayout]="'vertical'" class="message-send-form">
+                        <form nz-form [formGroup]="formDocument" [nzLayout]="'vertical'" class="message-send-form">
                             <div class="message-send-form__container">
                                 <nz-form-item>
                                     <nz-form-label class="text-left font-weight-bold" [nzSpan]="24">
@@ -32,9 +32,9 @@
 
                                 <div class="message-send-setting">
                                     <label class="requetTime-item">
-                                        <input type="checkbox" nz-checkbox/>
+                                     <input nz-input type="checkbox" formControlName="enableSendEmailConfrim" style="width: 20px;"/>
                                         &nbsp; Gửi email nhắc nhở mỗi &nbsp; 
-                                        <input type="number" nz-input class="w-50px" formControlName="requetTime" /> &nbsp; ngày tính từ thời điểm khởi tạo &nbsp;<span class="text-danger">*</span>
+                                        <input nz-input formControlName="timeAutoSendEmail" class="w-50px"/> &nbsp; ngày tính từ thời điểm khởi tạo &nbsp;<span class="text-danger">*</span>
                                     </label>
                                     <br />
                                     <span style="font-size: 80%;">
@@ -47,9 +47,10 @@
                                 <hr />
                                 <div class="message-send-setting"> 
                                     <label class="dealine-item">
-                                        <input type="checkbox" nz-checkbox />
+                                            <input nz-input type="checkbox" formControlName="enableTimeDocumentExpire"  style="width: 20px;"/>
                                         &nbsp; Thời gian hết hạn của tài liệu sau  &nbsp;
-                                        <input type="number" nz-input class="w-50px" formControlName="dealineTime" /> &nbsp; ngày &nbsp;<span class="text-danger">*</span>
+                                        <input nz-input  class="w-50px"  formControlName="timeDocumentExpire"/>
+                                         &nbsp; ngày &nbsp;<span class="text-danger">*</span>
                                     </label>
                                     <br />
                                     <span style="font-size: 80%;">

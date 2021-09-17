@@ -93,6 +93,13 @@
 			"title": "Danh mục loại hồ sơ"
 		}
 	},
+	"documentType" : {
+		"from": {
+			"documentName": "Tên loại tài liệu",
+			"description": "Mô tả",
+			"isDefault": "Sử dụng mặc định"
+		}
+	},
 	"company": {
 		"company-list": {
 			"title": "Danh sách công ty"

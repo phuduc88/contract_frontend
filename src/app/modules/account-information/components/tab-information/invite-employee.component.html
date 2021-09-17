@@ -1,13 +1,21 @@
 <div class="invite-employee-content">
+   <form nz-form [formGroup]="form">
   <div nz-row>
     <div nz-col nzSpan="11">
       <nz-form-item>
-        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateFullName">
-          <input type="text" nz-input />
-          <ng-template #addOnBeforeTemplateFullName>
-            <label class="mb-0">Họ và tên <span class="text-danger"> * </span></label>
+        <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorUserName">
+          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateFullName">
+            <input type="text" nz-input formControlName="fullName"/>
+            <ng-template #addOnBeforeTemplateFullName>
+              <label class="mb-0">Họ và tên <span class="text-danger"> * </span></label>
+            </ng-template>            
+          </nz-input-group>
+          <ng-template #errorUserName let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Họ và tên không được để trông
+              </ng-container>
           </ng-template>
-        </nz-input-group>
+        </nz-form-control>
       </nz-form-item>
     </div>
 
@@ -15,15 +23,26 @@
 
     <div nz-col nzSpan="11">
       <nz-form-item>
-        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateEmail">
-          <input type="text" nz-input />
-          <ng-template #addOnBeforeTemplateEmail>
-            <label class="mb-0">Email <span class="text-danger"> * </span></label>
+        <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorEmail">
+          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateEmail">
+            <input type="text" nz-input nz-input formControlName="email" />
+            <ng-template #addOnBeforeTemplateEmail>
+              <label class="mb-0">Email <span class="text-danger"> * </span></label>
+            </ng-template>           
+          </nz-input-group>
+          <ng-template #errorEmail let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                  Email không được để trống
+              </ng-container>
+              <ng-container *ngIf="control.hasError('pattern')">
+                  Email không hợp lệ
+              </ng-container>
           </ng-template>
-        </nz-input-group>
+        </nz-form-control>
       </nz-form-item>
     </div>
   </div>
+</form>
   <hr />
 
   <div class="invite-employee-company">
@@ -40,14 +59,14 @@
           <tr>
             <td>
               <div class="form-check">
-                <input class="form-check-input check-custom" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input check-custom" type="checkbox" [(ngModel)]="isEmployeeOfCompany">
                 <label class="form-check-label pl-1" for="flexCheckDefault">
-                  0109403896
+                  {{currentUser.company.taxCode}}
                 </label>
               </div>
               <!-- <label class="company-checkbox" nz-checkbox [(ngModel)]="checked">0109403896</label> -->
             </td>
-            <td>CÔNG TY CỔ PHẦN CHUYỂN ĐỔI SỐ NOVAON DX</td>
+            <td>{{currentUser.company.name}}</td>
           </tr>
         </tbody>
       </table>
@@ -63,26 +82,27 @@
         <thead>
           <tr>
             <th style="width: 90%;">Danh sách quyền</th>
-            <th style="width: 10%;">0109403896</th>
+            <th *ngIf="(isEmployeeOfCompany)" style="width: 10%;">{{currentUser.company.taxCode}}</th>
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngFor="let data of datas">
+          <ng-container *ngFor="let data of roles">
             <tr class="td-parent">
-              <td (click)="togglePermission(data.id)">
+              <td (click)="togglePermission(data)">
                 <span>
-                  <i *ngIf="!this.showPermission[data.id]" class="fa fa-arrow-right pr-1 d-inline"></i>
-                  <i *ngIf="this.showPermission[data.id]" class="fa fa-arrow-down pr-1 d-inline"></i>
-                  {{ data.title }}
+                  <i *ngIf="!(data.expan)" class="fa fa-arrow-right pr-1 d-inline"></i>
+                  <i *ngIf="(data.expan)" class="fa fa-arrow-down pr-1 d-inline"></i>
+                  {{ data.detailFunction }}
                 </span>
               </td>
-              <td> <input class="check-custom" type="checkbox" [(ngModel)]="data.check" name="permission-{{ data.id }}"
-                  (click)="parentCheck($event, data.id)" /></td>
+              <td *ngIf="(isEmployeeOfCompany)"> <input class="check-custom" type="checkbox" [(ngModel)]="data.check" name="permission-{{ data.id }}"
+                  (click)="parentCheck($event, data)" />
+              </td>
             </tr>
-            <ng-template [ngIf]="togglePermissionChildren(data.id)">
+            <ng-template [ngIf]="togglePermissionChildren(data)">
               <tr *ngFor="let children of data.childrens;index as i" class="td-children">
-                <td class="td-children-title">{{ children.title }}</td>
-                <td> <input class="check-custom" type="checkbox" [(ngModel)]="children.check"
+                <td class="td-children-title">{{ children.detailFunction }}</td>
+                <td *ngIf="(isEmployeeOfCompany)"> <input class="check-custom" type="checkbox" [(ngModel)]="children.check"
                     name="permission-{{ data.id }}-{{ children.id }}"
                     (click)="childrenCheck($event, data.id, children.id)" /></td>
               </tr>
@@ -98,7 +118,7 @@
       <button type="button" class="btn btn-secondary mr-1" (click)="closeModal()">
         <span class="fa fa-times"></span> Đóng
       </button>
-      <button type="button" class="btn btn-success" (click)="inviteEmployee()">
+      <button type="button" class="btn btn-success" (click)="save()">
         <span class="fa fa-paper-plane-o"></span>&nbsp;Gửi lời mời
       </button>
     </div>

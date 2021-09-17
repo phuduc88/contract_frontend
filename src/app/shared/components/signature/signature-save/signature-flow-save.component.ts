@@ -1,4 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import {
+  AuthenticationService,
+} from "@app/core/services";
+import { Credential } from "@app/core/models";
 
 @Component({
   selector: "signature-flow-save",
@@ -7,10 +13,31 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class SignatureFlowSaveComponent implements OnInit {
   @Input() documentSign?: any;
+  formDocument: FormGroup;
+  currentUser: Credential;
+  constructor(
+    private modal: NzModalRef,
+    private authService: AuthenticationService,
+    private formBuilder: FormBuilder,
+  ) 
+  {}
 
   ngOnInit() {
- 
+    this.currentUser = this.authService.currentCredentials;
+    this.formDocument = this.formBuilder.group({
+      title: ['',[Validators.required] ],
+      message: [''],
+      enableSendEmailConfrim: [(this.currentUser.systemConfig.timeAutoSendEmail)],
+      timeAutoSendEmail: [this.currentUser.systemConfig.timeAutoSendEmail],
+      enableTimeDocumentExpire: [(this.currentUser.systemConfig.timeDocumentExpire)],
+      timeDocumentExpire: [this.currentUser.systemConfig.timeDocumentExpire],
+    });
   }
+
+  dismiss(): void {
+    this.modal.destroy();
+  }
+
   tabs = [
     {
       id: 1,

@@ -23,7 +23,7 @@ import { DialogErrorComponent } from "../dialog-error/dialog-error.component";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
 import signUtils from "@app/shared/utils/sign";
 import { SignatureFlowSaveComponent } from "./signature-save/signature-flow-save.component";
-
+import { FormDocumentComponent } from "../form-document/form-document.component";
 @Component({
   selector: "signature-flow",
   templateUrl: "./signature-flow.component.html",
@@ -53,14 +53,14 @@ export class SignatureFlowComponent
   ) {}
 
   ngOnInit() {
-    this.currentUser = this.authService.currentCredentials;
+    this.currentUser = this.authService.currentCredentials;    
+    this.loadDocumentType();
+    this.loadThreadGroup();
     if (this.documentSign && this.documentSign.id) {
       // load sign from document history
       this.loadDocumentFromHistory();
       this.loadSelectedEmail();
     }
-    this.loadDocumentType();
-    this.loadThreadGroup();
   }
 
   ngAfterViewInit() {
@@ -70,6 +70,12 @@ export class SignatureFlowComponent
         this.documentSign.emailAssignment
       );
     }
+  }
+
+  private getSelectedDocumentType(documentsType) {
+    const documentDefault = documentsType.find(r => r.isDefault);
+    if (!documentDefault) return;
+    this.documentSign.documentType = documentDefault.id;
   }
 
   private loadSelectedEmail() {
@@ -207,10 +213,32 @@ export class SignatureFlowComponent
     });
   }
 
+  addDocumentType() {
+    const modal = this.modalService.create({
+      nzWidth: 450,
+      nzWrapClassName: 'account-modal',
+      nzClosable: true,
+      nzTitle: "Thông tin loại tài liệu",
+      nzContent: FormDocumentComponent,
+      nzOnOk: (data) => console.log("Click ok", data),
+      nzComponentParams: {},
+    });
+
+    modal.afterClose.subscribe(result => {
+      if(!result) {
+        return;
+      }
+
+      this.documentsType.push(result);
+      this.documentSign.documentType = result.id;
+    });
+  }
+
+
   private addEmployeeSignBlank() {
     return {
       name: null,
-      groupName: null,
+      groupName: null, 
       groupType: GROUP_TYPE.HSMUSB,
       receptionEmail: false,
       receptionFileCopy: false,
@@ -283,6 +311,13 @@ export class SignatureFlowComponent
     if (this.documentSign.filesSign.length == 0) {
       this.modalService.warning({
         nzTitle: "Vui lòng tải file lên trước khi ký!",
+      });
+      return;
+    }
+
+    if (!this.documentSign.documentType) {
+      this.modalService.warning({
+        nzTitle: "Vui lòng chọn loại tài liệu!",
       });
       return;
     }
@@ -417,6 +452,9 @@ export class SignatureFlowComponent
   private loadDocumentType() {
     this.documentTypeService.filter().subscribe((item) => {
       this.documentsType = item.data;
+      if (!this.documentSign.documentType) { 
+        this.getSelectedDocumentType(this.documentsType);
+      }
     });
   }
 

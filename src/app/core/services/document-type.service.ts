@@ -18,5 +18,17 @@ export class DocumentTypeService {
       }
     });
   }
+
+  public create(body, options = {}) {
+    return this.http.post('/document-type', body, options);
+  }
+
+  public update(id, body, options = {}) {
+    return this.http.post(`/document-type/${ id }`, body, options);
+  }
+
+  public delete(id) {
+    return this.http.delete(`/document-type/${ id }`);
+  }
    
 }

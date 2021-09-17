@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       id: null,
       myselfSign: false,
       currentStep: 0,
-      documentType: 1,
+      documentType: null,
       employeesSign: [],
       filesSign: [],
       listSign: []

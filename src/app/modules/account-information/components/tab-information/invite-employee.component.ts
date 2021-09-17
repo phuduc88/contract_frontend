@@ -1,36 +1,117 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NzModalRef } from "ng-zorro-antd/modal";
-import { PERMISSION_LIST_DATA } from "../../data/permission-table";
+import { forkJoin, Subject } from 'rxjs';
+import { REGEX } from '@app/shared/constant';
+import { RoleService, AuthenticationService } from '@app/core/services';
+import { Credential } from "@app/core/models";
 
 @Component({
   selector: "invite-employee",
   templateUrl: "./invite-employee.component.html",
   styleUrls: ["./invite-employee.component.less"],
 })
-export class InviteEmployeeComponent implements OnInit {
-  datas: any = PERMISSION_LIST_DATA;
+export class InviteEmployeeComponent implements OnInit {   
   @Input() employeeInfo: any;
+  form: FormGroup;
+  roles: any;
+  isEmployeeOfCompany = true;
   showCompany = true;
-  showPermission = {
-    QUANLYTAILIEU: true,
-    QUANTRITHANHVIEN: true,
-    KY: true,
-    MAUTAILIEU: true,
-  };
-
-  constructor(private formBuilder: FormBuilder, private modal: NzModalRef) {}
+  currentUser: Credential;
+  constructor(
+    private formBuilder: FormBuilder, 
+    private roleService: RoleService,
+    private authService: AuthenticationService,
+    private modal: NzModalRef
+  ){}
 
   ngOnInit() {
-    this.setCheckboxParentAll();
+    // console.log(this.employeeInfo);
+    this.isEmployeeOfCompany = this.employeeInfo.isEmployeeOfCompany;
+    this.currentUser = this.authService.currentCredentials;
+    this.form = this.formBuilder.group({
+      fullName: [{ value: this.employeeInfo.fullName, disabled: (this.employeeInfo.id)} ,[Validators.required]],
+      email: [{ value: this.employeeInfo.email, disabled: (this.employeeInfo.id)}, [Validators.required, Validators.pattern(REGEX.EMAIL)]]
+    });
+    const jobs = [
+      this.roleService.getRoleOfEmployee(),
+    ];
+
+    forkJoin(jobs).subscribe(([roles]) => {
+      this.roles = this.checkedRoleOfEmployee(roles);
+      this.setCheckboxParentAll();
+    });
   }
 
   closeModal() {
     this.modal.destroy();
   }
 
+  save() {
+    for (const i in this.form.controls) {
+      this.form.controls[i].markAsDirty();
+      this.form.controls[i].updateValueAndValidity();
+    }
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.inviteEmployee();
+  }
+
+  private checkedRoleOfEmployee(rolesDefault){
+    const roles = [];
+     
+    rolesDefault.forEach(role => {
+      let roleOfUser = {
+        ...role,
+        childrens: []
+      };
+         
+      role.childrens.forEach((child) => {
+        const rolechecked = this.employeeInfo.roles.find(r => r.functionName === child.functionName);
+        child.check = false;
+        if (rolechecked) {
+          child.check = true;
+        } 
+        roleOfUser.childrens.push(child);
+      });
+      
+      roles.push(roleOfUser);
+    });
+
+    return roles;
+
+  }
+
   inviteEmployee() {
-    var a = this.datas;
+    const data = this.getData();
+    this.modal.destroy(data); 
+  }
+
+  getData() {
+    const formData = {
+      id: this.employeeInfo.id,
+      isEmployeeOfCompany: this.isEmployeeOfCompany,
+      ...this.form.getRawValue(),
+      roles: [],
+    };
+
+    if (this.isEmployeeOfCompany) {
+      formData.roles = this.getRoleSelected();
+    }
+
+    return formData;
+  }
+
+  private getRoleSelected() {
+    let childrens = [];
+    this.roles.map((item) => {
+      childrens = childrens.concat(item.childrens.filter(p => p.check));
+    });
+    
+    return childrens;
   }
 
   toggleCompany() {
@@ -38,21 +119,25 @@ export class InviteEmployeeComponent implements OnInit {
   }
 
   togglePermission(p) {
-    this.showPermission[p] = !this.showPermission[p];
+    p.expan = !p.expan;
   }
 
   togglePermissionChildren(p) {
-    return this.showPermission[p];
+    return p.expan;
   }
 
-  setCheckboxParentAll() {
-    this.datas = this.datas.map((item) => {
-      return { ...item, check: this.getCheckboxParent(item) };
+  setCheckboxParentAll(parentId: any = null) {
+    this.roles = this.roles.map((item) => {
+      return { 
+        ...item, 
+        expan: item.id === parentId ? true : (item.expan || true),
+        check: this.getCheckboxParent(item)
+       };
     });
   }
 
   setCheckboxParent(id) {
-    this.datas = this.datas.map((item) => {
+    this.roles = this.roles.map((item) => {
       return item.id === id
         ? { ...item, check: this.getCheckboxParent(item) }
         : item;
@@ -65,9 +150,9 @@ export class InviteEmployeeComponent implements OnInit {
     return childrensCount === childrensCheckCount;
   }
 
-  parentCheck(event, id) {
-    this.datas = this.datas.map((item) => {
-      return item.id === id
+  parentCheck(event, data) {
+    this.roles = this.roles.map((item) => {
+      return item.id === data.id
         ? {
             ...item,
             childrens: item.childrens.map((children) => {
@@ -76,12 +161,11 @@ export class InviteEmployeeComponent implements OnInit {
           }
         : item;
     });
-
-    this.setCheckboxParentAll();
+    this.setCheckboxParentAll(data.id);
   }
 
   childrenCheck(event, parentId, childrenId) {
-    this.datas = this.datas.map((item) => {
+    this.roles = this.roles.map((item) => {
       return item.id === parentId
         ? {
             ...item,

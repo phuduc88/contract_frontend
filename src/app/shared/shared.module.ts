@@ -64,6 +64,7 @@ import {
   DialogErrorComponent,
   PdfListThumbnailComponent,
   PdfViewComponent,
+  FormDocumentComponent,
 } from './components';
 
 import {
@@ -141,6 +142,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogErrorComponent,
     PdfListThumbnailComponent,
     PdfViewComponent,
+    FormDocumentComponent,
   ],
   exports: [
     FormsModule,
@@ -179,6 +181,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogErrorComponent,
     PdfListThumbnailComponent,
     PdfViewComponent,
+    FormDocumentComponent,
   ],
   providers: [
     AuthenticationService,

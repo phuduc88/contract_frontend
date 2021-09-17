@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewContainerRef } 
 import { Credential } from '@app/core/models';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { InviteEmployeeComponent } from "../tab-information/invite-employee.component";
-import { EmployeeService } from '@app/core/services';
+import { EmployeeService, RoleService } from '@app/core/services';
 
 @Component({
   selector: 'tab-information',
@@ -16,6 +16,7 @@ export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private modalService: NzModalService,
     private employeeService: EmployeeService,
+    private roleService: RoleService,
     private viewContainerRef: ViewContainerRef) {
   }
 
@@ -30,13 +31,16 @@ export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit
       fullName: null,
       active: true,
       usingHSM: false,
+      roles: [],
     };
-
+    
     this.showDialogEmployee(employeeInfo);
   }
 
   chooseEmployee(employeeInfo) {
-    this.showDialogEmployee(employeeInfo);
+    this.employeeService.getEmployeeById(employeeInfo.id).subscribe((res) => {
+      this.showDialogEmployee(res);
+    });    
   }
 
   showDialogEmployee(employeeInfo) {
