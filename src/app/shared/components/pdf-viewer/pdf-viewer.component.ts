@@ -357,8 +357,8 @@ export class PdfViewComponent implements OnInit, OnDestroy {
             false,
             sign.isinitial,
             sign.signType,
+            sign.signIndex,
             sign.emailAssignment,
-            sign.signIndex
           );
         }
       });
@@ -443,6 +443,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   }
 
   fixScaleSize(objSelect) {
+    console.log(objSelect);
     const canvas = objSelect.canvas;
     const _containerW = canvas.width / this.zoomX;
     const _containerH = canvas.height / this.zoomX;
@@ -495,7 +496,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
       if (notePrev && dragNPPage) {
         const contentBottomPrev = notePrev.height / this.zoomX - SIGNATURE.INTMARGIN - objSelect.height * objSelect.scaleX;
         const leftPrev = objSelect.left * ((notePrev.width / this.zoomX) / containerWidth);
-        console.log(objSelect);
         this.addSign(
           notePrev,
           objSelect._element,

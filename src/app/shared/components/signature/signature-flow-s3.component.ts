@@ -16,6 +16,7 @@ import { Credential } from "@app/core/models";
 import signUtils from "@app/shared/utils/sign";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import orderBy from 'lodash/groupBy';
 
 @Component({
   selector: "signature-flow-s3",
@@ -66,19 +67,20 @@ export class SignatureFlowS3Component
     ];
   }
 
+
   addSignToDoc(sign) {
     if (!this.documentSign.listSign || this.documentSign.listSign.length == 0) {
       this.documentSign.listSign = [];
-      this.documentSign.listSign.push(sign);
+      this.documentSign.listSign.push(sign);      
       return;
     }
-    const currentSign = this.documentSign.listSign.find(
-      (signed) => signed.privateId == sign.privateId
-    );
-    if (!currentSign) {
+
+    const currentSign = this.documentSign.listSign.find((signed) => signed.privateId == sign.privateId);
+    if (currentSign) {
+      currentSign.page = sign.page;
+    } else {
       this.documentSign.listSign.push(sign);
-      return;
-    }
+    }   
   }
 
   removeSign(sign) {

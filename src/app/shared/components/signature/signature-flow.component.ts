@@ -24,6 +24,7 @@ import { eventEmitter } from "@app/shared/utils/event-emitter";
 import signUtils from "@app/shared/utils/sign";
 import { SignatureFlowSaveComponent } from "./signature-save/signature-flow-save.component";
 import { FormDocumentComponent } from "../form-document/form-document.component";
+import orderBy from 'lodash/orderBy';
 @Component({
   selector: "signature-flow",
   templateUrl: "./signature-flow.component.html",
@@ -103,7 +104,7 @@ export class SignatureFlowComponent
     if (currentFileId < 1) {
       return;
     }
-
+    const listSignCopy = [];
     listEmployeeSign.forEach((employee) => {
       if (
         employee.employeesSignDetail &&
@@ -114,11 +115,12 @@ export class SignatureFlowComponent
           sign.name = file.fileName;
           sign.img = this.getImage(sign);
           sign.emailAssignment = employee.email;
-          (sign.privateId = signUtils.createGuid()),
-            this.documentSign.listSign.push(sign);
+          sign.privateId = signUtils.createGuid(),
+          listSignCopy.push(sign);
         });
       }
     });
+    this.documentSign.listSign = orderBy(listSignCopy, 'signIndex', 'asc');
   }
 
   private getImage(sign) {
@@ -271,7 +273,7 @@ export class SignatureFlowComponent
           shape: "round",
           onClick: () => {
             this.isSaveFile = true;
-            this.showPreviewRequestSign();
+            // this.serviceSignPosition();
             modalConfirm.destroy();
             this.modal.destroy();
           },
@@ -391,33 +393,62 @@ export class SignatureFlowComponent
     ];
   }
 
-  showPreviewRequestSign() {
+   
+  saveAndSendEmail() {
+  
+    if (this.documentSign.listSign === null || this.documentSign.listSign.length === 0) {
+      this.modalService.warning({
+        nzTitle: "Bạn buộc phải chỉ định người ký vào ít nhất một tệp tài liệu!",
+      });
+      return;
+    }
+    this.setIndexOfListSign();
     if (this.documentSign.employeesSign) {
       this.documentSign.employeesSign.forEach((employee) => {
         employee.employeesSignDetail = this.getSignByEmailAssignment(
           employee.email
         );
       });
-      // this.serviceSignPosition();
-
-      this.modalService.create({
-        nzClosable: true,
-        nzMaskClosable: false,
-        nzTitle: "Xem lại và gửi",
-        nzStyle: { top: 0 },
-        nzClassName: "signature-flow-save",
-        nzKeyboard: false,
-        nzContent: SignatureFlowSaveComponent,
-        nzOnOk: () => new Promise((resolve) => setTimeout(resolve, 1000)),
-        nzFooter: [],
-        nzComponentParams: {
-          documentSign: this.documentSign,
-        },
-      });
     }
+
+    this.showDialogRequestSign();
   }
 
-  getSignByEmailAssignment(emailAssignment) {
+  private setIndexOfListSign() {
+    const currrentListSign = [...this.documentSign.listSign];
+    const listSignCopy = [];
+    currrentListSign.forEach((item, index) => {
+      item.signIndex = (index + 1);
+      listSignCopy.push(item);
+    });
+    this.documentSign.listSign = listSignCopy;
+  }
+
+  private showDialogRequestSign() {
+    const modal = this.modalService.create({
+      nzClosable: true,
+      nzMaskClosable: false,
+      nzTitle: "Xem lại và gửi",
+      nzStyle: { top: 0 },
+      nzClassName: "signature-flow-save",
+      nzKeyboard: false,
+      nzContent: SignatureFlowSaveComponent,
+      nzOnOk: () => new Promise((resolve) => setTimeout(resolve, 1000)),
+      nzFooter: [],
+      nzComponentParams: {
+        documentSign: this.documentSign,
+      },
+    });
+
+    modal.afterClose.subscribe(result => {
+      if (result) {
+        this.documentSign.documentEmail = result;
+        this.serviceSignPosition();   
+      }
+    });
+  }
+
+  getSignByEmailAssignment(emailAssignment) { 
     return this.documentSign.listSign.filter(
       (sign) => sign.emailAssignment == emailAssignment
     );

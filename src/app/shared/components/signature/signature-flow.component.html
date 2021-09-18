@@ -24,7 +24,6 @@
     </div>
   </div>
   <hr id="hr-top" class="mt-0" style="display: flex !important" *ngIf="!documentSign.currentStep == 1">
-  <!-- tính chiều cao ở đây -->
   <div class="container container-custom p-0" *ngIf="documentSign.currentStep === 0">
     <div class="d-flex bd-highlight" style="margin: 15px 0px;">
       <span class="bd-highlight align-self-center mr-1">Phân loại</span>
@@ -40,7 +39,6 @@
           <span class="fa fa-plus"></span>
         </button>
       </div>
-     
     </div>
 
     <app-signature-upload-file [filesSign]="documentSign.filesSign" [documentId]="documentSign.id"
@@ -102,7 +100,7 @@
     <div class="bd-highlight" *ngIf="documentSign.currentStep === 2 && documentSign.filesSign.length > 0">
       <div class="btn-group">
         <button type="button" class="btn btn-success" *ngIf="!documentSign.myselfSign"
-          (click)="showPreviewRequestSign()">
+          (click)="saveAndSendEmail()">
           Xem và gửi <span class="fa fa-send"></span>
         </button>
         <button type="button" class="btn btn-success" (click)="requestSign()" *ngIf="documentSign.myselfSign">

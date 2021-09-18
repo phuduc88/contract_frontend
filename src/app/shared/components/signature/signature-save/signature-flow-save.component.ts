@@ -26,7 +26,7 @@ export class SignatureFlowSaveComponent implements OnInit {
     this.currentUser = this.authService.currentCredentials;
     this.formDocument = this.formBuilder.group({
       title: ['',[Validators.required] ],
-      message: [''],
+      contents: ['', [Validators.required]],
       enableSendEmailConfrim: [(this.currentUser.systemConfig.timeAutoSendEmail)],
       timeAutoSendEmail: [this.currentUser.systemConfig.timeAutoSendEmail],
       enableTimeDocumentExpire: [(this.currentUser.systemConfig.timeDocumentExpire)],
@@ -36,6 +36,24 @@ export class SignatureFlowSaveComponent implements OnInit {
 
   dismiss(): void {
     this.modal.destroy();
+  }
+
+  save() : void {
+    for (const i in this.formDocument.controls) {
+      this.formDocument.controls[i].markAsDirty();
+      this.formDocument.controls[i].updateValueAndValidity();
+    }
+
+    if (this.formDocument.invalid) {
+      return;
+    }
+
+    this.sendEmail();
+  }
+
+  sendEmail() {
+    const data = this.formDocument.getRawValue();
+    this.modal.destroy(data);
   }
 
   tabs = [
