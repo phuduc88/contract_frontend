@@ -1,15 +1,8 @@
 <div nz-row class="manage-template-documents__drag">
-    <div nz-col nzSpan="24">
-      <h5>Thêm mẫu tài liệu mới</h5>
-      <nz-upload nzType="drag" [nzMultiple]="true" (nzChange)="handleChange($event)">
-        <p class="pb-2">
-          <img src="../../../../../assets/img/file-plus.svg" height="60">
-        </p>
-        <div class="pb-1">
-          <button nz-button nzType="default" class="btn-success">Nhấn vào đây để duyệt</button>
-        </div>
-        <p class="ant-upload-hint">
-          <span class="text-danger"> * </span> Định dạng được hỗ trợ: .docx </p>
-      </nz-upload>
-    </div>
+  <div nz-col nzSpan="24">
+    <h5 class="font-weight-bold">Thêm mẫu tài liệu mới</h5>
+    <app-upload-file-document [accept]="'.docx'"  (onChangeFileSuccess) = "changeFileSuccess($event)"></app-upload-file-document>
+    <div class="pb-2"></div>
+    <app-manage-template-documents-table [datas]="datas"></app-manage-template-documents-table>
   </div>
+</div>

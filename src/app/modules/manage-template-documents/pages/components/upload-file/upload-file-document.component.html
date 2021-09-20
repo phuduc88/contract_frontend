@@ -1,0 +1,16 @@
+<div class="drop" style="background: #FFFFFF; height: 100px;">
+  <div class="cont" style="height: 125px;">
+    <img src="../../../../../assets/img/file-plus.svg">
+    <div class="desc d-none d-sm-block">
+
+    </div>
+    <div class="browse">
+      Nhấn vào đây để duyệt
+    </div>
+    <div class="ng-binding">
+      <span class="text-danger">*</span>
+      Định dạng được hỗ trợ: {{ accept }}
+    </div>
+  </div>
+  <input id="uploadBookmark" type="file" [accept]="accept" autocomplete="off" (change)="handleChange($event)"> 
+</div>
