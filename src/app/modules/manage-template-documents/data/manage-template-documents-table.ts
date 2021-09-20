@@ -80,3 +80,38 @@ export const MANAGE_TEMPLATE_DOCUMENTS_DATA = [
       "Kích thước tệp: 41KB <br /> Tổng số trang: 3 <br /> Tổng số vị trí ký: 2",
   },
 ];
+
+export const MANAGE_TEMPLATE_DOCUMENT_DATA = [
+  {
+    stt: 1,
+    createdDate: "13:34 21/06/2021",
+    createdBy: "Bạn",
+    fileName: "HD Lao dong mau.docx",
+    infomation:
+      "Kích thước tệp: 41KB <br /> Tổng số trang: 3 <br /> Tổng số vị trí ký: 2",
+  },
+];
+
+export const IMPORT_DATA = [
+  {
+    stt: 1,
+    fileName: "B1_HD Mẫu_wqewqe.docx",
+    chinhanh: "Hà Nội",
+    chucvu: "Giám đốc",
+    cmnd: "1234567890",
+    hovaten2: "Nguyễn Văn A",
+    diachi: "Hà Nội",
+    hovaten: "Nguyễn Thị B",
+    ngaycap: new Date(),
+    denngay: new Date(),
+    luong: 2000000,
+    hieuluc: 30,
+    h: "abcd",
+    gioitinh: "Nam",
+    loaihopdong: "Thuê mặt bằng",
+    sohd: "0000001",
+    tungay: new Date(),
+    ngaysinh: new Date(),
+    noicap: "Hà Nội",
+  },
+];

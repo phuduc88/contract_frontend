@@ -1,0 +1,47 @@
+<div class="manage-template-documents__drag loader-excel">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex flex-row bd-highlight align-content-stretch flex-wrap">
+        <div class="bd-highlight pb-2">
+          <button class="btn btn-secondary" autocomplete="off" (click)="goBack()">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            Quay lại (Quản lý Mẫu)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pb-3">
+    <div class="col ng-binding">
+      <i class="fa fa-file-word-o text-primary" aria-hidden="true"></i>&nbsp;Mẫu đang sử dụng <span
+        class="text-danger">B1_HD Mẫu.docx</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex flex-row bd-highlight">
+        <div class="bd-highlight">
+          <h5 class="font-weight-bold">Import danh sách thông tin hợp đồng</h5>
+        </div>
+        <div class="bd-highlight">
+          <button class="btn btn-sm btn-link text-success" style="text-decoration: none;">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            Tải xuống file Excel dữ liệu bookmark mẫu
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col-12">
+      <app-upload-file-document [accept]="'.xlsx'" (onChangeFileSuccess)="changeFileSuccess($event)">
+      </app-upload-file-document>
+      <div class="pb-2"></div>
+      <app-manage-template-documents-table [datas]="datas"></app-manage-template-documents-table>
+    </div>
+  </div>
+</div>

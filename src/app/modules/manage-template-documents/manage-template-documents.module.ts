@@ -22,7 +22,11 @@ import { ManageTemplateDocumentsRoutingModule } from "./manage-template-document
 import {
   ManageTemplateDocumentsComponent,
   ManageTemplateDocumentsDropComponent,
+  ManageTemplateDocumentsDropS2Component,
+  ManageTemplateDocumentsDropS3Component,
+  ManageTemplateDocumentsDropS4Component,
   ManageTemplateDocumentsTableComponent,
+  UploadFileDocumentComponent,
 } from "./pages";
 
 @NgModule({
@@ -49,7 +53,11 @@ import {
   declarations: [
     ManageTemplateDocumentsComponent,
     ManageTemplateDocumentsDropComponent,
+    ManageTemplateDocumentsDropS2Component,
+    ManageTemplateDocumentsDropS3Component,
+    ManageTemplateDocumentsDropS4Component,
     ManageTemplateDocumentsTableComponent,
+    UploadFileDocumentComponent,
   ],
   providers: [AuthenticationService],
   entryComponents: [],

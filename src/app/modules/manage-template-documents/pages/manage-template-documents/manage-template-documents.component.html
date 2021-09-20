@@ -1,6 +1,13 @@
-<div class="d-flex flex-column bd-highlight manage-template-documents">
-  <app-manage-template-documents-drop></app-manage-template-documents-drop>
-  <div class="pb-5"></div>
-  <div class="pb-2"></div>
-  <app-manage-template-documents-table></app-manage-template-documents-table>
+<div class="d-flex flex-column bd-highlight manage-template-documents"
+  [ngStyle]="parentStyle">
+  <app-manage-template-documents-drop *ngIf="currentStep === 1">
+  </app-manage-template-documents-drop>
+  <app-manage-template-documents-drop-s2 *ngIf="currentStep === 2">
+  </app-manage-template-documents-drop-s2>
+  <app-manage-template-documents-drop-s3 *ngIf="currentStep === 3">
+  </app-manage-template-documents-drop-s3>
+  <app-manage-template-documents-drop-s4 *ngIf="currentStep === 4">
+  </app-manage-template-documents-drop-s4>
+  <img id="mainLoading" [ngStyle]="{'display': overloading ? 'inline' : 'none'}"
+    src="../../../../../assets/img/oval.svg">
 </div>

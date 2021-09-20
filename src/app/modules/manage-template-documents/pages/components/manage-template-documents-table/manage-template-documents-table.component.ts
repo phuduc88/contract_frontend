@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { MANAGE_TEMPLATE_DOCUMENTS_DATA } from "@app/modules/manage-template-documents/data/manage-template-documents-table";
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-manage-template-documents-table",
@@ -7,7 +6,6 @@ import { MANAGE_TEMPLATE_DOCUMENTS_DATA } from "@app/modules/manage-template-doc
   styleUrls: ["./manage-template-documents-table.component.less"],
 })
 export class ManageTemplateDocumentsTableComponent implements OnInit {
-  datas = MANAGE_TEMPLATE_DOCUMENTS_DATA;
-  currentPage = 1;
+  @Input() datas;
   ngOnInit() {}
 }
