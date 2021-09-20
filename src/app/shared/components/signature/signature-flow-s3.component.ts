@@ -129,9 +129,13 @@ export class SignatureFlowS3Component
       if (item.privateId == currentSign.privateId) {
         item.coordinateY = currentSign.top;
         item.coordinateX = currentSign.left;
+        item.isSelected = currentSign.isUpdate;
         item.page = currentSign.page;
         item.scale = currentSign.scaleX;
+      } else {
+        item.isSelected = false;
       }
+
     });
     this.documentSign.listSign = listSignCopy;
   }

@@ -20,7 +20,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   private handlers;
   private x = SIGNATURE.X;
   private y = SIGNATURE.Y;
-  private zoomX = 1;
+  private zoomX = 0.7;
   private objectSelect = null;
   private canvasFs = [];
   private height = 0;
@@ -412,7 +412,8 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     fcanvas.on({
       'selection:updated': function (e) {
         that.objectSelect = e.selected[0];
-        that.setSignProperties(that.objectSelect);
+        console.log('OK');
+        that.setSignProperties(that.objectSelect, true);
       }
     });
 
@@ -438,12 +439,12 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  setSignProperties(obj) {
+  setSignProperties(obj, isUpdate:any = false) {
+    obj.isUpdate = isUpdate;
     eventEmitter.emit("sign:set-properties", obj);
   }
 
   fixScaleSize(objSelect) {
-    console.log(objSelect);
     const canvas = objSelect.canvas;
     const _containerW = canvas.width / this.zoomX;
     const _containerH = canvas.height / this.zoomX;
@@ -460,6 +461,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     } else if (objSelect.scaleX > SIGNATURE.MAXSCALE) {
       objSelect.scaleY = objSelect.scaleX = SIGNATURE.MAXSCALE;
     }
+
     objSelect.isUpdate = true;
     this.setSignProperties(objSelect)
   }

@@ -35,7 +35,7 @@
                 <span class="text-left">THỨ TỰ KÝ</span>
               </span>
               <ol class="noselect" id="listSignViewer" cdkDropList (cdkDropListDropped)="drop($event)">
-                <li cdkDrag class="m-2 p-1 text-left border border-primary sign-item rounded"
+                <li cdkDrag [ngClass]="sign.isSelected === true ? 'm-2 p-1 selected_item text-left border border-primary sign-item rounded' : 'm-2 p-1 text-left border border-primary sign-item rounded'"  
                   style="cursor: move; font-size: 12px" *ngFor="let sign of documentSign.listSign; let page = index"
                   (click)="signSelected(sign)">
                   <strong>{{sign.name}}</strong>
