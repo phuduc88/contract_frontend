@@ -17,7 +17,7 @@
   <div class="row pb-3">
     <div class="col ng-binding">
       <i class="fa fa-file-word-o text-primary" aria-hidden="true"></i>&nbsp;Mẫu đang sử dụng <span
-        class="text-danger">B1_HD Mẫu.docx</span>
+        class="text-danger">{{documentTemplate.originFileName}}</span>
     </div>
   </div>
 
@@ -49,29 +49,28 @@
       </div>
     </div>
 
-    <div class="form-group mb-2 mt-2 border-top p-2">
-      <div class="form-row m-0">
-        <p class="col-10 pb-0 mb-0">1 - B1_HD Mẫu_wqewqe.docx</p>
-      </div>
-      <div class="form-row">
-        <div class="col align-self-center">
-          <div class="progress progress-bar w-100">
-          </div>
+      <div class="form-group mb-2 mt-2 border-top p-2" *ngFor="let data of documentTemplate.documentData;index as i" >
+        <div class="form-row m-0">
+          <p class="col-10 pb-0 mb-0">{{data.recordUpLoad}} - {{data.originFileName}}</p>
         </div>
-        <div class="">
-          <button class="btn btn-sm btn-success f-right">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-            &nbsp;Xem nhanh
-          </button>
+        <div class="form-row">
+            <div class="col align-self-center">
+              <div class="progress progress-bar w-100"></div>
+            </div>
+            <div class="">
+                <button  (click)="quickView(data)" class="btn btn-sm btn-success f-right">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                  &nbsp;Xem nhanh
+                </button>
+            </div>
         </div>
-      </div>
       <div>
 
-        <span style="color: #949191; font-size: 12px;">
-          <img src="../../../../../../assets/img/check.png" width="16">
-          Hoàn thành
-        </span>
-      </div>
+      <span style="color: #949191; font-size: 12px;">
+        <img src="../../../../../../assets/img/check.png" width="16">
+        Hoàn thành
+      </span>
+    </div>
     </div>
   </div>
 </div>

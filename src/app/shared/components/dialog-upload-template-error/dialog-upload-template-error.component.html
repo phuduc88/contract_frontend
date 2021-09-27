@@ -1,0 +1,11 @@
+<div id="signatureControl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="block_email" *ngFor="let item of errors;">
+              <p><strong>{{('common.error.code.' + item.errorCode)|translate}}</strong> {{item.message}}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@
   <div class="row pb-3">
     <div class="col ng-binding">
       <i class="fa fa-file-word-o text-primary" aria-hidden="true"></i>&nbsp;Mẫu đang sử dụng <span
-        class="text-danger">B1_HD Mẫu.docx</span>
+        class="text-danger">{{documentTemplate.originFileName}}</span>
     </div>
   </div>
 
@@ -26,7 +26,7 @@
           <h5 class="font-weight-bold">Import danh sách thông tin hợp đồng</h5>
         </div>
         <div class="bd-highlight">
-          <button class="btn btn-sm btn-link text-success" style="text-decoration: none;">
+          <button class="btn btn-sm btn-link text-success" (click)="downloadFileTemplateBookmark(documentTemplate)" style="text-decoration: none;">
             <i class="fa fa-download" aria-hidden="true"></i>
             Tải xuống file Excel dữ liệu bookmark mẫu
           </button>
@@ -41,7 +41,12 @@
       <app-upload-file-document [accept]="'.xlsx'" (onChangeFileSuccess)="changeFileSuccess($event)">
       </app-upload-file-document>
       <div class="pb-2"></div>
-      <app-manage-template-documents-table [datas]="datas"></app-manage-template-documents-table>
+      <app-manage-documents-table  *ngIf="documentTemplate.documentData.length > 0"
+      [documentData]="documentTemplate.documentData"
+      (onDeleteBookmark)="handleDeleteBookmark($event)"
+      (onDownloadTemplateBookmark)="handleDownloadTemplateBookmark($event)"
+      (onQuickView)="handleQuickView($event)"
+      ></app-manage-documents-table>
     </div>
   </div>
 </div>

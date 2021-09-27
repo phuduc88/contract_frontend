@@ -1,8 +1,15 @@
 <div nz-row class="manage-template-documents__drag">
   <div nz-col nzSpan="24">
     <h5 class="font-weight-bold">Thêm mẫu tài liệu mới</h5>
-    <app-upload-file-document [accept]="'.docx'"  (onChangeFileSuccess) = "changeFileSuccess($event)"></app-upload-file-document>
+    <app-upload-file-document [accept]="'.docx'" (onChangeFileSuccess) = "changeFileSuccess($event)"></app-upload-file-document>
     <div class="pb-2"></div>
-    <app-manage-template-documents-table [datas]="datas"></app-manage-template-documents-table>
+    <app-manage-template-documents-table
+     [documents]="documents"
+     (onPageChange) = "handlePageChange($event)"
+     (onDelete) = "handleDelete($event)"
+     (onDownloadTemplate) = "handleDownloadTemplate($event)"
+     (onDownloadBookmark) = "handleDownloadBookmark($event)"
+     (onViewDetail) = "handleViewDetail($event)"
+     ></app-manage-template-documents-table>
   </div>
 </div>

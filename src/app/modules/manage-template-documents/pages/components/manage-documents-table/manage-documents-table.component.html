@@ -1,6 +1,6 @@
 <div nz-row class="manage-template-documents-table">
   <div nz-col nzSpan="24">
-    <h5>Danh sách mẫu tài liệu</h5>
+    <h5>Danh sách tệp tin</h5>
     <div class="manage-template-documents-table__container">
       <div class="manage-template-documents-table__header">
         <div nz-row>
@@ -29,18 +29,16 @@
           <thead>
             <tr>
               <th style="width: 50px;">STT</th>
-              <th style="width: 150px;">Thời gian khởi tạo</th>
-              <th style="width: 130px;">Người khởi tạo</th>
+              <th style="width: 150px;">Thời gian khởi tạo</th>               
               <th>Tệp tin</th>
               <th style="width: 160px;">Thông tin thêm</th>
-              <th style="width: 250px;">Hành động</th>
+              <th style="width: 280px;">Hành động</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of documents;index as i ">
+            <tr *ngFor="let data of documentData;index as i ">
               <td class="text-center">{{i + 1}}</td>
               <td class="text-center">{{ data.dateCreate }}</td>
-              <td class="text-center">Bạn</td>
               <td>
                 <strong class="text-primary">
                   {{ data.originFileName }}
@@ -50,9 +48,9 @@
                 <div [innerHtml]="data.infomation"></div>
               </td>
               <td>
-                <button nz-button nzType="link" (click)="viewDetail(data)" class="text-success">
-                  <i class="fa fa-files-o pr-1" aria-hidden="true"></i>
-                  Tệp tin đã tạo
+                <button nz-button nzType="link" (click)="quickView(data)" class="text-success">
+                  <i class="fa fa-eye pr-1" aria-hidden="true"></i>
+                  Xem nhanh tệp pdf đã tạo
                 </button>
 
                 <div class="btn-group">
@@ -61,10 +59,9 @@
                     <i class="fa fa-ellipsis-v" style="font-size: 22px;color: #2CA01C;" aria-hidden="true"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item">Xem tài liệu liên quan</a>
-                    <a class="dropdown-item" (click)="delete(data, i)">Xóa</a>
-                    <a class="dropdown-item" (click)="downloadTemplate(data)">Tải xuống Mẫu</a>
-                    <a class="dropdown-item" (click)="downloadBookmark(data)">Tải xuống file Excel dữ liệu bookmark mẫu</a>
+                    <a class="dropdown-item">Xem chi tiết bookmarks</a>
+                    <a class="dropdown-item" (click)="deleteBookmark(data, i)">Xóa</a>
+                    <a class="dropdown-item" (click)="downloadTemplateBookmark(data)">Tải xuống Mẫu</a>
                   </div>
                 </div>
               </td>

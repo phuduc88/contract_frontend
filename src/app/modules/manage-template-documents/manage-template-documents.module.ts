@@ -26,6 +26,7 @@ import {
   ManageTemplateDocumentsDropS3Component,
   ManageTemplateDocumentsDropS4Component,
   ManageTemplateDocumentsTableComponent,
+  ManageDocumentsTableComponent,
   UploadFileDocumentComponent,
 } from "./pages";
 
@@ -57,6 +58,7 @@ import {
     ManageTemplateDocumentsDropS3Component,
     ManageTemplateDocumentsDropS4Component,
     ManageTemplateDocumentsTableComponent,
+    ManageDocumentsTableComponent,
     UploadFileDocumentComponent,
   ],
   providers: [AuthenticationService],

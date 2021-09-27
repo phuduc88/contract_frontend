@@ -50,7 +50,10 @@
 		"emailType": {
 			"customerAccount": "Tài khoản khách hàng",
 			"sellerAccount": "Tài khoản đại lý"
-		}
+		},
+		
+		"error.code.8": "Lỗi không xác định"
+		
 	},
 	"auth": {
 		"login": {

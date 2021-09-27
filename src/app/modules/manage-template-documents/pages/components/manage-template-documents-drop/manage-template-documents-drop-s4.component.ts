@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { IMPORT_DATA } from "@app/modules/manage-template-documents/data/manage-template-documents-table";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
 
 @Component({
@@ -8,15 +7,19 @@ import { eventEmitter } from "@app/shared/utils/event-emitter";
   styleUrls: ["./manage-template-documents-drop-s4.component.less"],
 })
 export class ManageTemplateDocumentsDropS4Component implements OnInit {
-  datas = IMPORT_DATA;
+  @Input() documentTemplate: any;
+  @Output() onGoBack: EventEmitter<any> = new EventEmitter();
   currentPage = 1;
   ngOnInit() {}
 
 
   goBack(){
-    eventEmitter.emit("template-document:prevStep", {
-      file: null,
+    this.onGoBack.emit( {
       goStep: 2,
     });
+  }
+
+  quickView(data) {
+    console.log(data);
   }
 }

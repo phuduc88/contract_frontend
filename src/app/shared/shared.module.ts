@@ -48,9 +48,6 @@ import {
   EmailFormComponent,
   ContractComponent,
   FileAttachmentComponent,
-  DeclarationResultComponent,
-  DeclarationResultOfCompanyComponent,
-  DeclarationResultDetailComponent,
   UploadFormComponent,
   TableInportErrorsComponent,
   SignaturePadComponent,
@@ -65,6 +62,7 @@ import {
   PdfListThumbnailComponent,
   PdfViewComponent,
   FormDocumentComponent,
+  DialogUploadTemplateErrorComponent,
 } from './components';
 
 import {
@@ -127,10 +125,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     AcountFormComponent,
     EmailFormComponent,
     ContractComponent,
-    FileAttachmentComponent,
-    DeclarationResultComponent,
-    DeclarationResultOfCompanyComponent,
-    DeclarationResultDetailComponent,
+    FileAttachmentComponent,     
     UploadFormComponent,
     TableInportErrorsComponent,
     SignaturePadComponent,
@@ -145,6 +140,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PdfListThumbnailComponent,
     PdfViewComponent,
     FormDocumentComponent,
+    DialogUploadTemplateErrorComponent,
   ],
   exports: [
     FormsModule,
@@ -167,10 +163,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     ManageUnitFormComponent,
     DepartmentComponent,
     ContractComponent,
-    FileAttachmentComponent,
-    DeclarationResultComponent,
-    DeclarationResultOfCompanyComponent,
-    DeclarationResultDetailComponent,
+    FileAttachmentComponent,     
     UploadFormComponent,
     TableInportErrorsComponent,
     SignaturePadComponent,
@@ -185,6 +178,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PdfListThumbnailComponent,
     PdfViewComponent,
     FormDocumentComponent,
+    DialogUploadTemplateErrorComponent,
   ],
   providers: [
     AuthenticationService,
@@ -198,10 +192,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     AcountFormComponent,
     EmailFormComponent,
     ContractComponent,
-    FileAttachmentComponent,
-    DeclarationResultComponent,
-    DeclarationResultOfCompanyComponent,
-    DeclarationResultDetailComponent,
+    FileAttachmentComponent,     
     UploadFormComponent,
     TableInportErrorsComponent,
     SignaturePadComponent,
@@ -213,6 +204,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     SignatureUploadFileComponent,
     FormEployeeSingComponent,
     DialogErrorComponent,
+    DialogUploadTemplateErrorComponent,
   ]
 })
 export class SharedModule { }

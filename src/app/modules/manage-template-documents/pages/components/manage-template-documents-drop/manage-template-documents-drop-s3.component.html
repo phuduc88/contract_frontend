@@ -17,7 +17,7 @@
   <div class="row pb-3">
     <div class="col ng-binding">
       <i class="fa fa-file-word-o text-primary" aria-hidden="true"></i>&nbsp;Mẫu đang sử dụng <span
-        class="text-danger">B1_HD Mẫu.docx</span>
+        class="text-danger">{{documentTemplate.originFileName}}</span>
     </div>
   </div>
 
@@ -64,111 +64,28 @@
                 <table class="table table-bordered table-vertical-center table-fixed">
                   <thead>
                     <tr>
-                      <th rowspan="2" style="width: 5%; vertical-align : middle">STT</th>
-                      <th rowspan="2" style="width: 15%; vertical-align : middle">Tên tài liệu</th>
-                      <th colspan="17" style="width: 65%">Dữ liệu bookmark</th>
-                      <th rowspan="2" style="width: 15%; vertical-align : middle">Hành động</th>
+                      <th rowspan="2" style="width: 1%; vertical-align : middle">STT</th>
+                      <th rowspan="2" style="width: 12%; vertical-align : middle">Tên tài liệu</th>
+                      <th [attr.colspan] = "numberHeader" style="width: 75%">Dữ liệu bookmark</th>
+                      <th rowspan="2" style="width: 12%; vertical-align : middle">Hành động</th>
                     </tr>
                     <tr>
-                      <th class="text-center">Chinhanh</th>
-                      <th class="text-center">Chucvu</th>
-                      <th class="text-center">CMND</th>
-                      <th class="text-center">Hovaten2</th>
-                      <th class="text-center">Diachi</th>
-                      <th class="text-center">Hovaten</th>
-                      <th class="text-center">Ngaycap</th>
-                      <th class="text-center">Denngay</th>
-                      <th class="text-center">Luong</th>
-                      <th class="text-center">Hieuluc</th>
-                      <th class="text-center">H</th>
-                      <th class="text-center">Gioitinh</th>
-                      <th class="text-center">Loaihopdong</th>
-                      <th class="text-center">SoHD</th>
-                      <th class="text-center">Tungay</th>
-                      <th class="text-center">Ngaysinh</th>
-                      <th class="text-center">Noicap</th>
+                      <th class="text-center" *ngFor="let header of headerColumn">{{header.colunmName}}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let data of datas">
+                    <tr *ngFor="let data of documentTemplate.dataBookmarks;index as i">
                       <td class="text-center">
-                        <input type="text" [(ngModel)]="data.stt" />
+                        <input type="text" [(ngModel)]="data.recordUpLoad" />
                       </td>
-
                       <td class="text-center">
-                        <input type="text" class="mw-300" [(ngModel)]="data.fileName" />
+                        <input type="text" class="mw-300" [(ngModel)]="data.originFileName" />
                       </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.chinhanh" />
+                      <td class="text-center" *ngFor="let column of headerColumn">
+                        <input type="text" class="mw-150" [(ngModel)]="data[column.colunmName]"  />
                       </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.chucvu" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.cmnd" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.hovaten2" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.diachi" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.hovaten" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.ngaycap" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.denngay" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.luong" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.hieuluc" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.h" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.gioitinh" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.loaihopdong" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.sohd" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.tungay" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.ngaysinh" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="text" class="mw-150" [(ngModel)]="data.noicap" />
-                      </td>
-
                       <td>
-                        <button type="button" class="btn btn-link btn-sm ng-binding" style="color: black"
+                        <button type="button" (click)="delete(data,i)" class="btn btn-link btn-sm ng-binding" style="color: black"
                           autocomplete="off">
                           <i class="fa fa-remove" style="margin-top: 3px; color: black;"></i>&nbsp;Xóa
                         </button>

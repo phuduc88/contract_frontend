@@ -15,6 +15,8 @@ import {
   SignFlowService,
   ThreadGroupService,
   ThreadedSignTemplateService,
+  DocumentTemplateService,
+  DocumentTemplateDataService,
 } from './services';
 
 @NgModule({
@@ -35,6 +37,8 @@ import {
     SignFlowService,
     ThreadGroupService,
     ThreadedSignTemplateService,
+    DocumentTemplateService,
+    DocumentTemplateDataService,
   ],
   declarations: []
 })

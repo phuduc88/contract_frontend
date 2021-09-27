@@ -1,17 +1,16 @@
 import { Component, Input, OnInit, EventEmitter, Output, OnChanges } from "@angular/core";
 
 @Component({
-  selector: "app-manage-template-documents-table",
-  templateUrl: "./manage-template-documents-table.component.html",
-  styleUrls: ["./manage-template-documents-table.component.less"],
+  selector: "app-manage-documents-table",
+  templateUrl: "./manage-documents-table.component.html",
+  styleUrls: ["./manage-documents-table.component.less"],
 })
-export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges {
-  @Input() documents;
+export class ManageDocumentsTableComponent implements OnInit, OnChanges {
+  @Input() documentData;
   @Output() onPageChange: EventEmitter<any> = new EventEmitter();
-  @Output() onDelete: EventEmitter<any> = new EventEmitter();
-  @Output() onDownloadTemplate: EventEmitter<any> = new EventEmitter();
-  @Output() onDownloadBookmark: EventEmitter<any> = new EventEmitter();
-  @Output() onViewDetail: EventEmitter<any> = new EventEmitter();
+  @Output() onDeleteBookmark: EventEmitter<any> = new EventEmitter();
+  @Output() onDownloadTemplateBookmark: EventEmitter<any> = new EventEmitter();
+  @Output() onQuickView: EventEmitter<any> = new EventEmitter();
   total = 0;
   selectedPage = 1
   take = 1;
@@ -22,7 +21,7 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
   }
 
   ngOnChanges(changes) { 
-    if (changes.documents && changes.documents.currentValue) {
+    if (changes.documentData && changes.documentData.currentValue) {
       this.caculatorPage();
     }
   }
@@ -54,11 +53,11 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
   }
 
   private caculatorPage() {
-    if (!this.documents) {
+    if (!this.documentData) {
       return 1;
     }
-    this.total = (this.documents.total || 0) * 1;
-    this.take = (this.documents.take || 0) * 1;
+    this.total = (this.documentData.total || 0) * 1;
+    this.take = (this.documentData.take || 0) * 1;
     let numberPaging = (this.total / this.take);
     numberPaging = parseInt(numberPaging.toString());
     const surplus = this.total % this.take;
@@ -78,27 +77,22 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
     });
   }
 
-  delete(data, index) {
-    this.onDelete.emit({
+  deleteBookmark(data, index) {
+    this.documentData.splice(index, 1);
+    this.onDeleteBookmark.emit({
       data,
       index
     });
   }
 
-  downloadTemplate(data) {
-    this.onDownloadTemplate.emit({
+  downloadTemplateBookmark(data) {
+    this.onDownloadTemplateBookmark.emit({
       data
     });
   }
 
-  downloadBookmark(data) {
-    this.onDownloadBookmark.emit({
-      data
-    });
-  }
-
-  viewDetail(data) {
-    this.onViewDetail.emit({
+  quickView(data) {
+    this.onQuickView.emit({
       data
     })
   }

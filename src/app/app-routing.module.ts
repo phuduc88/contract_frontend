@@ -65,11 +65,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'research-connection',
-    loadChildren: './modules/system/research-connection/research-connection.module#ResearchConnectionModule',
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'search',
     loadChildren: './modules/system/search/search.module#SearchModule',
     canActivate: [AuthGuard],

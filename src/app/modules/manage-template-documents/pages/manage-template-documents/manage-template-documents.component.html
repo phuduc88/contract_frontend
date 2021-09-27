@@ -1,12 +1,36 @@
 <div class="d-flex flex-column bd-highlight manage-template-documents"
   [ngStyle]="parentStyle">
-  <app-manage-template-documents-drop *ngIf="currentStep === 1">
+  <app-manage-template-documents-drop 
+    [documents] = "documents"
+    (resizeEventPageChange) = "handlePageChange($event)"
+    (resizeEventDelete) = "handleDelelete($event)"
+    (resizeEventDownloadTemplate) = "handleDownloadTemplate($event)"
+    (resizeEventDownloadBookmark) = "handleDownloadBookmark($event)"
+    (resizeChangeFileTemplate) = "handleChangeFileTemplate($event)"
+    (onGoBack) = "handleGoBack($event)"
+    (resizeViewDetail) = "handleViewDetail($event)"
+    *ngIf="currentStep === 1">
   </app-manage-template-documents-drop>
-  <app-manage-template-documents-drop-s2 *ngIf="currentStep === 2">
+  <app-manage-template-documents-drop-s2 
+    [documentTemplate]="documentTemplate" 
+    (onGoBack) = "handleGoBack($event)"
+    (onDowloadFileBookmark)="handleDownloadFileTemplateBookmark($event)"
+    (onUploadFileBookmark) = "handleUploadFileBookmark($event)"
+    (resizeDeleteBookmark)="handleDeleteBookmark($event)"
+    (resizeDownloadTemplateBookmark) = "handleDownloadTemplateBookmark($event)"
+    (resizeQuickView) = "handleQuickView($event)"
+    *ngIf="currentStep === 2">
   </app-manage-template-documents-drop-s2>
-  <app-manage-template-documents-drop-s3 *ngIf="currentStep === 3">
+  <app-manage-template-documents-drop-s3 
+    (onGoBack) = "handleGoBack($event)"
+    [documentTemplate]="documentTemplate"
+    (onSaveChangeFileUpload) = "handleSaveChangeDataUpload($event)"
+    *ngIf="currentStep === 3">
   </app-manage-template-documents-drop-s3>
-  <app-manage-template-documents-drop-s4 *ngIf="currentStep === 4">
+  <app-manage-template-documents-drop-s4 
+   [documentTemplate]="documentTemplate"
+   (onGoBack) = "handleGoBack($event)"
+   *ngIf="currentStep === 4">
   </app-manage-template-documents-drop-s4>
   <img id="mainLoading" [ngStyle]="{'display': overloading ? 'inline' : 'none'}"
     src="../../../../../assets/img/oval.svg">
