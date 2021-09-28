@@ -1,0 +1,36 @@
+<form nz-form nzLayout="vertical" [formGroup]="checkPointForm" (ngSubmit)="handleSubmit()" class="login-page">
+  <!-- <h1>{{ 'auth.login.title' | translate }}</h1> -->
+
+  <div class="img_logo">
+    <img style="text-align: center;" src="../../../../../assets/img/logo_login.png" alt="me-Contract">
+  </div>
+  <div class="check-point-form text-center">
+    Tài khoản của bạn cần xác thực
+  </div>
+
+  <p class="text-center" style="font-size: 0.9rem;">
+    Chúng tôi đã gửi cho bạn một Mã xác thực (OTP) tới địa chỉ email của bạn vui lòng nhập để đăng nhập.
+  </p>
+
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="otpTpl">
+      <input nz-input formControlName="otp" class="input-me w-100" placeholder="Nhập mã xác thực">
+      <ng-template #otpTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Mã xác thực không được trống
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <hr />
+
+  <div class="form-group">
+    <button class="btn-check-point w-100" nz-button nzType="primary" type="submit">
+        <span>Hoàn tất</span>
+    </button>
+  </div>
+
+
+
+</form>

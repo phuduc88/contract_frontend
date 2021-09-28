@@ -1,0 +1,33 @@
+<div nz-row class="manage-template-documents-table manage-bookmarks">
+  <div class="manage-bookmarks-container w-100">
+    <div class="mt-2 mb-2">
+      <label class="text-danger">Tệp tài liệu</label>:
+      <span>HD CON CUNG_21321.docx</span>
+    </div>
+    <div class="manage-bookmarks-table">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th>Dữ liệu bookmark </th>
+            <th>Dữ liệu của bạn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let key of keys()">
+            <td class="text-center">{{ key }}</td>
+            <td class="text-center">
+              <input class="mw-300 input-custom" type="text" [(ngModel)]="bookmark[key]" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="manage-bookmarks-footer">
+    <div class="d-flex bd-highlight justify-content-end">
+      <button type="button" class="btn btn-secondary mr-1" (click)="closeModal()">
+        <span class="fa fa-times"></span> Đóng
+      </button>
+    </div>
+  </div>
+</div>

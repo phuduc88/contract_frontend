@@ -25,8 +25,10 @@ import {
   ManageTemplateDocumentsDropS2Component,
   ManageTemplateDocumentsDropS3Component,
   ManageTemplateDocumentsDropS4Component,
+  MultipleReceivesComponent,
   ManageTemplateDocumentsTableComponent,
   ManageDocumentsTableComponent,
+  ManageBookmarksTableComponent,
   UploadFileDocumentComponent,
 } from "./pages";
 
@@ -57,8 +59,10 @@ import {
     ManageTemplateDocumentsDropS2Component,
     ManageTemplateDocumentsDropS3Component,
     ManageTemplateDocumentsDropS4Component,
+    MultipleReceivesComponent,
     ManageTemplateDocumentsTableComponent,
     ManageDocumentsTableComponent,
+    ManageBookmarksTableComponent,
     UploadFileDocumentComponent,
   ],
   providers: [AuthenticationService],

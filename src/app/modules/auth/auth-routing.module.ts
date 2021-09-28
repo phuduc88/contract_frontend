@@ -8,7 +8,8 @@ import {
   RequestResetSuccessComponent,
   ResetPasswordComponent,
   ResetSuccessComponent,
-  ChangePasswordComponent
+  ChangePasswordComponent,
+  CheckPointComponent
 } from './pages';
 
 const routes: Routes = [
@@ -21,8 +22,8 @@ const routes: Routes = [
       { path: 'forgot-success', component: RequestResetSuccessComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
       { path: 'reset-success', component: ResetSuccessComponent },
-      { path: 'new-password/:token',  component: ChangePasswordComponent }
-      
+      { path: 'new-password/:token',  component: ChangePasswordComponent },
+      { path: 'check-point',  component: CheckPointComponent },
     ]
   }
 ];

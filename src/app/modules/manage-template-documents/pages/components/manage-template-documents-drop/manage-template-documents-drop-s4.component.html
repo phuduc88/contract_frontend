@@ -15,7 +15,7 @@
   </div>
 
   <div class="row pb-3">
-    <div class="col ng-binding">
+    <div class="col">
       <i class="fa fa-file-word-o text-primary" aria-hidden="true"></i>&nbsp;Mẫu đang sử dụng <span
         class="text-danger">{{documentTemplate.originFileName}}</span>
     </div>
@@ -41,7 +41,7 @@
           </span>
         </div>
         <div class="p-2">
-          <button class="btn btn-sm btn-success ng-binding">
+          <button class="btn btn-sm btn-success" (click)="importMultipleReceives()">
             <i class="fa fa-users" aria-hidden="true"></i>
             Tạo hàng loạt người nhận
           </button>

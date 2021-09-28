@@ -12,10 +12,15 @@ export class ManageTemplateDocumentsDropS4Component implements OnInit {
   currentPage = 1;
   ngOnInit() {}
 
-
-  goBack(){
-    this.onGoBack.emit( {
+  goBack() {
+    this.onGoBack.emit({
       goStep: 2,
+    });
+  }
+
+  importMultipleReceives() {
+    this.onGoBack.emit({
+      goStep: 5,
     });
   }
 
