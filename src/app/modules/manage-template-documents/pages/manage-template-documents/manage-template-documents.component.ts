@@ -97,6 +97,19 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
+  handleUploadReceiverFile(data) {
+    this.documentTemplateService.uploadReceiverData(this.documentTemplate.id, data.file.target.files).subscribe((res) => {
+      this.error = res.error;
+      if (this.error.length > 0) {
+        this.showDialogError(this.error);
+      } else {
+        console.log(res);
+      }
+      this.overloading = false;
+      this.parentStyle = {};
+    });
+  }
+
   handleSaveChangeDataUpload(data) {
     this.overloading = true;
     this.parentStyle = {
@@ -108,8 +121,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
       if (this.error.length > 0) {
         this.showDialogError(this.error);
       } else {
-        this.currentStep = data.goStep;
-        console.log(res.result);
+        this.currentStep = data.goStep;         
         this.documentTemplate = res.result;
       }
       this.overloading = false;

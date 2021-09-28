@@ -79,6 +79,7 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
   }
 
   delete(data, index) {
+    this.documents.splice(index, 1);
     this.onDelete.emit({
       data,
       index
