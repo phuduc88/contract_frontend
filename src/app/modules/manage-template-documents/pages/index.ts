@@ -3,6 +3,8 @@ export * from "./components/manage-template-documents-drop/manage-template-docum
 export * from "./components/manage-template-documents-drop/manage-template-documents-drop-s2.component";
 export * from "./components/manage-template-documents-drop/manage-template-documents-drop-s3.component";
 export * from "./components/manage-template-documents-drop/manage-template-documents-drop-s4.component";
+export * from "./components/manage-template-documents-drop/multiple-receives.component";
 export * from "./components/manage-template-documents-table/manage-template-documents-table.component";
 export * from "./components/manage-documents-table/manage-documents-table.component";
+export * from "./components/manage-documents-table/manage-bookmarks-table.component";
 export * from "./components/upload-file/upload-file-document.component";

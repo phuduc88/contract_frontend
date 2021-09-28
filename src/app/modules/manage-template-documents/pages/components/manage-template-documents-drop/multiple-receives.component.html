@@ -1,0 +1,66 @@
+<div class="manage-template-documents__drag">
+  <div class="d-flex flex-row bd-highlight">
+    <div class="bd-highlight">
+      <button class="btn btn-secondary" autocomplete="off" (click)="goBack()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Quay lại quản lý danh sách tệp tin
+      </button>
+    </div>
+    <div class="p-1 pr-0 bd-highlight">
+      <h5>
+        Import dữ liệu người nhận
+      </h5>
+    </div>
+    <div>
+      <button class="btn btn-link text-success" style="text-decoration: none;" autocomplete="off">
+        (<i class="fa fa-download" aria-hidden="true"></i>
+        Tải xuống file mẫu: Người nhận)
+      </button>
+    </div>
+  </div>
+
+
+  <div class="row mt-1">
+    <div class="col-12">
+      <app-upload-file-document [accept]="'.xlsx, .xls'" (onChangeFileSuccess)="changeFileSuccess($event)">
+      </app-upload-file-document>
+      <div class="pb-2"></div>
+    </div>
+  </div>
+
+  <div class="row pb-2">
+    <div class="col-12">
+        <h6 class="text-warning font-weight-bold ">*QUAN TRỌNG: Các dữ liệu không đúng theo mẫu có thể bị bỏ qua. Vui lòng kiểm tra lại trước khi gửi</h6>
+        <p>
+            *Cột <span class="text-danger font-weight-bold">OnSign_ID</span>: <br>
+            - Nếu tạo đơn lẻ thì có thể để trống. Nếu có, hệ thống bỏ qua trường dữ liệu này<br>
+            - Nếu tạo theo lô, lưu ý cần đúng chính xác với OnSign_ID ở file Bookmark data (dữ liệu của 2 file sẽ được liên kết qua cột này)
+            - OnSign_ID có thể bằng số (1, 2, 3, 4...) hoặc bằng chữ (A_NV, B_NT...), dữ liệu này sẽ kết hợp với tên của file mẫu (docx) để tạo ra tên file tương ứng
+            - Để tránh lỗi phát sinh, chỉ nhập các ký tự đặc biệt: _, -
+        </p>
+        <p>
+            *Cột <span class="text-danger font-weight-bold ">Tiêu đề Email</span> (Subject) &amp; <span class="text-danger ">Tin nhắn đến mọi người</span> (Body):<br>
+            - Hệ thống sẽ lấy dữ liệu dòng đầu tiên của nhóm theo OnSign_ID<br>
+            - Nếu người dùng không nhập, hệ thống sẽ lấy mặc định tên của tệp tin
+        </p>
+        <p>
+            *Cột <span class="text-danger font-weight-bold ">Thứ tự ký</span>: <br>
+            - Nếu người tham gia ký kết có nhiều hơn 1 vị trí ký cần khai báo thứ tự ký (bằng số) được ngăn cách nhau bởi dấu phẩy (,)<br>
+            - Ví dụ: 1,3,4
+            - Nếu để rỗng sẽ mặc định là Người nhận bản sao (CC), hệ thống sẽ chỉ sử dụng thông tin: Tên người nhận, Email người nhận và OnSign_ID (nếu có)
+        </p>
+        <p>
+            *<span class="text-danger font-weight-bold ">Cột dữ liệu không được rỗng</span>:<br>
+            - Tên người nhận, Email người nhận, Thứ tự ký, Doanh nghiệp.<br>
+            - Hệ thống sẽ tự động viết in hoa Tên người nhận, in thường địa chỉ Email
+        </p>
+        <p>
+            *Cột dữ liệu <span class="text-danger font-weight-bold ">Doanh nghiệp</span>:<br>
+            - Cột này nếu Doanh nghiệp = 1, Cá nhân = 0<br>
+            - Nếu là công ty dữ liệu bắt buộc: Mã số thuế<br>
+            - Nếu là cá nhân dữ liệu bắt buộc: Địa chỉ, Số CMND/Thẻ căn cước, Số điện thoại.
+        </p>
+    </div>
+</div>
+
+</div>

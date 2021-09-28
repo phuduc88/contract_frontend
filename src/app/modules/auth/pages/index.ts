@@ -4,3 +4,5 @@ export * from './request-reset-success/request-reset-success.component';
 export * from './reset-password/reset-password.component';
 export * from './reset-success/reset-success.component';
 export * from './change-password/change-password.component';
+export * from './check-point/check-point.component';
+

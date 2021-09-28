@@ -1,4 +1,13 @@
-import { Component, Input, OnInit, EventEmitter, Output, OnChanges } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnInit,
+  EventEmitter,
+  Output,
+  OnChanges,
+} from "@angular/core";
+import { NzModalService } from "ng-zorro-antd/modal";
+import { ManageBookmarksTableComponent } from "./manage-bookmarks-table.component";
 
 @Component({
   selector: "app-manage-documents-table",
@@ -12,15 +21,16 @@ export class ManageDocumentsTableComponent implements OnInit, OnChanges {
   @Output() onDownloadTemplateBookmark: EventEmitter<any> = new EventEmitter();
   @Output() onQuickView: EventEmitter<any> = new EventEmitter();
   total = 0;
-  selectedPage = 1
+  selectedPage = 1;
   take = 1;
   numberPages = 1;
   skip = 1;
 
-  ngOnInit() {
-  }
+  constructor(private modalService: NzModalService) {}
 
-  ngOnChanges(changes) { 
+  ngOnInit() {}
+
+  ngOnChanges(changes) {
     if (changes.documentData && changes.documentData.currentValue) {
       this.caculatorPage();
     }
@@ -58,10 +68,10 @@ export class ManageDocumentsTableComponent implements OnInit, OnChanges {
     }
     this.total = (this.documentData.total || 0) * 1;
     this.take = (this.documentData.take || 0) * 1;
-    let numberPaging = (this.total / this.take);
+    let numberPaging = this.total / this.take;
     numberPaging = parseInt(numberPaging.toString());
     const surplus = this.total % this.take;
-    if(surplus > 0) {
+    if (surplus > 0) {
       numberPaging = numberPaging + 1;
     }
 
@@ -73,7 +83,7 @@ export class ManageDocumentsTableComponent implements OnInit, OnChanges {
 
     this.onPageChange.emit({
       skip: this.skip,
-      page
+      page,
     });
   }
 
@@ -81,20 +91,33 @@ export class ManageDocumentsTableComponent implements OnInit, OnChanges {
     this.documentData.splice(index, 1);
     this.onDeleteBookmark.emit({
       data,
-      index
+      index,
     });
   }
 
   downloadTemplateBookmark(data) {
     this.onDownloadTemplateBookmark.emit({
-      data
+      data,
     });
   }
 
   quickView(data) {
     this.onQuickView.emit({
-      data
-    })
+      data,
+    });
   }
-   
+
+  viewBookmarks() {
+    const modal = this.modalService.create({
+      nzClosable: true,
+      nzTitle: "Thông tin tệp tài liệu",
+      nzStyle: { top: 20 },
+      nzClassName: "manage-bookmarks",
+      nzKeyboard: false,
+      nzContent: ManageBookmarksTableComponent,
+      nzOnOk: (data) => console.log("Click ok", data),
+      nzComponentParams: {},
+      nzFooter: [],
+    });
+  }
 }

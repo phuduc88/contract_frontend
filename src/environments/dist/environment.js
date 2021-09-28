@@ -17,7 +17,7 @@ exports.environment = void 0;
 // The list of file replacements can be found in `angular.json`.
 var all_1 = require("./all");
 exports.environment = __assign(__assign({}, all_1["default"]), { production: false, 
-    // apiUrl: 'http://localhost:1380'
+    //  apiUrl: 'http://localhost:1380'
     //  apiUrl: 'http://localhost:8081'
     apiUrl: 'http://103.145.62.255:8089' });
 /*
