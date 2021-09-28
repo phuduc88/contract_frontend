@@ -17,8 +17,12 @@
   <app-manage-template-documents-drop-s4 [documentTemplate]="documentTemplate" (onGoBack)="handleGoBack($event)"
     *ngIf="currentStep === 4">
   </app-manage-template-documents-drop-s4>
-  <app-multiple-receives *ngIf="currentStep === 5" (onGoBack)="handleGoBack($event)">
-  </app-multiple-receives>
+  <app-multiple-receives 
+    *ngIf="currentStep === 5" 
+    (onGoBack)="handleGoBack($event)"
+    (resizechangeFileReceiver)="handleUploadFileReceiver($event)"
+    (onDownloadFileTemplateReceiver) = "handleDownloadFileTemplateReceiver()"
+    ></app-multiple-receives>
   <img id="mainLoading" [ngStyle]="{'display': overloading ? 'inline' : 'none'}"
     src="../../../../../assets/img/oval.svg">
 </div>

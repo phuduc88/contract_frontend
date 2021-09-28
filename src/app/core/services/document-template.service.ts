@@ -53,7 +53,7 @@ export class DocumentTemplateService {
     });
   }
 
-  public downloadExcelReceiver(documentTemplateId: string ) {
+  public downloadExcelReceiver() {
     return this.http.getFile(`/document-template/download-excel-receiver-template`, {
       headers: {
         token: this.authService.getCredentialToken()

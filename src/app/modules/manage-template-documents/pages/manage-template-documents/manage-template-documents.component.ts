@@ -202,6 +202,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
 
   handleDownloadTemplate({data}) {
     this.overloading = true;
+    
     this.documentTemplateService.downloadTemplate(data.id).then(response => {
       const subfixFile = '.docx'
       const fileName = data.originFileName;
@@ -254,6 +255,38 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
     this.documentTemplateDataService.quickViewDocument(data.documentTemplateId, data.recordUpLoad).subscribe((res)=> {
       this.overloading = false;
       console.log(res);
+    });
+  }
+
+  handleDownloadFileTemplateReceiver() {
+    this.overloading = true;
+    this.parentStyle = {
+      "z-index": 99999,
+      opacity: 0.3,
+    };
+    this.documentTemplateService.downloadExcelReceiver().then(response => {
+      const subfixFile = '.xlsx'
+      const fileName = `Mẫu file dữ liệu người nhận.xlsx`;
+      const mimeType = this.getMimeType(subfixFile);
+      download(fileName, response, mimeType);
+      this.overloading = false;
+      this.parentStyle = {};
+    });
+  }
+
+  handleUploadFileReceiver({file}) {
+    this.overloading = true;
+    this.parentStyle = {
+      "z-index": 99999,
+      opacity: 0.3,
+    };
+    this.documentTemplateService.uploadReceiverData(this.documentTemplate.id, file.target.files).subscribe((res) => {
+      this.error = res.error;
+      if (this.error.length > 0) {
+        this.showDialogError(this.error);
+      }  
+      this.overloading = false;
+      this.parentStyle = {};
     });
   }
 }

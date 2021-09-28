@@ -85,8 +85,12 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(
-        () => {
-         this.navigatePageDefault();
+        (sesion) => {
+          if (sesion.systemConfig.isCheckPoint) {
+            this.router.navigate(['/auth/check-point'], { replaceUrl: true });
+          } else {
+            this.navigatePageDefault();
+          }
         },
         (error) => {
           this.modalService.warning({
