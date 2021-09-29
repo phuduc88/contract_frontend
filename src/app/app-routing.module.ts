@@ -89,6 +89,11 @@ const routes: Routes = [
     loadChildren:
       "./modules/manage-template-documents/manage-template-documents.module#ManageTemplateDocumentsModule",
   },
+   {
+    path: "readPDF-comp",
+    loadChildren:
+      "./modules/ReadPDF/readPDF.module#ReadPDFModule",
+  }
 ];
 
 @NgModule({
