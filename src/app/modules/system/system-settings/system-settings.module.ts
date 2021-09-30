@@ -2,64 +2,55 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NgxMaskModule } from "ngx-mask";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzFormModule } from "ng-zorro-antd/form";
+import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzTableModule } from "ng-zorro-antd/table";
-import { NzRadioModule } from "ng-zorro-antd/radio";
-import { NzIconModule } from "ng-zorro-antd/icon";
-import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
 import { NzSpinModule } from "ng-zorro-antd/spin";
+import { NzUploadModule } from "ng-zorro-antd/upload";
+import { NzRadioModule } from "ng-zorro-antd/radio";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { AuthenticationService } from "@app/core/services";
 import { SharedModule } from "@app/shared/shared.module";
-import { CustomersRoutingModule } from "./customers-routing.module";
+import { SystemSettingsRoutingModule } from "./system-settings-routing.module";
 import {
-  CustomersListComponent,
-  CustomersAddComponent,
-  CustomersEditComponent,
-  CustomersComponent,
-  CustomersListS2Component,
-  CustomersAddS2Component,
-  CustomersEditS2Component,
-  CustomersFormComponent,
-  CustomersImportComponent
+  HsmSettingFormComponent,
+  ApiContractSettingFormComponent,
 } from "./pages";
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    CustomersRoutingModule,
     NzButtonModule,
+    NzCardModule,
     NzDatePickerModule,
     NzFormModule,
+    NzIconModule,
     NzInputModule,
     NzGridModule,
+    NzModalModule,
     NzSelectModule,
+    NzSpinModule,
+    NzUploadModule,
     NzTableModule,
     NzRadioModule,
-    NzIconModule,
     NzCheckboxModule,
+    NzTabsModule,
+    SystemSettingsRoutingModule,
     SharedModule,
-    NzSpinModule,
     NgxMaskModule.forRoot(),
   ],
-  declarations: [
-    CustomersComponent,
-    CustomersListComponent,
-    CustomersAddComponent,
-    CustomersEditComponent,
-    CustomersListS2Component,
-    CustomersAddS2Component,
-    CustomersEditS2Component,
-    CustomersFormComponent,
-    CustomersImportComponent
-  ],
+  declarations: [HsmSettingFormComponent, ApiContractSettingFormComponent],
   providers: [AuthenticationService],
   entryComponents: [],
 })
-export class CustomersModule {}
+export class SystemSettingsModule {}

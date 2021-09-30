@@ -1,0 +1,95 @@
+<div class="customers-import manage-template-documents-table">
+
+  <div class="customers-import-container pb-2">
+    <div class="row pb-2">
+      <div class="col-12">
+        <div class="d-flex flex-row bd-highlight">
+          <div class="bd-highlight">
+            <h5 class="font-weight-bold">Import danh sách khách hàng</h5>
+          </div>
+          <div class="bd-highlight">
+            <button class="btn btn-sm btn-link text-success" style="text-decoration: none;">
+              <i class="fa fa-download" aria-hidden="true"></i>
+              Tải xuống file Excel dữ liệu bookmark mẫu
+            </button>
+          </div>
+
+          <div class="ml-auto">
+            <button class="mr-2 btn btn-secondary" nz-button nzType="default" [routerLink]="['/customers']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> &nbsp; Quay lại
+              </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="drop" style="background: #FFFFFF; height: 100px;">
+      <div class="cont" style="height: 125px;">
+        <img src="../../../../../assets/img/file-plus.svg">
+        <div class="desc d-none d-sm-block">
+
+        </div>
+        <div class="browse">
+          Nhấn vào đây để duyệt
+        </div>
+        <div class="ng-binding">
+          <span class="text-danger">*</span>
+          Định dạng được hỗ trợ: {{ accept }}
+        </div>
+      </div>
+      <input id="uploadBookmark" type="file" [accept]="accept" autocomplete="off" (change)="handleChange($event)">
+    </div>
+
+  </div>
+
+  <div class="customers-import-success">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-row bd-highlight">
+          <div class="bd-highlight">
+            <h5 class="font-weight-bold">Tiến trình tạo tệp tài liệu</h5>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-1 border p-3 bg-white">
+      <div class="col-12">
+        <div class="d-flex bd-highlight">
+          <div class="p-2 flex-grow-1 bd-highlight">
+            <span>
+              Đã tạo <strong>1</strong>/<strong>1</strong>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-2 mt-2 border-top p-2">
+        <div class="form-row m-0">
+          <p class="col-10 pb-0 mb-0">1 - Mẫu khách hàng.xlsx</p>
+        </div>
+        <div class="form-row">
+          <div class="col align-self-center">
+            <div class="progress progress-bar w-100"></div>
+          </div>
+          <div class="">
+            <button class="btn btn-sm btn-success f-right">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              &nbsp;Xem nhanh
+            </button>
+          </div>
+        </div>
+        <div>
+
+          <span style="color: #949191; font-size: 12px;">
+            <img src="../../../../../../assets/img/check.png" width="16">
+            Hoàn thành
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
