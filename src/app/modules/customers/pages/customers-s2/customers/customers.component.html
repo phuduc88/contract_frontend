@@ -1,0 +1,159 @@
+<div nz-row class="d-block customers-form manage-template-documents-table">
+  <form nz-form [formGroup]="formCustomer" class="companyAgencies-form">
+    <div class="page-container-form-custom">
+      <div class="page-company" cardFullHeight>
+        <div class="page-company__blank"></div>
+
+        <h2>I. THÔNG TIN KHÁCH HÀNG</h2>
+
+        <div class="page-company__main">
+          <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+
+            <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">Mã số thuế &nbsp; <span
+                      class="text-danger">*</span>
+                  </nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="taxtpl" class="imput-margin-left">
+                    <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                      <input type="text" formControlName="tax" nz-input placeholder="Mã số thuế" />
+                    </nz-input-group>
+                    <ng-template #taxtpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Mã số thuế không để trống
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('maxlength')">
+                        Mã số thuế tối đa 50 ký tự
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+
+            <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label class="text-left mr-2px" nz-col nzFlex="110px">
+                    Tên đơn vị &nbsp; <span class="text-danger">*</span></nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="companyNameTpl">
+                    <input nz-input placeholder="Tên đơn vị" formControlName="companyName" />
+                    <ng-template #companyNameTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Tên đơn vị không để trống
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div><!-- col -->
+            </div>
+
+            <div nz-row nzGutter="10" style="padding-bottom: 8px;">
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label class="text-left mr-2px" nz-col nzFlex="110px">
+                    Địa chỉ &nbsp; <span class="text-danger">*</span></nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="addressTpl">
+                    <textarea nz-input placeholder="Địa chỉ" formControlName="address"></textarea>
+                    <ng-template #addressTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Địa chỉ không để trống
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div><!-- col -->
+            </div>
+
+            <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="16">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">
+                    Địa chỉ email</nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="delegateTpl" class="item-left-2">
+                    <input nz-input placeholder="Địa chỉ email" formControlName="email" />
+                    <ng-template #delegateTpl let-control>
+                      <ng-container *ngIf="control.hasError('pattern')">
+                        Email không đúng định dạng
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">
+                    Điện thoại</nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="telTpl" class="item-left-2">
+                    <input nz-input placeholder="Số điện thoại" formControlName="tel" />
+                    <ng-template #telTpl let-control>
+                      <ng-container *ngIf="control.hasError('pattern')">
+                        Số điện thoại không hợp lệ
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+
+            <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="16">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">
+                    Người đại diện</nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="delegateTpl" class="item-left-2">
+                    <input nz-input placeholder="Người đại diện" formControlName="delegate" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">
+                    Chức danh</nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="levelTpl" class="item-left-2">
+                    <input nz-input placeholder="Chức danh" formControlName="position" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="16">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">
+                    Ngân hàng</nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="delegateTpl" class="item-left-2">
+                    <input nz-input placeholder="Ngân hàng" formControlName="bankName" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="110px">
+                    Số tài khoản</nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="levelTpl" class="item-left-2">
+                    <input nz-input placeholder="Số tài khoản" formControlName="bankAccount" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <div nz-row nzGutter="8">
+              <div nz-col nzMd="24" class="footer-botton">
+                <button class="mr-2" nz-button nzType="default" [routerLink]="['/customers']">
+                  <i nz-icon nzType="stop"></i>Đóng
+                </button>
+                <button nz-button nzType="primary" (click)="save()">
+                  <i nz-icon nzType="save"></i>Ghi
+                </button>
+              </div>
+            </div>
+          </nz-spin>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

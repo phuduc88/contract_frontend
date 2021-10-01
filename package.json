@@ -25,6 +25,7 @@
     "@ngx-loading-bar/core": "4.2.0",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
+    "@swimlane/ngx-charts": "^19.0.1",
     "@types/jquery": "^3.5.5",
     "@types/jqueryui": "^1.12.15",
     "angular-draggable-droppable": "^4.6.0",

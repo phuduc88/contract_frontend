@@ -2,3 +2,9 @@ export * from './customers/customers-list/customers-list.component';
 export * from './customers/customers-add/customers-add.component';
 export * from './customers/customers-edit/customers-edit.component';
 export * from './customers/customers/customers.component';
+
+export * from './customers-s2/customers-list/customers-list.component';
+export * from './customers-s2/customers-add/customers-add.component';
+export * from './customers-s2/customers-edit/customers-edit.component';
+export * from './customers-s2/customers/customers.component';
+export * from './customers-s2/customers-import/customers-import.component';

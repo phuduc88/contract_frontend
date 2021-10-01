@@ -1,0 +1,93 @@
+<div nz-row class="customers-list manage-template-documents-table">
+  <div nz-col nzSpan="24">
+    <h5>Danh sách mẫu tài liệu</h5>
+    <div class="customers-list__container manage-template-documents-table__container">
+      <div nz-row class="customers-list__new pb-2 d-flex justify-content-center">
+        <button class="btn-add mr-2" nz-button nzType="default" [routerLink]="['/customers/add']">
+          <img src="../../../../../../assets/img/file-plus.svg">
+          <span>THÊM MỚI TỪNG KHÁCH HÀNG</span>
+        </button>
+        <button class="btn-add" nz-button nzType="default" [routerLink]="['/customers/import']">
+          <img src="../../../../../../assets/img/file-plus.svg">
+          <span style="width: 150px;">THÊM MỚI DANH SÁCH KHÁCH HÀNG</span>
+        </button>
+      </div>
+
+      <div class="customers-list__table">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 50px;">STT</th>
+              <th style="width: 150px;">MÃ SỐ THUẾ</th>
+              <th>TÊN CÔNG TY</th>
+              <th style="width: 280px;">DANH SÁCH CÁC HỢP ĐỒNG ĐÃ KÝ</th>
+              <th style="width: 250px;">HÀNH ĐỘNG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of customers;index as i ">
+              <td class="text-center align-middle">{{i + 1}}</td>
+              <td class="text-center align-middle">{{ customer.taxCode }}</td>
+              <td class="text-center align-middle">{{ customer.companyName }}</td>
+              <td>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let contract of customer.contracts;index as i ">
+                    <div class="row d-flex justify-content-center">
+                      <div class="text-center p-2">{{ contract.fileName }}</div>
+                      <div class="w-100 row d-flex justify-content-between p-2">
+                        <a href="#">XEM CHI TIẾT</a>
+                        <a href="#">TẢI XUỐNG</a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </td>
+
+              <td class="align-middle">
+                <button nz-button nzType="default" nzBlock class="mb-2">
+                  <i nz-icon nzType="file" nzTheme="outline"></i>
+                  DANH SÁCH HỢP ĐỒNG
+                </button>
+
+                <button class="mb-2" nz-button nzType="default" nzBlock>
+                  <i nz-icon nzType="edit" nzTheme="outline"></i>
+                  SỬA
+                </button>
+
+                <button nz-button nzType="default" nzBlock>
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                  XÓA
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="customers-list__pagination manage-template-documents-table__header">
+        <div nz-row>
+          <div nz-col nzSpan="12" class="customers-list__pagination-info manage-template-documents-table__info">
+            <label>
+              <span class="align-items-center">
+                1 - 10 trong
+              </span>
+              <strong>200</strong> bản ghi
+            </label>
+          </div>
+          <div nz-col nzSpan="12" class="customers-list__pagintion-controls manage-template-documents-table__pagintion">
+            <button nz-button nzType="link">Đầu tiên</button>
+            <button nz-button nzType="link">Trước</button>
+            <label class="pagintion-current">
+              <input class="current-page" type="number" [(ngModel)]="selectedPage" />
+              <span class="total-page"> / 20</span>
+            </label>
+            <button nz-button nzType="link">Sau</button>
+            <button nz-button nzType="link">Cuối cùng</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

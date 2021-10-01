@@ -89,6 +89,11 @@ const routes: Routes = [
     loadChildren:
       "./modules/manage-template-documents/manage-template-documents.module#ManageTemplateDocumentsModule",
   },
+  {
+    path: "system-settings",
+    loadChildren:
+      "./modules/system/system-settings/system-settings.module#SystemSettingsModule",
+  },
 ];
 
 @NgModule({

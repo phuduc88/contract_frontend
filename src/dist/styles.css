@@ -194,6 +194,9 @@
 .document-detail .document-detail-sign-documents .sign-documents .sign-documents-table .table-sign-data thead > tr > th {
   border-top: 0;
 }
+.system-settings .ant-form-item {
+  margin-bottom: 5px;
+}
 tbody {
   height: 100px;
   overflow-y: auto;
