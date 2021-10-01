@@ -31,6 +31,12 @@
             <span>Thông tin tài khoản</span>
           </a>
         </li>
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('customers')]">
+          <a [routerLink]="['/customers']">
+            <i class="fa fa-user-circle-o"></i>
+            <span>Danh mục khách hàng</span>
+          </a>
+        </li>
         <li [ngClass]="{true: 'active'}[currentUrl.includes('cai-dat-chung')]">
           <a [routerLink]="['/cai-dat-chung']">
             <i class="fa fa-gear"></i>
