@@ -1,0 +1,63 @@
+<div class="dashboard-use-contract dashboard-chart">
+  <div class="dashboard-use-contract_container p-2">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Hợp đồng người dùng lập</h5>
+          <div class="card-body">
+            <app-bar-chart [options]="optionsContractUserNew"></app-bar-chart>
+          </div>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Hợp đồng chờ người dùng xử lý</h5>
+          <div class="card-body">
+            <app-bar-chart [options]="optionsContractUserHandle"></app-bar-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Hợp đồng chờ người dùng xử lý</h5>
+          <div class="card-body">
+            <app-pie-chart [options]="optionsContractCompany"></app-pie-chart>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card patner-contract">
+          <h5 class="card-header">Hợp đồng nhận từ đối tác</h5>
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let item of datas; index as i" class="col-md-6">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="icon col-md-5 d-flex justify-content-end">
+                        <div class="icon-wapper icon-wapper-bg-{{i}}">
+                          <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div class="info col-md-7">
+                        <h3>{{ item.value }}</h3>
+                        <p>{{ item.label }}</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

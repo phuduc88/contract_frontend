@@ -17,49 +17,57 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.BarChartComponent = void 0;
+exports.LineChartComponent = void 0;
 var core_1 = require("@angular/core");
-var BarChartComponent = /** @class */ (function () {
-    function BarChartComponent() {
+var LineChartComponent = /** @class */ (function () {
+    function LineChartComponent() {
         this.config = {
-            view: [500, 180],
+            view: [1200, 250],
             scheme: {
-                domain: ["#5858FA"]
+                name: 'coolthree',
+                selectable: true,
+                group: 'Ordinal',
+                domain: [
+                    '#01579b', '#7aa3e5', '#a8385d', '#00bfa5'
+                ]
             },
             results: [],
             gradient: false,
             xAxis: true,
             yAxis: true,
-            legend: false,
-            showXAxisLabel: false,
-            showYAxisLabel: false,
+            legend: true,
+            showXAxisLabel: true,
+            yMainAxisShowLabel: true,
+            ySecondaryAxisShowLabel: true,
             xAxisLabel: "",
-            yAxisLabel: "",
-            legendPosition: "right",
-            barPadding: 60,
-            noBarWhenZero: true,
-            showDataLabel: true,
-            rotateXAxisTicks: true,
-            legendTitle: "Tổng hợp"
+            yMainAxisLabel: "",
+            ySecondaryAxisLabel: "",
+            autoScale: true,
+            timeline: false,
+            tooltipDisabled: false,
+            animations: false,
+            legendTitle: "",
+            showGridLines: true
         };
     }
-    BarChartComponent.prototype.onSelect = function (event) {
-        console.log(event);
-    };
-    BarChartComponent.prototype.ngOnInit = function () {
+    LineChartComponent.prototype.ngOnInit = function () {
         Object.assign(this.config, __assign({}, this.options));
     };
-    BarChartComponent.prototype.ngOnDestroy = function () { };
+    LineChartComponent.prototype.onSelect = function (e) {
+        console.log('Select point:', e);
+    };
+    LineChartComponent.prototype.ngOnDestroy = function () {
+    };
     __decorate([
         core_1.Input()
-    ], BarChartComponent.prototype, "options");
-    BarChartComponent = __decorate([
+    ], LineChartComponent.prototype, "options");
+    LineChartComponent = __decorate([
         core_1.Component({
-            selector: "app-bar-chart",
-            templateUrl: "./bar-chart.component.html",
-            styleUrls: ["./bar-chart.component.less"]
+            selector: "app-line-chart",
+            templateUrl: "./line-chart.component.html",
+            styleUrls: ["./line-chart.component.less"]
         })
-    ], BarChartComponent);
-    return BarChartComponent;
+    ], LineChartComponent);
+    return LineChartComponent;
 }());
-exports.BarChartComponent = BarChartComponent;
+exports.LineChartComponent = LineChartComponent;

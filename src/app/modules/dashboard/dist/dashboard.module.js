@@ -49,14 +49,18 @@ var DashboardModule = /** @class */ (function () {
                 ngx_charts_1.NgxChartsModule,
                 dashboard_routing_module_1.DashboardRoutingModule,
                 shared_module_1.SharedModule,
-                ngx_mask_1.NgxMaskModule.forRoot()
+                ngx_mask_1.NgxMaskModule.forRoot(),
             ],
             declarations: [
-                pages_1.DashboardComponent
+                pages_1.DashboardComponent,
+                pages_1.DashboardUseContractComponent,
+                pages_1.DashboardSendSmsComponent,
+                pages_1.BarChartComponent,
+                pages_1.PieChartComponent,
+                pages_1.LineChartComponent,
+                pages_1.DoubleAxisChartComponent
             ],
-            providers: [
-                services_1.AuthenticationService
-            ],
+            providers: [services_1.AuthenticationService],
             entryComponents: []
         })
     ], DashboardModule);

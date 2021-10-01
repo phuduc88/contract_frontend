@@ -1,0 +1,67 @@
+<div class="dashboard-send-sms dashboard-chart">
+  <div class="dashboard-send-sms_container p-2">
+    <div class="row info">
+      <div class="col">
+        <div class="card contract-not-use">
+          <div class="card-body contract-not-use-body">
+            <h5 class="contract-not-use-title font-weight-bold">Số hợp đồng</h5>
+            <p>Số hợp đồng chưa sử dụng</p>
+            <h2 class="contract-not-use-value contract-color font-weight-bold">9,949</h2>
+            <hr class="contract-color" />
+          </div>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card sms-account">
+          <div class="card-body sms-account-body">
+            <h5 class="sms-account-title font-weight-bold">Tài khoản SMS</h5>
+            <p>Số tiền chưa sử dụng</p>
+            <h2 class="sms-account-value sms-color font-weight-bold">1,938,050 đ</h2>
+            <hr class="sms-color" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <div class="card chart-data">
+          <div class="card-header d-flex">
+            <div class="card-header-title">
+              <h5>Thống kê số SMS, hợp đồng</h5>
+            </div>
+            <div class="card-header-search ml-auto">
+              <form nz-form [formGroup]="formSearch">
+                <div class="page-search">
+                  <div nz-row nzGutter="10">
+                    <div nz-col nzMd="12">
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="8" [nzXs]="24">Từ ngày</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                          <nz-date-picker formControlName="dateFrom"></nz-date-picker>
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                    <div nz-col nzMd="12">
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="8" [nzXs]="24">Đến ngày</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                          <nz-date-picker formControlName="dateTo"></nz-date-picker>
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card-body chart-data-body">
+            <app-line-chart [options]="options"></app-line-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

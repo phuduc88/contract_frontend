@@ -1,0 +1,24 @@
+<div class="line-axis-chart-custom">
+  <app-double-axis-chart
+    [view]="config.view"
+    [scheme]="config.scheme"
+    [results]="config.results"
+    [gradient]="config.gradient"
+    [xAxis]="config.xAxis"
+    [yAxis]="config.yAxis"
+    [legend]="config.legend"
+    [showXAxisLabel]="config.showXAxisLabel"
+    [yMainAxisShowLabel]="config.yMainAxisShowLabel"
+    [ySecondaryAxisShowLabel]="config.ySecondaryAxisShowLabel"
+    [xAxisLabel]="config.xAxisLabel"
+    [yMainAxisLabel]="config.yMainAxisLabel"
+    [ySecondaryAxisLabel]="config.ySecondaryAxisLabel"
+    [autoScale]="config.autoScale"
+    [timeline]="config.timeline"
+    [tooltipDisabled]="config.tooltipDisabled"
+    [animations]="config.animations"
+    [legendTitle]="config.legendTitle"
+    [showGridLines]="config.showGridLines"
+    (select)="onSelect($event)">
+  </app-double-axis-chart>
+</div>

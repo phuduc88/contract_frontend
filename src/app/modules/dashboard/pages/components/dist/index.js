@@ -10,7 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 exports.__esModule = true;
-__exportStar(require("./dashboard/dashboard.component"), exports);
-__exportStar(require("./dashboard-use-contract/dashboard-use-contract.component"), exports);
-__exportStar(require("./dashboard-send-sms/dashboard-send-sms.component"), exports);
-__exportStar(require("./components"), exports);
+__exportStar(require("./bar-chart/bar-chart.component"), exports);
+__exportStar(require("./pie-chart/pie-chart.component"), exports);
+__exportStar(require("./line-chart/line-chart.component"), exports);
+__exportStar(require("./double-axis-chart/double-axis-chart.component"), exports);

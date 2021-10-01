@@ -1,24 +1,32 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { LayoutComponent } from '@app/shared/layout';
-import { DashboardComponent } from './pages';
+import { LayoutComponent } from "@app/shared/layout";
+import { DashboardComponent, DashboardUseContractComponent, DashboardSendSmsComponent } from "./pages";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: LayoutComponent,
     children: [
       {
-        path: '',
-        component: DashboardComponent
-      }
-    ]
-  }
+        path: "",
+        component: DashboardComponent,
+      },
+      {
+        path: "use-contract",
+        component: DashboardUseContractComponent,
+      },
+      {
+        path: "send-sms",
+        component: DashboardSendSmsComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}
