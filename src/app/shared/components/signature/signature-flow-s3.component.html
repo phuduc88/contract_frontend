@@ -15,20 +15,12 @@
             </div>
             <span class="header">TRƯỜNG THÔNG TIN</span>
             <div class="note">
-              Kéo thả các trường thông tin dưới đây để thêm ô nhập hoặc ô ký vào bản
-              hợp
-              đồng
+              Kéo thả các trường thông tin dưới đây để thêm ô ký hoặc xét duyệt hợp đồng
             </div>
 
             <div class="field-icon-left">
               <div data-image="signature" class="btn signature-icon"></div>
             </div>
-
-            <div class="field-icon-left">
-              <div data-image="initial_signature" class="btn signature-icon-img">
-              </div>
-            </div>
-
             <hr />
             <div *ngIf="documentSign.listSign.length > 0">
               <span>
@@ -53,10 +45,10 @@
                   <br />
                   <span class="text-muted">
                     Loại:
-                    <span *ngIf="!sign.isinitial" class="text-primary">Ký
-                      thường</span>
-                    <span *ngIf="sign.isinitial" class="text-warning">Ký
-                      nháy</span>
+                    <span *ngIf="sign.isEmployeeSign" class="text-primary"> 
+                      Ký thường</span>
+                    <span *ngIf="!sign.isEmployeeSign" class="text-warning">Xét duyệt  
+                      </span>
                   </span>
                   <br />
                   <span>Trang: <span class="text-muted">{{sign.page}}</span></span>
@@ -93,8 +85,8 @@
                 <div class="d-flex mb-2">
                   <h6>
                     Loại chữ ký:
-                    <span class="badge badge-warning" *ngIf="selectedSignature.isinitial">Nháy</span>
-                    <span class="badge badge-primary" *ngIf="!selectedSignature.isinitial">Thường</span>
+                    <span class="badge badge-warning" *ngIf="selectedSignature.isEmployeeSign">ký thường</span>
+                    <span class="badge badge-primary" *ngIf="!selectedSignature.isEmployeeSign">Xét duyệt</span>
                   </h6>
                 </div>
                 <div class="d-flex mb-2">

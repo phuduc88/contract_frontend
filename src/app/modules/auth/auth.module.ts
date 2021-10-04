@@ -17,7 +17,8 @@ import {
   RequestResetSuccessComponent,
   ResetPasswordComponent,
   ResetSuccessComponent,
-  ChangePasswordComponent
+  ChangePasswordComponent,
+  CheckPointComponent
 } from './pages';
 
 @NgModule({
@@ -38,7 +39,8 @@ import {
     RequestResetSuccessComponent,
     ResetPasswordComponent,
     ResetSuccessComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CheckPointComponent
   ],
   providers: [
     AuthenticationService

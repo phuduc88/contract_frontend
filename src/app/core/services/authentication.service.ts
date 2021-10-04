@@ -46,6 +46,11 @@ export class AuthenticationService {
     return this.http.post('/session/reset-password', { email });
   }
 
+  public getVerificationToken(token: string) {
+    return this.http.get(`/session/verification-code/${ token }`, {
+    });
+  }
+
   public getUserByToken(token: string) {
     return this.http.get('/session/account-info', {
       params: { token }
@@ -68,6 +73,10 @@ export class AuthenticationService {
   }
 
   public storeCredentials(data) {
+    if (!data) {
+      localStorage.removeItem(CREDENTIAL_STORAGE);
+      return data;
+    }
     const credentials: Credential = {
       token: data.token,
       username: data.username,

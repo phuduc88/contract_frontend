@@ -26,4 +26,4 @@ export * from './pdf-list-thumbnail/pdf-list-thumbnail.component';
 export * from './pdf-viewer/pdf-viewer.component';
 export * from './form-document/form-document.component';
 export * from './dialog-upload-template-error/dialog-upload-template-error.component';
-
+export * from './dialog-thread-sign-template/dialog-thread-sign-template.component';

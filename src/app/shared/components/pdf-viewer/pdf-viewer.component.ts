@@ -17,6 +17,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   @Input() documentSign: any;
   @Input() currentUser: Credential;
   emailAssignment: any;
+  employeeSign: any;
   private handlers;
   private x = SIGNATURE.X;
   private y = SIGNATURE.Y;
@@ -52,8 +53,9 @@ export class PdfViewComponent implements OnInit, OnDestroy {
         this.pageNum = number;
         this.queueRenderPage(number);
       }),
-      eventEmitter.on('sign:changeEmailAssignment', (emailAssignment) => {
-        this.emailAssignment = emailAssignment;
+      eventEmitter.on('sign:changeEmailAssignment', (employeesSign) => {
+        this.emailAssignment = employeesSign.email;
+        this.employeeSign = employeesSign;
       }),
       eventEmitter.on('sign:selection', (sign) => {
         this.setSignSelection(sign);
@@ -83,7 +85,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
      this.droppableHandleCanvas(canvas, pageNumber);
 
     let renderTask = page.render(renderContext);
-    this.zoomX = 0.7
     this.pdfpromise(renderTask, canvas, viewport);
     var pageViewer = document.createElement('div');
     if ($('#' + canvas.id).length == 0) {
@@ -99,6 +100,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     this.pdfViewer.nativeElement.innerHTML = '';
     const data = atob(fileSign.data);
     const pdfDoc = await getDocument({ data }).promise;
+    console.log(pdfDoc, 'XXXXX');
     this.totalPage = pdfDoc.numPages;
     // init event scroll
     this.initScroll(pdfDoc);
@@ -126,32 +128,30 @@ export class PdfViewComponent implements OnInit, OnDestroy {
           eventEmitter.emit("sign:NotEmailAssignment", false);
           return false;
         }
-        if (ui.draggable != ui.helper) {         
 
+        if (ui.draggable != ui.helper) {         
+         
           let scrollTop = $(SIGNATURE.SELECTOR.ScrollViewer).scrollTop();
           let top = ui.position.top + scrollTop;
           let left = ui.position.left - $(this).offset().left;
-
-          let width = SIGNATURE.WIDTH_ICON * SIGNATURE.PDF_SCALE;
-          let height = SIGNATURE.HEIGHT_ICON * SIGNATURE.PDF_SCALE;
-
-          let id = $(this).attr('id');
-          let calHeight = 0;
-
-          let data_image = ui.helper[0].attributes['data-image'].value;
-
-          let isinitial = false;
-          if (data_image == 'initial_signature') {
-            isinitial = true;
-            width = 82 * SIGNATURE.PDF_SCALE;
-            height = 40 * SIGNATURE.PDF_SCALE;
-          }
+          const width = SIGNATURE.WIDTH_ICON * SIGNATURE.PDF_SCALE;
+          const height = SIGNATURE.HEIGHT_ICON * SIGNATURE.PDF_SCALE;
+          const isinitial = false;
+          const isEmployeeSign = that.employeeSign.isEmployeeSign;
+          // let data_image = ui.helper[0].attributes['data-image'].value;
+         
+          // if (data_image == 'initial_signature') {
+          //   isinitial = true;
+          //   console.log('xxxxxxx',isinitial);
+          //   width = 82 * SIGNATURE.PDF_SCALE;
+          //   height = 40 * SIGNATURE.PDF_SCALE;
+          // }
 
           const img = that.generateSignImg(ui, width, height);
-          let signType = img.attributes['src'].value.includes('sign-icon.svg') ? 1 : 0;
-          // sortByKey(canvasFs, 'index');
+          const signType = 1; //img.attributes['src'].value.includes('sign-icon.svg') ? 1 : 0;
 
           //duyệt từng page
+          let calHeight = 0;
           that.canvasFs.forEach((item, index) => {
             if (item.index < pageNumber) {
               calHeight += item.canvasF.height + SIGNATURE.INTMARGIN / SIGNATURE.PDF_SCALE;
@@ -161,6 +161,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
           let signIndex = SIGNATURE.SIGN_NUM++;
           top =  ((top - calHeight) / that.zoomX) - 50;
           left = left / that.zoomX;
+          const id = $(this).attr('id');
           if (that.canvasFs && that.canvasFs.length > 0) {
             that.canvasFs.forEach((item, index) => {
               if (item.id == id) {
@@ -178,7 +179,8 @@ export class PdfViewComponent implements OnInit, OnDestroy {
                   isinitial,
                   signType,
                   signIndex,
-                  that.emailAssignment
+                  that.emailAssignment,
+                  isEmployeeSign
                 );
               }
             });
@@ -188,7 +190,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  private addSign(canvas, img, top, left, width, height, scaleX, scaleY, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment) {
+  private addSign(canvas, img, top, left, width, height, scaleX, scaleY, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment, isEmployeeSign) {
     let that = this;
     scaleX = scaleX || 1;
     scaleY = scaleY || 1;
@@ -204,11 +206,11 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     };
 
     setTimeout(() => {
-      that.addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment);
+      that.addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signindex, emailAssignment, isEmployeeSign);
     }, 100);
   }
 
-  addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signIndex, emailAssignment) {
+  addsigntodoc(img, option, scaleX, scaleY, canvas, privateId, hasmakeRequest, isinitial, signType, signIndex, emailAssignment, isEmployeeSign) {
     const pageIndex = parseInt((canvas.pageIndex || '1'));
     const rect = new fabric.Image(img, option);
     rect.scaleX = scaleX;
@@ -219,6 +221,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     rect.isinitial = isinitial;
     rect.signType = signType;
     rect.signIndex = signIndex;
+    rect.isEmployeeSign = isEmployeeSign;
     rect.emailAssignment = emailAssignment
     rect.setControlsVisibility({
       mt: false,
@@ -250,6 +253,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
         name: this.currentFile.fileName,
         fileSignId: this.currentFile.id,
         scale: scaleX,
+        isEmployeeSign: isEmployeeSign,
       };
       eventEmitter.emit("sign:add", sign);
     }
@@ -316,6 +320,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
       });
        
       fcanvas.setBackgroundImage(bg, fcanvas.renderAll.bind(fcanvas));
+      console.log(that.zoomX, 'xxxxxx');
       fcanvas.setZoom(that.zoomX);
       fcanvas.setWidth(viewport.width * that.zoomX);
       fcanvas.setHeight(viewport.height * that.zoomX);
@@ -359,6 +364,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
             sign.signType,
             sign.signIndex,
             sign.emailAssignment,
+            sign.isEmployeeSign
           );
         }
       });
@@ -404,7 +410,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
 
     fcanvas.on({
       'selection:created': function (e) {
-        that.objectSelect = e.selected[0];          
+        that.objectSelect = e.selected[0];     
         that.setSignProperties(that.objectSelect);
       }
     });
@@ -412,7 +418,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     fcanvas.on({
       'selection:updated': function (e) {
         that.objectSelect = e.selected[0];
-        console.log('OK');
         that.setSignProperties(that.objectSelect, true);
       }
     });
@@ -512,7 +517,8 @@ export class PdfViewComponent implements OnInit, OnDestroy {
           objSelect.isinitial,
           objSelect.signType,
           objSelect.signIndex,
-          objSelect.emailAssignment
+          objSelect.emailAssignment,
+          objSelect.isEmployeeSign,
         );
 
         curent.remove(objSelect);
@@ -550,7 +556,8 @@ export class PdfViewComponent implements OnInit, OnDestroy {
           objSelect.isinitial,
           objSelect.signType,
           objSelect.signIndex,
-          objSelect.emailAssignment
+          objSelect.emailAssignment,
+          objSelect.isEmployeeSign,
         );
         curent.remove(objSelect);
 
@@ -646,6 +653,7 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   }
 
   zoomOutView() {
+    console.log(this.zoomX, 'xxxxx');
     this.zoomX -= SIGNATURE.RATIOZOOM;
     if (this.zoomX >= SIGNATURE.MINZOOM) {
       this.canvasFs.forEach((item) => {

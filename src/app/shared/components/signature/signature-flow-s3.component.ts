@@ -119,8 +119,11 @@ export class SignatureFlowS3Component
     this.isDisplay = false;
   }
 
-  changeEmailAssignment(emailAssignment) {
-    eventEmitter.emit("sign:changeEmailAssignment", emailAssignment);
+  changeEmailAssignment(emailSelected) {
+    console.log(this.documentSign.employeesSign,'xxxxx');
+    const employeesSign = this.documentSign.employeesSign.find(r => r.email === emailSelected);
+    console.log(employeesSign);
+    eventEmitter.emit("sign:changeEmailAssignment", employeesSign);
   }
 
   updateLocationOfSign(currentSign) {

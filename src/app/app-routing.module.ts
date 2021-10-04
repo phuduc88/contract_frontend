@@ -1,82 +1,86 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { AuthGuard } from '@app/core/guards';
+import { AuthGuard } from "@app/core/guards";
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
+    path: "",
+    redirectTo: "/dashboard",
+    pathMatch: "full",
   },
   {
-    path: 'auth',
-    loadChildren: './modules/auth/auth.module#AuthModule',
+    path: "auth",
+    loadChildren: "./modules/auth/auth.module#AuthModule",
   },
   {
-    path: 'dashboard',
-    loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
+    path: "dashboard",
+    loadChildren: "./modules/dashboard/dashboard.module#DashboardModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'categories',
-    loadChildren: './modules/categories/categories.module#CategoriesModule',
+    path: "categories",
+    loadChildren: "./modules/categories/categories.module#CategoriesModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'company',
-    loadChildren: './modules/company/company.module#CompanyModule',
+    path: "company",
+    loadChildren: "./modules/company/company.module#CompanyModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'contract',
-    loadChildren: './modules/contract/contract.module#ContractModule',
+    path: "contract",
+    loadChildren: "./modules/contract/contract.module#ContractModule",
     canActivate: [AuthGuard],
   },
 
   {
-    path: 'employees',
-    loadChildren: './modules/employees/employees.module#EmployeesModule',
+    path: "employees",
+    loadChildren: "./modules/employees/employees.module#EmployeesModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'customers',
-    loadChildren: './modules/customers/customers.module#CustomersModule',
+    path: "customers",
+    loadChildren: "./modules/customers/customers.module#CustomersModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'account-management',
-    loadChildren: './modules/system/accounts-management/accounts.module#AccountsModule',
+    path: "account-management",
+    loadChildren:
+      "./modules/system/accounts-management/accounts.module#AccountsModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'products',
-    loadChildren: './modules/system/products/products.module#ProductsModule',
+    path: "products",
+    loadChildren: "./modules/system/products/products.module#ProductsModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'emails-notification',
-    loadChildren: './modules/system/emails-notification/emails-notification.module#EmailsNotificationModule',
+    path: "emails-notification",
+    loadChildren:
+      "./modules/system/emails-notification/emails-notification.module#EmailsNotificationModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'register-ivan',
-    loadChildren: './modules/register-ivan/register-ivan.module#RegisterIvanModule',
+    path: "register-ivan",
+    loadChildren:
+      "./modules/register-ivan/register-ivan.module#RegisterIvanModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'search',
-    loadChildren: './modules/system/search/search.module#SearchModule',
+    path: "search",
+    loadChildren: "./modules/system/search/search.module#SearchModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'account-information',
-    loadChildren: './modules/account-information/account-information.module#AccountInformationModule',
+    path: "account-information",
+    loadChildren:
+      "./modules/account-information/account-information.module#AccountInformationModule",
     canActivate: [AuthGuard],
   },
   {
-    path: 'manage-documents',
-    loadChildren: './modules/documents/documents.module#DocumentsModule',
+    path: "manage-documents",
+    loadChildren: "./modules/documents/documents.module#DocumentsModule",
     canActivate: [AuthGuard],
   },
   {
@@ -89,21 +93,19 @@ const routes: Routes = [
     loadChildren:
       "./modules/manage-template-documents/manage-template-documents.module#ManageTemplateDocumentsModule",
   },
-   {
+  {
     path: "readPDF-comp",
-    loadChildren:
-      "./modules/ReadPDF/readPDF.module#ReadPDFModule",
+    loadChildren: "./modules/ReadPDF/readPDF.module#ReadPDFModule",
   },
   {
-    path: "systemsttings-comp",
+    path: "system-settings",
     loadChildren:
-       "./modules/system/system-settings/system-settings.module#SystemSettingsModule",
-  }
-
+      "./modules/system/system-settings/system-settings.module#SystemSettingsModule",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

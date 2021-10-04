@@ -128,7 +128,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/auth/login'], { replaceUrl: true });
+    this.handleLogout();
+    // this.authService.logout();
+    // this.router.navigate(['/auth/login'], { replaceUrl: true });
   }
 }

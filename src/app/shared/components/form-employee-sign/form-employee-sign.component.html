@@ -8,12 +8,12 @@
               </nz-radio-group>
           </div>
           <div class="col-6 text-right" *ngIf="employeesSign.length > 1">
-              <button class="btn btn-sm btn-outline-secondary" (click)="removeEmployeeSing(i)">Xóa</button>
+              <button class="btn btn-sm btn-outline-delete" (click)="removeEmployeeSing(i)">Xóa</button>
           </div>
       </div>
       <div class="form-row padding-5" *ngIf="item.groupType != groupType.ISCC">
-          <label nz-checkbox [(ngModel)]="item.receptionFileCopy">Không nhận email hoàn thành</label>
-          <label nz-checkbox [(ngModel)]="item.receptionEmail">Không nhận email ký kết</label>
+          <label nz-checkbox [(ngModel)]="item.isEmployeeSign">Người ký</label>
+          <label nz-checkbox [(ngModel)]="item.isEmployeeApprove">Người xét duyệt</label>
       </div>
       <div class="form-row padding-5" *ngIf="item.groupType == groupType.ISCC">
           <label nz-checkbox [(ngModel)]="item.ISCCFINISH">Chỉ nhận bản sao khi hoàn thành</label>
@@ -62,7 +62,7 @@
               <input type="text" class="form-control" [(ngModel)]="item.email" placeholder="Email">
             </div>
       </div>
-      <div class="form-row " *ngIf="item.groupType == groupType.ONSIGN">
+      <div class="form-row" *ngIf="item.groupType == groupType.ONSIGN">
           <div class="form-group col-6">
             <label>
                 Địa chỉ
@@ -88,6 +88,9 @@
             <input type="text" class="form-control" [(ngModel)]="item.phoneNumber" placeholder="02422319999"
               name="PhoneNumber" ng-class="{true : 'border border-danger'}[myForm.PhoneNumber.$error.required]" />
           </div>
+        </div>
+        <div class="form-row padding-5" *ngIf="item.groupType == groupType.HSMUSB">
+          <label nz-checkbox [(ngModel)]="item.addCustomer">Thêm vào danh sách khách hàng</label>
         </div>
   </div>
   <small class="text-danger">*Lưu ý: thông tin đánh dấu sao (*) là thông tin bắt buộc, không được để trống</small>

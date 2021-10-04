@@ -14,6 +14,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
   @Input() employeesSign: any = [];
   @Output() onFormValid: EventEmitter<any> = new EventEmitter();
   @Output() onAddEmployeeSing: EventEmitter<any> = new EventEmitter();
+  @Output() onFormValidOnly: EventEmitter<any> = new EventEmitter();
   groupType = GROUP_TYPE;
   private handlers: any = [];
   constructor(
@@ -24,7 +25,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
   ngOnInit() {
     this.handlers = [
       eventEmitter.on('employeeSing:validFrom', ({ action }) => {        
-          this.validForm();
+          this.validForm(action);
       })
     ];
   }
@@ -54,13 +55,18 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
     }
   }
 
-  validForm() {
+  validForm(action) {
     const formVale =  {
       employeesSign: this.employeesSign,
       validForm : this.validationEmployeeSign(),
     }
 
-    this.onFormValid.emit(formVale);
+    if (!action) {
+      this.onFormValidOnly.emit(formVale);
+    } else {
+      this.onFormValid.emit(formVale);
+    }
+    
   }
 
   validationEmployeeSign() {

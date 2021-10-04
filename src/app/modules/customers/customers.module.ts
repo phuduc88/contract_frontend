@@ -1,24 +1,33 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NgxMaskModule } from "ngx-mask";
 
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzRadioModule } from 'ng-zorro-antd/radio';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { AuthenticationService } from '@app/core/services';
-import { SharedModule } from '@app/shared/shared.module';
-import { CustomersRoutingModule } from './customers-routing.module';
-import { CustomersListComponent, CustomersAddComponent, CustomersEditComponent, CustomersComponent } from './pages';
-
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
+import { NzFormModule } from "ng-zorro-antd/form";
+import { NzInputModule } from "ng-zorro-antd/input";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { NzTableModule } from "ng-zorro-antd/table";
+import { NzRadioModule } from "ng-zorro-antd/radio";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
+import { NzSpinModule } from "ng-zorro-antd/spin";
+import { AuthenticationService } from "@app/core/services";
+import { SharedModule } from "@app/shared/shared.module";
+import { CustomersRoutingModule } from "./customers-routing.module";
+import {
+  CustomersListComponent,
+  CustomersAddComponent,
+  CustomersEditComponent,
+  CustomersComponent,
+  CustomersListS2Component,
+  CustomersAddS2Component,
+  CustomersEditS2Component,
+  CustomersFormComponent,
+  CustomersImportComponent
+} from "./pages";
 
 @NgModule({
   imports: [
@@ -37,17 +46,20 @@ import { CustomersListComponent, CustomersAddComponent, CustomersEditComponent, 
     NzCheckboxModule,
     SharedModule,
     NzSpinModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
   ],
   declarations: [
     CustomersComponent,
     CustomersListComponent,
     CustomersAddComponent,
     CustomersEditComponent,
+    CustomersListS2Component,
+    CustomersAddS2Component,
+    CustomersEditS2Component,
+    CustomersFormComponent,
+    CustomersImportComponent
   ],
-  providers: [
-    AuthenticationService
-  ],
-  entryComponents: []
+  providers: [AuthenticationService],
+  entryComponents: [],
 })
-export class CustomersModule { }
+export class CustomersModule {}

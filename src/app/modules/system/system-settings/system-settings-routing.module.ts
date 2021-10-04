@@ -9,7 +9,12 @@ import {
 import { PERMISSIONS } from "@app/shared/constant";
 
 import { LayoutComponent } from "@app/shared/layout";
-import { SystemSettingsComponent, EmailFormComponent } from "./pages/index";
+import {
+  HsmSettingFormComponent,
+  ApiContractSettingFormComponent,
+  SystemSettingsComponent,
+  EmailFormComponent,
+} from "./pages";
 
 const routes: Routes = [
   {
@@ -21,9 +26,17 @@ const routes: Routes = [
         component: SystemSettingsComponent,
       },
       {
-        path:'email',
-        component: EmailFormComponent
-      }
+        path: "email",
+        component: EmailFormComponent,
+      },
+      {
+        path: "hsm",
+        component: HsmSettingFormComponent,
+      },
+      {
+        path: "api-contract",
+        component: ApiContractSettingFormComponent,
+      },
     ],
   },
 ];
@@ -32,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class GeneralSettingsRoutingModule {}
+export class SystemSettingsRoutingModule {}
