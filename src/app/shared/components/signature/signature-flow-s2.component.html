@@ -33,8 +33,9 @@
             </nz-select>
           </div>
           <div class="bd-highlight">
-            <button class="btn btn-plus" (click)="CloseRequest()">
-              <span class="fa fa-plus"></span>
+            <button class="btn btn-plus" (click)="saveTheardTemplateSign()">
+              <span class="fa fa-save"></span>
+              Lưu luồng ký
             </button>
           </div>
         </div>
@@ -42,6 +43,7 @@
         <app-form-employee-sign 
           [employeesSign] ="employeesSign"
           (onFormValid) = "formValid($event)"
+          (onFormValidOnly) = "handlerFormValidOnly($event)"
           (onAddEmployeeSing) = "addEmployeeSing($event)">
         </app-form-employee-sign>
       </div>

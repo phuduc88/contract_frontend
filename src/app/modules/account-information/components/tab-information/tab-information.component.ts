@@ -44,7 +44,7 @@ export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   showDialogEmployee(employeeInfo) {
-    const modal =  this.modalService.create({
+    const modal = this.modalService.create({
       nzClosable: false,
       nzTitle: 'Gửi lời mời thêm thành viên',
       nzStyle: { top: 20 },

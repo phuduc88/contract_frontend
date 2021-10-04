@@ -63,6 +63,7 @@ import {
   PdfViewComponent,
   FormDocumentComponent,
   DialogUploadTemplateErrorComponent,
+  DialogThreadSingTemplateComponent,
 } from './components';
 
 import {
@@ -141,6 +142,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PdfViewComponent,
     FormDocumentComponent,
     DialogUploadTemplateErrorComponent,
+    DialogThreadSingTemplateComponent,
   ],
   exports: [
     FormsModule,
@@ -179,6 +181,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PdfViewComponent,
     FormDocumentComponent,
     DialogUploadTemplateErrorComponent,
+    DialogThreadSingTemplateComponent,
   ],
   providers: [
     AuthenticationService,
@@ -205,6 +208,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     FormEployeeSingComponent,
     DialogErrorComponent,
     DialogUploadTemplateErrorComponent,
+    DialogThreadSingTemplateComponent,
   ]
 })
 export class SharedModule { }

@@ -15,6 +15,8 @@ export class SignatureFlowS2Component implements OnInit, OnDestroy, AfterViewIni
   @Output() onFormValid: EventEmitter<any> = new EventEmitter();
   @Output() onAddEmployeeSing: EventEmitter<any> = new EventEmitter();
   @Output() onChangeThreadGroup: EventEmitter<any> = new EventEmitter();
+  @Output() onSaveTheardTemplateSign: EventEmitter<any> = new EventEmitter();
+  @Output() onFormValidOnly: EventEmitter<any> = new EventEmitter();
   GroupType = GROUP_TYPE;
   currentUser: Credential;
   constructor(private authService: AuthenticationService) { }
@@ -36,8 +38,16 @@ export class SignatureFlowS2Component implements OnInit, OnDestroy, AfterViewIni
     this.onFormValid.emit(formValue);
   }
 
+  handlerFormValidOnly(formValue) {
+    this.onFormValidOnly.emit(formValue);
+  }
+
   changeThreadGroup(value) {
     this.onChangeThreadGroup.emit(value);
+  }
+
+  saveTheardTemplateSign() {
+    this.onSaveTheardTemplateSign.emit();
   }
 
 }

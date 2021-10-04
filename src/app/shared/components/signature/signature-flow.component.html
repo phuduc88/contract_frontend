@@ -47,8 +47,12 @@
 
   </div>
   <div class="container" *ngIf="documentSign.currentStep === 1">
-    <signature-flow-s2 [threadGroups]="threadGroups" [threadGroupId]="documentSign.threadGroupId"
-      [employeesSign]="documentSign.employeesSign" (onFormValid)="formEmployeeSingValid($event)"
+    <signature-flow-s2 [threadGroups]="threadGroups" 
+      [threadGroupId] = "documentSign.threadGroupId"
+      [employeesSign] = "documentSign.employeesSign" 
+      (onFormValid) = "formEmployeeSingValid($event)"
+      (onFormValidOnly) = "formEmployeeSingValidOnly($event)"
+      (onSaveTheardTemplateSign) = "hendlSaveTheardTemplateSign()"
       (onChangeThreadGroup)="onChangeThreadGroup($event)" (onAddEmployeeSing)="addEmployeeSing($event)">
     </signature-flow-s2>
   </div>

@@ -20,6 +20,7 @@ import {
 } from "@app/core/services";
 import { Credential } from "@app/core/models";
 import { DialogErrorComponent } from "../dialog-error/dialog-error.component";
+import { DialogThreadSingTemplateComponent } from "../dialog-thread-sign-template/dialog-thread-sign-template.component";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
 import signUtils from "@app/shared/utils/sign";
 import { SignatureFlowSaveComponent } from "./signature-save/signature-flow-save.component";
@@ -37,6 +38,7 @@ export class SignatureFlowComponent
   isSpinning: boolean;
   isSaveFile: boolean;
   currentUser: Credential;
+  employeeSign: any;
   threadGroups: any;
   formEmployeesSignError: any = [];
   RequestSend: any;
@@ -68,7 +70,7 @@ export class SignatureFlowComponent
     if (!this.documentSign.myselfSign && this.documentSign.emailAssignment) {
       eventEmitter.emit(
         "sign:changeEmailAssignment",
-        this.documentSign.emailAssignment
+        this.employeeSign
       );
     }
   }
@@ -87,8 +89,8 @@ export class SignatureFlowComponent
     }
 
     if (this.documentSign.employeesSign.length > 0) {
-      this.documentSign.emailAssignment =
-        this.documentSign.employeesSign[0].email;
+      this.employeeSign = this.documentSign.employeesSign[0];
+      this.documentSign.emailAssignment = this.employeeSign.email;
     }
   }
 
@@ -116,6 +118,7 @@ export class SignatureFlowComponent
           sign.img = this.getImage(sign);
           sign.emailAssignment = employee.email;
           sign.privateId = signUtils.createGuid(),
+          sign.isEmployeeSign  = employee.isEmployeeSign,
           listSignCopy.push(sign);
         });
       }
@@ -242,8 +245,8 @@ export class SignatureFlowComponent
       name: null,
       groupName: null, 
       groupType: GROUP_TYPE.HSMUSB,
-      receptionEmail: false,
-      receptionFileCopy: false,
+      isEmployeeSign: false,
+      isEmployeeApprove: false,
       address: null,
       idNumer: null,
       phoneNumber: null,
@@ -352,7 +355,7 @@ export class SignatureFlowComponent
       !this.documentSign.myselfSign
     ) {
       // Emit event valid employeeSing
-      this.validFormEmployeeSign();
+      this.validFormEmployeeSign('set_2');
     }
 
     if (this.formEmployeesSignError.length > 0) {
@@ -380,8 +383,8 @@ export class SignatureFlowComponent
         name: this.currentUser.username,
         groupName: this.currentUser.username,
         groupType: GROUP_TYPE.HSMUSB,
-        receptionEmail: true,
-        receptionFileCopy: true,
+        isEmployeeSign: false,
+        isEmployeeApprove: false,
         address: "",
         idNumer: "",
         phoneNumber: "",
@@ -392,7 +395,6 @@ export class SignatureFlowComponent
       },
     ];
   }
-
    
   saveAndSendEmail() {
   
@@ -508,9 +510,59 @@ export class SignatureFlowComponent
   }
 
   //Emit event valid employeeSing
-  private validFormEmployeeSign() {
+  private validFormEmployeeSign(action) {
     eventEmitter.emit("employeeSing:validFrom", {
-      action: "set_2",
+      action,
     });
   }
+
+  //notifice event valid employeeSing
+  hendlSaveTheardTemplateSign() {    
+     this.validFormEmployeeSign(null);
+  }
+
+  //get event valid from form employeer sign
+  formEmployeeSingValidOnly(formValue) {
+    if (formValue.validForm.length > 0) {
+      this.showDialogError(formValue.validForm);
+      return;
+    }
+    
+    this.showDialogCreateGroupThreadSignTemplate();
+  }
+
+  private showDialogCreateGroupThreadSignTemplate() {
+    const modal = this.modalService.create({
+      nzClosable: true,
+      nzWidth: 580,
+      nzTitle: 'Tạo nhóm luồng ký',
+      nzClassName: "signature-pad-custom",
+      nzContent: DialogThreadSingTemplateComponent,
+      nzOnOk: (data) => console.log('Click ok', data),
+      nzComponentParams: {
+      }
+    });
+
+    modal.afterClose.subscribe(result => {
+      if(!result) {
+        return;
+      }
+
+      this.createThreadTemplate(result.name);
+    });
+  }
+
+  createThreadTemplate(groupName) {
+    const threadGroup = {
+      name: groupName,
+      threadedSignTemplate:this.documentSign.employeesSign
+    }
+
+    this.threadGroupService.create(threadGroup).subscribe(req => {
+      this.loadThreadGroup();
+      this.documentSign.threadGroupId = req.id;
+    });
+
+  }
+
 }

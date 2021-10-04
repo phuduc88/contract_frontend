@@ -12,7 +12,7 @@
       </h5>
     </div>
     <div>
-      <button class="btn btn-link text-success" style="text-decoration: none;" autocomplete="off">
+      <button class="btn btn-link text-success" (click)="downloadFileTemplateReceiver()" style="text-decoration: none;" autocomplete="off">
         (<i class="fa fa-download" aria-hidden="true"></i>
         Tải xuống file mẫu: Người nhận)
       </button>
@@ -22,7 +22,7 @@
 
   <div class="row mt-1">
     <div class="col-12">
-      <app-upload-file-document [accept]="'.xlsx, .xls'" (onChangeFileSuccess)="changeFileSuccess($event)">
+      <app-upload-file-document [accept]="'.xlsx, .xls'" (onChangeFileSuccess)="changeFileReceiverSuccess($event)">
       </app-upload-file-document>
       <div class="pb-2"></div>
     </div>

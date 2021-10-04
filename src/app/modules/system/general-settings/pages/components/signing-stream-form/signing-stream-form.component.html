@@ -20,8 +20,8 @@
               </div>
           </div>
           <div class="form-row padding-5" *ngIf="item.groupType != groupType.ISCC">
-              <label nz-checkbox [(ngModel)]="item.receptionFileCopy">Không nhận email hoàn thành</label>
-              <label nz-checkbox [(ngModel)]="item.receptionEmail">Không nhận email ký kết</label>
+              <label nz-checkbox [(ngModel)]="item.isEmployeeSign">Người ký</label>
+              <label nz-checkbox [(ngModel)]="item.isEmployeeApprove">Không xét duyệt</label>
           </div>
           <div class="form-row padding-5" *ngIf="item.groupType == groupType.ISCC">
               <label nz-checkbox [(ngModel)]="item.ISCCFINISH">Chỉ nhận bản sao khi hoàn thành</label>

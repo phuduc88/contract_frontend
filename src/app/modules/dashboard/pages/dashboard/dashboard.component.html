@@ -73,8 +73,8 @@
     </div>
   </div>
 
-  <div class="row" style="height: 220px;">
-    <div class="col-12">
+  <div class="row" style="height: 180px;">
+    <div class="col-6">
       <div class="drop" (click)="showDialogDocumentSign()">
         <div>
           <i class="fa fa-cloud-upload" aria-hidden="true"></i>
@@ -90,6 +90,24 @@
         </div>
       </div>
     </div>
+
+    <div class="col-6">
+      <div class="drop" (click)="showPageDocumentTemplate()">
+        <div>
+          <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+          <div class="text-browser">Chọn file để ký</div>
+          <div class="browse d-none d-sm-block" id="btnBrowse" style="cursor: pointer; margin: 5px auto;">
+            Tải file
+          </div>
+          <div>
+            <br>
+            <span class="text-danger">*</span>
+            Chọn file từ hợp đồng mẫu
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="row pt-4 justify-content-center">

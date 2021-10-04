@@ -40,8 +40,21 @@ export class DocumentTemplateService {
     return this.http.post(`/document-template/upload-excel/${ id }`, formdata);
   }
 
+  public uploadReceiverData(id, documents) {
+    const formdata = this.getFormData(documents);
+    return this.http.post(`/document-template/upload-receiver-excel/${ id }`, formdata);
+  }
+
   public downloadExcelBookmark(documentTemplateId: string ) {
     return this.http.getFile(`/document-template/download-excel-book-mark/${ documentTemplateId }`, {
+      headers: {
+        token: this.authService.getCredentialToken()
+      }
+    });
+  }
+
+  public downloadExcelReceiver() {
+    return this.http.getFile(`/document-template/download-excel-receiver-template`, {
       headers: {
         token: this.authService.getCredentialToken()
       }

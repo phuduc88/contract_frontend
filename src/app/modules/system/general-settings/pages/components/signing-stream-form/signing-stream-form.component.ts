@@ -51,8 +51,8 @@ export class SigningStreamFormComponent implements OnInit {
       name: null,
       groupName: null,
       groupType: GROUP_TYPE.HSMUSB,
-      receptionEmail: false,
-      receptionFileCopy: false,
+      isEmployeeSign: false,
+      isEmployeeApprove: false,
       address: null,
       idNumer: null,
       phoneNumber: null,
@@ -122,8 +122,8 @@ export class SigningStreamFormComponent implements OnInit {
       item.phoneNumber = null,
       item.idNumber = null;
     }
-    item.receptionFileCopy = false;
-    item.receptionEmail = false;
+    item.isEmployeeApprove = false;
+    item.isEmployeeSign = false;
   }
 
   private validOrganization(item) {
