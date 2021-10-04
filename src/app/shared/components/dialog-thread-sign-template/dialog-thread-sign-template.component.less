@@ -1,5 +1,20 @@
-.step_sender {
-  .icon_file {
+.block_email {
+    border-left: 2px solid #386fdc;
+    background-color: #ffff;
+    padding: 10px;
+    margin-bottom: 10px;
+    &:hover {
+      .icon_delete {
+        display: none;
+      }
+    }
+
+    .padding-5 {
+        padding: 5px;
+    }
+}
+
+.icon_file {
     width: 48px;
     position: relative;
 
@@ -26,7 +41,7 @@
       margin-right: 0;
       margin-left: 0;
     }
-    
+
     div {
       border: 1px solid #D9DEDB;
       width: 48px;
@@ -61,42 +76,16 @@
       background: #fff;
     }
 
-    .form-row-no-back-ground {
-      padding: 5px 12px;
-      display: flex;
-      flex-wrap: wrap;
-      margin-right: -5px;
-      margin-left: -5px;
+    
+  }
+  
+  #basic-addon2 {
+    i {
+      font-size: small;
     }
-
-
-    .block_email {
-      border-left: 2px solid #386fdc;
-
-      &:hover {
-        .icon_delete {
-          display: none;
-        }
-      }
+  
+    .btn-sm {
+      line-height: 2.4;
     }
   }
-
-  .btn-plus {
-    width: 126px;
-    height: 32px;
-    margin-left: 10px;
-    color: #fff;
-    font-size: 14px;
-    background: #2F80ED;
-  }
-}
-
-#basic-addon2 {
-  i {
-    font-size: small;
-  }
-
-  .btn-sm {
-    line-height: 1.4;
-  }
-}
+  

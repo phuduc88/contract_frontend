@@ -1,0 +1,26 @@
+<div class="page-container">
+  <div class="page-signing-stream">     
+    <div class="page-signing-stream__main">
+      <form nz-form [formGroup]="form">
+        <div class="signing-stream-form__header">
+            <nz-form-item>
+                <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorname">
+                   <input type="text" nz-input formControlName="name" placeholder="Nhập nhóm luồng ký"/>  
+                  <ng-template #errorname let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                          Nhập nhóm luồng ký
+                      </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+        </div>
+      </form>
+    </div>
+  <div class="igning-stream-form__footer" *nzModalFooter>
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Hủy
+    </button>
+    <button nz-button nzType="default" (click)="save()" class="btn-success">
+      <i nz-icon nzType="save"></i>Lưu
+    </button>
+  </div>      

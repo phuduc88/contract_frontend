@@ -94,7 +94,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   handleLogout() {
     this.authService.logout();
-    console.log('XXXXXXXX');
     this.authService.saveRememberMe({remember: false});
     this.router.navigate(['/auth/login'], { replaceUrl: true });
   }

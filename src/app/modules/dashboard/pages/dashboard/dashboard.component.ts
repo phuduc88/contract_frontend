@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewContainerRef,  } from '@angular/core';
 
 import { TIME_PICKERS } from '@app/shared/constant';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SignatureFlowComponent, SignaturePadComponent } from '@app/shared/components';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,6 +14,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(
     private modalService: NzModalService,
+    private router: Router,
     private viewContainerRef: ViewContainerRef) {
   }
 
@@ -48,6 +50,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         documentSign,
       }
     });
+  }
+
+  showPageDocumentTemplate() {
+    this.router.navigate(['/manage-template-documents']);
   }
 
   ngAfterViewInit() {
