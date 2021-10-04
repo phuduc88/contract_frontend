@@ -93,7 +93,13 @@ const routes: Routes = [
     path: "readPDF-comp",
     loadChildren:
       "./modules/ReadPDF/readPDF.module#ReadPDFModule",
+  },
+  {
+    path: "systemsttings-comp",
+    loadChildren:
+       "./modules/system/system-settings/system-settings.module#SystemSettingsModule",
   }
+
 ];
 
 @NgModule({

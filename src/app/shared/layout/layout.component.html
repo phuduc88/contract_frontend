@@ -46,6 +46,13 @@
           </a>
         </li>
 
+        <li [ngClass]="{true: 'active'}[currentUrl.includes('systemsttings-comp')]">
+          <a [routerLink]="['/systemsttings-comp']">
+            <i class="fa fa-gear"></i>
+            <span>Hệ thống</span>
+          </a>
+        </li>
+
         
         <li class="">
           <a class="logout" (click)="logout()">
