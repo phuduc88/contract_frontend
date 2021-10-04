@@ -1,0 +1,19 @@
+<div class="pie-chart-custom">
+  <ngx-charts-pie-chart
+  [view]="config.view"
+  [scheme]="config.scheme"
+  [results]="config.results"
+  [gradient]="config.gradient"
+  [legend]="config.legend"
+  [legendPosition]="config.legendPosition"
+  [labels]="config.labels"
+  [doughnut]="config.doughnut"
+  [arcWidth]="config.arcWidth"
+  [legendTitle]="legendTitle"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)"
+  [labelFormatting]="labelFormatting"
+  >
+</ngx-charts-pie-chart>
+</div>

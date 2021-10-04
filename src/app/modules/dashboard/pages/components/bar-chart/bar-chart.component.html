@@ -1,14 +1,23 @@
-<ngx-charts-bar-vertical
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="single"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
+<div class="charts-bar-custom">
+  <ngx-charts-bar-vertical
+  [view]="config.view"
+  [scheme]="config.scheme"
+  [results]="config.results"
+  [gradient]="config.gradient"
+  [xAxis]="config.xAxis"
+  [yAxis]="config.yAxis"
+  [legend]="config.legend"
+  [showXAxisLabel]="config.showXAxisLabel"
+  [showYAxisLabel]="config.showYAxisLabel"
+  [xAxisLabel]="config.xAxisLabel"
+  [yAxisLabel]="config.yAxisLabel"
+  [legendPosition]="config.legendPosition"
+  [barPadding]="config.barPadding"
+  [noBarWhenZero]="config.noBarWhenZero"
+  [showDataLabel]="config.showDataLabel"
+  [rotateXAxisTicks]="config.rotateXAxisTicks"
   (select)="onSelect($event)">
 </ngx-charts-bar-vertical>
+</div>
+
+
