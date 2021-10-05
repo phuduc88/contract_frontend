@@ -1,7 +1,7 @@
 <div nz-row class="d-block system-settings-form customers-form manage-template-documents-table">
   <form nz-form [formGroup]="formHsmSetting" class="companyAgencies-form">
     <div class="page-container-form-custom">
-      <div class="page-company" cardFullHeight>
+      <div class="page-company">
         <div class="page-company__blank"></div>
 
         <h2>I. CẤU HÌNH KẾT NỐI API ECONTRACTS</h2>
@@ -61,7 +61,7 @@
 
             <div nz-row nzGutter="10">
               <div nz-col nzMd="16" class="footer-botton d-flex">
-                <button class="mr-2" nz-button nzType="default" [routerLink]="['/customers']">
+                <button class="mr-2" nz-button nzType="default" [routerLink]="['/system-settings']">
                   <i nz-icon nzType="stop"></i>Đóng
                 </button>
                 <button class="ml-auto" nz-button nzType="primary" (click)="save()">

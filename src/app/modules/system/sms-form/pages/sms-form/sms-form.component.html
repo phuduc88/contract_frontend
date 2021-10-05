@@ -1,5 +1,5 @@
 <div nz-row class="d-block system-settings-form customers-form manage-template-documents-table">
-    <form nz-form [formGroup]="formEmailSetting" class="companyAgencies-form">
+    <form nz-form [formGroup]="formSmsSetting" class="companyAgencies-form">
         <div class="page-container-form-custom">
             <div class="page-company">
                 <div class="page-company__blank"></div>
@@ -10,35 +10,19 @@
                     <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
                         <div nz-row nzGutter="10">
                             <div nz-col [nzSpan]="16">
-                                <nz-form-item>
-                                    <nz-form-label class="text-left" nzFor="gender" nz-col nzFlex="120px">Tên máy chủ &nbsp; <span class="text-danger">*</span>
-                                    </nz-form-label>
-                                    <nz-form-control  nzErrorTip="Máy chủ không được để trống" class="border-css" >
-                                        <nz-select id="gender" formControlName="gender" nzPlaceHolder="Chọn máy chủ"
-                                            (ngModelChange)="genderChange($event)">
-                                            <nz-option nzValue="Máy chủ 1" nzLabel="Com1"></nz-option>
-                                            <nz-option nzValue="Máy chủ 2" nzLabel="Com2"></nz-option>
-                                        </nz-select>
-                                    </nz-form-control>
-                                </nz-form-item>
-                            </div>
-                        </div>
-
-                        <div nz-row nzGutter="10">
-                            <div nz-col [nzSpan]="16">
                                  <nz-form-item>
-                                    <nz-form-label class="text-left" nz-col nzFlex="120px">Địa chỉ máy chủ &nbsp; <span
+                                    <nz-form-label class="text-left" nz-col nzFlex="120px">Nhà cung cấp &nbsp; <span
                                             class="text-danger">*</span>
                                     </nz-form-label>
-                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="supplierTpl"
+                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="nCCTpl"
                                         class="border-css">
                                         <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
                                             <input type="text" formControlName="name" nz-input
-                                                placeholder="Địa chỉ máy chủ" />
+                                                placeholder="Nhà cung cấp" />
                                         </nz-input-group>
-                                        <ng-template #supplierTpl let-control>
+                                        <ng-template #nCCTpl let-control>
                                             <ng-container *ngIf="control.hasError('required')">
-                                                Địa chỉ máy chủ không để trống
+                                                Nhà cung cấp không để trống
                                             </ng-container>
                                         </ng-template>
                                     </nz-form-control>
@@ -47,27 +31,20 @@
                         </div>
 
                         <div nz-row nzGutter="10">
-                            <div nz-col [nzSpan]="10">
+                            <div nz-col [nzSpan]="16">
                                 <nz-form-item>
                                     <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
-                                       Cổng kết nối &nbsp; <span class="text-danger">*</span></nz-form-label>
-                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="portTpl"
+                                       Services gửi tin &nbsp; <span class="text-danger">*</span></nz-form-label>
+                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="servicesTpl"
                                         class="border-css" >
-                                        <input nz-input placeholder="Cổng kết nối"
+                                        <input nz-input placeholder="Services gửi tin"
                                             formControlName="value">
-                                        <ng-template #portTpl let-control>
+                                        <ng-template #servicesTpl let-control>
                                             <ng-container *ngIf="control.hasError('required')">
-                                                Cổng kết nối không được để trống
+                                                Services gửi tin không được để trống
                                             </ng-container>
                                         </ng-template>
                                     </nz-form-control>
-                                </nz-form-item>
-                            </div><!-- col -->
-                            <div nz-col [nzSpan]="6">
-                                <nz-form-item>
-                                    <nz-checkbox-wrapper nz-col nzFlex="auto">
-                                        <label nz-checkbox formControlName="active">Sử dụng SSL </label>
-                                    </nz-checkbox-wrapper>
                                 </nz-form-item>
                             </div><!-- col -->
                         </div>
@@ -76,13 +53,30 @@
                             <div nz-col [nzSpan]="16">
                                 <nz-form-item>
                                     <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
-                                       Tài khoản Email &nbsp; <span class="text-danger">*</span></nz-form-label>
-                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="emailTpl"
+                                       Brand name &nbsp; <span class="text-danger">*</span></nz-form-label>
+                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="BrandTpl"
                                         class="border-css" >
-                                        <input nz-input placeholder=" Tài khoản Email" formControlName="value">
-                                        <ng-template #emailTpl let-control>
+                                        <input nz-input placeholder=" Brand name" formControlName="value">
+                                        <ng-template #BrandTpl let-control>
                                             <ng-container *ngIf="control.hasError('required')">
-                                                Tài khoản Email không để trống
+                                                Brand name không để trống
+                                            </ng-container>
+                                        </ng-template>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div><!-- col -->
+                        </div>
+
+                        <div nz-row nzGutter="10">
+                            <div nz-col [nzSpan]="16">
+                                <nz-form-item>
+                                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                                        Tài khoản &nbsp; <span class="text-danger">*</span></nz-form-label>
+                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="aCCTpl">
+                                        <input nz-input placeholder=" Tài khoản" formControlName="value">
+                                        <ng-template #aCCTpl let-control>
+                                            <ng-container *ngIf="control.hasError('required')">
+                                                Tài khoản không để trống
                                             </ng-container>
                                         </ng-template>
                                     </nz-form-control>
@@ -102,35 +96,6 @@
                                                 Mật khẩu không để trống
                                             </ng-container>
                                         </ng-template>
-                                    </nz-form-control>
-                                </nz-form-item>
-                            </div><!-- col -->
-                        </div>
-
-                        <div nz-row nzGutter="10">
-                            <div nz-col [nzSpan]="16">
-                                <nz-form-item>
-                                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
-                                        Địa chỉ mail gửi đi &nbsp; <span class="text-danger">*</span></nz-form-label>
-                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="mailSendTpl">
-                                        <input nz-input placeholder=" Địa chỉ mail gửi đi" formControlName="value">
-                                        <ng-template #mailSendTpl let-control>
-                                            <ng-container *ngIf="control.hasError('required')">
-                                                Địa chỉ mail gửi đi không để trống
-                                            </ng-container>
-                                        </ng-template>
-                                    </nz-form-control>
-                                </nz-form-item>
-                            </div><!-- col -->
-                        </div>
-
-                        <div nz-row nzGutter="10">
-                            <div nz-col [nzSpan]="16">
-                                <nz-form-item>
-                                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
-                                        Địa chỉ mail nhận CC &nbsp; <span class="text-danger">*</span></nz-form-label>
-                                    <nz-form-control nz-col nzFlex="auto" >
-                                        <input nz-input placeholder=" Địa chỉ mail nhận CC" formControlName="value">
                                     </nz-form-control>
                                 </nz-form-item>
                             </div><!-- col -->

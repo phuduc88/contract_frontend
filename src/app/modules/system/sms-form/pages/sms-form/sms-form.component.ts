@@ -2,13 +2,13 @@ import { Input, Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: "app-email-form-system-settings",
-  templateUrl: "./email-form.component.html",
-  styleUrls: ["./email-form.component.less"],
+  selector: "app-sms-form-system-settings",
+  templateUrl: "./sms-form.component.html",
+  styleUrls: ["./sms-form.component.less"],
 })
-export class EmailFormComponent implements OnInit, OnDestroy {
+export class SmsSettingFormComponent implements OnInit, OnDestroy {
   @Input() hsmSettingId: string;
-  formHsmSetting: FormGroup;
+  formSmsSetting: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -19,7 +19,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   private loadForm() {
-    this.formHsmSetting = this.formBuilder.group({
+    this.formSmsSetting = this.formBuilder.group({
       name: ["", Validators.required],
       value: ["", Validators.required],
       active: [""],
@@ -27,12 +27,12 @@ export class EmailFormComponent implements OnInit, OnDestroy {
   }
 
   private save() {
-    for (const i in this.formHsmSetting.controls) {
-      this.formHsmSetting.controls[i].markAsDirty();
-      this.formHsmSetting.controls[i].updateValueAndValidity();
+    for (const i in this.formSmsSetting.controls) {
+      this.formSmsSetting.controls[i].markAsDirty();
+      this.formSmsSetting.controls[i].updateValueAndValidity();
     }
 
-    if (this.formHsmSetting.invalid) {
+    if (this.formSmsSetting.invalid) {
       return;
     }
   }

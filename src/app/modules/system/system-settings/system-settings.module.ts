@@ -26,6 +26,7 @@ import {
   ApiContractSettingFormComponent,
   EmailFormComponent,
   HsmSettingFormComponent,
+  SmsSettingFormComponent,
 } from "./pages";
 
 @NgModule({
@@ -56,6 +57,7 @@ import {
     ApiContractSettingFormComponent,
     EmailFormComponent,
     HsmSettingFormComponent,
+    SmsSettingFormComponent,
   ],
   providers: [AuthenticationService],
   entryComponents: [],

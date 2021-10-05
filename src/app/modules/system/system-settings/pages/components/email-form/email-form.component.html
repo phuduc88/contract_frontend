@@ -1,130 +1,80 @@
-<div class="app align-content-stretch d-flex flex-wrap">
-    <div class="app-container">
-        <div class="app-content">
-            <div class="content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header col-12 d-flex">
-                                    <div class="col-11">
-                                        <h5 class="card-title">Cấu hình gửi Email</h5>
-                                    </div>
-                                    <div class="col-1">
-                                        <button class="btn">X</button>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="example-container">
-                                        <div class="example-content">
-                                            <form class="row g-3 ">
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Tên máy chủ<span style="color:red">
-                                                                *</span></span>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <select id="inputState" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            <option>...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+<div nz-row class="d-block system-settings-form customers-form manage-template-documents-table">
+    <form nz-form [formGroup]="formHsmSetting" class="companyAgencies-form">
+        <div class="page-container-form-custom">
+            <div class="page-company">
+                <div class="page-company__blank"></div>
 
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Địa chỉ máy chủ<span style="color:red">
-                                                                *</span></span>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="email" class="form-control" id="inputEmail4">
-                                                    </div>
-                                                </div>
+                <h2>I. CẤU HÌNH KẾT NỐI API ECONTRACTS</h2>
 
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Cổng kết nối<span style="color:red">
-                                                                *</span></span>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <input type="email" class="form-control" id="inputEmail4">
-                                                    </div>
-                                                    <div class="col-md-4 form-check fix-text-title">
-                                                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                        <label class="form-check-label" for="gridCheck">
-                                                            Sử dụng SSL
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Tài khoản Email<span style="color:red">
-                                                                *</span></span>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="email" class="form-control" id="inputEmail4">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Mật khẩu<span style="color:red">
-                                                                *</span></span>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="password" class="form-control" id="inputPassword4">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Địa chỉ email gửi đi<span
-                                                                style="color:red"> *</span></span>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="email" class="form-control" id="inputEmail4">
-                                                        <!-- </select> -->
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Địa chỉ Email nhận CC</span>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="email" class="form-control" id="inputEmail4">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-md-3 fix-text-title">
-                                                        <span class="form-label">Tùy chọn<span style="color:red">
-                                                                *</span></span>
-                                                    </div>
-                                                    <div class="col-md-4 form-check">
-                                                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                        <label class="form-check-label" for="gridCheck">
-                                                            Sử dụng SSL
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex">
-                                                    <div class="col-11">
-                                                        <button type="submit" class="btn btn-light"><i
-                                                                class="fa fa-times" aria-hidden="true"></i>Đóng</button>
-                                                    </div>
-                                                    <div class="col-1 ">
-                                                        <button type="submit" class="btn btn-primary"><i
-                                                                class="fa fa-floppy-o"
-                                                                aria-hidden="true"></i>Ghi</button>
-                                                    </div>
+                <div class="page-company__main">
+                    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
 
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div nz-row nzGutter="10">
+                            <div nz-col [nzSpan]="16">
+                                <nz-form-item>
+                                    <nz-form-label class="text-left" nz-col nzFlex="120px">Tên cấu hình &nbsp; <span
+                                            class="text-danger">*</span>
+                                    </nz-form-label>
+                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="supplierTpl"
+                                        class="imput-margin-left">
+                                        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                                            <input type="text" formControlName="name" nz-input
+                                                placeholder="Tên cấu hình" />
+                                        </nz-input-group>
+                                        <ng-template #supplierTpl let-control>
+                                            <ng-container *ngIf="control.hasError('required')">
+                                                Tên cấu hình không để trống
+                                            </ng-container>
+                                        </ng-template>
+                                    </nz-form-control>
+                                </nz-form-item>
                             </div>
                         </div>
-                    </div>
+
+
+                        <div nz-row nzGutter="10">
+                            <div nz-col [nzSpan]="16">
+                                <nz-form-item>
+                                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                                        Giá trị token &nbsp; <span class="text-danger">*</span></nz-form-label>
+                                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="serviceTpl">
+                                        <textarea nz-input placeholder=" Service gửi tin"
+                                            formControlName="value"></textarea>
+                                        <ng-template #serviceTpl let-control>
+                                            <ng-container *ngIf="control.hasError('required')">
+                                                Token không để trống
+                                            </ng-container>
+                                        </ng-template>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div><!-- col -->
+                        </div>
+
+                        <div nz-row nzGutter="10">
+                            <div nz-col [nzSpan]="24">
+                                <nz-form-item>
+                                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                                        Tùy chọn</nz-form-label>
+                                    <nz-checkbox-wrapper nz-col nzFlex="auto">
+                                        <label nz-checkbox formControlName="active">Sử dụng cấu hình </label>
+                                    </nz-checkbox-wrapper>
+                                </nz-form-item>
+                            </div><!-- col -->
+                        </div>
+
+                        <div nz-row nzGutter="10">
+                            <div nz-col nzMd="16" class="footer-botton d-flex">
+                                <button class="mr-2" nz-button nzType="default" [routerLink]="['/customers']">
+                                    <i nz-icon nzType="stop"></i>Đóng
+                                </button>
+                                <button class="ml-auto" nz-button nzType="primary" (click)="save()">
+                                    <i nz-icon nzType="save"></i>Ghi
+                                </button>
+                            </div>
+                        </div>
+                    </nz-spin>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>

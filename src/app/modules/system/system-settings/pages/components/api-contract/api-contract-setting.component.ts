@@ -1,49 +1,39 @@
-import { Input, Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Input, Component, OnInit, OnDestroy } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-api-contract-setting-form',
-  templateUrl: './api-contract-setting.component.html',
-  styleUrls: ['./api-contract-setting.component.less']
+  selector: "app-api-contract-setting-form",
+  templateUrl: "./api-contract-setting.component.html",
+  styleUrls: ["./api-contract-setting.component.less"],
 })
 export class ApiContractSettingFormComponent implements OnInit, OnDestroy {
   @Input() hsmSettingId: string;
-  formApiContractSetting: FormGroup;
-  
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
-  }
+  formHsmSetting: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.loadForm();
   }
 
-  ngOnDestroy() {
-
-  }
+  ngOnDestroy() {}
 
   private loadForm() {
-    this.formApiContractSetting = this.formBuilder.group({
-      supplier: ["", Validators.required],
-      service: ["", Validators.required],
-      parameterConnect: [""],
+    this.formHsmSetting = this.formBuilder.group({
+      name: ["", Validators.required],
+      value: ["", Validators.required],
       active: [""],
     });
-
   }
 
   private save() {
-    for (const i in this.formApiContractSetting.controls) {
-      this.formApiContractSetting.controls[i].markAsDirty();
-      this.formApiContractSetting.controls[i].updateValueAndValidity();
+    for (const i in this.formHsmSetting.controls) {
+      this.formHsmSetting.controls[i].markAsDirty();
+      this.formHsmSetting.controls[i].updateValueAndValidity();
     }
 
-    if (this.formApiContractSetting.invalid) {
+    if (this.formHsmSetting.invalid) {
       return;
     }
   }
-
-
 }
-

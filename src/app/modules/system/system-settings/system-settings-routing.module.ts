@@ -14,6 +14,7 @@ import {
   ApiContractSettingFormComponent,
   SystemSettingsComponent,
   EmailFormComponent,
+  SmsSettingFormComponent,
 } from "./pages";
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: "email",
         component: EmailFormComponent,
+      },
+      {
+        path: "sms-form",
+        component: SmsSettingFormComponent,
       },
       {
         path: "hsm",
