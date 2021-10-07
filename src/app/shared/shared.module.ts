@@ -67,6 +67,11 @@ import {
   ClientSuggestionComponent,
   DialogCustomerComponent,
   DialogClientUploadComponent,
+  ChangePasswordComponent,
+  CompnayInfoComponent,
+  DialogHSMConfigComponent,
+  DialogEmailConfigComponent,
+  DialogSMSConfigComponent,
 } from './components';
 
 import {
@@ -149,6 +154,11 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     ClientSuggestionComponent,
     DialogCustomerComponent,
     DialogClientUploadComponent,
+    ChangePasswordComponent,
+    CompnayInfoComponent,
+    DialogHSMConfigComponent,
+    DialogEmailConfigComponent,
+    DialogSMSConfigComponent,
   ],
   exports: [
     FormsModule,
@@ -191,6 +201,11 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     ClientSuggestionComponent,
     DialogCustomerComponent,
     DialogClientUploadComponent,
+    ChangePasswordComponent,
+    CompnayInfoComponent,
+    DialogHSMConfigComponent,
+    DialogEmailConfigComponent,
+    DialogSMSConfigComponent,
   ],
   providers: [
     AuthenticationService,
@@ -220,6 +235,11 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogThreadSingTemplateComponent,
     DialogCustomerComponent,
     DialogClientUploadComponent,
+    ChangePasswordComponent,
+    CompnayInfoComponent,
+    DialogHSMConfigComponent,
+    DialogEmailConfigComponent,
+    DialogSMSConfigComponent,
   ]
 })
 export class SharedModule { }

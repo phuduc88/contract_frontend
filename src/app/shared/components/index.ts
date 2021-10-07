@@ -30,3 +30,8 @@ export * from './dialog-thread-sign-template/dialog-thread-sign-template.compone
 export * from './client-suggestion/client-suggestion.component';
 export * from './dialog-customer/dialog-customer.component';
 export * from './dialog-customer-upload/dialog-customer-upload.component';
+export * from './change-pasword/change-pasword.component';
+export * from './company-info/company-info.component';
+export * from './dialog-sms-config/dialog-sms-config.component';
+export * from './dialog-hsm-config/dialog-hsm-config.component';
+export * from './dialog-email-config/dialog-email-config.component';

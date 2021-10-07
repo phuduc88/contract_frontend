@@ -1,0 +1,77 @@
+<div class="page-container">
+  <form nz-form [formGroup]="formHsmSetting" class="companyAgencies-form">
+    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+      <div class="page-customer">   
+          <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label class="text-left" nz-col nzFlex="120px">Nhà cung cấp &nbsp; <span
+                      class="text-danger">*</span>
+                  </nz-form-label>
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="supplierTpl" class="imput-margin-left">
+                    <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                      <input type="text" formControlName="supplier" nz-input placeholder="Nhà cung cấp" />
+                    </nz-input-group>
+                    <ng-template #supplierTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Nhà cung cấp không để trống
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+        
+            <div nz-row nzGutter="10">
+                <div nz-col [nzSpan]="24">
+                  <nz-form-item>
+                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                      Service gửi tin &nbsp; <span class="text-danger">*</span></nz-form-label>
+                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="serviceTpl">
+                      <input nz-input placeholder=" Service gửi tin" formControlName="service" />
+                      <ng-template #serviceTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                          Service gửi tin không để trống
+                        </ng-container>
+                      </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div><!-- col -->
+            </div>
+
+            <div nz-row nzGutter="10">
+                <div nz-col [nzSpan]="24">
+                  <nz-form-item>
+                    <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                      Tham số kết nối</nz-form-label>
+                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="parameterConnectTpl">
+                      <input nz-input placeholder="Tham số kết nối" formControlName="parameterConnect" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div><!-- col -->
+              </div>
+            
+              <div nz-row nzGutter="10">
+                  <div nz-col [nzSpan]="24">
+                    <nz-form-item>
+                      <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                        Tùy chọn</nz-form-label>
+                      <nz-checkbox-wrapper nz-col nzFlex="auto">
+                        <label nz-checkbox formControlName="active">Sử dụng cấu hình </label>
+                      </nz-checkbox-wrapper>
+                    </nz-form-item>
+                  </div><!-- col -->
+                </div>
+        
+      </div>
+    </nz-spin>
+  </form>
+</div>
+  <div class="igning-stream-form__footer" *nzModalFooter>
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Hủy
+    </button>
+    <button nz-button nzType="default" (click)="save()" class="btn-success">
+      <i nz-icon nzType="save"></i>Lưu
+    </button>
+  </div>      

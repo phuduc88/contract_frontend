@@ -94,6 +94,11 @@ const routes: Routes = [
     loadChildren:
       "./modules/system/system-settings/system-settings.module#SystemSettingsModule",
   },
+  {
+    path: "app-settings",
+    loadChildren:
+      "./modules/system/app-settings/app-settings.module#AppSettingsModule",
+  },
 ];
 
 @NgModule({

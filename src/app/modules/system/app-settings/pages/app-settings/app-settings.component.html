@@ -1,0 +1,88 @@
+<div class="row gutters-sm">
+  <div class="col-md-4 mb-3">    
+    <app-change-pasword></app-change-pasword>
+    <app-company-info></app-company-info>
+  </div>
+  <div class="col-md-8" id="main_content">
+     <div class="item_config">
+       <h1>
+          <i nz-icon nzType="mail" nzTheme="outline"></i>
+          <span> Cấu hình gửi email</span>
+       </h1>
+       <div class="row">
+          <div class="col-10">
+              <p>Địa chỉ máy chủ: <b> Sử dụng cấu hình mặc định</b></p>
+              <p>Trạng thái: <b> Mặc định</b></p>
+             </div>
+             <div class="col-2">
+                <button type="button" class="button-primary" (click)="configEmail()">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                    Câp nhật
+                  </button>
+              </div>
+       </div>
+     </div>
+     <!-- End row -->
+     <div class="item_config">
+        <h1>
+           <i nz-icon nzType="mail" nzTheme="outline"></i>
+           <span> Cấu hình gửi tin nhắn SMS</span>
+        </h1>
+        <div class="row">
+           <div class="col-10">
+               <p>Nhà cung cấp: <b>[Chưa được thiết lập]</b></p>
+               <p>Địa chỉ service: <b>[Chưa được thiết lập]</b></p>
+               <p>Trạng thái: <b>[Chưa được thiết lập]</b></p>
+              </div>
+              <div class="col-2">
+                 <button type="button" class="button-primary" (click)="configSMS()">
+                     <i class="fa fa-edit" aria-hidden="true"></i>
+                     Câp nhật
+                   </button>
+               </div>
+        </div>
+      </div>
+     <!-- End row -->
+     <div class="item_config">
+        <h1>
+          <i nz-icon nzType="database" nzTheme="outline"></i>
+           <span> Cấu hình kết nối thiết bị ký số HSM</span>
+        </h1>
+        <div class="row">
+           <div class="col-10">
+               <p>Tên nhà cung cấp: <b>[Chưa được thiết lập]</b></p>
+               <p>Địa chỉ service HSM: <b>[Chưa được thiết lập]</b></p>
+               <p>Trạng thái: <b>[Chưa được thiết lập]</b></p>
+              </div>
+              <div class="col-2">
+                 <button type="button" class="button-primary" (click)="configHSM()">
+                     <i class="fa fa-edit" aria-hidden="true"></i>
+                     Câp nhật
+                   </button>
+               </div>
+        </div>
+      </div>
+
+      <!-- End row -->
+     <div class="item_config" style="border-bottom:0px">
+        <h1>
+            <i nz-icon nzType="api" nzTheme="outline"></i>
+           <span> Cấu hình kết nối API EContracts</span>
+        </h1>
+        <div class="row">
+           <div class="col-10">
+               <p>Tên cấu hình: <b>[Chưa được thiết lập]</b></p>
+               <p>Giá trị service: <b>[Chưa được thiết lập]</b></p>
+               <p>Trạng thái: <b>[Chưa được thiết lập]</b></p>
+              </div>
+              <div class="col-2">
+                 <button type="button" class="button-primary" (click)="configAPIContract()">
+                     <i class="fa fa-edit" aria-hidden="true"></i>
+                     Câp nhật
+                   </button>
+               </div>
+        </div>
+      </div>
+
+  </div>
+</div>
