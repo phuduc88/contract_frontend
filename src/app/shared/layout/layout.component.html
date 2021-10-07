@@ -5,7 +5,98 @@
     </a>
   </div>
   <div class="main-sidebar">
-    <section class="sidebar">
+      <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+          <li
+            nz-menu-item
+            nz-tooltip
+            nzTooltipPlacement="right"
+            [nzTooltipTitle]="isCollapsed ? 'Tông quan' : ''"
+            [nzSelected] = "currentUrl.includes('dashboard')"
+            >
+            <a [routerLink]="['/dashboard']">
+              <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+              <span>Tông quan</span>
+            </a>
+          </li>
+          <li
+            nz-menu-item nz-tooltip nzTooltipPlacement="left"
+            [nzTooltipTitle]="isCollapsed ? 'Quản lý tài liệu' : ''"
+            [nzSelected] = "currentUrl.includes('manage-document')"
+            >
+            <a [routerLink]="['/manage-documents']">
+              <i nz-icon nzType="read" nzTheme="outline"></i>
+              <span>Quản lý tài liệu</span>
+            </a>
+          </li>
+          <li
+            nz-menu-item nz-tooltip nzTooltipPlacement="left"
+            [nzTooltipTitle]="isCollapsed ? 'Quản lý mẫu tài liệu' : ''"
+            [nzSelected] = "currentUrl.includes('manage-template-documents')"
+            >
+            <a [routerLink]="['/manage-template-documents']">
+              <i nz-icon nzType="copy" nzTheme="outline"></i>
+              <span>Quản lý mẫu tài liệu</span>
+            </a>
+          </li>
+          <li
+            nz-menu-item nz-tooltip nzTooltipPlacement="left"
+            [nzTooltipTitle]="isCollapsed ? 'Danh sách khách hàng' : ''"
+            [nzSelected] = "currentUrl.includes('customers')"
+            >
+            <a [routerLink]="['/customers']">
+              <i nz-icon nzType="idcard" nzTheme="outline"></i>
+              <span>Danh sách khách hàng</span>
+            </a>
+          </li>
+          <li
+            nz-menu-item nz-tooltip nzTooltipPlacement="left"
+            [nzTooltipTitle]="isCollapsed ? 'Thông tin tài khoản' : ''"
+            [nzSelected] = "currentUrl.includes('account-information')"
+            >
+            <a [routerLink]="['/account-information']">
+              <i nz-icon nzType="user" nzTheme="outline"></i>
+              <span>Thông tin tài khoản</span>
+            </a>
+          </li>
+          <li nz-submenu nzTitle="Báo cáo" 
+          [nzSelected] = "currentUrl.includes('cai-dat-chung')"
+          nzIcon="setting">
+            <ul>
+                 <li nz-menu-item>
+                    <a [routerLink]="['/dashboard/use-contract']">
+                      <span>Tình hình sử dụng HĐ</span>
+                    </a>
+                  </li>
+                  <li nz-menu-item>
+                      <a [routerLink]="['/dashboard/send-sms']">
+                        <span>Tình hình sử dụng SMS</span>
+                      </a>
+                    </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Hệ thống" 
+          [nzSelected] = "currentUrl.includes('cai-dat-chung')"
+          nzIcon="setting">
+            <ul>
+              <li nz-menu-item>
+                  <a [routerLink]="['/dashboard/use-contract']">
+                    <span>Cấu hình hệ thống</span>
+                  </a>
+              </li>
+              <li nz-submenu nzTitle="Quản lý tài khoản">
+                  <ul>
+                    <li nz-menu-item>
+                      <a [routerLink]="['/cai-dat-chung']">
+                        <span>Cài đặt chung</span>
+                      </a>
+                    </li>
+                  </ul>
+              </li>
+               
+            </ul>
+          </li>
+        </ul>
+    <!-- <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <li [ngClass]="{true: 'active'}[currentUrl.includes('dashboard')]">
           <a [routerLink]="['/dashboard']">
@@ -42,6 +133,9 @@
             <i class="fa fa-gear"></i>
             <span>Cài đặt chung</span>
           </a>
+          <ul>
+            <li>Cài đặt chung 1</li>
+          </ul>
         </li>
 
         <li class="">
@@ -51,12 +145,12 @@
           </a>
         </li>
       </ul>
-    </section>
+    </section>  -->
   </div>
 </div>
 <div id="right-maincontent">
   <div id="top-header" class="d-flex align-items-center bd-highlight">
-    <span id="sidebar" class="navi-icon bd-highlight sidebar-toggle d-flex justify-content-center align-items-center"
+    <span id="sidebar" (click) = "showMenu()" class="navi-icon bd-highlight sidebar-toggle d-flex justify-content-center align-items-center"
       data-toggle="push-menu" role="button">
       <i class="fa fa-bars" aria-hidden="true"></i>
     </span>

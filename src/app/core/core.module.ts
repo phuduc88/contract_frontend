@@ -17,6 +17,7 @@ import {
   ThreadedSignTemplateService,
   DocumentTemplateService,
   DocumentTemplateDataService,
+  ClientService,
 } from './services';
 
 @NgModule({
@@ -39,6 +40,7 @@ import {
     ThreadedSignTemplateService,
     DocumentTemplateService,
     DocumentTemplateDataService,
+    ClientService,
   ],
   declarations: []
 })

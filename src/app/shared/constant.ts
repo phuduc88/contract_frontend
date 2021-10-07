@@ -417,6 +417,23 @@ export const GROUP_TYPE = {
   ISCC: 3,
 };
 
+export const CLIENT_TYPE = [
+  {
+    key: GROUP_TYPE.HSMUSB,
+    name: "common.client.organization"
+  },
+  {
+    key: GROUP_TYPE.ONSIGN,
+    name: "common.client.personal"
+  }
+]
+
+export const CLIENT_TYPE_MASTER =  {
+  1: 'common.client.organization',
+  2: 'common.client.personal',
+}
+
+
 export const STEP = {
   ONE: 0,
   TWO: 1,

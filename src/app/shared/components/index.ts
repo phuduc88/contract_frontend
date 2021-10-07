@@ -27,3 +27,6 @@ export * from './pdf-viewer/pdf-viewer.component';
 export * from './form-document/form-document.component';
 export * from './dialog-upload-template-error/dialog-upload-template-error.component';
 export * from './dialog-thread-sign-template/dialog-thread-sign-template.component';
+export * from './client-suggestion/client-suggestion.component';
+export * from './dialog-customer/dialog-customer.component';
+export * from './dialog-customer-upload/dialog-customer-upload.component';

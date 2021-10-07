@@ -9,7 +9,7 @@
               <nz-select nzAllowClear (ngModelChange)="changeEmailAssignment($event)" nzPlaceHolder="Chọn người ký"
                 [(ngModel)]="documentSign.emailAssignment">
                 <nz-option [nzValue]="person.email" [nzLabel]="person.groupName"
-                  *ngFor="let person of documentSign.employeesSign">
+                  *ngFor="let person of employeesSign">
                 </nz-option>
               </nz-select>
             </div>
@@ -45,10 +45,8 @@
                   <br />
                   <span class="text-muted">
                     Loại:
-                    <span *ngIf="sign.isEmployeeSign" class="text-primary"> 
-                      Ký thường</span>
-                    <span *ngIf="!sign.isEmployeeSign" class="text-warning">Xét duyệt  
-                      </span>
+                    <span class="text-warning">Ký thường</span>
+                    
                   </span>
                   <br />
                   <span>Trang: <span class="text-muted">{{sign.page}}</span></span>
@@ -85,8 +83,7 @@
                 <div class="d-flex mb-2">
                   <h6>
                     Loại chữ ký:
-                    <span class="badge badge-warning" *ngIf="selectedSignature.isEmployeeSign">ký thường</span>
-                    <span class="badge badge-primary" *ngIf="!selectedSignature.isEmployeeSign">Xét duyệt</span>
+                    <span class="badge badge-warning">ký thường</span>
                   </h6>
                 </div>
                 <div class="d-flex mb-2">

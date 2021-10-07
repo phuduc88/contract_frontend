@@ -19,4 +19,4 @@ export * from './threaded-sign-template.service';
 export * from './system-config.service';
 export * from './document-template.service';
 export * from './document-template-data.service';
-
+export * from './client.service';

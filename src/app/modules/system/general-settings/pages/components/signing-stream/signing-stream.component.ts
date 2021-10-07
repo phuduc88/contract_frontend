@@ -76,7 +76,7 @@ export class SigningStreamComponent implements OnInit {
       name: null,
       groupName: null,
       groupType: GROUP_TYPE.HSMUSB,
-      isEmployeeSign: false,
+      isEmployeeSign: true,
       isEmployeeApprove: false,
       address: null,
       idNumer: null,
@@ -84,7 +84,8 @@ export class SigningStreamComponent implements OnInit {
       email: null,
       taxCode: null,
       orders: '1',
-      orderSign: 1
+      orderSign: 1,
+      clientId: null,
     }
   }
 

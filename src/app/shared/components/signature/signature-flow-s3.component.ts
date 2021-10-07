@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  OnChanges,
 } from "@angular/core";
 import { SIGNATURE } from "@app/shared/constant";
 import { PDFDocumentProxy } from "pdfjs-dist";
@@ -24,21 +25,15 @@ import orderBy from 'lodash/groupBy';
   styleUrls: ["signature-flow-s3.component.less"],
 })
 export class SignatureFlowS3Component
-  implements OnInit, OnDestroy, AfterViewInit
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit
 {
   @Input() documentSign: any;
   pdfDoc: PDFDocumentProxy;
-  height = 0;
-  zoomX = 1;
-  x = SIGNATURE.X;
-  y = SIGNATURE.Y;
   objectSelect = null;
   canvasFs = [];
   selectedSignature = {};
-  pagesDocument: any;
+  employeesSign: any;  
   currentUser: Credential;
-  subscriptionSignatureSelected: any;
-  subscriptionCurrentCanvas: any;
   isDisplay: boolean = false;
   private handlers;
   constructor(
@@ -47,7 +42,7 @@ export class SignatureFlowS3Component
   ) {}
 
   ngOnInit() {
-    this.currentUser = this.authService.currentCredentials;
+   this.currentUser = this.authService.currentCredentials;
     this.handlers = [
       eventEmitter.on("sign:add", (sign) => {
         this.addSignToDoc(sign);
@@ -65,8 +60,18 @@ export class SignatureFlowS3Component
         this.modalService.warning({ nzTitle: "Vui lòng chọn người ký !" });
       }),
     ];
+    
   }
 
+  ngOnChanges(changes) {
+    if (changes && changes.documentSign.currentValue) { 
+      this.getPesionSign(changes.documentSign.currentValue);
+    }
+  }
+
+  getPesionSign(documentSign) {
+    this.employeesSign = documentSign.employeesSign.filter(p => p.isEmployeeSign);
+  }
 
   addSignToDoc(sign) {
     if (!this.documentSign.listSign || this.documentSign.listSign.length == 0) {
@@ -120,9 +125,7 @@ export class SignatureFlowS3Component
   }
 
   changeEmailAssignment(emailSelected) {
-    console.log(this.documentSign.employeesSign,'xxxxx');
     const employeesSign = this.documentSign.employeesSign.find(r => r.email === emailSelected);
-    console.log(employeesSign);
     eventEmitter.emit("sign:changeEmailAssignment", employeesSign);
   }
 
@@ -144,6 +147,7 @@ export class SignatureFlowS3Component
   }
 
   ngAfterViewInit() {
+    
     // Init drag for Signature Image
     $(SIGNATURE.SELECTOR.ObjDragToViewer).draggable({
       cursor: "move",

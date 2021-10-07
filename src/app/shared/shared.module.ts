@@ -64,6 +64,9 @@ import {
   FormDocumentComponent,
   DialogUploadTemplateErrorComponent,
   DialogThreadSingTemplateComponent,
+  ClientSuggestionComponent,
+  DialogCustomerComponent,
+  DialogClientUploadComponent,
 } from './components';
 
 import {
@@ -143,6 +146,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     FormDocumentComponent,
     DialogUploadTemplateErrorComponent,
     DialogThreadSingTemplateComponent,
+    ClientSuggestionComponent,
+    DialogCustomerComponent,
+    DialogClientUploadComponent,
   ],
   exports: [
     FormsModule,
@@ -182,6 +188,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     FormDocumentComponent,
     DialogUploadTemplateErrorComponent,
     DialogThreadSingTemplateComponent,
+    ClientSuggestionComponent,
+    DialogCustomerComponent,
+    DialogClientUploadComponent,
   ],
   providers: [
     AuthenticationService,
@@ -209,6 +218,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogErrorComponent,
     DialogUploadTemplateErrorComponent,
     DialogThreadSingTemplateComponent,
+    DialogCustomerComponent,
+    DialogClientUploadComponent,
   ]
 })
 export class SharedModule { }

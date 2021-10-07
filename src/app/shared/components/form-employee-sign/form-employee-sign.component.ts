@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import { NzModalService } from "ng-zorro-antd/modal";
 import 'jqueryui';
 import { eventEmitter } from '@app/shared/utils/event-emitter';
+import { ClientService } from '@app/core/services';
 
 @Component({
   selector: 'app-form-employee-sign',
@@ -19,6 +20,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
   private handlers: any = [];
   constructor(
     private modalService: NzModalService,
+    private clientService: ClientService,
   ) 
   {}
 
@@ -53,6 +55,43 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
     if (changes.employeesSign && changes.employeesSign.currentValue && changes.employeesSign.currentValue.length) {
        this.employeesSign = changes.employeesSign.currentValue;
     }
+  }
+
+  chooseProduct(client, item) {
+    if (client) {
+      item.groupName = client.name;
+      item.taxCode = client.taxCode;
+      item.email = client.email;
+      item.clientId = client.id;
+      item.addCustomer = false;
+    }
+  }
+
+  handleSearchTax(item) {
+    if (item.taxCode) {
+      this.clientService.getOrganizationByTax(item.taxCode).then((data) => {
+        if (data['MaSoThue']) {
+          item.groupName = data['Title'],
+          item.name = data['Title'],
+          item.email = '';
+          item.addCustomer = true; 
+        } else {
+          item.groupName = '';
+          item.name = '';
+          item.email = '';
+          item.addCustomer = true; 
+          this.taxInvalid();
+        }
+      });
+    } else {
+      this.taxInvalid();
+    }
+  }
+
+  taxInvalid() {
+    this.modalService.warning({
+      nzTitle: 'Không tìm thấy mã số thuế cần tìm'
+    });
   }
 
   validForm(action) {

@@ -23,10 +23,6 @@ import {
   CustomersEditComponent,
   CustomersComponent,
   CustomersListS2Component,
-  CustomersAddS2Component,
-  CustomersEditS2Component,
-  CustomersFormComponent,
-  CustomersImportComponent
 } from "./pages";
 
 @NgModule({
@@ -54,10 +50,6 @@ import {
     CustomersAddComponent,
     CustomersEditComponent,
     CustomersListS2Component,
-    CustomersAddS2Component,
-    CustomersEditS2Component,
-    CustomersFormComponent,
-    CustomersImportComponent
   ],
   providers: [AuthenticationService],
   entryComponents: [],

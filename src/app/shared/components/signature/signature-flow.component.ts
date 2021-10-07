@@ -118,11 +118,11 @@ export class SignatureFlowComponent
           sign.img = this.getImage(sign);
           sign.emailAssignment = employee.email;
           sign.privateId = signUtils.createGuid(),
-          sign.isEmployeeSign  = employee.isEmployeeSign,
           listSignCopy.push(sign);
         });
       }
     });
+    
     this.documentSign.listSign = orderBy(listSignCopy, 'signIndex', 'asc');
   }
 
@@ -239,13 +239,12 @@ export class SignatureFlowComponent
     });
   }
 
-
   private addEmployeeSignBlank() {
     return {
       name: null,
       groupName: null, 
       groupType: GROUP_TYPE.HSMUSB,
-      isEmployeeSign: false,
+      isEmployeeSign: true,
       isEmployeeApprove: false,
       address: null,
       idNumer: null,
@@ -383,7 +382,7 @@ export class SignatureFlowComponent
         name: this.currentUser.username,
         groupName: this.currentUser.username,
         groupType: GROUP_TYPE.HSMUSB,
-        isEmployeeSign: false,
+        isEmployeeSign: true,
         isEmployeeApprove: false,
         address: "",
         idNumer: "",

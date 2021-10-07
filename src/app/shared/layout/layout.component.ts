@@ -13,6 +13,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   isLoading = false;
   private permissions: any = {};
   private handlers: any = [];
+  private isCollapsed = false;
   pmsConf = PERMISSIONS;
   currentUser = {};
   currentUrl = ""
@@ -65,6 +66,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.permissions[PERMISSIONS.downloadSignXMl.R] = true;
       }
     }
+  }
+
+  showMenu() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   setInfo() {

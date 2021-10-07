@@ -51,7 +51,8 @@
 			"customerAccount": "Tài khoản khách hàng",
 			"sellerAccount": "Tài khoản đại lý"
 		},
-		
+		"client.organization": "Tổ chức",
+		"client.personal": "Cá nhân",
 		"error.code.8": "Lỗi không xác định"
 		
 	},

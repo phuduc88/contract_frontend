@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalService } from "ng-zorro-antd/modal";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
+import { ClientService } from '@app/core/services';
 import { CheckDuplicateEmail, GROUP_TYPE, REGEX, ValidateEmail, ValidatePhone } from '@app/shared/constant';
 @Component({
   selector: "app-general-settings-signing-stream-form",
@@ -13,6 +15,8 @@ export class SigningStreamFormComponent implements OnInit {
   groupType = GROUP_TYPE;
   constructor(
     private modal: NzModalRef,
+    private modalService: NzModalService,
+    private clientService: ClientService,
   ) {}
 
   ngOnInit() {
@@ -44,6 +48,43 @@ export class SigningStreamFormComponent implements OnInit {
     } else {
       this.threadGroup.threadedSignTemplate.push(this.addEmployeeSignBlank());
     }
+  }
+
+  chooseClient(client, item) {
+    if (client) {
+      item.groupName = client.name;
+      item.taxCode = client.taxCode;
+      item.email = client.email;
+      item.clientId = client.id;
+      item.addCustomer = false;
+    }
+  }
+
+  handleSearchTax(item) {
+    if (item.taxCode) {
+      this.clientService.getOrganizationByTax(item.taxCode).then((data) => {
+        if (data['MaSoThue']) {
+          item.groupName = data['Title'],
+          item.name = data['Title'],
+          item.email = '';
+          item.addCustomer = true; 
+        } else {
+          item.groupName = '';
+          item.name = '';
+          item.email = '';
+          item.addCustomer = true; 
+          this.taxInvalid();
+        }
+      });
+    } else {
+      this.taxInvalid();
+    }
+  }
+
+  taxInvalid() {
+    this.modalService.warning({
+      nzTitle: 'Không tìm thấy mã số thuế cần tìm'
+    });
   }
 
   private addEmployeeSignBlank() {

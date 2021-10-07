@@ -1,11 +1,11 @@
 .wdt-100 {
   width: 100px;
 }
-
-.list-group-item {
-  background: transparent;
+.customers-list {
+  &__spinning {
+    height: 100%;
+  }
 }
-
 
 .customers-list__table thead>tr {
   text-align: center;
@@ -25,6 +25,21 @@
   padding: 6px 20px !important;
 }
 
+.icon-edit { 
+
+  .ant-btn-icon-only {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ant-btn {
+    line-height: 19px;
+  }
+
+  .ant-btn-circle {
+    min-width: 20px;
+  }
+}
 .btn-add {
   width: 170px;
   height: 90px;
@@ -43,4 +58,38 @@
   width: 120px;
   word-break: break-all;
   white-space: normal;
+}
+.page-header {
+  padding-bottom: 5px;
+  h5 {
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  .action {
+    text-align: right;
+    button {
+      margin-left: 5px;
+    }
+  }
+}
+.page-search {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  border: 1px solid #ecdfdf;
+  margin: 10px 0px;
+  border-radius: 4px;
+
+  .ant-form-item-label {
+    line-height: 24px;
+  }
+
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+
+  .ant-select {
+    width: 100%;
+  }
 }

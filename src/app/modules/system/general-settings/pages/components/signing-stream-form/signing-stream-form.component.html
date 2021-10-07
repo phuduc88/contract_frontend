@@ -37,12 +37,17 @@
                     </span>
                     <span class="text-danger">*</span>
                 </label>
-                <input type="text" style="text-transform:uppercase" class="form-control input26custom"
-                      [(ngModel)]="item.groupName" *ngIf="item.groupType == groupType.HSMUSB" name="fullName"
-                      placeholder="CÔNG TY CỔ PHẦN ABC" required (change)="item.groupName=item.groupName.toUpperCase();" />
-                <input type="text" style="text-transform:uppercase" class="form-control" [(ngModel)]="item.groupName"
-                      *ngIf="item.groupType == groupType.ONSIGN || item.groupType == groupType.ISCC" name="fullName"
-                      placeholder="NGUYỄN VĂN A" required (change)="item.groupName=item.name=item.name.toUpperCase();" />
+                <div *ngIf="item.groupType == groupType.HSMUSB">
+                    <input type="text" autocomplete="off" style="text-transform:uppercase" class="form-control input26custom"
+                    [(ngModel)]="item.groupName"  name="fullName"
+                    placeholder="CÔNG TY CỔ PHẦN ABC" required (change)="item.groupName=item.groupName.toUpperCase();" />
+                   <app-client-suggestion (onChooseItem) = "chooseClient($event, item)" [productId]="item.clientId"></app-client-suggestion>
+                </div>
+                <div *ngIf="item.groupType == groupType.ONSIGN || item.groupType == groupType.ISCC">
+                    <input type="text" style="text-transform:uppercase" class="form-control" [(ngModel)]="item.name"
+                     name="fullName"
+                    placeholder="NGUYỄN VĂN A" required (change)="item.groupName=item.name=item.name.toUpperCase();" />
+                </div>
               </div>
               <div class="form-group col-6 " *ngIf="item.groupType == groupType.HSMUSB">
                   <label>
@@ -53,7 +58,7 @@
                     <input type="text" class="form-control" [(ngModel)]="item.taxCode" placeholder="0123456789-123">
                     <div class="input-group-append">
                       <span id="basic-addon2">
-                        <button class="btn btn-sm btn-primary" ng-click="LoadInfoByTaxcode(p)" data-toggle="tooltip"
+                        <button class="btn btn-sm btn-primary" (click) = "handleSearchTax(item)" data-toggle="tooltip"
                           title="Lấy thông tin từ tổng cục thuế">
                           <i class="fa fa-search"></i>
                         </button>

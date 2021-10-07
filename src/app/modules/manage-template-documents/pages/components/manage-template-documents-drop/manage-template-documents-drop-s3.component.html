@@ -55,8 +55,8 @@
                       <input class="current-page" type="number" [(ngModel)]="currentPage" />
                       <span class="total-page"> / 1</span>
                     </label>
-                    <button nz-button nzType="link" [disabled]="currentPage===7">Sau</button>
-                    <button nz-button nzType="link" [disabled]="currentPage===7">Cuối cùng</button>
+                    <button nz-button nzType="link" [disabled]="currentPage=== total-page">Sau</button>
+                    <button nz-button nzType="link" [disabled]="currentPage=== total-page">Cuối cùng</button>
                   </div>
                 </div>
               </div>

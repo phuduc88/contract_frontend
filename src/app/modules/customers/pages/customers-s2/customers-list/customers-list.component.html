@@ -1,93 +1,95 @@
 <div nz-row class="customers-list manage-template-documents-table">
-  <div nz-col nzSpan="24">
-    <h5>Danh sách mẫu tài liệu</h5>
+  
+  <div nz-col nzSpan="24">    
+    <div class="page-header">
+        <div nz-row nzGutter="30">
+            <div nz-col nzMd="18">
+              <h5>Danh sách khách hàng</h5>
+            </div>
+            <div nz-col nzMd="6" class="action">
+                <button nz-button nzType="primary" (click)="add()" class="btn-success"><i nz-icon nzType="plus" nzTheme="outline"></i>
+                  Tạo mới khách hàng
+                </button>
+                <button nz-button nzType="primary" (click)="upload()" class="btn-success"><i nz-icon nzType="plus" nzTheme="outline"></i>
+                  Upload
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="customers-list__container manage-template-documents-table__container">
-      <div nz-row class="customers-list__new pb-2 d-flex justify-content-center">
-        <button class="btn-add mr-2" nz-button nzType="default" [routerLink]="['/customers/add']">
-          <img src="../../../../../../assets/img/file-plus.svg">
-          <span>THÊM MỚI TỪNG KHÁCH HÀNG</span>
-        </button>
-        <button class="btn-add" nz-button nzType="default" [routerLink]="['/customers/import']">
-          <img src="../../../../../../assets/img/file-plus.svg">
-          <span style="width: 150px;">THÊM MỚI DANH SÁCH KHÁCH HÀNG</span>
-        </button>
-      </div>
-
+        <div class="page-search"> 
+          <form nz-form [formGroup]="formSearch">
+            <div nz-row nzGutter="30">
+                <div nz-col nzMd="8">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input type="text" (ngModelChange)="changeKeyword($event)" nz-input formControlName="keyword" placeholder="Tìm kiếm">
+                    </nz-form-control>
+                  </nz-form-item >
+                </div>
+                <div nz-col nzMd="8">
+                    <nz-form-item>
+                      <nz-form-control>
+                       <nz-select formControlName="customerType" nzShowSearch (ngModelChange)="changeClientType($event);" nzAllowClear
+                          nzPlaceHolder="Lựa chọn loại khách hàng">
+                          <nz-option [nzValue]="clientType.key" nzLabel="{{ clientType.name | translate }}" *ngFor="let clientType of customersType"></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item >
+                  </div>
+            </div>
+          </form>
+          </div>
+        
       <div class="customers-list__table">
+        <nz-spin [nzSpinning]="isSpinning" class="customers-list__spinning">
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th style="width: 50px;">STT</th>
-              <th style="width: 150px;">MÃ SỐ THUẾ</th>
-              <th>TÊN CÔNG TY</th>
-              <th style="width: 280px;">DANH SÁCH CÁC HỢP ĐỒNG ĐÃ KÝ</th>
-              <th style="width: 250px;">HÀNH ĐỘNG</th>
+                <th style="width: 50px;" class="align-middle" rowspan="2" >STT</th>
+                <th rowspan="2" class="align-middle">Tên khách hàng</th>
+                <th style="width: 100px;" class="align-middle"  rowspan="2">Email</th>
+                <th style="width: 100px;" class="align-middle"  rowspan="2">Loại KH</th>
+                <th style="width: 120px;" >Doanh nghiệp</th>
+                <th style="width: 280px;" class="align-middle" colspan="3">Cá nhân</th>
+                <th style="width: 100px;" class="align-middle" rowspan="2">Hành động</th>
+            </tr>
+            <tr>
+               <th>Mã số thuế</th>
+               <th style="width: 150px;">Địa chỉ</th>
+               <th style="width: 120px;">CMND/ Căn cước</th>
+               <th style="width: 100px;">Số điện thoại</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let customer of customers;index as i ">
+            <tr *ngFor="let customer of clients;index as i ">
               <td class="text-center align-middle">{{i + 1}}</td>
-              <td class="text-center align-middle">{{ customer.taxCode }}</td>
-              <td class="text-center align-middle">{{ customer.companyName }}</td>
-              <td>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" *ngFor="let contract of customer.contracts;index as i ">
-                    <div class="row d-flex justify-content-center">
-                      <div class="text-center p-2">{{ contract.fileName }}</div>
-                      <div class="w-100 row d-flex justify-content-between p-2">
-                        <a href="#">XEM CHI TIẾT</a>
-                        <a href="#">TẢI XUỐNG</a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </td>
-
-              <td class="align-middle">
-                <button nz-button nzType="default" nzBlock class="mb-2">
-                  <i nz-icon nzType="file" nzTheme="outline"></i>
-                  DANH SÁCH HỢP ĐỒNG
-                </button>
-
-                <button class="mb-2" nz-button nzType="default" nzBlock>
-                  <i nz-icon nzType="edit" nzTheme="outline"></i>
-                  SỬA
-                </button>
-
-                <button nz-button nzType="default" nzBlock>
-                  <i nz-icon nzType="delete" nzTheme="outline"></i>
-                  XÓA
-                </button>
+              <td class="text-left align-middle">{{ customer.companyName }}</td>
+              <td class="text-left align-middle">{{ customer.email }}</td>
+              <td class="text-center align-middle">{{ customersTypeView[customer.customerType] | translate }}</td>
+              <td class="text-left align-middle">{{ customer.taxCode }}</td>
+              <td  style="width: 150px;" class="text-left align-middle">{{ customer.address }}</td>
+              <td class="text-left align-middle">{{ customer.identityCard }}</td>
+              <td class="text-left align-middle">{{ customer.mobile }}</td>
+              <td class="align-middle icon-edit">
+                  <a (click)="loadResultOfDeclaration(data)" title="Tạo hợp đồng" nz-button nzType="link">
+                    <i nz-icon nzType="file-add" nzTheme="outline"></i>
+                  </a>
+                  <a (click)="edit(customer.id)" title="Chỉnh sửa khách hàng" nz-button nzType="link">
+                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                  </a>
+                  <a (click)="delete(customer.id)" nz-button nzType="link">
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                  </a>
               </td>
             </tr>
           </tbody>
         </table>
+      </nz-spin>
       </div>
-
-
-      <div class="customers-list__pagination manage-template-documents-table__header">
-        <div nz-row>
-          <div nz-col nzSpan="12" class="customers-list__pagination-info manage-template-documents-table__info">
-            <label>
-              <span class="align-items-center">
-                1 - 10 trong
-              </span>
-              <strong>200</strong> bản ghi
-            </label>
-          </div>
-          <div nz-col nzSpan="12" class="customers-list__pagintion-controls manage-template-documents-table__pagintion">
-            <button nz-button nzType="link">Đầu tiên</button>
-            <button nz-button nzType="link">Trước</button>
-            <label class="pagintion-current">
-              <input class="current-page" type="number" [(ngModel)]="selectedPage" />
-              <span class="total-page"> / 20</span>
-            </label>
-            <button nz-button nzType="link">Sau</button>
-            <button nz-button nzType="link">Cuối cùng</button>
-          </div>
-        </div>
+      <div class="customers-list__pagination">
+          <app-pagination [total]="total" [selected]="selectedPage" (onPageChange)="pageChange($event)"></app-pagination>
       </div>
-
     </div>
   </div>
 </div>
