@@ -1,0 +1,28 @@
+<div class="page-container">
+  <div class="page-signing-stream">     
+    <div class="page-signing-stream__main">
+        <div class="drop" style="background: #FFFFFF; height: 100px;">
+            <div class="cont" style="height: 125px;">
+              <img src="../../../../../assets/img/file-plus.svg">
+              <div class="desc d-none d-sm-block">
+          
+              </div>
+              <div class="browse">
+                Nhấn vào đây để duyệt
+              </div>
+              <div class="ng-binding">
+                <span class="text-danger">*</span>
+                Định dạng được hỗ trợ: {{ accept }}
+              </div>
+            </div>
+            <input id="uploadBookmark" type="file" accept=".xlsx, .xls" autocomplete="off" (change)="handleChange($event)"> 
+          </div>
+    </div>
+  <div class="igning-stream-form__footer" *nzModalFooter>
+    <button nz-button (click)="downloadTemplate()" nzType="default">
+      <i nz-icon nzType="download" nzTheme="outline"></i> Download file mẫu
+    </button>
+    <button nz-button nzType="default" (click)="save()" class="btn-success">
+      <i nz-icon nzType="cloud-upload" nzTheme="outline"></i>Upload
+    </button>
+  </div>      

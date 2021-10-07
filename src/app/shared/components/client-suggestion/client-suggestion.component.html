@@ -1,0 +1,8 @@
+<div *ngIf="items && items.length && typingMode" class="wrap-suggestion-list">
+    <table class="table table-hovered">
+      <tr (click)="selectItem(item)" *ngFor="let item of items">
+        <td>{{ item.taxCode }} - {{ item.name }} </td>
+      </tr>
+    </table>
+  </div>
+  
