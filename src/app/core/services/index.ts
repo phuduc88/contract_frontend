@@ -20,3 +20,7 @@ export * from './system-config.service';
 export * from './document-template.service';
 export * from './document-template-data.service';
 export * from './client.service';
+export * from './publish-api.service';
+export * from './plugin-email.service';
+export * from './plugin-sms.service';
+export * from './plugin-hsm.service';

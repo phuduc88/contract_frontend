@@ -11,8 +11,14 @@
        </h1>
        <div class="row">
           <div class="col-10">
-              <p>Địa chỉ máy chủ: <b> Sử dụng cấu hình mặc định</b></p>
-              <p>Trạng thái: <b> Mặc định</b></p>
+              <p>Địa chỉ máy chủ: 
+                <b *ngIf="emailServiceName">{{emailServiceName}}</b>
+                <b *ngIf="!emailServiceName">[Sử cấu hình mặc định]</b>
+              </p>
+              <p>Trạng thái: 
+                  <b *ngIf="emailStatus">[Sử dụng cấu hình]</b>
+                  <b *ngIf="!emailStatus">[Chưa được thiết lập]</b>
+              </p>
              </div>
              <div class="col-2">
                 <button type="button" class="button-primary" (click)="configEmail()">
@@ -25,14 +31,23 @@
      <!-- End row -->
      <div class="item_config">
         <h1>
-           <i nz-icon nzType="mail" nzTheme="outline"></i>
+          <i nz-icon nzType="comment" nzTheme="outline"></i>
            <span> Cấu hình gửi tin nhắn SMS</span>
         </h1>
         <div class="row">
            <div class="col-10">
-               <p>Nhà cung cấp: <b>[Chưa được thiết lập]</b></p>
-               <p>Địa chỉ service: <b>[Chưa được thiết lập]</b></p>
-               <p>Trạng thái: <b>[Chưa được thiết lập]</b></p>
+               <p>Nhà cung cấp:
+                <b *ngIf="smsProvider">{{smsProvider}}</b>
+                <b *ngIf="!smsProvider">[Chưa được thiết lập]</b>
+              </p>
+               <p>Địa chỉ service: 
+                  <b *ngIf="smsSeviceName">{{smsSeviceName}}</b>
+                  <b *ngIf="!smsSeviceName">[Chưa được thiết lập]</b>
+               </p>
+               <p>Trạng thái: 
+                  <b *ngIf="smsStatus">[Sử dụng cấu hình]</b>
+                  <b *ngIf="!smsStatus">[Chưa được thiết lập]</b>
+               </p>
               </div>
               <div class="col-2">
                  <button type="button" class="button-primary" (click)="configSMS()">
@@ -50,9 +65,18 @@
         </h1>
         <div class="row">
            <div class="col-10">
-               <p>Tên nhà cung cấp: <b>[Chưa được thiết lập]</b></p>
-               <p>Địa chỉ service HSM: <b>[Chưa được thiết lập]</b></p>
-               <p>Trạng thái: <b>[Chưa được thiết lập]</b></p>
+               <p>Tên nhà cung cấp: 
+                  <b *ngIf="hsmProvider">{{hsmProvider}}</b>
+                  <b *ngIf="!hsmProvider">[Chưa được thiết lập]</b>
+               </p>
+               <p>Địa chỉ service HSM: 
+                  <b *ngIf="hsmSeviceName">{{hsmSeviceName}}</b>
+                  <b *ngIf="!hsmSeviceName">[Chưa được thiết lập]</b>
+               </p>
+               <p>Trạng thái: 
+                  <b *ngIf="hsmStatus">[Sử dụng cấu hình]</b>
+                  <b *ngIf="!hsmStatus">[Chưa được thiết lập]</b>
+               </p>
               </div>
               <div class="col-2">
                  <button type="button" class="button-primary" (click)="configHSM()">
@@ -71,9 +95,18 @@
         </h1>
         <div class="row">
            <div class="col-10">
-               <p>Tên cấu hình: <b>[Chưa được thiết lập]</b></p>
-               <p>Giá trị service: <b>[Chưa được thiết lập]</b></p>
-               <p>Trạng thái: <b>[Chưa được thiết lập]</b></p>
+               <p>Tên cấu hình: 
+                  <b *ngIf="apiConfigName">{{apiConfigName}}</b>
+                  <b *ngIf="!apiConfigName">[Chưa được thiết lập]</b>
+               </p>
+               <p>Giá trị service: 
+                  <b *ngIf="apiToken">{{apiToken}}</b>
+                  <b *ngIf="!apiToken">[Chưa được thiết lập]</b>
+               </p>
+               <p>Trạng thái: 
+                  <b *ngIf="apiStatus">[Sử dụng cấu hình]</b>
+                  <b *ngIf="!apiStatus">[Chưa được thiết lập]</b>
+              </p>
               </div>
               <div class="col-2">
                  <button type="button" class="button-primary" (click)="configAPIContract()">

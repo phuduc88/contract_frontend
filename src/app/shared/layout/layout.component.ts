@@ -4,6 +4,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthenticationService } from '@app/core/services';
 import { eventEmitter } from '@app/shared/utils/event-emitter';
 import { PERMISSIONS, ROLE } from '@app/shared/constant';
+import { 
+  DialogChangePasswordComponent 
+} from '@app/shared/components';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -43,7 +46,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.modalService.warning({
           nzTitle: message
         });
+      }),
+      eventEmitter.on('changePassWord:open', (message) => {
+         this.dialogChangePassword();
       })
+
     ];
 
     this.setPermissions();
@@ -136,5 +143,21 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.handleLogout();
     // this.authService.logout();
     // this.router.navigate(['/auth/login'], { replaceUrl: true });
+  }
+
+  dialogChangePassword() {
+    
+    const modal = this.modalService.create({
+      nzClosable: true,
+      nzWidth: 650,
+      nzTitle: 'Thay đổi mật khẩu',
+      nzClassName: "signature-pad-custom",
+      nzContent: DialogChangePasswordComponent,
+      nzOnOk: () => { },
+      nzComponentParams: {
+      },
+      nzFooter: []
+    });
+     
   }
 }

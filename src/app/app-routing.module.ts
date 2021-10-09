@@ -95,9 +95,9 @@ const routes: Routes = [
       "./modules/system/system-settings/system-settings.module#SystemSettingsModule",
   },
   {
-    path: "app-settings",
+    path: "plugin-settings",
     loadChildren:
-      "./modules/system/app-settings/app-settings.module#AppSettingsModule",
+      "./modules/system/plugin-settings/plugin-settings.module#PluginSettingsModule",
   },
 ];
 

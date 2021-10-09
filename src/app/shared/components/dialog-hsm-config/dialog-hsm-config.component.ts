@@ -22,8 +22,8 @@ export class DialogHSMConfigComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngOnInit() {
     this.formHsmSetting = this.formBuilder.group({
-      supplier: [this.hsmConfig.supplier, Validators.required],
-      service: [this.hsmConfig.service, Validators.required],
+      provider: [this.hsmConfig.provider, Validators.required],
+      serviceName: [this.hsmConfig.serviceName, Validators.required],
       parameterConnect: [this.hsmConfig.parameterConnect],
       active: [this.hsmConfig.active],
     });
@@ -56,7 +56,7 @@ export class DialogHSMConfigComponent implements OnInit, OnDestroy, AfterViewIni
     const formValue = {
         ...this.formHsmSetting.getRawValue(),         
     };
-    formValue.id = this.customerInfo.id;
+    formValue.id = this.hsmConfig.id;
     return formValue;
   }
 }

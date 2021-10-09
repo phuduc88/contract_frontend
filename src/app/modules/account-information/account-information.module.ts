@@ -38,6 +38,7 @@ import {
     NzSelectModule,
     NzSpinModule,
     NzUploadModule,
+    NzRadioModule,
     NzCheckboxModule,
     AccountInformationRoutingModule,
     SharedModule

@@ -18,6 +18,10 @@ import {
   DocumentTemplateService,
   DocumentTemplateDataService,
   ClientService,
+  PublishAPIService,
+  PluginEmailService,
+  PluginHSMService,
+  PluginSMSService,
 } from './services';
 
 @NgModule({
@@ -41,6 +45,10 @@ import {
     DocumentTemplateService,
     DocumentTemplateDataService,
     ClientService,
+    PublishAPIService,
+    PluginEmailService,
+    PluginHSMService,
+    PluginSMSService,
   ],
   declarations: []
 })

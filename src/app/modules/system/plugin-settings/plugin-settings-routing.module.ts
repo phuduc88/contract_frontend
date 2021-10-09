@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LayoutComponent } from "@app/shared/layout";
 import {
-  AppSettingComponent,
+  PluginSettingComponent,
 } from "./pages";
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: AppSettingComponent
+        component: PluginSettingComponent
       }
     ]
   },
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppSettingsRoutingModule {}
+export class PluginSettingsRoutingModule {}

@@ -58,7 +58,7 @@ export class AuthenticationService {
   }
 
   public resetPassword(token: string, password: string, confirmPassword: string) {
-    return this.http.post(`/password-reset?token=${token}`, {
+    return this.http.post(`/session/change-password?token=${token}`, {
       password,
       confirmPassword
     });

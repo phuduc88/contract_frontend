@@ -20,11 +20,9 @@ import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { AuthenticationService } from "@app/core/services";
 import { SharedModule } from "@app/shared/shared.module";
-import { AppSettingsRoutingModule } from "./app-settings-routing.module";
+import { PluginSettingsRoutingModule } from "./plugin-settings-routing.module";
 import {
-  HsmSettingFormComponent,
-  ApiContractSettingFormComponent,
-  AppSettingComponent
+  PluginSettingComponent
 } from "./pages";
 
 @NgModule({
@@ -46,16 +44,14 @@ import {
     NzRadioModule,
     NzCheckboxModule,
     NzTabsModule,
-    AppSettingsRoutingModule,
+    PluginSettingsRoutingModule,
     SharedModule,
     NgxMaskModule.forRoot(),
   ],
   declarations: [
-    HsmSettingFormComponent, 
-    ApiContractSettingFormComponent,
-    AppSettingComponent,
+    PluginSettingComponent,
   ],
   providers: [AuthenticationService],
   entryComponents: [],
 })
-export class AppSettingsModule {}
+export class PluginSettingsModule {}

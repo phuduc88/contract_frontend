@@ -72,6 +72,8 @@ import {
   DialogHSMConfigComponent,
   DialogEmailConfigComponent,
   DialogSMSConfigComponent,
+  DialogApiContractOutComponent,
+  DialogChangePasswordComponent,
 } from './components';
 
 import {
@@ -159,6 +161,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogHSMConfigComponent,
     DialogEmailConfigComponent,
     DialogSMSConfigComponent,
+    DialogApiContractOutComponent,
+    DialogChangePasswordComponent,
   ],
   exports: [
     FormsModule,
@@ -206,6 +210,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogHSMConfigComponent,
     DialogEmailConfigComponent,
     DialogSMSConfigComponent,
+    DialogApiContractOutComponent,
+    DialogChangePasswordComponent,
   ],
   providers: [
     AuthenticationService,
@@ -240,6 +246,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogHSMConfigComponent,
     DialogEmailConfigComponent,
     DialogSMSConfigComponent,
+    DialogApiContractOutComponent,
+    DialogChangePasswordComponent,
   ]
 })
 export class SharedModule { }

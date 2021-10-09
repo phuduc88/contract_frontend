@@ -87,29 +87,24 @@
         <!-- Start row   -->
         <div nz-row nzGutter="10">
             <div nz-col [nzSpan]="24">
-              <nz-form-item>
-                <nz-form-label class="text-left" nz-col nzFlex="140px">
-                  Mật khẩu <span
-                  class="text-danger">*</span></nz-form-label>
-                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="passwordTpl" class="item-left-2">
-                    <nz-input-group [nzSuffix]="suffixTemplate">
-                        <input
-                          [type]="passwordVisible ? 'text' : 'password'"
-                          nz-input
-                          placeholder="Mật khẩu"
-                          [(ngModel)]="password"
-                        />
-                      </nz-input-group>
-                      <ng-template #suffixTemplate>
-                        <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
-                      </ng-template>
-                      <ng-template #passwordTpl let-control>
-                          <ng-container *ngIf="control.hasError('pattern')">
-                              Mật khẩu không được để trống
-                          </ng-container>
+                <nz-form-item>
+                    <nz-form-label class="text-left" nz-col nzFlex="140px">
+                        Mật khẩu<span
+                        class="text-danger">*</span></nz-form-label>
+                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="passwordTpl">
+                      <nz-input-group [nzSuffix]="suffixTemplate">
+                          <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="input password" formControlName="password" />
+                        </nz-input-group>
+                        <ng-template #suffixTemplate>
+                          <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
                         </ng-template>
-                </nz-form-control>
-              </nz-form-item>
+                        <ng-template #passwordTpl let-control>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                                Mật khẩu không được để trống
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
             </div>
           </div>
         <!-- End row   -->
@@ -138,7 +133,7 @@
                 <nz-form-label class="text-left" nz-col nzFlex="140px">
                   Địa chỉ email CC</nz-form-label>
                 <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="emailCCTpl" class="item-left-2">
-                  <input nz-input placeholder="Ngân hàng" formControlName="bankName" />
+                  <input nz-input placeholder="Địa chỉ email CC" formControlName="emailCC" />
                   <ng-template #emailCCTpl let-control>
                       <ng-container *ngIf="control.hasError('pattern')">
                           Địa chỉ email CC không đúng định dạng
@@ -150,13 +145,15 @@
           </div>
         <!-- End row   -->
         <div nz-row nzGutter="10">
-            <div nz-col [nzSpan]="5">
-            </div>
-            <div nz-col [nzSpan]="19" >
-                <nz-checkbox-wrapper style="padding-left:12px !important">
-                    <label nz-checkbox formControlName="active">Sử dụng cấu hình</label>
-                </nz-checkbox-wrapper>
-            </div>
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label class="text-left mr-2px" nz-col nzFlex="140px">
+                Tùy chọn</nz-form-label>
+              <nz-checkbox-wrapper nz-col nzFlex="auto">
+                <label nz-checkbox formControlName="active">Sử dụng cấu hình </label>
+              </nz-checkbox-wrapper>
+            </nz-form-item>
+          </div><!-- col -->
         </div>
         
       </div>
@@ -165,9 +162,9 @@
 </div>
   <div class="igning-stream-form__footer" *nzModalFooter>
     <button nz-button (click)="dismiss()" nzType="default">
-      <i nz-icon nzType="stop"></i>Hủy
+      <i nz-icon nzType="stop"></i>Đóng
     </button>
     <button nz-button nzType="default" (click)="save()" class="btn-success">
-      <i nz-icon nzType="save"></i>Lưu
+      <i nz-icon nzType="save"></i>Ghi
     </button>
   </div>      

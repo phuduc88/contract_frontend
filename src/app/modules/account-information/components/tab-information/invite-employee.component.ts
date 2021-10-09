@@ -13,6 +13,23 @@ import { Credential } from "@app/core/models";
 })
 export class InviteEmployeeComponent implements OnInit {   
   @Input() employeeInfo: any;
+  panels = [
+    {
+      active: true,
+      name: 'This is panel header 1',
+      disabled: false
+    },
+    {
+      active: false,
+      disabled: false,
+      name: 'This is panel header 2'
+    },
+    {
+      active: false,
+      disabled: true,
+      name: 'This is panel header 3'
+    }
+  ];
   form: FormGroup;
   roles: any;
   isEmployeeOfCompany = true;
@@ -31,7 +48,11 @@ export class InviteEmployeeComponent implements OnInit {
     this.currentUser = this.authService.currentCredentials;
     this.form = this.formBuilder.group({
       fullName: [{ value: this.employeeInfo.fullName, disabled: (this.employeeInfo.id)} ,[Validators.required]],
-      email: [{ value: this.employeeInfo.email, disabled: (this.employeeInfo.id)}, [Validators.required, Validators.pattern(REGEX.EMAIL)]]
+      email: [{ value: this.employeeInfo.email, disabled: (this.employeeInfo.id)}, [Validators.required, Validators.pattern(REGEX.EMAIL)]],
+      roleLevel: [1],
+      mobile: ['', [Validators.required, Validators.pattern(REGEX.PHONE_NUMBER)]],
+      description: [''],
+      userName: ['', Validators.required],
     });
     const jobs = [
       this.roleService.getRoleOfEmployee(),

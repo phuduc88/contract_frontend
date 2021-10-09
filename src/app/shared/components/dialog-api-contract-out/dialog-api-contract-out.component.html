@@ -1,0 +1,65 @@
+<div class="page-container">
+  <form nz-form [formGroup]="formApiContractConfig" class="companyAgencies-form">
+    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+      <div class="page-customer">   
+        <!-- Start row   -->
+        <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="24">
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="140px">
+                  Tên cấu hình &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="configNameTpl">
+                  <input nz-input placeholder="Tên cấu hình" formControlName="configName" />
+                  <ng-template #ipAddressTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Tên cấu hình không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div><!-- col -->
+          </div>
+        <!-- End row   -->
+        <!-- Start row   -->
+        <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="24">
+              <nz-form-item>
+                <nz-form-label class="text-left" nz-col nzFlex="140px">
+                  Giá trị token <span
+                  class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="tokenTpl" class="item-left-2">
+                  <textarea nz-input placeholder="Giá trị token" formControlName="token"></textarea>
+                  <ng-template #tokenTpl let-control>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Giá trị token
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        <!-- End row   -->
+        <div nz-row nzGutter="10">
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label class="text-left mr-2px" nz-col nzFlex="140px">
+                Tùy chọn</nz-form-label>
+              <nz-checkbox-wrapper nz-col nzFlex="auto">
+                <label nz-checkbox formControlName="active">Sử dụng cấu hình </label>
+              </nz-checkbox-wrapper>
+            </nz-form-item>
+          </div><!-- col -->
+        </div>
+        
+      </div>
+    </nz-spin>
+  </form>
+</div>
+  <div class="igning-stream-form__footer" *nzModalFooter>
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Đóng
+    </button>
+    <button nz-button nzType="default" (click)="save()" class="btn-success">
+      <i nz-icon nzType="save"></i>Ghi
+    </button>
+  </div>      

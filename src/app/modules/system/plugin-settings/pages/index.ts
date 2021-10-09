@@ -1,0 +1,1 @@
+export * from './plugin-settings/plugin-settings.component';

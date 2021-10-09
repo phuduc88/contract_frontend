@@ -13,6 +13,7 @@ import { DATE_FORMAT, REGEX } from '@app/shared/constant';
 export class DialogEmailConfigComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() emailConfig: any;
   customerType: any;
+  passwordVisible = false;
   formEmailConfig: FormGroup;
   constructor(
     private modal: NzModalRef,
@@ -21,7 +22,6 @@ export class DialogEmailConfigComponent implements OnInit, OnDestroy, AfterViewI
   {}
 
   ngOnInit() {
-    this.customerType = this.emailConfig.customerType;
     this.formEmailConfig = this.formBuilder.group({
       serverName: [this.emailConfig.serverName, Validators.required],
       ipAddress: [this.emailConfig.ipAddress, Validators.required],

@@ -8,11 +8,11 @@
                   <nz-form-label class="text-left" nz-col nzFlex="120px">Nhà cung cấp &nbsp; <span
                       class="text-danger">*</span>
                   </nz-form-label>
-                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="supplierTpl" class="imput-margin-left">
+                  <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="providerTpl" class="imput-margin-left">
                     <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
-                      <input type="text" formControlName="supplier" nz-input placeholder="Nhà cung cấp" />
+                      <input type="text" formControlName="provider" nz-input placeholder="Nhà cung cấp" />
                     </nz-input-group>
-                    <ng-template #supplierTpl let-control>
+                    <ng-template #providerTpl let-control>
                       <ng-container *ngIf="control.hasError('required')">
                         Nhà cung cấp không để trống
                       </ng-container>
@@ -27,9 +27,9 @@
                   <nz-form-item>
                     <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
                       Service gửi tin &nbsp; <span class="text-danger">*</span></nz-form-label>
-                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="serviceTpl">
-                      <input nz-input placeholder=" Service gửi tin" formControlName="service" />
-                      <ng-template #serviceTpl let-control>
+                    <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="serviceNameTpl">
+                      <input nz-input placeholder=" Service gửi tin" formControlName="serviceName" />
+                      <ng-template #serviceNameTpl let-control>
                         <ng-container *ngIf="control.hasError('required')">
                           Service gửi tin không để trống
                         </ng-container>
@@ -61,7 +61,7 @@
                       </nz-checkbox-wrapper>
                     </nz-form-item>
                   </div><!-- col -->
-                </div>
+              </div>
         
       </div>
     </nz-spin>

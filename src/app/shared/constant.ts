@@ -236,6 +236,7 @@ export const ErrorMessage = {
 export const errorMessages = {
   0: "Nam",
   8: "Dữ liệu không hợp lệ",
+  2005: "Mật khẩu cũ không khớp, vui lòng kiểm tra lại",
   2040: "NLĐ đã có hồ sơ, bạn không thể xóa",
   2001: "Sai Tên đăng nhập hoặc Mật khẩu. Vui lòng thử lại!",
   3018: "Email đã tồn tại trong hệ thống",
