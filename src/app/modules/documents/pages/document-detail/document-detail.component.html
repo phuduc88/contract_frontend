@@ -19,15 +19,15 @@
     <div class="document-detail-infomation__detail">
       <div class="document-info">
         Mã <a href="https://test-s.onfinance.asia/tra-cuu" target="_blank">tra cứu</a>:
-        <span class="text-danger ng-binding">1.8042</span>
+        <span class="text-danger ng-binding">{{verifyCode}}</span>
       </div>
       <div class="document-info">
         Mã định danh:
-        <span class="text-muted ng-binding">f9fa572e-5924-4496-be44-7be859876414-1624009414</span>
+        <span class="text-muted ng-binding">{{privateKey}}</span>
       </div>
       <div class="document-info">
         Khởi tạo lúc:
-        <span class="text-info ng-binding">16:53 18/06/2021</span>
+        <span class="text-info ng-binding">{{dateCreate}}</span>
       </div>
 
       <div class="document-info">
@@ -39,12 +39,16 @@
   </div>
 
   <div class="document-detail-recipient-list">
-   <app-document-detail-recipient-list></app-document-detail-recipient-list>
+   <app-document-detail-recipient-list
+   [employeesSign] = "employeesSign"
+   ></app-document-detail-recipient-list>
   </div>
 
   <hr />
 
   <div class="document-detail-sign-documents">
-    <app-document-detail-sign-documents></app-document-detail-sign-documents>
+    <app-document-detail-sign-documents
+    [filesSign] = "filesSign"
+    ></app-document-detail-sign-documents>
   </div>
 </div>

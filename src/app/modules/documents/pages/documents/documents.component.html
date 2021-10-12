@@ -1,6 +1,6 @@
 <div class="d-flex flex-column bd-highlight manage-documents">
-  <nz-tabset>
-    <nz-tab [nzTitle]="myselfSign" (nzSelectChange)="changeTab($event)">
+  <nz-tabset nzSelectedIndex="1" nzType="editable-card" nzHideAdd (nzSelectChange)="handleSelectTab($event)">
+    <nz-tab [nzTitle]="myselfSign">
       <ng-template #myselfSign>
         <div>
           Tôi ký
@@ -10,7 +10,7 @@
     <nz-tab [nzTitle]="sended">
       <ng-template #sended>
         <div>
-          Đã gửi
+          Chờ ký
         </div>
       </ng-template>
     </nz-tab>
@@ -21,41 +21,32 @@
         </div>
       </ng-template>
     </nz-tab>
-    <nz-tab [nzTitle]="deleted">
-      <ng-template #deleted>
-        <div>
-          Đã xóa
-        </div>
-      </ng-template>
-    </nz-tab>
-    <nz-tab [nzTitle]="cancel">
-      <ng-template #cancel>
-        <div>
-          Đã hủy
-        </div>
-      </ng-template>
-    </nz-tab>
     <nz-tab [nzTitle]="receptionCopy">
       <ng-template #receptionCopy>
         <div>
-          Tôi nhận bản sao (CC)
+          Từ chối
         </div>
       </ng-template>
     </nz-tab>
     <nz-tab [nzTitle]="manageMember">
       <ng-template #manageMember>
         <div>
-          Quản lý thành viên
+         Hoàn thành
         </div>
       </ng-template>
     </nz-tab>
   </nz-tabset>
+  <nz-spin [nzSpinning]="isSpinning" class="register__spinning">
   <div class="formWapper">
-    <app-document-form></app-document-form>
-    <app-document-table [documents]="documents" (editDocument)="editDocument($event)"
+    <app-document-form (onFormSearch) = "hendlFormSearch($event)"></app-document-form>
+    <app-document-table [documents]="documents" 
+      (onPageChange) = "handlePageChange($event)"
+      (editDocument)="editDocument($event)"
+      (editDocument)="editDocument($event)"
       (continueSignDocument)="continueSignDocument($event)" 
       (viewDocument)="viewDocument($event)"
       (singDocument)="singDocument($event)"
       ></app-document-table>
   </div>
+</nz-spin>
 </div>

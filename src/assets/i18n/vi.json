@@ -53,7 +53,13 @@
 		},
 		"client.organization": "Tổ chức",
 		"client.personal": "Cá nhân",
-		"error.code.8": "Lỗi không xác định"
+		"error.code.8": "Lỗi không xác định",
+		"documentStatus.waitapprove": "Chờ duyệt",
+		"documentStatus.waitothersign": "Chờ người khác ký",
+		"documentStatus.waitsign": "Chờ ký",
+		"documentStatus.finish": "Hoàn thành",
+		"documentStatus.refuse": "Hủy bỏ"
+
 		
 	},
 	"auth": {

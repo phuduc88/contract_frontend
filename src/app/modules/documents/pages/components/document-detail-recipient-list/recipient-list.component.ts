@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { RECIPIENT_LIST_DATA } from "@app/modules/documents/data/recipient-list-table";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
   selector: "app-document-detail-recipient-list",
@@ -7,8 +6,8 @@ import { RECIPIENT_LIST_DATA } from "@app/modules/documents/data/recipient-list-
   styleUrls: ["./recipient-list.component.less"],
 })
 export class DocumentDetailRecipientListComponent implements OnInit {
-  datas = RECIPIENT_LIST_DATA;
+  @Input() employeesSign: any;
   ngOnInit() {
-    console.log(this.datas);
+     
   }
 }

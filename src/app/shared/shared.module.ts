@@ -74,6 +74,7 @@ import {
   DialogSMSConfigComponent,
   DialogApiContractOutComponent,
   DialogChangePasswordComponent,
+  DialogChooseDateComponent,
 } from './components';
 
 import {
@@ -163,6 +164,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogSMSConfigComponent,
     DialogApiContractOutComponent,
     DialogChangePasswordComponent,
+    DialogChooseDateComponent,
   ],
   exports: [
     FormsModule,
@@ -212,6 +214,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogSMSConfigComponent,
     DialogApiContractOutComponent,
     DialogChangePasswordComponent,
+    DialogChooseDateComponent,
   ],
   providers: [
     AuthenticationService,
@@ -248,6 +251,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogSMSConfigComponent,
     DialogApiContractOutComponent,
     DialogChangePasswordComponent,
+    DialogChooseDateComponent,
   ]
 })
 export class SharedModule { }

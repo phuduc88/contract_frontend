@@ -14,7 +14,7 @@ const routes: Routes = [
         component: DocumentsComponent
       },
       {
-        path: ":alias",
+        path: ":id",
         component: DocumentDetailComponent,
       },
     ]

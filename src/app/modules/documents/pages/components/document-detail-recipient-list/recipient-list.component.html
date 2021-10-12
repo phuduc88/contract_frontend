@@ -18,7 +18,8 @@
         <tr>
           <th style="width: 50px;">#</th>
           <th>Người nhận</th>
-          <th style="width: 150px;">Tham gia ký kết</th>
+          <th style="width: 120px;">Tham gia ký kết</th>
+          <th style="width: 120px;">Tham gia duyệt</th>
           <th style="width: 150px;">Nhận bản sao</th>
           <th style="width: 180px;">Nhận bản sao khi hoàn thành (CC)</th>
           <th style="width: 180px;">Không nhận email khi có yêu cầu ký kểt</th>
@@ -26,10 +27,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of datas">
-          <td class="text-center">{{ data.stt }}</td>
+        <tr *ngFor="let data of employeesSign;index as i">
+          <td class="text-center">{{ i + 1 }}</td>
           <td>
-            <div [innerHtml]="data.nguoi_nhan"></div>
+            <div>
+              {{data.groupName}} <br/>
+              {{data.email}} 
+            </div>
           </td>
           <td class="text-center">
             <strong class="text-success">
@@ -37,7 +41,10 @@
             </strong>
           </td>
           <td class="text-center">
-            <i class="text-success fa fa-check" *ngIf="data.nhan_ban_sao"></i>
+              <i class="text-success fa fa-check" *ngIf="data.isEmployeeSign"></i>
+            </td>
+          <td class="text-center">
+            <i class="text-success fa fa-check" *ngIf="data.isEmployeeApprove"></i>
           </td>
           <td class="text-center">
             <i class="text-success fa fa-check" *ngIf="data.nhan_ban_sao_hoan_thanh"></i>

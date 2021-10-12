@@ -1,7 +1,39 @@
+.d-flex {
+  margin: 0px 10px 3px 10px;
+  display: grid !important;
+  grid-template-columns: 120px 1fr;
+  .btn-group {
+    height: 30px;
+    line-height: 30px;
+  }
+  .pagin-contain {
+    display: grid !important;
+    grid-template-columns: 1fr 504px;
+    &_skip {
+      margin-left: 10px;
+      line-height: 30px;
+    }
+    &_take {
+      margin-left: 10px;
+      width: 30px;
+    }
+    .current-page {
+      width: 48px;
+      display: inline-block;
+      text-align: center;
+    }
+  }
+}
+
 #table-document {
   button {
     img {
       filter: invert(49%) sepia(70%) saturate(7493%) hue-rotate(201deg);
     }
+  }
+
+  thead>tr>th {
+    background: #E8F8E2;
+    height: 45px;
   }
 }
