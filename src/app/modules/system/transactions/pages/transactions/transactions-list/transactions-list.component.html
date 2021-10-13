@@ -1,0 +1,86 @@
+<div nz-row class="customers-list manage-template-documents-table">
+
+  <div nz-col nzSpan="24">
+    <div class="customers-list__container manage-template-documents-table__container">
+      <nz-card nzTitle="Đối soát doanh số" class="card-title-custom w-100"  [nzExtra]="extraTemplate">
+        <div class="page-search">
+          <div class="frm-search d-flex">
+            <form nz-form [formGroup]="formSearch" class="frm-search-container w-100">
+              <div nz-row nzGutter="30">
+                <div nz-col nzMd="4">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                      <input nz-input formControlName="cmnd" placeholder="CMT, CMND" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col nzMd="5">
+                  <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="24">Từ ngày</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                      <nz-date-picker formControlName="dateFrom"></nz-date-picker>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col nzMd="5">
+                  <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="24">Đến ngày</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                      <nz-date-picker formControlName="dateTo"></nz-date-picker>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <div nz-col nzMd="4">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="24">
+                      <nz-select formControlName="status" nzPlaceHolder="--- Trạng thái ---">
+                        <nz-option nzValue="male" nzLabel="male"></nz-option>
+                        <nz-option nzValue="female" nzLabel="female"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <button nz-button nzType="primary">
+                      <i nz-icon nzType="search"></i>
+                      Tìm kiếm
+                    </button>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="customers-list__table">
+          <nz-spin [nzSpinning]="isSpinning" class="customers-list__spinning">
+            <nz-table>
+              <thead>
+                <tr>
+                  <th class="text-center">Tên thuê bao</th>
+                  <th class="text-center">Gói cước</th>
+                  <th style="width: 150px;" class="text-center">Thời gian khởi tạo</th>
+                  <th style="width: 120px;" class="text-center">Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of reports;index as i ">
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-spin>
+        </div>
+      </nz-card>
+
+      <ng-template #extraTemplate>
+        <button nz-button nzType="primary"  [routerLink]="['/transactions/add']">
+          <i nz-icon nzType="plus"></i>
+          Thêm mới giao dịch
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

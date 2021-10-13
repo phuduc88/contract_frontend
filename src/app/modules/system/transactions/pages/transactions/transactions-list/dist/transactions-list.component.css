@@ -1,0 +1,4 @@
+::ng-deep.card-title-custom .ant-card-head .ant-card-head-wrapper .ant-card-head-title,
+::ng-deep.card-title-custom .ant-card-head .ant-card-head-wrapper .ant-card-extra {
+  padding: 8px 0 !important;
+}

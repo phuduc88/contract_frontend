@@ -1,0 +1,279 @@
+<form nz-form [formGroup]="form" class="companyAgencies-form transactions-form">
+  <div class="page-container">
+    <div class="page-company" cardFullHeight>
+      <div class="page-company__blank"></div>
+      <div class="page-company__main">
+
+        <div class="content">
+          <h5>Thông tin khách hàng doanh nghiệp</h5>
+          <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="10">
+              <nz-form-item *ngIf="id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Loại chứng thư</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="nameTpl">
+                  <input [disabled]="id" nz-input placeholder="Loại chứng thư" formControlName="transactionsType" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Tên thuê bao &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="nameTpl">
+                  <input nz-input placeholder="Tên thuê bao" formControlName="name" />
+                  <ng-template #nameTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Tên thuê bao không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Mã số thuế &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="taxCodeTpl">
+                  <input nz-input placeholder="Mã số thuế" formControlName="taxCode" />
+                  <ng-template #taxCodeTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Mã số thuế không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Tỉnh/Thành phố &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="cityTpl">
+                  <nz-select formControlName="city" nzPlaceHolder="Chọn Tỉnh/Thành phố">
+                    <nz-option nzValue="male" nzLabel="male"></nz-option>
+                    <nz-option nzValue="female" nzLabel="female"></nz-option>
+                  </nz-select>
+
+                  <ng-template #cityTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Tỉnh/Thành phố không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Quận/Huyện &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="districtTpl">
+                  <nz-select formControlName="district" nzPlaceHolder="Chọn Quận/Huyện">
+                    <nz-option nzValue="male" nzLabel="male"></nz-option>
+                    <nz-option nzValue="female" nzLabel="female"></nz-option>
+                  </nz-select>
+                  <ng-template #districtTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Quận/Huyện không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Email &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="emailTpl">
+                  <input nz-input placeholder="Email" formControlName="email" />
+                  <ng-template #emailTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Email không để trống
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Email không hợp lệ
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Số điện thoại &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="telTpl">
+                  <input nz-input placeholder="Số điện thoại" formControlName="tel" />
+                  <ng-template #telTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Số điện thoại không để trống
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('pattern')">
+                      Số điện thoại không hợp lệ
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item *ngIf="!id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Ảnh giấy phép</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto">
+                  <nz-upload [nzAccept]="'image/*'" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event, 'DN')" [nzShowUploadList]="true">
+                    <button type="button" nz-button>
+                      Chọn files...
+                    </button>
+                  </nz-upload>
+                </nz-form-control>
+              </nz-form-item>
+
+
+            </div>
+
+            <div nz-col [nzSpan]="14">
+              <app-preview-image [imgList]="imgList"></app-preview-image>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="content">
+          <h5>Thông tin người đại diện pháp luật</h5>
+          <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="10">
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Người đại diện &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="fullNameTpl">
+                  <input nz-input placeholder="Người đại diện" formControlName="fullName" />
+                  <ng-template #fullNameTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Người đại diện không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item *ngIf="!id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Ảnh giấy phép</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto">
+                  <nz-upload [nzAccept]="'image/*'" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event, 'PL')">
+                    <button type="button" nz-button>
+                      Chọn files...
+                    </button>
+                  </nz-upload>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="14">
+              <app-preview-image [imgList]="imgListNguoiDaiDien"></app-preview-image>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="content">
+          <h5>Thông tin giao dịch và biểu mẫu</h5>
+          <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="10">
+
+              <nz-form-item *ngIf="id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Thiết bị</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto">
+                  <input [disabled]="id" nz-input placeholder="Thiết bị" formControlName="device" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item *ngIf="id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Loại giao dịch</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto">
+                  <nz-select [disabled]="id" formControlName="transactionType">
+                    <nz-option nzValue="NEW" nzLabel="Cấp mới chứng thư"></nz-option>
+                    <nz-option nzValue="OLD" nzLabel="Gia hạn chứng thư"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+
+
+              <nz-form-item>
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Gói cước &nbsp; <span class="text-danger">*</span></nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="packageTpl">
+
+                  <nz-select [disabled]="id" formControlName="package" nzPlaceHolder="Chọn Gói cước">
+                    <nz-option nzValue="male" nzLabel="male"></nz-option>
+                    <nz-option nzValue="female" nzLabel="female"></nz-option>
+                  </nz-select>
+
+                  <ng-template #packageTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                      Gói cước không để trống
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+
+              <nz-form-item *ngIf="id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Serial Token</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto">
+                  <textarea [disabled]="id" formControlName="serial" nz-input rows="2"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item *ngIf="id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Loại token</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto">
+                  <input [disabled]="id" nz-input formControlName="tokenType" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item *ngIf="!id">
+                <nz-form-label class="text-left mr-2px" nz-col nzFlex="120px">
+                  Hồ sơ đăng ký</nz-form-label>
+                <nz-form-control nz-col nzFlex="auto" [nzErrorTip]="telTpl">
+                  <nz-upload [nzAccept]="'.pdf'" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event, '')">
+                    <button type="button" nz-button>
+                      Chọn files...
+                    </button>
+                  </nz-upload>
+                </nz-form-control>
+              </nz-form-item>
+            </div><!-- col -->
+
+            <div nz-col [nzSpan]="14">
+              <app-preview-pdf [imgList]="imgListBieuMau"></app-preview-pdf>
+            </div><!-- col -->
+          </div>
+
+        </div>
+
+
+        <div nz-row nzGutter="8" class="mb-3 pt-3 pb-3">
+          <div nz-col nzMd="24" class="footer-botton text-right">
+            <button type="submit" class="employee-form__button-save-{{ id ? 'edit' : 'new' }} mr-3" nz-button
+              nzType="primary" (click)="save()">
+              {{ id ? 'Sửa' : 'Thêm mới' }}
+            </button>
+
+            <button *ngIf="id" type="button" class="employee-form__button-refuse mr-3" nz-button nzType="primary"
+              (click)="refuse()">
+              Từ chối
+            </button>
+
+            <button *ngIf="id" type="button" class="employee-form__button-duyet mr-3" nz-button nzType="primary"
+              (click)="save()">
+              Duyệt
+            </button>
+
+            <button class="employee-form__button-back mr-3" nz-button nzType="default" [routerLink]="['/transactions']">
+              Quay lại
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

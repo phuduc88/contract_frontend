@@ -37,3 +37,4 @@ export * from './dialog-hsm-config/dialog-hsm-config.component';
 export * from './dialog-email-config/dialog-email-config.component';
 export * from './dialog-api-contract-out/dialog-api-contract-out.component';
 export * from './dialog-change-password/dialog-change-password.component';
+export * from './refuse/refuse.component';

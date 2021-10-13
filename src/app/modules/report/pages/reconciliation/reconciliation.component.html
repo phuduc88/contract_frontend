@@ -1,0 +1,103 @@
+<div nz-row class="customers-list manage-template-documents-table">
+
+  <div nz-col nzSpan="24">
+    <div class="customers-list__container manage-template-documents-table__container">
+      <nz-card nzTitle="Đối soát doanh số" class="card-title-custom w-100">
+        <div class="page-search">
+          <div class="frm-search d-flex">
+            <form nz-form [formGroup]="formSearch" class="frm-search-container">
+              <div nz-row nzGutter="30">
+                <div nz-col nzMd="6">
+                  <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="24">Từ ngày</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                      <nz-date-picker formControlName="dateFrom"></nz-date-picker>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col nzMd="6">
+                  <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="24">Đến ngày</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                      <nz-date-picker formControlName="dateTo"></nz-date-picker>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <div nz-col nzMd="6">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="16">
+                      <nz-select formControlName="transactionType" nzPlaceHolder="--- Loại giao dịch ---">
+                        <nz-option nzValue="male" nzLabel="male"></nz-option>
+                        <nz-option nzValue="female" nzLabel="female"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <button nz-button nzType="primary">
+                      <i nz-icon nzType="search"></i>
+                      Tìm kiếm
+                    </button>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="ml-auto">
+                  <nz-form-control>
+                    <button nz-button nzType="primary">Xuất file</button>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </form>
+          </div>
+
+
+
+        </div>
+
+        <div class="customers-list__table">
+          <nz-spin [nzSpinning]="isSpinning" class="customers-list__spinning">
+            <nz-table>
+              <thead>
+                <tr>
+                  <th style="width: 50px;" class="text-center">STT</th>
+                  <th class="text-center">Đại lý</th>
+                  <th class="text-center">Người tạo</th>
+                  <th class="text-center">Tên khách hàng</th>
+                  <th style="width: 100px;" class="text-center">MST/CMND</th>
+                  <th style="width: 150px;" class="text-center">Tên gói cước</th>
+                  <th style="width: 100px;" lass="text-center">Giá dịch vụ</th>
+                  <th style="width: 100px;" class="text-center">VAT</th>
+                  <th style="width: 100px;" class="text-center">Tổng</th>
+                  <th style="width: 100px;" class="text-center">Chiết khấu</th>
+                  <th style="width: 100px;" class="text-center">Phải trả NCC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of reports;index as i ">
+                  <td class="text-center">{{ item.stt }}</td>
+                  <td>{{ item.dai_ly }}</td>
+                  <td>{{ item.nguoi_tao }}</td>
+                  <td>{{ item.ten_khach_hang }}</td>
+                  <td>{{ item.cmnd }}</td>
+                  <td>{{ item.ten_goi_cuoc }}</td>
+                  <td class="text-right">{{ item.gia_dich_vu | number:'1.0-0' }}</td>
+                  <td class="text-right">{{ item.vat | number:'1.0-0' }}</td>
+                  <td class="text-right">{{ item.tong | number:'1.0-0' }}</td>
+                  <td class="text-right">{{ item.chiet_khau | number:'1.0-0' }}</td>
+                  <td class="text-right">{{ item.tra_ncc | number:'1.0-0' }}</td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-spin>
+        </div>
+      </nz-card>
+
+
+
+
+    </div>
+  </div>
+</div>
