@@ -1,0 +1,47 @@
+<div class="page-container">
+  <form nz-form [formGroup]="formSMSConfig" class="companyAgencies-form">
+    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+      <div class="page-customer">   
+        <!-- Start row   -->
+        <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nz-col [nzSpan]="24" class="text-left">
+                        Từ ngày </nz-form-label>
+                    <nz-form-control nz-col [nzErrorTip]="dateFromTpl">
+                        <nz-date-picker formControlName="dateFrom" nzFormat="dd/MM/yyyy" nzPlaceHolder="Từ ngày"></nz-date-picker>
+                        <ng-template #dateFromTpl let-control>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                                Từ ngày không được để trống
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nz-col [nzSpan]="24" class="text-left">
+                        Đến ngày </nz-form-label>
+                    <nz-form-control [nzErrorTip]="dateToTpl">
+                        <nz-date-picker formControlName="dateTo" nzFormat="dd/MM/yyyy" nzPlaceHolder="Đến ngày"></nz-date-picker>
+                        <ng-template #dateToTpl let-control>
+                            <ng-container *ngIf="control.hasError('pattern')">
+                                Đến ngày không được để trống
+                            </ng-container>
+                          </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+            </div>
+          </div>
+      </div>
+    </nz-spin>
+  </form>
+</div>
+  <div class="igning-stream-form__footer" *nzModalFooter>
+      <button nz-button nzType="default" (click)="save()" class="btn-success">
+        <i nz-icon nzType="save"></i>Áp dụng
+      </button>
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Đóng
+    </button>
+  </div>      

@@ -286,7 +286,7 @@ export const TIME_PICKERS = {
       text: "Tháng trước",
     },
     { id: 5, value: "5", text: "Toàn thời gian" },
-    { id: 5, value: "6", text: "Phạm vi khác" },
+    { id: 6, value: "6", text: "Phạm vi khác" },
   ],
 };
 
@@ -426,6 +426,29 @@ export const CLIENT_TYPE = [
   {
     key: GROUP_TYPE.ONSIGN,
     name: "common.client.personal"
+  }
+]
+
+export const DOCUMENT_STATUS = [
+  {
+    key: 1,
+    name: "common.documentStatus.waitapprove"
+  },
+  {
+    key: 2,
+    name: "common.documentStatus.waitothersign"
+  },
+  {
+    key: 3,
+    name: "common.documentStatus.waitsign"
+  },
+  {
+    key: 4,
+    name: "common.documentStatus.finish"
+  },
+  {
+    key: 5,
+    name: "common.documentStatus.refuse"
   }
 ]
 

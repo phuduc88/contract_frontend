@@ -1,37 +1,50 @@
 <div class="d-flex bd-highlight mb-1">
-  <div class="flex-grow-1 bd-highlight">
-    <div class="btn-group btn-group-sm btn-filter bd-highlight">
-      <div class="btn-group">
-        <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown">
-          Xử lý hàng loạt
-        </button>
-        <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="javascript:void(0);" (click)="downloadAll()">
-            <i class="fa fa-download"></i>
-            &nbsp; Tải xuống
-          </a>
-        </div>
+  <div class="btn-group">
+      <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown">
+        Xử lý hàng loạt
+      </button>
+      <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="javascript:void(0);" (click)="downloadAll()">
+          <i class="fa fa-download"></i>
+          &nbsp; Tải xuống
+        </a>
       </div>
-    </div>
   </div>
-  <div class="bd-highlight">
-    <div class="d-flex bd-highlight">
-      <div class="bd-highlight align-self-center">
-        Hiển thị&nbsp;
+  <div class="pagin-contain">
+      <div class="pagin-contain_skip">
+          <label>
+              <span class="align-items-center ng-binding">
+                {{skip}} - {{take}} trong
+              </span>
+              <strong>{{total}}</strong> bản ghi
+          </label>          
       </div>
-      <div class="bd-highlight">
-        <select class="form-control form-control-sm select_pagesize ng-valid ng-not-empty" name="select_pagesize"
-          (change)="filterDocuments(1)">
-          <option value="10" selected="selected">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
+      <div>
+          <div class="manage-template-documents-table__pagintion">
+              <button nz-button (click)="firstPage()" nzType="link" [disabled]="selectedPage === 1">Đầu tiên</button>
+              <button nz-button nzType="link" (click)="nextPage()"  [disabled]="selectedPage === numberPages">trước</button>
+              <label class="pagintion-current">
+                <input class="current-page" type="number" [(ngModel)]="selectedPage" />
+                <span class="total-page"> / {{numberPages}}</span>
+              </label>
+              <button nz-button nzType="link" (click)="previousPage()" [disabled]="selectedPage === 1">Sau</button>
+              <button nz-button nzType="link" (click)="lastPage()" [disabled]="selectedPage === numberPages">Cuối cùng</button>
+              <label class="align-self-center">
+                  Hiển thị&nbsp;
+              </label>
+              <label class="pagintion-current">
+               <select class="select_pagesize">
+                  <option value="10" selected="selected">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+             </label>
+             <label class="align-self-center">
+                &nbsp;dòng
+            </label>
+          </div>
       </div>
-      <div class="bd-highlight align-self-center">
-        &nbsp;dòng
-      </div>
-    </div>
   </div>
 </div>
 
@@ -53,15 +66,15 @@
             </span>
           </label>
         </th>
-        <th class="text-center align-middle">Tiêu đề</th>
-        <th class="text-center align-middle">Thời gian khởi tạo</th>
-        <th class="text-center align-middle">Trạng thái</th>
-        <th class="text-center align-middle">Hành động</th>
+        <th class="text-center align-middle" >Tiêu đề</th>
+        <th class="text-center align-middle" style="width: 210px;">Thời gian khởi tạo</th>
+        <th class="text-center align-middle" style="width: 150px;">Trạng thái</th>
+        <th class="text-center align-middle" style="width: 350px;">Hành động</th>
       </tr>
     </thead>
     <tbody class="request-table h-100">
 
-      <tr *ngFor="let document of documents.data;" class="bg-white">
+      <tr *ngFor="let document of documents;" class="bg-white">
         <td class="text-center">
           <label for="cbx_selected_0" class="label-cbx">
             <input id="cbx_selected_0" type="checkbox" [(ngModel)]="document.isSelected" class="invisible"
@@ -78,7 +91,7 @@
         </td>
         <td>
           <strong class="ng-binding">
-            {{document.name}}
+            {{document.title}}
           </strong>
           <p class="text-loss underline-hover mb-2">
             Người gửi: <span class="ng-binding"><span class="text-primary">
