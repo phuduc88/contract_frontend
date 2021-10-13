@@ -1,0 +1,41 @@
+<div nz-row class="d-block refuse-form customers-form manage-template-documents-table">
+  <form nz-form [formGroup]="formRefuse" class="companyAgencies-form">
+    <div class="page-container-form-custom">
+      <div class="page-company">
+        <div class="page-company__blank"></div>
+        <div class="page-company__main">
+          <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+
+            <div nz-row nzGutter="10">
+              <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                  <nz-form-label class="text-left">Lý do &nbsp; <span class="text-danger">*</span>
+                  </nz-form-label>
+                  <nz-form-control [nzErrorTip]="reasonTpl" class="imput-margin-left">
+                    <textarea [nzAutosize]="{ minRows: 3, maxRows: 9 }" formControlName="reason" nz-input placeholder="Lý do từ chối"></textarea>
+                    <ng-template #reasonTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        Lý do không để trống
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <div nz-row nzGutter="10">
+              <div nz-col nzMd="24" class="footer-botton d-flex justify-content-center">
+                <button class="mr-2" nz-button nzType="default">
+                  <i nz-icon nzType="close-circle"></i>Đóng
+                </button>
+                <button nz-button nzType="danger" (click)="save()">
+                  <i nz-icon nzType="save"></i>Từ chối
+                </button>
+              </div>
+            </div>
+          </nz-spin>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

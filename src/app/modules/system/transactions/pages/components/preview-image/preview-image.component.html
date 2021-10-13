@@ -1,0 +1,40 @@
+<div class="carousel-custom">
+  <div class="carousel-image-view">
+    <nz-carousel [nzEffect]="'scrollx'">
+      <div #carouselCustomer nz-carousel-content *ngFor="let item of imgList; index as i">
+        <div class="d-flex h-100 align-items-center">
+          <div class="col">
+            <span class="carousel-controls carousel-control-left" (click)="prevSlide()">
+              <i nz-icon nzType="left-circle"></i></span>
+          </div>
+          <div class="col-10" class="carousel-image-content d-flex justify-content-center">
+            <img [src]="item" />
+          </div>
+          <div class="col">
+            <span class="carousel-controls carousel-control-right" (click)="nextSlide()">
+              <i nz-icon nzType="right-circle"></i></span>
+          </div>
+        </div>
+      </div>
+    </nz-carousel>
+  </div>
+  <div class="carousel-image-list" *ngIf="imgList.length > 0">
+    <div class="d-flex align-items-center">
+      <div class="control-left carousel-control col">
+        <i nz-icon nzType="left-square" (click)="prevSlide()"></i>
+      </div>
+      <div class="col-10 d-flex">
+        <div *ngFor="let item of imgList; index as i" class="carousel-image-list-item pr-3">
+          <img nz-image [src]="item" width="100" (click)="gotoSlice(i)" />
+        </div>
+      </div>
+      <div class="control-right carousel-control col">
+        <i nz-icon nzType="right-square" (click)="nextSlide()"></i>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-image-detail text-center" *ngIf="imgList.length === 0">
+    <strong>Giấy phép</strong>
+    <h6>(File upload phải nhỏ hơn 10MB)</h6>
+  </div>
+</div>
