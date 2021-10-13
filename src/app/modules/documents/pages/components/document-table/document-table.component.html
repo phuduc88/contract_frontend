@@ -108,6 +108,11 @@
               <i class="fa fa-check" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
             </div>
           </div>
+          <div *ngIf="document.status === 2">
+            <div class="text-success">
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
+            </div>
+          </div>
           <div *ngIf="document.status == 1">
             <div class="text-warning">
               <a (click)="signDocument(document.id)">
@@ -124,7 +129,7 @@
         <td class="text-right">
           <div class="btn-group btn-sm">
             <button type="button" class="btn btn-link btn-sm m-1 ng-scope" (click)="viewDetail(document)"
-              *ngIf="document.status == 1" title="Xem chi tiết" autocomplete="off">
+              title="Xem chi tiết" autocomplete="off">
               <i class="fa fa-eye" aria-hidden="true"></i>
               &nbsp;Xem chi tiết
             </button>

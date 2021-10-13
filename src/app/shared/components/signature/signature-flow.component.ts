@@ -79,6 +79,15 @@ export class SignatureFlowComponent
     const documentDefault = documentsType.find(r => r.isDefault);
     if (!documentDefault) return;
     this.documentSign.documentType = documentDefault.id;
+    this.documentSign.documentTypeName = documentDefault.documentName;
+  }
+
+  changeDocumentType(documentsType) {
+    this.documentSign.documentType = documentsType;
+    const documentSelected = documentsType.find(r => r.id === documentsType);
+    if (documentSelected) {
+      this.documentSign.documentTypeName = documentSelected.documentName;
+    }
   }
 
   private loadSelectedEmail() {
@@ -429,6 +438,7 @@ export class SignatureFlowComponent
     const modal = this.modalService.create({
       nzClosable: true,
       nzMaskClosable: false,
+      nzWidth: 680,
       nzTitle: "Xem lại và gửi",
       nzStyle: { top: 0 },
       nzClassName: "signature-flow-save",
@@ -444,6 +454,7 @@ export class SignatureFlowComponent
     modal.afterClose.subscribe(result => {
       if (result) {
         this.documentSign.documentEmail = result;
+        this.documentSign.employeesSign = result.employeeSignOrder;
         this.serviceSignPosition();   
       }
     });

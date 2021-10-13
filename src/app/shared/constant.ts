@@ -23,10 +23,11 @@ export const GENDER = {
 };
 
 export const DOCUMENTSTATUS = {
-  1: "common.document.new",
-  2: "common.document.approved",
-  3: "common.document.sended",
-  4: "common.document.cancel",
+  1: "common.document.new", 
+  2: "common.document.sended",
+  3: "common.document.approved",
+  4: "common.document.finish",
+  5: "common.document.cancel",
 };
 export const STATUS = {
   0: "common.notActive",
@@ -101,6 +102,14 @@ export const EXTENSIONFILEPAD = {
   PNG: "png",
   WP_CMKTC: "jpg",
 };
+
+export const DOC_TAB_INDEX = {
+  MYSELFSIGN: 0,
+  DRAFT:1,
+  WAITSIGN: 2,
+  CANCEL: 3,
+  FINISH: 4,  
+}
 
 export const PERMISSIONS = {
   regime_approval: {

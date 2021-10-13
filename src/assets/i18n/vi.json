@@ -37,8 +37,9 @@
 		},
 		"document": {
 			"new": "Nháp",
-			"approved": "Đã duyệt",
 			"sended": "Đã gửi",
+			"approved": "Đã duyệt",
+			"finish": "Hoàn thành",
 			"cancel": "Đã hủy"
 		},
 		"errorMessenger": {

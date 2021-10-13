@@ -11,9 +11,29 @@
   <div class="document-detail-infomation">
     <div class="document-detail-infomation__status">
       <h6 class="text-success font-weight-bold">
-        <i class="fa fa-check" aria-hidden="true"></i>
-        <span class="pl-1">Hoàn thành</span>
-        <span class="pl-1 text-dark">hợp đồng kinh tế</span>
+        <label *ngIf="documentStatus === 4">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <span class="pl-1">Hoàn thành</span>
+        </label>
+        <label class="text-warning" *ngIf="documentStatus === 1">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          <span class="pl-1">Nháp</span>
+        </label>
+
+        <label class="text-warning" *ngIf="documentStatus === 2">
+          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+          <span class="pl-1">Đã gửi</span>
+        </label>
+
+        <label *ngIf="documentStatus=== 3">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <span class="pl-1">Đã duyệt</span>
+        </label>
+        <label class="text-warning" *ngIf="documentStatus === 5">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          <span class="pl-1">Đã hủy</span>
+        </label>
+        <span class="pl-1 text-dark">{{documentName}}</span>
       </h6>
     </div>
     <div class="document-detail-infomation__detail">
@@ -29,17 +49,16 @@
         Khởi tạo lúc:
         <span class="text-info ng-binding">{{dateCreate}}</span>
       </div>
-
       <div class="document-info">
         Phân loại:
-        <span class="text-info ng-binding">Hợp đồng</span>
+        <span class="text-info ng-binding">{{documentTypeName}}</span>
       </div>
     </div>
-
   </div>
 
   <div class="document-detail-recipient-list">
    <app-document-detail-recipient-list
+   (onDownloadDocumentFile) = "handlerDownloadDocumentFile()"
    [employeesSign] = "employeesSign"
    ></app-document-detail-recipient-list>
   </div>

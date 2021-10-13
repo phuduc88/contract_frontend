@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Credential } from '@app/core/models';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SignatureFlowComponent } from '@app/shared/components';
-import { PAGE_SIZE, MIME_TYPE } from '@app/shared/constant';
+import { PAGE_SIZE, MIME_TYPE, DOC_TAB_INDEX } from '@app/shared/constant';
 import { download } from '@app/shared/utils/download-file';
-import { forkJoin, Subject } from 'rxjs';
+import { eventEmitter } from "@app/shared/utils/event-emitter";
 
 @Component({
   selector: 'app-documents',
@@ -19,6 +19,7 @@ export class DocumentsComponent implements OnInit {
   skip: number;
   selectedPage: number = 1;
   isSpinning: boolean = false;
+  tabSeleted: number = 0;
   filter: any = {};
   constructor(private authService: AuthenticationService,
     private modalService: NzModalService,
@@ -35,8 +36,11 @@ export class DocumentsComponent implements OnInit {
 
   filterDocuments(skip = 0, take = PAGE_SIZE) {
     this.isSpinning = true;
+    const filterByTab = this.getDataByTab();
+    console.log(filterByTab);
     const paramSearch = {
       ...this.filter,
+      ...filterByTab,
       skip,
       take
     }
@@ -55,7 +59,9 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
-  handleSelectTab({ index }) {
+  handleSelectTab({index}) {
+    this.tabSeleted = index;
+    eventEmitter.emit("tabDocument:change", {});
     this.filterDocuments();
   }
 
@@ -118,4 +124,39 @@ export class DocumentsComponent implements OnInit {
     }
     return MIME_TYPE[0].value
   } 
+
+  private getDataByTab() {
+    let filterByTab = {};
+    switch(this.tabSeleted) {
+      // case DOC_TAB_INDEX.MYSELFSIGN:
+      //   filterByTab = {
+      //     isMyselfSign: true,
+      //   };
+      //   break;
+      case DOC_TAB_INDEX.DRAFT:
+        filterByTab = {
+          status: 1,
+        };
+        break;
+      case DOC_TAB_INDEX.WAITSIGN:
+        filterByTab = {
+          status: 2,
+        };
+        break;
+      case DOC_TAB_INDEX.CANCEL:
+        filterByTab = {
+          status: 5,
+        };
+        break;
+      case DOC_TAB_INDEX.FINISH:
+        filterByTab = {
+          status: 4,
+        };
+        break;
+      default:
+        filterByTab = {isMyselfSign: true};        
+    }
+
+    return filterByTab;
+  }
 }
