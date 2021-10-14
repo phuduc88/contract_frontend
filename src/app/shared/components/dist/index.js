@@ -33,6 +33,7 @@ __exportStar(require("./signature/signature-flow-s3.component"), exports);
 __exportStar(require("./signature/signature-save/signature-flow-save.component"), exports);
 __exportStar(require("./signature-upload-file/signature-upload-file.component"), exports);
 __exportStar(require("./form-employee-sign/form-employee-sign.component"), exports);
+__exportStar(require("./form-employee-sign/form-employee-sign-s2.component"), exports);
 __exportStar(require("./dialog-error/dialog-error.component"), exports);
 __exportStar(require("./pdf-list-thumbnail/pdf-list-thumbnail.component"), exports);
 __exportStar(require("./pdf-viewer/pdf-viewer.component"), exports);
@@ -50,3 +51,5 @@ __exportStar(require("./dialog-email-config/dialog-email-config.component"), exp
 __exportStar(require("./dialog-api-contract-out/dialog-api-contract-out.component"), exports);
 __exportStar(require("./dialog-change-password/dialog-change-password.component"), exports);
 __exportStar(require("./refuse/refuse.component"), exports);
+__exportStar(require("./dialog-choose-date/dialog-choose-date.component"), exports);
+__exportStar(require("./signature/signature-flow-dialog.component"), exports);

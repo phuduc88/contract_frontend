@@ -1,0 +1,43 @@
+<div class="block_email" *ngFor="let item of employeesSign; let i = index">
+
+  <div class="row">
+    <div class="index col-1">
+      <p>{{ i + 1 }}</p>
+    </div>
+
+    <div class="content col-11 mb-2">
+      <div class="form-row pb-3">
+        <div class="col-12 d-flex">
+          <div class="col-10">
+            <nz-radio-group class="d-flex" [(ngModel)]="item.groupType">
+              <label class="col-3" nz-radio [nzValue]=1>Người ký</label>
+              <label class="col-3" nz-radio [nzValue]=2>Người xét duyệt</label>
+              <label class="col-3" nz-radio [nzValue]=3>Người nhận bản sao</label>
+            </nz-radio-group>
+          </div>
+          <div class="col-2">
+            <div class="text-right ml-auto">
+              <button class="btn btn-sm btn-outline-delete" (click)="removeEmployeeSing(i)">Xóa</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <div class="row pl-4">
+          <label class=" col-form-label pr-3"> Tên cá nhân</label>
+          <input type="text" style="text-transform:uppercase" class="form-control col-3" [(ngModel)]="item.name"
+            name="fullName" placeholder="NGUYỄN VĂN A" required />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+<div class="mt-2">
+  <button type="button" class="btn btn-sm btn-primary mb-2" (click)="addEmployeeSign()"> Thêm người nhận</button>
+</div>
