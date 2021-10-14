@@ -84,7 +84,7 @@ export class SignatureFlowComponent
 
   changeDocumentType(documentsType) {
     this.documentSign.documentType = documentsType;
-    const documentSelected = documentsType.find(r => r.id === documentsType);
+    const documentSelected = this.documentsType.find(r => r.id === documentsType);
     if (documentSelected) {
       this.documentSign.documentTypeName = documentSelected.documentName;
     }
@@ -191,6 +191,7 @@ export class SignatureFlowComponent
     }
     const employeesSign = formVale.employeesSign;
     employeesSign.push(this.addEmployeeSignBlank());
+    console.log(employeesSign);
     this.documentSign.employeesSign = employeesSign;
   }
 
@@ -284,7 +285,7 @@ export class SignatureFlowComponent
           shape: "round",
           onClick: () => {
             this.isSaveFile = true;
-            // this.serviceSignPosition();
+            this.serviceSignPosition();
             modalConfirm.destroy();
             this.modal.destroy();
           },
@@ -438,7 +439,6 @@ export class SignatureFlowComponent
     const modal = this.modalService.create({
       nzClosable: true,
       nzMaskClosable: false,
-      nzWidth: 680,
       nzTitle: "Xem lại và gửi",
       nzStyle: { top: 0 },
       nzClassName: "signature-flow-save",
@@ -485,7 +485,7 @@ export class SignatureFlowComponent
           if (!this.isSaveFile) {
             this.modalService.success({ nzTitle: "Ký file thành công!" });
           } else {
-            this.modalService.success({ nzTitle: "Lưu file thành công!" });
+            this.modalService.success({ nzTitle: "Lưu thành công!" });
           }
           this.modal.destroy();
         }

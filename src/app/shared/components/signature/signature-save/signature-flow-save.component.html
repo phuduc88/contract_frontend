@@ -1,6 +1,6 @@
 <div class="card">
     <nz-tabset nzType="card">
-        <nz-tab *ngFor="let tab of tabs" [nzSelectedIndex] = "tabSelected"  [nzTitle]="tab.title">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.title">
             <div class="p-2">
 
                 <div class="tab-content" *ngIf="tab.id === 1">
@@ -76,43 +76,30 @@
                     <ol class="noselect" cdkDropList (cdkDropListDropped)="drop($event)">
                         <li cdkDrag class="m-2 p-1 text-left border border-primary rounded"
                             style="cursor: pointer; font-size: 12px"
-                            *ngFor="let item of employeeSignIndex; let page = index">
+                            *ngFor="let item of employeesSign; let page = index">
                             <p>
                                 {{ item.groupName }}
                                 <br />
                                 {{ item.email }}
                             </p>
+                            <p>
+                                Hình thức <b class="approve" *ngIf="!item.isEmployeeSign">Duyệt</b>
+                                <b class="sign" *ngIf="item.isEmployeeSign">Ký số</b>
+                            </p>
+                            <p *ngIf="item.isEmployeeSign">
+                                Phương thức ký: <b *ngIf="item.singType" class="sign">{{ signTypeView[item.singType] | translate }}</b>
+                            </p>
                             <div>
                                 <p>
                                     Mã số thuế: {{ item.taxCode }}
                                     <br />
-                                    Địa chỉ: {{ item.adrress }}
+                                    Địa chỉ: {{ item.address }}
                                 </p>
                             </div>
                         </li>
                     </ol>
                 </div>
                 <div class="tab-content" *ngIf="tab.id === 3">
-                    <ol class="noselect" cdkDropList (cdkDropListDropped)="dropEmployeeApprove($event)">
-                        <li cdkDrag class="m-2 p-1 text-left border border-primary rounded"
-                            style="cursor: pointer; font-size: 12px"
-                            *ngFor="let item of employeeApproveIndex; let page = index">
-                            <p>
-                                {{ item.groupName }}
-                                <br />
-                                {{ item.email }}
-                            </p>
-                            <div>
-                                <p>
-                                    Mã số thuế: {{ item.taxCode }}
-                                    <br />
-                                    Địa chỉ: {{ item.adrress }}
-                                </p>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-                <div class="tab-content" *ngIf="tab.id === 4">
                     <ol class="noselect">
                         <li class="m-2 p-1 text-left border border-primary rounded"
                             style="cursor: pointer; font-size: 12px"

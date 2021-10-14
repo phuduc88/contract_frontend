@@ -47,8 +47,8 @@ export class DocumentDetailComponent implements OnInit {
       this.employeesSign = data.employeesSign;
       this.documentTypeId = data.documentType;
       this.documentStatus = data.status;
+      this.documentTypeName = data.documentTypeName;
       this.filesSign = this.mergeFileSign(data.filesSign);
-      this.getDocumentType(this.documentTypeId);
     });
   }
 
@@ -82,7 +82,7 @@ export class DocumentDetailComponent implements OnInit {
       download(fileName, response, mimeType);
     });
   }
-  
+
   getMimeType(subfixFile: string) {
     const mimeType = MIME_TYPE.find(c => c.key === subfixFile);
     if (mimeType) {
@@ -90,17 +90,5 @@ export class DocumentDetailComponent implements OnInit {
     }
     return MIME_TYPE[0].value
   } 
-
-  private getDocumentType(documentTypeId) {
-    this.documentTypeService.filter().subscribe(res => {
-      this.documentType = res.data;
-      if (this.documentType) {
-        const documentTypeOfSing = this.documentType.find(r => r.id === documentTypeId);
-        if (documentTypeOfSing) {
-          this.documentTypeName = documentTypeOfSing.documentName;
-        } 
-      }
-    });
-  }
    
 }

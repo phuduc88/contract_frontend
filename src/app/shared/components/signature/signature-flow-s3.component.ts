@@ -7,7 +7,7 @@ import {
   ViewChild,
   OnChanges,
 } from "@angular/core";
-import { SIGNATURE } from "@app/shared/constant";
+import { SIGNATURE, SIGN_TYPE } from "@app/shared/constant";
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
 import * as $ from "jquery";
@@ -31,7 +31,9 @@ export class SignatureFlowS3Component
   pdfDoc: PDFDocumentProxy;
   objectSelect = null;
   canvasFs = [];
-  selectedSignature = {};
+  singType: any;
+  selectedSignature: any;
+  signsType: any = SIGN_TYPE;
   employeesSign: any;  
   currentUser: Credential;
   isDisplay: boolean = false;
@@ -64,13 +66,13 @@ export class SignatureFlowS3Component
   }
 
   ngOnChanges(changes) {
-    if (changes && changes.documentSign.currentValue) { 
+    if (changes && changes.documentSign.currentValue) {        
       this.getPesionSign(changes.documentSign.currentValue);
     }
   }
 
   getPesionSign(documentSign) {
-    this.employeesSign = documentSign.employeesSign.filter(p => p.isEmployeeSign);
+    this.employeesSign = documentSign.employeesSign.filter(p => p.isEmployeeSign);     
   }
 
   addSignToDoc(sign) {
@@ -106,6 +108,7 @@ export class SignatureFlowS3Component
   clearProperties() {
     setTimeout(() => {
       this.isDisplay = false;
+      this.singType = null;
       this.selectedSignature = new Object();
     }, 10);
   }
@@ -114,6 +117,7 @@ export class SignatureFlowS3Component
     setTimeout(() => {
       this.isDisplay = true;
       this.selectedSignature = obj;
+      this.selectedSignType();
       if (obj.isUpdate) {
         this.updateLocationOfSign(obj);
       }
@@ -122,10 +126,20 @@ export class SignatureFlowS3Component
 
   closeSignatureProperties() {
     this.isDisplay = false;
+    this.singType = null;
+  }
+
+  private selectedSignType() {
+    const employeesSigned = this.documentSign.employeesSign.find(r => r.email === this.selectedSignature.emailAssignment);
+    if(employeesSigned) {
+      this.singType = employeesSigned.singType;
+    }
+    
   }
 
   changeEmailAssignment(emailSelected) {
     const employeesSign = this.documentSign.employeesSign.find(r => r.email === emailSelected);
+    this.singType = employeesSign.singType;
     eventEmitter.emit("sign:changeEmailAssignment", employeesSign);
   }
 
@@ -141,7 +155,6 @@ export class SignatureFlowS3Component
       } else {
         item.isSelected = false;
       }
-
     });
     this.documentSign.listSign = listSignCopy;
   }
@@ -172,5 +185,13 @@ export class SignatureFlowS3Component
 
   ngOnDestroy() {
     eventEmitter.destroy(this.handlers);
+  }
+
+  changeSignType(signType) {
+    this.documentSign.employeesSign.forEach(item => {
+      if (item.email === this.selectedSignature.emailAssignment) {
+        item.singType = signType;
+      }
+    });
   }
 }

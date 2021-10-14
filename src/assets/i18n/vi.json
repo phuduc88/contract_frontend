@@ -59,9 +59,9 @@
 		"documentStatus.waitothersign": "Chờ người khác ký",
 		"documentStatus.waitsign": "Chờ ký",
 		"documentStatus.finish": "Hoàn thành",
-		"documentStatus.refuse": "Hủy bỏ"
-
-		
+		"documentStatus.refuse": "Hủy bỏ",
+		"sing.otp": "Ký OTP",
+		"sing.certification": "Ký số"		
 	},
 	"auth": {
 		"login": {

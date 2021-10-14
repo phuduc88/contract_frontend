@@ -7,7 +7,7 @@ import {
 } from "@app/core/services";
 import { Credential } from "@app/core/models";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-
+import {  SIGN_TYPE_VIEW } from "@app/shared/constant";
 @Component({
   selector: "signature-flow-save",
   templateUrl: "./signature-flow-save.component.html",
@@ -16,10 +16,9 @@ import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 export class SignatureFlowSaveComponent implements OnInit {
   @Input() documentSign: any;
   formDocument: FormGroup;
-  employeeSignIndex: any;
-  employeeApproveIndex: any;
-  tabSelected: number = 1;
+  employeesSign: any;
   currentUser: Credential;
+  signTypeView = SIGN_TYPE_VIEW;
   constructor(
     private modal: NzModalRef,
     private authService: AuthenticationService,
@@ -29,7 +28,7 @@ export class SignatureFlowSaveComponent implements OnInit {
   {}
 
   ngOnInit() {
-    this.getEmployeeWillBeSort();
+    this.employeesSign = this.documentSign.employeesSign;
     this.currentUser = this.authService.currentCredentials;
     this.formDocument = this.formBuilder.group({
       title: ['',[Validators.required] ],
@@ -46,8 +45,7 @@ export class SignatureFlowSaveComponent implements OnInit {
   }
 
   getEmployeeWillBeSort() {
-    this.employeeSignIndex = this.documentSign.employeesSign.filter(emp => emp.isEmployeeSign);
-    this.employeeApproveIndex = this.documentSign.employeesSign.filter(emp => emp.isEmployeeSign);
+    
   }
 
   save() : void {
@@ -56,10 +54,9 @@ export class SignatureFlowSaveComponent implements OnInit {
       this.formDocument.controls[i].updateValueAndValidity();
     }
 
-    if (this.formDocument.invalid) {
-      this.tabSelected = 1;
+    if (this.formDocument.invalid) {      
       this.modalService.warning({
-        nzTitle: 'Vui lòng nhập thông tin Tab nhắn gửi đi'
+        nzTitle: 'Vui lòng nhập thông tin Tab Tin nhắn gửi đi'
       });
       return;
     }
@@ -75,15 +72,7 @@ export class SignatureFlowSaveComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {    
     moveItemInArray(
-      this.employeeSignIndex,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
-
-  dropEmployeeApprove(event: CdkDragDrop<string[]>) {    
-    moveItemInArray(
-      this.employeeApproveIndex,
+      this.employeesSign,
       event.previousIndex,
       event.currentIndex
     );
@@ -96,39 +85,22 @@ export class SignatureFlowSaveComponent implements OnInit {
     },
     {
       id: 2,
-      title: "Danh sách người duyệt",
+      title: "Danh sách người nhận",
     },
     {
       id: 3,
-      title: "Danh sách người ký",
-    },
-    {
-      id: 4,
       title: "Thứ tự ký",
     },
   ];
 
   private setOrderSignAndApprove() {
-    let employeeSignOrder = [...this.employeeSignIndex];
-    const employeeApproveIndexCopy = [];
+    let employeeSignOrder = [...this.employeesSign];
     let index = 1;
-    this.employeeApproveIndex.forEach(item => {
-      item.approveIndex = index;
-      employeeApproveIndexCopy.push(item);
-      index++;
-    });
-
-    index = 1;
     employeeSignOrder.forEach(item => {
       item.signIndex = index;
-      const employee = employeeApproveIndexCopy.find(c => c.id === item.id);
-      if (employee) {
-        item.approveIndex = employee.approveIndex;
-      }
       index++;
     });
 
-    console.log(employeeSignOrder, 'employeeSignOrder');
     return employeeSignOrder;
   }
 }

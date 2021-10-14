@@ -37,7 +37,6 @@ export class DocumentsComponent implements OnInit {
   filterDocuments(skip = 0, take = PAGE_SIZE) {
     this.isSpinning = true;
     const filterByTab = this.getDataByTab();
-    console.log(filterByTab);
     const paramSearch = {
       ...this.filter,
       ...filterByTab,

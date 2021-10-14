@@ -438,6 +438,21 @@ export const CLIENT_TYPE = [
   }
 ]
 
+export const SIGN_TYPE = [
+  {
+    key: 1,
+    name: "common.sing.otp"
+  },
+  {
+    key: 2,
+    name: "common.sing.certification"
+  },
+];
+export const SIGN_TYPE_VIEW =  {
+  1: "common.sing.otp",
+  2: "common.sing.certification",
+}
+
 export const DOCUMENT_STATUS = [
   {
     key: 1,
