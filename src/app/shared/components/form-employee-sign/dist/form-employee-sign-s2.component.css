@@ -1,0 +1,11 @@
+.block_email .index p {
+  text-align: center;
+  margin: 0 20px;
+  padding: 6px;
+  margin-bottom: 0;
+  background: #e1e1e1;
+}
+.block_email .content {
+  background: #fff;
+  padding: 10px;
+}

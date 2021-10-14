@@ -68,7 +68,7 @@ var SharedModule = /** @class */ (function () {
                 table_1.NzTableModule,
                 tooltip_1.NzToolTipModule,
                 angular2_signaturepad_1.SignaturePadModule,
-                ngx_mask_1.NgxMaskModule.forRoot()
+                ngx_mask_1.NgxMaskModule.forRoot(),
             ],
             declarations: [
                 layout_1.LayoutComponent,
@@ -117,7 +117,10 @@ var SharedModule = /** @class */ (function () {
                 components_1.DialogSMSConfigComponent,
                 components_1.DialogApiContractOutComponent,
                 components_1.DialogChangePasswordComponent,
-                components_1.RefuseComponent
+                components_1.RefuseComponent,
+                components_1.DialogChooseDateComponent,
+                components_1.SignatureFlowDialogComponent,
+                components_1.FormEployeeSignS2Component,
             ],
             exports: [
                 forms_1.FormsModule,
@@ -167,13 +170,16 @@ var SharedModule = /** @class */ (function () {
                 components_1.DialogSMSConfigComponent,
                 components_1.DialogApiContractOutComponent,
                 components_1.DialogChangePasswordComponent,
-                components_1.RefuseComponent
+                components_1.RefuseComponent,
+                components_1.DialogChooseDateComponent,
+                components_1.SignatureFlowDialogComponent,
+                components_1.FormEployeeSignS2Component,
             ],
             providers: [
                 services_1.AuthenticationService,
                 services_1.FileSignService,
                 services_1.EmployeeService,
-                services_1.FileUploadEmitter
+                services_1.FileUploadEmitter,
             ],
             entryComponents: [
                 components_1.TableEditorErrorsComponent,
@@ -204,7 +210,10 @@ var SharedModule = /** @class */ (function () {
                 components_1.DialogSMSConfigComponent,
                 components_1.DialogApiContractOutComponent,
                 components_1.DialogChangePasswordComponent,
-                components_1.RefuseComponent
+                components_1.RefuseComponent,
+                components_1.DialogChooseDateComponent,
+                components_1.SignatureFlowDialogComponent,
+                components_1.FormEployeeSignS2Component,
             ]
         })
     ], SharedModule);
