@@ -1,40 +1,37 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { DragDropModule} from '@angular/cdk/drag-drop';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
-import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzRadioModule } from 'ng-zorro-antd/radio';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzPaginationModule } from 'ng-zorro-antd/pagination';
-import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgxMaskModule } from "ngx-mask";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { NzDropDownModule } from "ng-zorro-antd/dropdown";
+import { NzFormModule } from "ng-zorro-antd/form";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzInputModule } from "ng-zorro-antd/input";
+import { NzInputNumberModule } from "ng-zorro-antd/input-number";
+import { NzModalModule } from "ng-zorro-antd/modal";
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { NzSpinModule } from "ng-zorro-antd/spin";
+import { NzRadioModule } from "ng-zorro-antd/radio";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
+import { NzTableModule } from "ng-zorro-antd/table";
+import { NzPaginationModule } from "ng-zorro-antd/pagination";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { NzTreeModule } from "ng-zorro-antd/tree";
 
 import {
   AuthenticationService,
   FileSignService,
   EmployeeService,
-  FileUploadEmitter
-} from '@app/core/services';
+  FileUploadEmitter,
+} from "@app/core/services";
 
-import {
-  LayoutComponent,
-  AuthLayoutComponent
-} from './layout';
+import { LayoutComponent, AuthLayoutComponent } from "./layout";
 
 import {
   InputLabelComponent,
@@ -76,7 +73,9 @@ import {
   DialogChangePasswordComponent,
   RefuseComponent,
   DialogChooseDateComponent,
-} from './components';
+  SignatureFlowDialogComponent,
+  FormEployeeSignS2Component,
+} from "./components";
 
 import {
   CardFullHeightDirective,
@@ -85,9 +84,9 @@ import {
   PluploadExcelDirective,
   SignDocumentFullHeightDirective,
   SignDocument2FullHeightDirective,
-  PdfViewerFullHeightDirective
-} from './directives';
-import { SignaturePadModule } from 'angular2-signaturepad';
+  PdfViewerFullHeightDirective,
+} from "./directives";
+import { SignaturePadModule } from "angular2-signaturepad";
 
 @NgModule({
   imports: [
@@ -116,7 +115,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     NzTableModule,
     NzToolTipModule,
     SignaturePadModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
   ],
   declarations: [
     LayoutComponent,
@@ -138,7 +137,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     AcountFormComponent,
     EmailFormComponent,
     ContractComponent,
-    FileAttachmentComponent,     
+    FileAttachmentComponent,
     UploadFormComponent,
     TableInportErrorsComponent,
     SignaturePadComponent,
@@ -167,6 +166,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogChangePasswordComponent,
     RefuseComponent,
     DialogChooseDateComponent,
+    SignatureFlowDialogComponent,
+    FormEployeeSignS2Component,
   ],
   exports: [
     FormsModule,
@@ -189,7 +190,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     ManageUnitFormComponent,
     DepartmentComponent,
     ContractComponent,
-    FileAttachmentComponent,     
+    FileAttachmentComponent,
     UploadFormComponent,
     TableInportErrorsComponent,
     SignaturePadComponent,
@@ -218,12 +219,14 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogChangePasswordComponent,
     RefuseComponent,
     DialogChooseDateComponent,
+    SignatureFlowDialogComponent,
+    FormEployeeSignS2Component,
   ],
   providers: [
     AuthenticationService,
     FileSignService,
     EmployeeService,
-    FileUploadEmitter
+    FileUploadEmitter,
   ],
   entryComponents: [
     TableEditorErrorsComponent,
@@ -231,7 +234,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     AcountFormComponent,
     EmailFormComponent,
     ContractComponent,
-    FileAttachmentComponent,     
+    FileAttachmentComponent,
     UploadFormComponent,
     TableInportErrorsComponent,
     SignaturePadComponent,
@@ -256,6 +259,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     DialogChangePasswordComponent,
     RefuseComponent,
     DialogChooseDateComponent,
-  ]
+    SignatureFlowDialogComponent,
+    FormEployeeSignS2Component,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
