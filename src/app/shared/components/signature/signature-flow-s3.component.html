@@ -135,7 +135,23 @@
                   </div>
                 </div>
               </div>
+              <!-- End Detail sign -->
+              <div *ngIf="!documentSign.myselfSign" class="methodSign">
+                  <div class="header-title">HÌNH THỨC KÝ</div>
+                  <div class="card-body">
+                    <nz-select nzAllowClear (ngModelChange)="changeSignType($event)" nzPlaceHolder="Phương thức ký"
+                      [(ngModel)]="singType">
+                      <nz-option [nzValue]="sign.key" nzLabel ="{{ sign.name | translate }}"
+                        *ngFor="let sign of signsType">
+                      </nz-option>
+                    </nz-select>
+                  </div>
+                  <div class="note">
+                   <i> * Bỏ qua nếu không cấu hình thức ký cho người nhận</i>
+                  </div>
+                </div>
             </div>
+             <!-- End method Sign -->
           </div>
         </div>
       </div>

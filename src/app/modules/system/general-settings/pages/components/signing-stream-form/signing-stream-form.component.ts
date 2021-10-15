@@ -92,7 +92,7 @@ export class SigningStreamFormComponent implements OnInit {
       name: null,
       groupName: null,
       groupType: GROUP_TYPE.HSMUSB,
-      isEmployeeSign: false,
+      isEmployeeSign: true,
       isEmployeeApprove: false,
       address: null,
       idNumer: null,

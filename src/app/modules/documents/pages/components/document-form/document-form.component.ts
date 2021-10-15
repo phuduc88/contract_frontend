@@ -5,7 +5,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { DOCUMENT_STATUS, TIME_PICKERS} from '@app/shared/constant';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogChooseDateComponent } from '@app/shared/components';
+import { eventEmitter } from '@app/shared/utils/event-emitter';
 import * as moment from 'moment';
+
 @Component({
   selector: 'app-document-form',
   templateUrl: './document-form.component.html',
@@ -13,6 +15,7 @@ import * as moment from 'moment';
 })
 export class DocumentFormComponent implements OnInit {
   @Output() onFormSearch: EventEmitter<any> = new EventEmitter();
+  private handlers;
   formSearch: FormGroup;
   documentsType: any;
   documentStatus = DOCUMENT_STATUS;
@@ -36,6 +39,12 @@ export class DocumentFormComponent implements OnInit {
       documentType: [''],
       dateView: [''],
     });
+
+    this.handlers = [
+      eventEmitter.on('tabDocument:change', ({}) => {
+        this.clearvalueOfForm();
+      }) 
+    ];
 
     this.loadDocumetType();
   }
@@ -115,6 +124,11 @@ export class DocumentFormComponent implements OnInit {
   }
 
   clearSearch() {
+    this.clearvalueOfForm();
+    this.onFormSearch.emit(this.getDataSearCh());
+  }
+
+  clearvalueOfForm() {
     this.formSearch.patchValue({
       keyWord: '',
       status: '',
@@ -125,6 +139,5 @@ export class DocumentFormComponent implements OnInit {
     this.dateFrom = '';
     this.dateTo = '';
     this.typeView = 0;
-    this.onFormSearch.emit(this.getDataSearCh());
   }
 }

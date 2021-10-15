@@ -1,5 +1,5 @@
 <div class="d-flex flex-column bd-highlight manage-documents">
-  <nz-tabset nzSelectedIndex="1" nzType="editable-card" nzHideAdd (nzSelectChange)="handleSelectTab($event)">
+  <nz-tabset nzSelectedIndex="0" nzType="editable-card" nzHideAdd (nzSelectChange)="handleSelectTab($event)">
     <nz-tab [nzTitle]="myselfSign">
       <ng-template #myselfSign>
         <div>
@@ -10,14 +10,14 @@
     <nz-tab [nzTitle]="sended">
       <ng-template #sended>
         <div>
-          Chờ ký
+          Nháp
         </div>
       </ng-template>
     </nz-tab>
     <nz-tab [nzTitle]="draft">
       <ng-template #draft>
         <div>
-          Nháp
+          Chờ ký
         </div>
       </ng-template>
     </nz-tab>

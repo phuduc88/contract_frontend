@@ -1,7 +1,7 @@
 <div nz-row class="recipient-list">
   <div nz-col [nzSpan]="24" class="d-flex flex-row-reverse">
     <div class="control">
-      <button type="button" class="btn btn-sm btn-primary" autocomplete="off">
+      <button type="button" class="btn btn-sm btn-primary" (click) = "downloadDocument()">
         <i class="fa fa-download" aria-hidden="true"></i>Tải xuống
       </button>
     </div>
@@ -36,15 +36,13 @@
             </div>
           </td>
           <td class="text-center">
-            <strong class="text-success">
-              {{ data.tham_gia_ky }}
-            </strong>
+              <i class="text-success fa fa-check" *ngIf="data.isEmployeeSign"></i>
           </td>
           <td class="text-center">
-              <i class="text-success fa fa-check" *ngIf="data.isEmployeeSign"></i>
+              <i class="text-success fa fa-check" *ngIf="!data.isEmployeeSign"></i>
             </td>
           <td class="text-center">
-            <i class="text-success fa fa-check" *ngIf="data.isEmployeeApprove"></i>
+            <!-- <i class="text-success fa fa-check" *ngIf="!data.isEmployeeSign"></i> -->
           </td>
           <td class="text-center">
             <i class="text-success fa fa-check" *ngIf="data.nhan_ban_sao_hoan_thanh"></i>

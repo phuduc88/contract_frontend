@@ -79,6 +79,15 @@ export class SignatureFlowComponent
     const documentDefault = documentsType.find(r => r.isDefault);
     if (!documentDefault) return;
     this.documentSign.documentType = documentDefault.id;
+    this.documentSign.documentTypeName = documentDefault.documentName;
+  }
+
+  changeDocumentType(documentsType) {
+    this.documentSign.documentType = documentsType;
+    const documentSelected = this.documentsType.find(r => r.id === documentsType);
+    if (documentSelected) {
+      this.documentSign.documentTypeName = documentSelected.documentName;
+    }
   }
 
   private loadSelectedEmail() {
@@ -182,6 +191,7 @@ export class SignatureFlowComponent
     }
     const employeesSign = formVale.employeesSign;
     employeesSign.push(this.addEmployeeSignBlank());
+    console.log(employeesSign);
     this.documentSign.employeesSign = employeesSign;
   }
 
@@ -275,7 +285,7 @@ export class SignatureFlowComponent
           shape: "round",
           onClick: () => {
             this.isSaveFile = true;
-            // this.serviceSignPosition();
+            this.serviceSignPosition();
             modalConfirm.destroy();
             this.modal.destroy();
           },
@@ -444,6 +454,7 @@ export class SignatureFlowComponent
     modal.afterClose.subscribe(result => {
       if (result) {
         this.documentSign.documentEmail = result;
+        this.documentSign.employeesSign = result.employeeSignOrder;
         this.serviceSignPosition();   
       }
     });
@@ -474,7 +485,7 @@ export class SignatureFlowComponent
           if (!this.isSaveFile) {
             this.modalService.success({ nzTitle: "Ký file thành công!" });
           } else {
-            this.modalService.success({ nzTitle: "Lưu file thành công!" });
+            this.modalService.success({ nzTitle: "Lưu thành công!" });
           }
           this.modal.destroy();
         }

@@ -86,6 +86,14 @@ export class SignFlowService {
     });
   }
 
+  public downloadDocumentSign(documentId: string ) {
+    return this.http.getFile(`/document-sign/download-file/${ documentId }`, {
+      headers: {
+        token: this.authService.getCredentialToken()
+      }
+    });
+  }
+
   public filter(filters = {}) {
     return this.http.getList('/document-sign', {
       params: {
