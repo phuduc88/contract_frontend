@@ -2,9 +2,9 @@
   <!-- <h1>{{ 'auth.login.title' | translate }}</h1> -->
 
   <div class="img_logo">
-    <img style="text-align: center;" src="../../../../../assets/img/logo_login.png" alt="me-Contract">
+    <img style="text-align: center;" src="../../../../../assets/img/logo-new.png" alt="me-Contract">
   </div>
-  <nz-form-item>
+  <nz-form-item class="pb-2">
     <nz-form-control [nzErrorTip]="userNameTpl">
       <input nz-input formControlName="username" class="input-me"
         placeholder="{{ 'auth.login.form.username' | translate }}">
@@ -19,7 +19,7 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
+  <nz-form-item class="pb-2">
     <nz-form-control [nzErrorTip]="passWordTpl">
       <input type="password" class="input-me" nz-input formControlName="password"
         placeholder="{{ 'auth.login.form.password' | translate }}">
@@ -47,13 +47,13 @@
     <button class="btn-login" nz-button nzType="primary" type="submit">{{'auth.login.form.submit' | translate}}</button>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     Bạn muốn đăng ký dùng thử?
     <a [routerLink]="['/auth/resigter']" class="form-group-reset">
       {{ 'auth.login.form.register' | translate }}
     </a>
   </div>
-  <div class="form-group">
+  <div class="form-group connect-social">
     <a href="#" title="facebook">
       <img src="../../../../../assets/img/icon/facebook.png"></a>
     <a href="#" title="youtube">
