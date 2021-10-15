@@ -129,8 +129,10 @@
   background: #2F80ED;
 }
 ::ng-deep .signature-flow-dialog {
-  width: 95% !important;
+  width: 100% !important;
+  max-width: 100% !important;
   padding: 0;
+  margin: 0;
 }
 ::ng-deep .signature-flow-dialog .ant-modal-header .ant-modal-title {
   font-size: 24px !important;

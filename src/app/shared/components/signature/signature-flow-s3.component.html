@@ -5,8 +5,8 @@
         <div class="col-md-3 col-lg-2 content-left p-0">
           <div class="header-left"></div>
           <div class="container-foreign onscrollbar" [signDocument2FullHeight]>
-            <div class="col-auto my-1" *ngIf="!documentSign.myselfSign">
-              <nz-select nzAllowClear (ngModelChange)="changeEmailAssignment($event)" nzPlaceHolder="Chọn người ký"
+            <div class="col-auto my-1 pl-2 pr-2" *ngIf="!documentSign.myselfSign">
+              <nz-select class="w-100" nzAllowClear (ngModelChange)="changeEmailAssignment($event)" nzPlaceHolder="Chọn người ký"
                 [(ngModel)]="documentSign.emailAssignment">
                 <nz-option [nzValue]="person.email" [nzLabel]="person.groupName"
                   *ngFor="let person of employeesSign">
