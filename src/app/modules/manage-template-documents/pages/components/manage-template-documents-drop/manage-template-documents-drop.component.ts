@@ -15,12 +15,15 @@ export class ManageTemplateDocumentsDropComponent implements OnInit, OnChanges {
   @Output() resizeEventDownloadBookmark: EventEmitter<any> = new EventEmitter();
   @Output() resizeViewDetail: EventEmitter<any> = new EventEmitter();
   @Output() resizeChangeFileTemplate: EventEmitter<any> = new EventEmitter();
+  @Output() resizeEditDocumentTemplate: EventEmitter<any> = new EventEmitter();
+  @Output() resizeFormSearch: EventEmitter<any> = new EventEmitter();
   ngOnInit() {
     
   }
 
   ngOnChanges(changes) { 
   }
+
   changeFileSuccess(event) {
     this.resizeChangeFileTemplate.emit( {
       file: event,
@@ -46,5 +49,13 @@ export class ManageTemplateDocumentsDropComponent implements OnInit, OnChanges {
 
   handleViewDetail(event) {
     this.resizeViewDetail.emit(event);
+  }
+
+  handleEditDocumentTemplate(event) {
+    this.resizeEditDocumentTemplate.emit(event);
+  }
+
+  handleFormSearch(event) {
+    this.resizeFormSearch.emit(event);
   }
 }

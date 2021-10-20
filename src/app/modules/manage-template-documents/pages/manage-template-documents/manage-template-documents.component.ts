@@ -6,7 +6,7 @@ import {
 } from "@app/core/services";
 import {
   DialogUploadTemplateErrorComponent,
-  SignatureFlowDialogComponent,
+  SignatureTemplateComponent,
 } from "@app/shared/components";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { DATE_FORMAT, MIME_TYPE, PAGE_SIZE } from "@app/shared/constant";
@@ -24,9 +24,12 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
   selectedPage: number = 1;
   documents: any;
   private handlers;
+  keyWord: any = '';
+  documentType: any = null;
   parentStyle = {};
   error = [];
   documentTemplate: any;
+
   constructor(
     private modalService: NzModalService,
     private documentTemplateService: DocumentTemplateService,
@@ -67,7 +70,8 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
           } else {
             this.currentStep = goStep;
             this.documentTemplate = res.result;
-            this.showSignatureFlowDialog();
+            this.documentTemplate.employeesSign = [];
+            this.showSignatureFlowDialog(this.documentTemplate);
           }
           this.overloading = false;
           this.parentStyle = {};
@@ -75,17 +79,28 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
     }, 200);
   }
 
-  private showSignatureFlowDialog() {
-    this.modalService.create({
+  private showSignatureFlowDialog(documentSign) {
+    const modal = this.modalService.create({
       nzStyle: { top: 0 },
       nzClosable: true,
       nzTitle: "Ký tài liệu",
       nzClassName: "signature-flow-dialog",
-      nzContent: SignatureFlowDialogComponent,
+      nzContent: SignatureTemplateComponent,
       nzOnOk: (data) => console.log("Click ok", data),
-      nzComponentParams: {},
+      nzComponentParams: {
+        documentSign
+      },
       nzFooter: [],
     });
+
+    modal.afterClose.subscribe(result => {
+      if(!result) {
+        return;
+      }
+      this.documentTemplate = result;
+      this.currentStep = result.currentStep;
+    });
+    
   }
   private showDialogError(errors) {
     this.modalService.create({
@@ -200,6 +215,8 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
       .filter({
         skip,
         take,
+        keyWord: this.keyWord,
+        documentType: this.documentType,
       })
       .subscribe((res) => {
         this.documents = res.data;
@@ -220,6 +237,14 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
     this.skip = skip;
     this.selectedPage = page;
     this.getDocumentTemplate(skip);
+  }
+
+  private handleFormSearch(formValue) {
+    this.keyWord = formValue.keyWord;
+    this.documentType = formValue.documentType;
+    this.skip = 0;
+    this.selectedPage = 1;
+    this.getDocumentTemplate(this.skip);
   }
 
   handleDelelete({ data }) {
@@ -326,5 +351,20 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
         this.overloading = false;
         this.parentStyle = {};
       });
+  }
+
+  handleEditDocumentTemplate({data}) {
+    this.overloading = true;
+    this.parentStyle = {
+      "z-index": 99999,
+      opacity: 0.3,
+    };
+
+    this.documentTemplateService.editDocumentTemplate(data.id)
+    .subscribe(res => {
+      this.showSignatureFlowDialog(res);
+      this.overloading = false;
+      this.parentStyle = {};
+    });
   }
 }

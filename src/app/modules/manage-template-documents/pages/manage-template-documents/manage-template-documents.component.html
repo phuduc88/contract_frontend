@@ -2,10 +2,12 @@
   <app-manage-template-documents-drop 
     [documents]="documents" 
     (resizeEventPageChange)="handlePageChange($event)"
+    (resizeFormSearch) ="handleFormSearch($event)"
     (resizeEventDelete)="handleDelelete($event)" 
     (resizeEventDownloadTemplate)="handleDownloadTemplate($event)"
     (resizeEventDownloadBookmark)="handleDownloadBookmark($event)"
     (resizeChangeFileTemplate)="handleChangeFileTemplate($event)"
+    (resizeEditDocumentTemplate)="handleEditDocumentTemplate($event)"
      (onGoBack)="handleGoBack($event)"
     (resizeViewDetail)="handleViewDetail($event)" *ngIf="currentStep === 1">
   </app-manage-template-documents-drop>

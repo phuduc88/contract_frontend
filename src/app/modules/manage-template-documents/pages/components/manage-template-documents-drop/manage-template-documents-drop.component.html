@@ -6,10 +6,12 @@
     <app-manage-template-documents-table
      [documents]="documents"
      (onPageChange) = "handlePageChange($event)"
+     (onFormSearch) = "handleFormSearch($event)"
      (onDelete) = "handleDelete($event)"
      (onDownloadTemplate) = "handleDownloadTemplate($event)"
      (onDownloadBookmark) = "handleDownloadBookmark($event)"
      (onViewDetail) = "handleViewDetail($event)"
+     (onEditDocumentTemplate) = "handleEditDocumentTemplate($event)"
      ></app-manage-template-documents-table>
   </div>
 </div>

@@ -26,6 +26,14 @@ export class DocumentTemplateService {
     return this.http.get(`/document-template/${ id }`);
   }
 
+  public editDocumentTemplate(id) {
+    return this.http.get(`/document-template/view-document-template/${ id }`);
+  }
+
+  public updateDocumentTemplate(id, body, options = {}) {
+    return this.http.post(`/document-template/employee-sing/${ id }`, body, options);
+  }
+
   public uploadContract(documents) {
     const formdata = this.getFormData(documents);
     return this.http.post('/document-template/upload-bookmark', formdata);

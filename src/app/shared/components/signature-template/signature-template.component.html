@@ -1,7 +1,17 @@
+<button aria-label="Close" (click)="closeModal()" nz-modal-close=""
+  class="ant-modal-close ng-tns-c42-1 ng-star-inserted"><span class="ant-modal-close-x"><i nz-icon=""
+      class="anticon ant-modal-close-icon anticon-close ng-star-inserted" ng-reflect-nz-type="close"><svg
+        viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em" data-icon="close"
+        aria-hidden="true">
+        <path
+          d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z">
+        </path>
+      </svg></i>
+  </span></button>
 <div class="signature-flow-dialog-container">
   <div class="signature-flow-dialog-step">
     <div class="signature-flow-step">
-      <div class="signature-flow-step-1" [signDocumentFullHeight] [currentStep]="currentStep" *ngIf="currentStep === 1">
+      <div class="signature-flow-step-1" [signDocumentFullHeight] [currentStep]="documentSign.currentStep" *ngIf="documentSign.currentStep === 1">
         <div class="container">
           <div id="process" class="row d-flex justify-content-center">
             <div class="progressbar-wrapper justify-content-center">
@@ -44,9 +54,20 @@
             <div class="flex-grow-1 info_file pr-5">
               <div class="form-row-no-back-ground">
                 <span class="bd-highlight align-self-center mr-1">Người nhận</span>
+                <div class="bd-highlight">
+                  <nz-select nzAllowClear  [(ngModel)]="documentSign.documentType" (ngModelChange)="changeDocumentType($event)" nzPlaceHolder="Loại tài liệu">
+                    <nz-option [nzValue]="documentType.id" [nzLabel]="documentType.documentName"
+                      *ngFor="let documentType of documentsType">
+                    </nz-option>
+                  </nz-select>
+                </div>
               </div>
               <div class="ml-lg-2">
-                <app-form-employee-sign-s2></app-form-employee-sign-s2>
+                <app-form-employee-template
+                  [employeesSign] = "documentSign.employeesSign"
+                  (onFormValid) = "handleFormValid($event)"
+                  (onAddEmployeeSing)="addEmployeeSing($event)">
+                </app-form-employee-template>
               </div>
             </div>
           </div>
@@ -66,12 +87,10 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
 
-      <div class="signature-flow-step-2" *ngIf="currentStep === 2">
+      <div class="signature-flow-step-2" *ngIf="documentSign.currentStep === 2">
         <signature-flow-s3 [documentSign]="documentSign"></signature-flow-s3>
       </div>
     </div>
@@ -81,15 +100,14 @@
 
   <div class="signature-flow-footer modal-footer">
     <div class="btn-group">
-      <button type="button" class="btn btn-secondary mr-2" (click)="prevStep()">
+      <button type="button" class="btn btn-secondary mr-2" (click)="prevStep(1)">
         Quay lại <span class="fa fa-arrow-left"></span>
       </button>
-      <button type="button" class="btn btn-success" (click)="nextStep(2)" *ngIf="currentStep === 1">
+      <button type="button" class="btn btn-success" (click)="nextStep(2)" *ngIf="documentSign.currentStep === 1">
         Tiếp theo <span class="fa fa-arrow-right"></span>
       </button>
-
-      <button type="button" class="btn btn-success" *ngIf="currentStep === 2">
-        Xem và gửi <span class="fa fa-paper-plane-o"></span>
+      <button type="button" class="btn btn-success" *ngIf="documentSign.currentStep === 2" (click)="saveAndSendEmail()" >
+        Cấu hình email và xem <span class="fa fa-paper-plane-o"></span>
       </button>
 
     </div>

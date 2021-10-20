@@ -96,7 +96,7 @@ export class DocumentsComponent implements OnInit {
 
   showDocumentSign(documentSign) {
 
-    this.modalService.create({
+   const modal = this.modalService.create({
       nzClosable: false,
       nzTitle: 'Ký tài liệu',
       nzStyle: { top: 0 },
@@ -109,6 +109,12 @@ export class DocumentsComponent implements OnInit {
       nzComponentParams: {
         documentSign,
       },
+    });
+
+    modal.afterClose.subscribe(result => {
+      if(result) {
+        this.filterDocuments();
+      }
     });
   }
 

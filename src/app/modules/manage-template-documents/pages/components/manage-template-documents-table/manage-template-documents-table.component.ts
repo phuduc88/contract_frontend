@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, EventEmitter, Output, OnChanges } from "@angular/core";
-
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DocumentTypeService } from '@app/core/services';
 @Component({
   selector: "app-manage-template-documents-table",
   templateUrl: "./manage-template-documents-table.component.html",
@@ -12,19 +13,39 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
   @Output() onDownloadTemplate: EventEmitter<any> = new EventEmitter();
   @Output() onDownloadBookmark: EventEmitter<any> = new EventEmitter();
   @Output() onViewDetail: EventEmitter<any> = new EventEmitter();
+  @Output() onEditDocumentTemplate: EventEmitter<any> = new EventEmitter();
+  @Output() onFormSearch: EventEmitter<any> = new EventEmitter();
   total = 0;
   selectedPage = 1
+  formSearch: FormGroup;
+  documentsType: any;
   take = 1;
   numberPages = 1;
   skip = 1;
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private documentTypeService: DocumentTypeService,
+  )
+  {
+  }
   ngOnInit() {
+    this.formSearch = this.formBuilder.group({
+      keyWord: [''],
+      documentType: [''],
+    });
+    this.loadDocumetType();
   }
 
   ngOnChanges(changes) { 
     if (changes.documents && changes.documents.currentValue) {
       this.caculatorPage();
     }
+  }
+
+  private loadDocumetType() {
+    this.documentTypeService.filter().subscribe(res => {
+      this.documentsType = res.data;
+    });
   }
 
   firstPage() {
@@ -86,6 +107,12 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
     });
   }
 
+  editDocumentTemplate(data) {{
+    this.onEditDocumentTemplate.emit({
+      data
+    });
+  }}
+
   downloadTemplate(data) {
     this.onDownloadTemplate.emit({
       data
@@ -103,5 +130,8 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
       data
     })
   }
-   
+
+  filterDocuments() {
+    this.onFormSearch.emit(this.formSearch.getRawValue());
+  }
 }

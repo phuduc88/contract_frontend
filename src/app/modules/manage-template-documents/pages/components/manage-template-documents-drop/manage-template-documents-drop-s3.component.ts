@@ -12,6 +12,7 @@ export class ManageTemplateDocumentsDropS3Component implements OnInit {
   @Output() onGoBack: EventEmitter<any> = new EventEmitter();
   currentPage = 1;
   headerColumn: any = [];
+  // numberHeaderEmpSign: any = 0;
   numberHeader: any = 0;
   ngOnInit() {
     this.getHeaderColumn();
@@ -45,7 +46,7 @@ export class ManageTemplateDocumentsDropS3Component implements OnInit {
   }
 
   private refomatData() {
-    const dataBookmarks = orderBy(this.documentTemplate.dataBookmarks, 'recordUpLoad', 'asc');  ;
+    const dataBookmarks = orderBy(this.documentTemplate.dataBookmarks, 'recordUpLoad', 'asc');
     const documentData = [];
     dataBookmarks.forEach((bookmark) => {
       const rowData = {

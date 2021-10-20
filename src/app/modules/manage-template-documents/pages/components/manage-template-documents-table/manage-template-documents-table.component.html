@@ -2,6 +2,33 @@
   <div nz-col nzSpan="24">
     <h5>Danh sách mẫu tài liệu</h5>
     <div class="manage-template-documents-table__container">
+    <form nz-form [formGroup]="formSearch">
+        <div class="d-flex bd-highlight mr-2 mt-2">
+            <div class="input-group bd-highlight pl-0 pt-2  pr-2" style="max-width: 300px;">
+              <input nz-input  class="form form-control form-control-sm" formControlName="keyWord" placeholder="Tìm kiếm mọi thứ về tài liệu ở đây..."
+                autocomplete="off">              
+            </div>
+            <div class="d-flex flex-row bd-highlight">
+              <div class="p-2 bd-highlight">
+                  <nz-select nzShowSearch nzAllowClear 
+                  formControlName="documentType"
+                    nzPlaceHolder="Tất cả phân loại">
+                      <nz-option [nzValue]="document.id" [nzLabel]="document.documentName"
+                        *ngFor="let document of documentsType">
+                      </nz-option>
+                  </nz-select>
+              </div>
+              <div class="input-group-append ml-1">
+                  <span class="" id="basic-addon2">
+                    <button class="btn btn-sm btn-primary" placeholder="Tìm kiếm mọi thứ về tài liệu ở đây..."
+                      (click)="filterDocuments()" title="Tìm kiếm">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </span>
+                </div>
+            </div>
+          </div>
+        </form>
       <div class="manage-template-documents-table__header">
         <div nz-row>
           <div nz-col nzSpan="12" class="manage-template-documents-table__info">
@@ -61,7 +88,7 @@
                     <i class="fa fa-ellipsis-v" style="font-size: 22px;color: #2CA01C;" aria-hidden="true"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item">Xem tài liệu liên quan</a>
+                    <a class="dropdown-item" (click)="editDocumentTemplate(data)">Cài đặt thông tin người nhận</a>
                     <a class="dropdown-item" (click)="delete(data, i)">Xóa</a>
                     <a class="dropdown-item" (click)="downloadTemplate(data)">Tải xuống Mẫu</a>
                     <a class="dropdown-item" (click)="downloadBookmark(data)">Tải xuống file Excel dữ liệu bookmark mẫu</a>

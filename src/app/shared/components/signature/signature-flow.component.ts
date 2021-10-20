@@ -191,7 +191,6 @@ export class SignatureFlowComponent
     }
     const employeesSign = formVale.employeesSign;
     employeesSign.push(this.addEmployeeSignBlank());
-    console.log(employeesSign);
     this.documentSign.employeesSign = employeesSign;
   }
 

@@ -160,7 +160,6 @@ export class SignatureFlowS3Component
   }
 
   ngAfterViewInit() {
-    
     // Init drag for Signature Image
     $(SIGNATURE.SELECTOR.ObjDragToViewer).draggable({
       cursor: "move",

@@ -73,8 +73,8 @@ import {
   DialogChangePasswordComponent,
   RefuseComponent,
   DialogChooseDateComponent,
-  SignatureFlowDialogComponent,
-  FormEployeeSignS2Component,
+  SignatureTemplateComponent,
+  FormEployeeTemplateComponent,
 } from "./components";
 
 import {
@@ -166,8 +166,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogChangePasswordComponent,
     RefuseComponent,
     DialogChooseDateComponent,
-    SignatureFlowDialogComponent,
-    FormEployeeSignS2Component,
+    SignatureTemplateComponent,
+    FormEployeeTemplateComponent,
   ],
   exports: [
     FormsModule,
@@ -219,8 +219,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogChangePasswordComponent,
     RefuseComponent,
     DialogChooseDateComponent,
-    SignatureFlowDialogComponent,
-    FormEployeeSignS2Component,
+    SignatureTemplateComponent,
+    FormEployeeTemplateComponent,
   ],
   providers: [
     AuthenticationService,
@@ -259,8 +259,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogChangePasswordComponent,
     RefuseComponent,
     DialogChooseDateComponent,
-    SignatureFlowDialogComponent,
-    FormEployeeSignS2Component,
+    SignatureTemplateComponent,
+    FormEployeeTemplateComponent,
   ],
 })
 export class SharedModule {}
