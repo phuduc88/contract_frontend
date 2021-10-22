@@ -46,7 +46,7 @@ export class SignDocumentFullHeightDirective
       window.innerHeight -
       header.clientHeight -
       footer.clientHeight -
-      (this.currentStep === 1 ? CARD_OFFSET : 0) -
+      (this.currentStep === 1 || this.currentStep === 100 ? CARD_OFFSET : 0) -
       (this.currentStep === 99 ? headerLeft.clientHeight : 0)
     }px`;
 
@@ -57,6 +57,7 @@ export class SignDocumentFullHeightDirective
         element.style.overflowY = "scroll";
         break;
       case 2:
+      case 100:
         element.style.overflowY = element.style.overflowX = "clip";
         break;
       default:

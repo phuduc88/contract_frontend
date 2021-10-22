@@ -1,0 +1,17 @@
+<div class="drop" style="background: #FFFFFF; height: 100px;">
+  <div class="cont">
+    <div class="browse">
+      <img src="../../../../../assets/img/file-plus.svg">
+      <div class="desc d-none d-sm-block"> </div>
+      <p>Kéo thả 1 tệp tin vào đây</p>
+      <p>Hoặc</p>
+      <button type="button" class="btn btn-outline-success mb-3">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i> &nbsp;
+        Chọn tệp từ máy
+      </button>
+      <p> (Chỉ chấp nhận định dạng *.pdf và dung lượng không quá 10MB)</p>
+    </div>
+
+  </div>
+  <input id="uploadBookmark" type="file" [accept]="'.pdf'" autocomplete="off" (change)="handleChange($event)">
+</div>

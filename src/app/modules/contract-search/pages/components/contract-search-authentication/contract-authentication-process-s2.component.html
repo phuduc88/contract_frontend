@@ -1,0 +1,28 @@
+<div id="loader-pdf" *ngIf="documentSign">
+  <div [signDocumentFullHeight] [currentStep]="100" class="row"> 
+    <div id="mainViewer" [ngClass]="isAuthentication ? 'd-flex col-9 p-0' : 'd-flex col-12 p-0' ">
+      <div class="col-sm-12 col-md-10 col-lg-10 content-center p-0">
+        <app-pdf-viewer [isContractSearch]="isContractSearch" [documentSign]="documentSign" [currentUser]="currentUser"></app-pdf-viewer>
+      </div>
+      <div class="col-md-2 col-lg-2 content-right p-0">
+        <div class="header-right"></div>
+        <app-pdf-list-thumbnail [filesSign]="documentSign.filesSign"></app-pdf-list-thumbnail>
+      </div>
+    </div>
+
+    <div [ngClass]="isAuthentication ? 'col-3' : '' " *ngIf="isAuthentication">
+      <app-contract-authentication-info></app-contract-authentication-info>
+    </div>
+  </div>
+
+  <div class="card-footer signature-flow-footer d-flex align-items-center justify-content-center">
+    <div class="btn-controls-group">
+      <button nz-button nzType="default" class="mr-3" (click)="goBack()">
+        <i nz-icon nzType="arrow-left"></i>Quay lại
+      </button>
+      <button nz-button nzType="primary" (click)="authentication()">
+        <i nz-icon nzType="check-circle"></i>Xác thực
+      </button>
+    </div>
+  </div>
+</div>

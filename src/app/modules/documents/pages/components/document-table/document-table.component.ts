@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DOCUMENTSTATUS } from '@app/shared/constant';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { DOCUMENTSTATUS } from "@app/shared/constant";
 
 @Component({
-  selector: 'app-document-table',
-  templateUrl: './document-table.component.html',
-  styleUrls: ['./document-table.component.less']
+  selector: "app-document-table",
+  templateUrl: "./document-table.component.html",
+  styleUrls: ["./document-table.component.less"],
 })
 export class DocumentTableComponent implements OnInit {
   @Input() documents: any;
@@ -21,14 +21,21 @@ export class DocumentTableComponent implements OnInit {
   @Output() viewDocument: EventEmitter<any> = new EventEmitter();
   @Output() singDocument: EventEmitter<any> = new EventEmitter();
   @Output() onPageChange: EventEmitter<any> = new EventEmitter();
-  constructor() { }
+  @Output() onCheckChange: EventEmitter<any> = new EventEmitter();
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes) {
-    if (changes.documents && changes.documents.currentValue && changes.documents.currentValue.length) {
-      this.documents = changes.documents.currentValue;
+    if (
+      changes.documents &&
+      changes.documents.currentValue &&
+      changes.documents.currentValue.length
+    ) {
+      let documents = changes.documents.currentValue;
+      this.documents = documents;
+      this.isSelectAll =
+        documents.length > 0 && documents.filter((x) => !x.isSelected) == 0;
       this.caculatorPage();
     }
   }
@@ -85,6 +92,18 @@ export class DocumentTableComponent implements OnInit {
   }
 
   selectAllDocument() {
+    this.onCheckChange.emit({
+      isSelectAll: true,
+      checked: this.isSelectAll,
+    });
+  }
+
+  documentSelect(document: any) {
+    this.onCheckChange.emit({
+      isSelectAll: false,
+      id: document.id,
+      checked: document.isSelected,
+    });
   }
 
   signDocument(item) {

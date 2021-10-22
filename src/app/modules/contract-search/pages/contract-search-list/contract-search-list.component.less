@@ -1,0 +1,71 @@
+.fancybox-nav {
+  position: absolute;
+  top: 0;
+  width: 2%;
+}
+
+.manage-documents {
+  background-color: #fff;
+  padding: 5px;
+  height: 100%;
+}
+
+.manage-documents {
+  .formWapper {
+    width: 100%;
+  }
+  .nav-tabs {
+    .nav-link.active {
+      background-color: #386dfc;
+      color: #fff;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #table-document {
+    max-width: 40em;
+    max-height: 40em;
+    overflow: scroll;
+    position: relative;
+
+    thead {
+      th {
+        position: -webkit-sticky;
+        /* for Safari */
+        position: sticky;
+        top: 0;
+
+        &:first-child {
+          position: -webkit-sticky;
+          /* for Safari */
+          position: sticky;
+          left: 0;
+          background: #e8f8e2;
+          border-right: 1px solid #CCC;
+          z-index: 2;
+        }
+        .fit {
+          width: 10%
+        }
+      }
+      td {
+        .fit {
+          width: 10%
+        }
+      }
+    }
+
+    tbody {
+      td:first-child {
+        position: -webkit-sticky;
+        /* for Safari */
+        position: sticky;
+        left: 0;
+        background: #FFF;
+        border-right: 1px solid #CCC;
+        z-index: 1;
+      }
+    }
+  }
+}

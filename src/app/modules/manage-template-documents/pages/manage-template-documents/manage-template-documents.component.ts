@@ -3,14 +3,17 @@ import { eventEmitter } from "@app/shared/utils/event-emitter";
 import {
   DocumentTemplateService,
   DocumentTemplateDataService,
+  SignFlowService,
 } from "@app/core/services";
 import {
   DialogUploadTemplateErrorComponent,
+  IframeViewerComponent,
   SignatureTemplateComponent,
 } from "@app/shared/components";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { DATE_FORMAT, MIME_TYPE, PAGE_SIZE } from "@app/shared/constant";
 import { download } from "@app/shared/utils/download-file";
+import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "app-manage-template-documents",
   templateUrl: "./manage-template-documents.component.html",
@@ -24,7 +27,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
   selectedPage: number = 1;
   documents: any;
   private handlers;
-  keyWord: any = '';
+  keyWord: any = "";
   documentType: any = null;
   parentStyle = {};
   error = [];
@@ -33,7 +36,9 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: NzModalService,
     private documentTemplateService: DocumentTemplateService,
-    private documentTemplateDataService: DocumentTemplateDataService
+    private documentTemplateDataService: DocumentTemplateDataService,
+    private signFlowService: SignFlowService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -88,19 +93,18 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
       nzContent: SignatureTemplateComponent,
       nzOnOk: (data) => console.log("Click ok", data),
       nzComponentParams: {
-        documentSign
+        documentSign,
       },
       nzFooter: [],
     });
 
-    modal.afterClose.subscribe(result => {
-      if(!result) {
+    modal.afterClose.subscribe((result) => {
+      if (!result) {
         return;
       }
       this.documentTemplate = result;
       this.currentStep = result.currentStep;
     });
-    
   }
   private showDialogError(errors) {
     this.modalService.create({
@@ -311,12 +315,33 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
 
   handleQuickView({ data }) {
     this.overloading = true;
-    this.documentTemplateDataService
-      .quickViewDocument(data.documentTemplateId, data.recordUpLoad)
-      .subscribe((res) => {
-        this.overloading = false;
-        console.log(res);
+    // this.documentTemplateDataService
+    //   .quickViewDocument(data.documentTemplateId, data.recordUpLoad)
+    //   .subscribe((res) => {
+    //     this.overloading = false;
+    //     console.log(res);
+    //   });
+
+    this.signFlowService.getDetail("1104").subscribe((data: any) => {
+      this.overloading = false;
+      let srcUrl: any = this.sanitizer.bypassSecurityTrustResourceUrl(
+        "data:application/pdf;base64," + data.filesSign[0].data
+      );
+
+      const modal = this.modalService.create({
+        nzClosable: true,
+        nzTitle: "Tệp PDF",
+        nzStyle: { top: "20px" },
+        nzClassName: "iframe-viewer",
+        nzKeyboard: false,
+        nzContent: IframeViewerComponent,
+        nzOnOk: (data) => console.log("Click ok", data),
+        nzComponentParams: {
+          srcUrl,
+        },
+        nzFooter: [],
       });
+    });
   }
 
   handleDownloadFileTemplateReceiver() {
@@ -353,18 +378,19 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  handleEditDocumentTemplate({data}) {
+  handleEditDocumentTemplate({ data }) {
     this.overloading = true;
     this.parentStyle = {
       "z-index": 99999,
       opacity: 0.3,
     };
 
-    this.documentTemplateService.editDocumentTemplate(data.id)
-    .subscribe(res => {
-      this.showSignatureFlowDialog(res);
-      this.overloading = false;
-      this.parentStyle = {};
-    });
+    this.documentTemplateService
+      .editDocumentTemplate(data.id)
+      .subscribe((res) => {
+        this.showSignatureFlowDialog(res);
+        this.overloading = false;
+        this.parentStyle = {};
+      });
   }
 }

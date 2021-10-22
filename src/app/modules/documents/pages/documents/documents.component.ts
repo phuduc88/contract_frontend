@@ -1,17 +1,21 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { AuthenticationService, SignFlowService, DocumentTypeService } from '@app/core/services';
-import { Router } from '@angular/router';
-import { Credential } from '@app/core/models';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { SignatureFlowComponent } from '@app/shared/components';
-import { PAGE_SIZE, MIME_TYPE, DOC_TAB_INDEX } from '@app/shared/constant';
-import { download } from '@app/shared/utils/download-file';
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import {
+  AuthenticationService,
+  SignFlowService,
+  DocumentTypeService,
+} from "@app/core/services";
+import { Router } from "@angular/router";
+import { Credential } from "@app/core/models";
+import { NzModalService } from "ng-zorro-antd/modal";
+import { SignatureFlowComponent } from "@app/shared/components";
+import { PAGE_SIZE, MIME_TYPE, DOC_TAB_INDEX } from "@app/shared/constant";
+import { download } from "@app/shared/utils/download-file";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
 
 @Component({
-  selector: 'app-documents',
-  templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.less']
+  selector: "app-documents",
+  templateUrl: "./documents.component.html",
+  styleUrls: ["./documents.component.less"],
 })
 export class DocumentsComponent implements OnInit {
   currentUser: Credential;
@@ -21,13 +25,14 @@ export class DocumentsComponent implements OnInit {
   isSpinning: boolean = false;
   tabSeleted: number = 0;
   filter: any = {};
-  constructor(private authService: AuthenticationService,
+  constructor(
+    private authService: AuthenticationService,
     private modalService: NzModalService,
     private signFlowService: SignFlowService,
     private viewContainerRef: ViewContainerRef,
     private documentTypeService: DocumentTypeService,
-    private router:Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
@@ -41,13 +46,12 @@ export class DocumentsComponent implements OnInit {
       ...this.filter,
       ...filterByTab,
       skip,
-      take
-    }
-    this.signFlowService.filter(paramSearch)
-    .subscribe((items) => {
+      take,
+    };
+    this.signFlowService.filter(paramSearch).subscribe((items) => {
       this.documents = items.data;
       this.skip = skip;
-      this.documents.total = items.total
+      this.documents.total = items.total;
       this.documents.take = take;
       this.isSpinning = false;
       if (items.data.length === 0 && this.selectedPage > 1) {
@@ -58,7 +62,7 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
-  handleSelectTab({index}) {
+  handleSelectTab({ index }) {
     this.tabSeleted = index;
     eventEmitter.emit("tabDocument:change", {});
     this.filterDocuments();
@@ -66,8 +70,8 @@ export class DocumentsComponent implements OnInit {
 
   singDocument(documentId) {
     this.signFlowService.downloadFileSign(documentId).then((response) => {
-      const subfixFile = '.pdf';
-      const fileName =  `sign_templ${ subfixFile }`;
+      const subfixFile = ".pdf";
+      const fileName = `sign_templ${subfixFile}`;
       const mimeType = this.getMimeType(subfixFile);
       download(fileName, response, mimeType);
     });
@@ -79,9 +83,7 @@ export class DocumentsComponent implements OnInit {
     this.filterDocuments(skip);
   }
 
-  editDocument(itemEdit) {
-    
-  }
+  editDocument(itemEdit) {}
 
   hendlFormSearch(data) {
     this.filter = data;
@@ -95,44 +97,60 @@ export class DocumentsComponent implements OnInit {
   }
 
   showDocumentSign(documentSign) {
-
-   const modal = this.modalService.create({
+    const modal = this.modalService.create({
       nzClosable: false,
-      nzTitle: 'Ký tài liệu',
+      nzTitle: "Ký tài liệu",
       nzStyle: { top: 0 },
       nzClassName: "signature-flow",
       nzKeyboard: false,
       nzContent: SignatureFlowComponent,
       nzViewContainerRef: this.viewContainerRef,
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzOnOk: () => new Promise((resolve) => setTimeout(resolve, 1000)),
       nzFooter: [],
       nzComponentParams: {
         documentSign,
       },
     });
 
-    modal.afterClose.subscribe(result => {
-      if(result) {
+    modal.afterClose.subscribe((result) => {
+      if (result) {
         this.filterDocuments();
       }
     });
   }
 
+  checkChange({ isSelectAll, id, checked }) {
+    let documentsCopy = [...this.documents];
+    let { total, take } = this.documents;
+
+    documentsCopy.map((item) => {
+      isSelectAll
+        ? (item.isSelected = checked)
+        : item.id == id
+        ? { ...item, isSelected: checked }
+        : item;
+    });
+
+    this.documents = documentsCopy;
+    this.documents.total = total;
+    this.documents.take = take;
+  }
+
   viewDocument(documentView) {
-    this.router.navigate(['/manage-documents/'+ documentView.id]);
+    this.router.navigate(["/manage-documents/" + documentView.id]);
   }
 
   getMimeType(subfixFile: string) {
-    const mimeType = MIME_TYPE.find(c => c.key === subfixFile);
+    const mimeType = MIME_TYPE.find((c) => c.key === subfixFile);
     if (mimeType) {
       return mimeType.value;
     }
-    return MIME_TYPE[0].value
-  } 
+    return MIME_TYPE[0].value;
+  }
 
   private getDataByTab() {
     let filterByTab = {};
-    switch(this.tabSeleted) {
+    switch (this.tabSeleted) {
       // case DOC_TAB_INDEX.MYSELFSIGN:
       //   filterByTab = {
       //     isMyselfSign: true,
@@ -159,7 +177,7 @@ export class DocumentsComponent implements OnInit {
         };
         break;
       default:
-        filterByTab = {isMyselfSign: true};        
+        filterByTab = { isMyselfSign: true };
     }
 
     return filterByTab;

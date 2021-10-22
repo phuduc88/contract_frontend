@@ -112,6 +112,10 @@ const routes: Routes = [
     loadChildren:
       "./modules/system/transactions/transactions.module#TransactionsModule",
   },
+  {
+    path: "contract-search",
+    loadChildren: "./modules/contract-search/contract-search.module#ContractSearchModule",
+  },
 ];
 
 @NgModule({
