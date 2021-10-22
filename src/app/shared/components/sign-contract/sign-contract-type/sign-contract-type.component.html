@@ -1,0 +1,139 @@
+<div class="sign-contract-type-container">
+
+  <form nz-form [formGroup]="signTypeForm" (ngSubmit)="handleSubmit()" class="login-page">
+    <nz-form-item>
+      <nz-form-label class="text-left">Loại phương thức ký</nz-form-label>
+      <nz-form-control class="imput-margin-left">
+        <nz-radio-group formControlName="typeValue">
+          <label nz-radio nzValue="SIM">Sim CA</label>
+          <label nz-radio nzValue="USB">Usb Token</label>
+          <label nz-radio nzValue="HSM">HSM</label>
+          <label nz-radio nzValue="REMOTE">Remote signing</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <div class="sim-ca" *ngIf="typeValue ==='SIM'">
+      <div nz-row nzGutter="10">
+        <div nz-col [nzSpan]="8">
+          <nz-form-item class="pb-2">
+            <nz-form-control [nzErrorTip]="mobileTpl">
+              <nz-input-group nzAddOnBefore="+84">
+                <input type="text" nz-input placeholder="Số điện thoại" />
+                <ng-template #mobileTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Số điện thoại không được trống
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('pattern')">
+                    Số điện thoại không hợp lệ
+                  </ng-container>
+                </ng-template>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
+
+        <div nz-col [nzSpan]="16">
+          <button nz-button nzType="default">Thông tin chứng ký số</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="usb-token" *ngIf="typeValue === 'USB'">
+      <div nz-row nzGutter="10">
+        <div nz-col [nzSpan]="8" class="d-flex align-items-center">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8" nzFor="email">Cách tải lên</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <nz-select formControlName="uploadType" nzPlaceHolder="Chọn cách tải lên">
+                <nz-option nzValue="usbToken" nzLabel="Tải từ usb-token"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
+
+        <div nz-col [nzSpan]="16" class="usb-token-info">
+          <button class="usb-token-control mb-2" nz-button nzType="default">Tải lên từ usb-token</button>
+          <div class="error text-danger">
+            <p>Không thể kết nối với USB Token.Vui lòng kiểm tra lại môi trường máy tính theo các bước sau và thử lại:
+            </p>
+            <p>- Kiểm tra việc cắm usb token vào máy tính</p>
+            <p>- Kiểm tra việc cài công cụ chữ ký số bằng cách tải tool ký số <a><strong>tại đây</strong></a> và cài
+              vào máy tính</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="upload-img-sign">
+      <div nz-row nzGutter="10">
+        <div nz-col [nzSpan]="8">
+          <div class="img-sign">
+            <!-- <div class="drop">
+              <div class="cont d-flex">
+                <div class="browse">
+                  <i nz-icon nzType="plus" nzTheme="outline"></i>
+                  <p>Upload</p>
+                </div>
+
+              </div>
+              <input id="uploadBookmark" type="file" [accept]="'.pdf'" autocomplete="off"
+                (change)="handleChange($event)">
+            </div> -->
+
+
+            <nz-upload 
+              class="avatar-uploader" 
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              nzName="avatar" 
+              nzListType="picture-card" 
+              [nzShowUploadList]="false" 
+              [nzAccept]="'image/*'"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event)">
+              <ng-container *ngIf="!avatarUrl">
+                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                <div class="ant-upload-text">Upload</div>
+              </ng-container>
+              <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+            </nz-upload>
+
+
+          </div>
+        </div>
+
+        <div nz-col [nzSpan]="16" class="align-self-center text-center">
+          <p>Kích vào ô hình chữ nhật để uplaod ảnh hoặc thay ảnh chữ ký số</p>
+          <p>Lưu ý: Chỉ chấp nhận định dạng .jpg, .jpeg, .png và dung lượng không quá 2MB</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group-remember pb-2">
+      <label nz-checkbox formControlName="accept">
+        <span>Tôi đã đọc, hiểu rõ, đồng ý và cam kết tuân thủ các <a>Điều khoản</a></span>
+      </label>
+
+    </div>
+
+    <div class="form-group sign-contract-type">
+      <button class="mr-2" nz-button nzType="default" type="submit">
+        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+        Hủy bỏ
+      </button>
+      <button nz-button nzType="primary" type="submit">
+        <i nz-icon nzType="save" nzTheme="outline"></i>
+        Thêm phương thức ký
+      </button>
+    </div>
+
+  </form>
+
+
+</div>

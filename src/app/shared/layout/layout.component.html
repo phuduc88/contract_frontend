@@ -80,6 +80,23 @@
 
         </ul>
       </li>
+
+
+      <li nz-submenu nzTitle="Tra cứu hợp đồng" [nzSelected]="currentUrl.includes('contract-search')" nzIcon="setting">
+        <ul>
+          <li nz-menu-item>
+            <a [routerLink]="['/contract-search']">
+              <span>Tra cứu hợp đồng</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['/contract-search/authentication']">
+              <span>Xác thực hợp đồng</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
     </ul>
     <!-- <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">

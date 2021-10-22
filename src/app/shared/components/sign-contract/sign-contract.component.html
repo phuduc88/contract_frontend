@@ -1,0 +1,51 @@
+<div class="sign-contract-container">
+  <div nz-row nzGutter="10">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" class="text-left">Bạn đang sử dụng loại nào</nz-form-label>
+        <nz-form-control [nzSpan]="18" [nzErrorTip]="nameTpl" class="imput-margin-left">
+          <nz-radio-group [(ngModel)]="typeValue">
+            <label nz-radio nzValue="A">USB Token</label>
+            <label nz-radio nzValue="B">Server signing</label>
+            <label nz-radio nzValue="C">Thay đổi phương thức ký</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div class="server-signing" *ngIf="typeValue === 'B'">
+
+    <div nz-row nzGutter="10" class="d-flex justify-content-center">
+      <div nz-col nzMd="12">
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+          <div class="pass-code-container d-flex">
+            <input type="text" nz-input placeholder="Pass Code" />
+            <span class="show-pass d-flex align-items-center">
+              <i nz-icon nzType="eye-invisible" nzTheme="outline"></i>
+            </span>
+          </div>
+
+        </nz-input-group>
+        <ng-template #addOnBeforeTemplate>
+          <i nz-icon nzType="lock" nzTheme="outline"></i>
+        </ng-template>
+      </div>
+
+    </div>
+
+    <div nz-row nzGutter="10" class="pt-3">
+      <div nz-col nzMd="24" class="footer-botton d-flex justify-content-center">
+        <button class="mr-2" nz-button nzType="default">
+          Đăng nhập
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sign-contract-type" *ngIf="typeValue === 'C'"> 
+      <app-sign-contract-type></app-sign-contract-type>
+  </div>
+
+</div>

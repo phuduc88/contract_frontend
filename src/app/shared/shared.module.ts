@@ -23,6 +23,7 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzPaginationModule } from "ng-zorro-antd/pagination";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzTreeModule } from "ng-zorro-antd/tree";
+import { NzUploadModule } from "ng-zorro-antd/upload";
 
 import {
   AuthenticationService,
@@ -75,6 +76,10 @@ import {
   DialogChooseDateComponent,
   SignatureTemplateComponent,
   FormEployeeTemplateComponent,
+  RefuseSearchComponent,
+  SignContractComponent,
+  SignContractTypeComponent,
+  IframeViewerComponent
 } from "./components";
 
 import {
@@ -115,6 +120,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
     NzTableModule,
     NzToolTipModule,
     SignaturePadModule,
+    NzUploadModule,
     NgxMaskModule.forRoot(),
   ],
   declarations: [
@@ -168,6 +174,10 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogChooseDateComponent,
     SignatureTemplateComponent,
     FormEployeeTemplateComponent,
+    RefuseSearchComponent,
+    SignContractComponent,
+    SignContractTypeComponent,
+    IframeViewerComponent
   ],
   exports: [
     FormsModule,
@@ -221,6 +231,10 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogChooseDateComponent,
     SignatureTemplateComponent,
     FormEployeeTemplateComponent,
+    RefuseSearchComponent,
+    SignContractComponent,
+    SignContractTypeComponent,
+    IframeViewerComponent
   ],
   providers: [
     AuthenticationService,
@@ -261,6 +275,10 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogChooseDateComponent,
     SignatureTemplateComponent,
     FormEployeeTemplateComponent,
+    RefuseSearchComponent,
+    SignContractComponent,
+    SignContractTypeComponent,
+    IframeViewerComponent
   ],
 })
 export class SharedModule {}

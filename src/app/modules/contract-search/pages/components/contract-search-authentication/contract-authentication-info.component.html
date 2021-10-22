@@ -1,0 +1,31 @@
+<div class="app-contract-authentication-info-container">
+  <h5 class="font-weight-bold contract-authentication-info-title control-file">Thông tin xác thực</h5>
+
+  <div class="contract-authentication-info-body" [signDocument2FullHeight] [isViewerComponent]="0">
+    <div class="validation">
+      <div class="icon">
+        <i class="fa fa-check-circle" aria-hidden="true"></i>
+      </div>
+      <h2 class="font-weight-bold">Hợp đồng hợp lệ</h2>
+      <p>Hợp đồng được ký và xác nhận bởi HỢP ĐỒNG ĐIỆN TỬ TEST lúc 10/10/2021</p>
+    </div>
+
+    <div class="sign-list-info">
+      <div class="title font-weight-bold pt-3 pb-3">
+        Thông tin chữ ký trong hợp đồng
+      </div>
+
+      <div *ngFor="let item of signListInfo" class="list pt-3 pb-3">
+        <h6 class="font-weight-bold">Người ký</h6>
+        <h6>{{ item.nguoi_ky }}</h6>
+        <h6 class="font-weight-bold">Số giấy tờ</h6>
+        <h6>{{ item.so_giay_to }}</h6>
+        <h6 class="font-weight-bold">Số điện thoại ký</h6>
+        <h6>{{ item.so_dien_thoai_ky }}</h6>
+        <h6 class="font-weight-bold">Ngày ký</h6>
+        <h6>{{ item.ngay_ky }}</h6>
+      </div>
+    </div>
+  </div>
+
+</div>

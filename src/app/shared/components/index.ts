@@ -41,3 +41,7 @@ export * from './dialog-change-password/dialog-change-password.component';
 export * from './refuse/refuse.component';
 export * from './dialog-choose-date/dialog-choose-date.component'; 
 export * from './signature-template/signature-template.component';
+export * from './refuse-search/refuse-search.component';
+export * from './sign-contract/sign-contract.component';
+export * from './sign-contract/sign-contract-type/sign-contract-type.component';
+export * from './iframe-viewer/iframe-viewer.component';
