@@ -25,7 +25,7 @@
 
             <div nz-row nzGutter="10">
               <div nz-col nzMd="24" class="footer-botton d-flex justify-content-center">
-                <button class="mr-2" nz-button nzType="default">
+                <button class="mr-2" nz-button (click)="dismiss()" nzType="default">
                   <i nz-icon nzType="close-circle"></i>Hủy bỏ
                 </button>
                 <button nz-button nzType="primary" (click)="save()">

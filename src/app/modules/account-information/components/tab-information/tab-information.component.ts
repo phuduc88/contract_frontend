@@ -2,7 +2,8 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewContainerRef } 
 import { Credential } from '@app/core/models';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { InviteEmployeeComponent } from "../tab-information/invite-employee.component";
-import { EmployeeService, RoleService } from '@app/core/services';
+import { AccountService, RoleService } from '@app/core/services';
+import { REGEX, ROLE } from '@app/shared/constant';
 
 @Component({
   selector: 'tab-information',
@@ -12,38 +13,40 @@ import { EmployeeService, RoleService } from '@app/core/services';
 export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() currentUser: Credential;
   user: Credential;
-  employees: any = []
+  accounts: any = []
   constructor(
     private modalService: NzModalService,
-    private employeeService: EmployeeService,
+    private accountService: AccountService,
     private roleService: RoleService,
     private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit() {
     this.user = this.currentUser;
-    this.getTreeEmployee();
+    this.getTreeAccount();
   }
 
   adddEmployee() {
-    const employeeInfo = {
+    const accountInfo = {
       email: null,
-      fullName: null,
+      name: null,
       active: true,
+      mobile: null,
       usingHSM: false,
+      roleLevel: ROLE.CUSTOMER,
       roles: [],
     };
     
-    this.showDialogEmployee(employeeInfo);
+    this.showDialogAccount(accountInfo);
   }
 
-  chooseEmployee(employeeInfo) {
-    this.employeeService.getEmployeeById(employeeInfo.id).subscribe((res) => {
-      this.showDialogEmployee(res);
+  chooseEmployee(accountInfo) {
+    this.accountService.getDetailById(accountInfo.id).subscribe((res) => {
+      this.showDialogAccount(res);
     });    
   }
 
-  showDialogEmployee(employeeInfo) {
+  showDialogAccount(accountInfo) {
     const modal = this.modalService.create({
       nzClosable: false,
       nzWidth: 980,
@@ -55,7 +58,7 @@ export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit
       nzViewContainerRef: this.viewContainerRef,
       nzOnOk: (data) => console.log('Click ok', data),
       nzComponentParams: {
-        employeeInfo
+        accountInfo
       },
       nzFooter: []
     });
@@ -66,9 +69,9 @@ export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit
       }
 
       if(!result.id) {
-        this.createEmployee(result);
+        this.createAccount(result);
       } else {
-        this.updateEmployee(result);
+        this.updateAccount(result);
       }
     });
   }
@@ -81,26 +84,26 @@ export class TabInformationComponent implements OnInit, OnDestroy, AfterViewInit
   {
   }
 
-  private createEmployee(employeeInfo) {
-    this.employeeService.create(employeeInfo).subscribe((item) =>{
-      this.employees.push(item);
+  private createAccount(accountInfo) {
+    this.accountService.create(accountInfo).subscribe((item) =>{
+      this.accounts.push(item);
     })
   }
 
-  private updateEmployee(employeeInfo) {
-    this.employeeService.update(employeeInfo.id, employeeInfo).subscribe((item) =>{
-      this.getTreeEmployee();
+  private updateAccount(accountInfo) {
+    this.accountService.update(accountInfo.id, accountInfo).subscribe((item) =>{
+      this.getTreeAccount();
     })
   }
 
-  private getTreeEmployee() {
-    this.employeeService.getEmployeeTrees().subscribe((items) =>{
-      this.employees = items;
+  private getTreeAccount() {
+    this.accountService.getAccountTrees().subscribe((items) =>{
+      this.accounts = items;
     });
   }
 
   private updateSourceTree(employeeUpdate) {
-    const index = this.employees.findIndex(i => i.id == employeeUpdate.id);
-    this.employees[index] = employeeUpdate;
+    const index = this.accounts.findIndex(i => i.id == employeeUpdate.id);
+    this.accounts[index] = employeeUpdate;
   }
 }

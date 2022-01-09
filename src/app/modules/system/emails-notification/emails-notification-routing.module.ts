@@ -16,7 +16,7 @@ const routes: Routes = [
         component: EmailsNotificationListComponent,
         canActivate: [ AuthorizeGuard ],
         data: {
-          expectedPermission: PERMISSIONS.emailActive.R
+          expectedPermission: PERMISSIONS.accountManagement
         },
         canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },       

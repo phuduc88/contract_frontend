@@ -11,7 +11,7 @@
             <a class="nav-link p-2" [ngClass]="{true: 'active'}[isTabSignature]" (click)="tabSettingsClick(1)"
               role="button">Chữ ký của bạn</a>
           </li>
-          <li class="nav-item m-0 ">
+          <li [hidden]="!permissions[pmsConf.accountManagementCreate]" class="nav-item m-0 ">
             <a class="nav-link p-2" [ngClass]="{true: 'active'}[isTabInfomation]" (click)="tabSettingsClick(2)"
               role="button">Sơ đồ tổ chức</a>
           </li>
@@ -24,11 +24,8 @@
         (changeSingPad)="openSignaturePad($event)">
       </tab-signature>
     </div>
-    <div *ngIf="isTabInfomation">
+    <div [hidden]="!permissions[pmsConf.accountManagementCreate]" *ngIf="isTabInfomation">
       <tab-information [currentUser]="currentUser"></tab-information>
-    </div>
-    <div *ngIf="isTabReport">
-      Báo cáo
     </div>
   </div>
 </div>

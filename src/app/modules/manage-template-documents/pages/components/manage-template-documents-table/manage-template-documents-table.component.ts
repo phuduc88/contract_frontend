@@ -8,6 +8,7 @@ import { DocumentTypeService } from '@app/core/services';
 })
 export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges {
   @Input() documents;
+  @Input() roles;
   @Output() onPageChange: EventEmitter<any> = new EventEmitter();
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
   @Output() onDownloadTemplate: EventEmitter<any> = new EventEmitter();

@@ -25,6 +25,7 @@ export default {
     img.src = image64;
   },
 
+  ///Lỗi drawImage imgaes
   resize2img(imageOriganal, option, format, callback) {
     let canvasTmp = document.createElement('canvas');
     let ctx = canvasTmp.getContext('2d');

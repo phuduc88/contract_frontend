@@ -1,37 +1,44 @@
 <div class="d-flex flex-column bd-highlight manage-documents">
   <nz-tabset nzSelectedIndex="0" nzType="editable-card" nzHideAdd (nzSelectChange)="handleSelectTab($event)">
-    <nz-tab [nzTitle]="myselfSign">
-      <ng-template #myselfSign>
+    <nz-tab [nzTitle]="Process">
+      <ng-template #Process>
         <div>
-          Tôi ký
+          Đang xử lý
         </div>
       </ng-template>
     </nz-tab>
-    <nz-tab [nzTitle]="sended">
-      <ng-template #sended>
+    <nz-tab [nzTitle]="Draft">
+      <ng-template #Draft>
         <div>
           Nháp
         </div>
       </ng-template>
     </nz-tab>
-    <nz-tab [nzTitle]="draft">
-      <ng-template #draft>
+    <nz-tab [nzTitle]="Finish">
+      <ng-template #Finish>
         <div>
-          Chờ ký
+          Hoàn thành
         </div>
       </ng-template>
     </nz-tab>
-    <nz-tab [nzTitle]="receptionCopy">
-      <ng-template #receptionCopy>
+    <nz-tab [nzTitle]="Cancel">
+      <ng-template #Cancel>
         <div>
           Từ chối
         </div>
       </ng-template>
     </nz-tab>
-    <nz-tab [nzTitle]="manageMember">
-      <ng-template #manageMember>
+    <nz-tab [nzTitle]="OutofDate">
+      <ng-template #OutofDate>
         <div>
-         Hoàn thành
+         Quá hạn
+        </div>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="Refuse">
+      <ng-template #Refuse>
+        <div>
+         Hủy bỏ
         </div>
       </ng-template>
     </nz-tab>
@@ -39,14 +46,24 @@
   <nz-spin [nzSpinning]="isSpinning" class="register__spinning">
   <div class="formWapper">
     <app-document-form (onFormSearch) = "hendlFormSearch($event)"></app-document-form>
-    <app-document-table [documents]="documents" 
+    <app-document-table 
+      [documents]="documents" 
+      [tabSeleted] = "tabSeleted"
       (onPageChange) = "handlePageChange($event)"
-      (editDocument)="editDocument($event)"
-      (editDocument)="editDocument($event)"
-      (continueSignDocument)="continueSignDocument($event)" 
-      (viewDocument)="viewDocument($event)"
-      (singDocument)="singDocument($event)"
-      (onCheckChange)="checkChange($event)"
+      (editDocument)= "editDocument($event)"    
+      (continueSignDocument)= "continueSignDocument($event)" 
+      (viewDocument)= "viewDocument($event)"
+      (onSingDocument)= "singDocument($event)"
+      (onApproveDocument)= "approveDocument($event)"
+      (onCheckChange)= "checkChange($event)"
+      (onQuickView)= "quickView($event)"
+      (onCancelDocument)= "cancelDocument($event)"
+      (onSendEamilNotification)= "sendEamilNotification($event)"
+      (onDownloadDocument)= "downloadDocument($event)"
+      (onDownloadCancelDocument)= "downloadCancelDocument($event)"
+      (onRestoreDocument)= "restoreDocument($event)"
+      (onDeleteDocument) = "deleteDocument($event)"
+      (onExtendDocument) = "extendDocument($event)"
       ></app-document-table>
   </div>
 </nz-spin>

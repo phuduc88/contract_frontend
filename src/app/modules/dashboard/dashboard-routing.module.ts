@@ -3,6 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { LayoutComponent } from "@app/shared/layout";
 import { DashboardComponent, DashboardUseContractComponent, DashboardSendSmsComponent } from "./pages";
+import { AuthorizeGuard, UnsavedChangesGuard, NavigationGuard } from '@app/core/guards';
+import { PERMISSIONS } from '@app/shared/constant';
 
 const routes: Routes = [
   {
@@ -16,10 +18,20 @@ const routes: Routes = [
       {
         path: "use-contract",
         component: DashboardUseContractComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.reportManagementUseContract
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
       {
         path: "send-sms",
         component: DashboardSendSmsComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.reportManagementUseSMS
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
     ],
   },

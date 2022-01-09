@@ -41,10 +41,10 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
     });
 
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.pattern(REGEX.ONLY_CHARACTER_NUMBER)]],
+      // username: ['', [Validators.required, Validators.pattern(REGEX.ONLY_CHARACTER_NUMBER)]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.pattern(REGEX.ONLY_CHARACTER_NUMBER)]],
       remember: [false],
-      // companyName: ['', Validators.required]
     });
 
     this.setDefault();
@@ -129,7 +129,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
   private navigatePageDefault() {
 
     if (this.authService.currentCredentials) {
-      let defaultUrl = '/';
+      let defaultUrl = this.authService.currentCredentials.role.defaultUrl;
       // if (ROLE.CUSTOMER === this.authService.currentCredentials.role.level
       //   && !this.authService.currentCredentials.company.hasContract) {
       //     console.log('das');

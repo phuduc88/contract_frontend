@@ -1,11 +1,21 @@
 <div nz-row class="recipient-list">
-  <div nz-col [nzSpan]="24" class="d-flex flex-row-reverse">
-    <div class="control">
-      <button type="button" class="btn btn-sm btn-primary" (click) = "downloadDocument()">
-        <i class="fa fa-download" aria-hidden="true"></i>Tải xuống
-      </button>
-    </div>
-  </div>
+    <div class="main-action">
+        <div class="lable">
+          <div *ngIf="isCancel" style="padding-bottom: 5px;"><p>Lý do hủy</p>: <span class="region">{{reason}}</span></div>
+          <a *ngIf="isCancel" (click) = "downloadDocumentCancel()">Xem biên bản hủy</a>
+        </div>
+        <div class="control">
+            <button type="button" *ngIf="(isCancel && userCreate === userId)" class="btn btn-sm btn-primary margin-right" (click) = "rollbackDocument()">
+                <i class="fa fa-circle-o-notch" aria-hidden="true"></i>&nbsp;Khôi phục 
+            </button>            
+            <button type="button" class="btn btn-sm btn-primary margin-right" (click) = "downloadDocument()">
+              <i class="fa fa-download" aria-hidden="true"></i>&nbsp;Tải xuống
+            </button>
+            <button type="button" *ngIf="(!isCancel && userCreate === userId)" class="btn btn-sm btn-primary" (click) = "sendEamilRemard()">
+                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            </button>
+          </div>
+      </div>
 
   <div class="pb-2"></div>
 
@@ -21,9 +31,9 @@
           <th style="width: 120px;">Tham gia ký kết</th>
           <th style="width: 120px;">Tham gia duyệt</th>
           <th style="width: 150px;">Nhận bản sao</th>
-          <th style="width: 180px;">Nhận bản sao khi hoàn thành (CC)</th>
-          <th style="width: 180px;">Không nhận email khi có yêu cầu ký kểt</th>
-          <th style="width: 180px;">Không nhận email khi hoàn thành</th>
+          <th style="width: 250px;">Nhận bản sao khi hoàn thành (CC)</th>
+          <!-- <th style="width: 180px;">Không nhận email khi có yêu cầu ký kểt</th>
+          <th style="width: 180px;">Không nhận email khi hoàn thành</th> -->
         </tr>
       </thead>
       <tbody>
@@ -39,20 +49,20 @@
               <i class="text-success fa fa-check" *ngIf="data.isEmployeeSign"></i>
           </td>
           <td class="text-center">
-              <i class="text-success fa fa-check" *ngIf="!data.isEmployeeSign"></i>
+              <i class="text-success fa fa-check" *ngIf="data.isEmployeeApprove"></i>
             </td>
           <td class="text-center">
-            <!-- <i class="text-success fa fa-check" *ngIf="!data.isEmployeeSign"></i> -->
+            <i class="text-success fa fa-check" *ngIf="data.groupType === 3"></i>
           </td>
           <td class="text-center">
-            <i class="text-success fa fa-check" *ngIf="data.nhan_ban_sao_hoan_thanh"></i>
+            <i class="text-success fa fa-check" *ngIf="data.isCCFinish"></i>
           </td>
-          <td class="text-center">
+          <!-- <td class="text-center">
             <i class="text-success fa fa-check" *ngIf="data.khong_nhan_email_ky"></i>
           </td>
           <td class="text-center">
             <i class="text-success fa fa-check" *ngIf="data.khong_nhan_email_hoanthanh"></i>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>

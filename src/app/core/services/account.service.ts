@@ -19,9 +19,39 @@ export class AccountService {
     });
   }
 
+  public getAccountTrees(filters = {}) {
+    return this.http.get('/accounts/tree', {
+      params: {
+        ...filters
+      }
+    }).pipe(
+      map(employees => {
+        return employees;
+      })
+    );
+  }
+
   public getDetailById(id: string) {
     return this.http.get(`/accounts/${ id }`, {
     });
+  }
+
+  public validData(key: string, type: string) : Observable<any> {
+    return this.http.post('/accounts/valid', {
+      key,
+      type
+    })
+      .pipe(
+        map(data => {
+          return data;
+        })
+      );
+    // return this.http.get(`/accounts/valid/${ key }/${ type }`, {
+    // }).pipe(
+    //   map(data => {
+    //     return data;
+    //   })
+    // );
   }
 
   public create(body, options = {}) {

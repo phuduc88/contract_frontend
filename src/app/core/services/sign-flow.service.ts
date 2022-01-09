@@ -40,7 +40,7 @@ export class SignFlowService {
         return documentSign;
       })
     );
-  }
+  } 
 
   private getFormData(documents) {
     const formdata = new FormData();
@@ -112,6 +112,16 @@ export class SignFlowService {
     );
   }
 
+  public getViewDetail(id: string) {
+    return this.http.get(`/document-sign/view-detail/${ id }`).pipe(
+      map(detail => {
+      const documentSign = detail;
+      documentSign.filesSign = this.setIconFilesSign(detail.filesSign);
+      return documentSign;
+    })
+    );
+  }
+
   private setIconFilesSign(filesSign) {
     const filesFomat = [];
     if (!filesSign) {
@@ -126,5 +136,25 @@ export class SignFlowService {
     });
     return filesFomat;
   }
+
+  public documentAction(id, body, options = {}) {
+    return this.http.post(`/document-sign/action/${id}`, body, options);
+  }
+
+  public quickViewDocument(documentId: string) {
+    return this.http.get(`/document-sign/quick-view-document/${ documentId }`);
+  }
+
+  public delete(id) {
+    return this.http.delete(`/document-sign/${ id }`);
+  }
+
+  public extendDocument(id, formdata) {
+    return this.http.post(`/document-sign/extend/${ id }`, formdata).pipe(
+        map(detail => {
+          return detail;
+        })
+      );
+}
 
 }

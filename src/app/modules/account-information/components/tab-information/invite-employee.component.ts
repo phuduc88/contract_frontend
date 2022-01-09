@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, Validators, AsyncValidator, ValidationErrors } from "@angular/forms";
 import { NzModalRef } from "ng-zorro-antd/modal";
 import { forkJoin, Subject } from 'rxjs';
-import { REGEX } from '@app/shared/constant';
-import { RoleService, AuthenticationService } from '@app/core/services';
+import { REGEX, ROLE } from '@app/shared/constant';
+import { RoleService, AuthenticationService, AccountService } from '@app/core/services';
 import { Credential } from "@app/core/models";
+import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: "invite-employee",
@@ -12,55 +15,49 @@ import { Credential } from "@app/core/models";
   styleUrls: ["./invite-employee.component.less"],
 })
 export class InviteEmployeeComponent implements OnInit {   
-  @Input() employeeInfo: any;
-  panels = [
-    {
-      active: true,
-      name: 'This is panel header 1',
-      disabled: false
-    },
-    {
-      active: false,
-      disabled: false,
-      name: 'This is panel header 2'
-    },
-    {
-      active: false,
-      disabled: true,
-      name: 'This is panel header 3'
-    }
-  ];
+  @Input() accountInfo: any;
   form: FormGroup;
   roles: any;
-  isEmployeeOfCompany = true;
   showCompany = true;
+  invalid: boolean = true;
+  valid: string = 'VALID';
   currentUser: Credential;
+  lableSave: any = 'Tạo tài khoản';
   constructor(
     private formBuilder: FormBuilder, 
     private roleService: RoleService,
     private authService: AuthenticationService,
+    private accountService: AccountService,
     private modal: NzModalRef
   ){}
 
   ngOnInit() {
-    // console.log(this.employeeInfo);
-    this.isEmployeeOfCompany = this.employeeInfo.isEmployeeOfCompany;
+    
     this.currentUser = this.authService.currentCredentials;
     this.form = this.formBuilder.group({
-      fullName: [{ value: this.employeeInfo.fullName, disabled: (this.employeeInfo.id)} ,[Validators.required]],
-      email: [{ value: this.employeeInfo.email, disabled: (this.employeeInfo.id)}, [Validators.required, Validators.pattern(REGEX.EMAIL)]],
-      roleLevel: [1],
-      mobile: ['', [Validators.required, Validators.pattern(REGEX.PHONE_NUMBER)]],
+      name: [{ value: this.accountInfo.name, disabled: (this.accountInfo.id)} ,[Validators.required]],
+      email: [{ value: this.accountInfo.email, disabled: (this.accountInfo.id)}, [Validators.required, Validators.pattern(REGEX.EMAIL)], this.emailAccountValidator.bind(this)],
+      roleLevel: [this.accountInfo.roleLevel],
+      mobile: [this.accountInfo.mobile, [Validators.required, Validators.pattern(REGEX.PHONE_NUMBER)]],
       description: [''],
-      userName: ['', Validators.required],
+      loginId: [{ value: this.accountInfo.loginId, disabled: (this.accountInfo.id)}, [Validators.required], this.userAccountValidator.bind(this)],
     });
+
     const jobs = [
-      this.roleService.getRoleOfEmployee(),
+      this.roleService.getRoleByLevel(this.accountInfo.roleLevel),
     ];
 
     forkJoin(jobs).subscribe(([roles]) => {
       this.roles = this.checkedRoleOfEmployee(roles);
       this.setCheckboxParentAll();
+    });
+
+    if(this.accountInfo.id) {
+      this.lableSave = 'Chỉnh sửa'; 
+    }
+
+    this.form.statusChanges.subscribe(r => {
+      this.invalid = !(this.valid === r)
     });
   }
 
@@ -69,60 +66,89 @@ export class InviteEmployeeComponent implements OnInit {
   }
 
   save() {
-    for (const i in this.form.controls) {
-      this.form.controls[i].markAsDirty();
-      this.form.controls[i].updateValueAndValidity();
-    }
-
-    if (this.form.invalid) {
+    setTimeout(() => {
+      for (const i in this.form.controls) {      
+        this.form.controls[i].markAsDirty();
+        this.form.controls[i].updateValueAndValidity();
+      }
+    }, 10);
+   
+    if (this.invalid) {
       return;
     }
 
     this.inviteEmployee();
   }
 
-  private checkedRoleOfEmployee(rolesDefault){
+  private checkedRoleOfEmployee(roleLevel){
     const roles = [];
      
-    rolesDefault.forEach(role => {
+    roleLevel.forEach(role => {
       let roleOfUser = {
         ...role,
         childrens: []
       };
-         
+
       role.childrens.forEach((child) => {
-        const rolechecked = this.employeeInfo.roles.find(r => r.functionName === child.functionName);
-        child.check = false;
-        if (rolechecked) {
+       
+        if (this.accountInfo.roles && this.accountInfo.roles.length > 0) {
+          const rolechecked = this.accountInfo.roles.find(r => r.functionName === child.functionName);
+          child.check = false;
+          if (rolechecked) {
+            child.check = true;
+          } 
+        } else {
           child.check = true;
-        } 
+        }
         roleOfUser.childrens.push(child);
       });
-      
       roles.push(roleOfUser);
     });
 
     return roles;
-
   }
 
   inviteEmployee() {
     const data = this.getData();
     this.modal.destroy(data); 
   }
+  
+  emailAccountValidator(control: FormControl) :Observable<ValidationErrors | null>  {
+    const email = control.value;
+     if (email && email.indexOf("@") != -1) {
+      return this.accountService.validData(email, '0').pipe(
+        map(result => result.isValid ? null : 
+            { 
+              emailAccount: true,
+              invalid: true
+            }
+        )
+      );
+    } else {
+      return observableOf(null);
+    }
+  }
+
+  userAccountValidator(control: FormControl) :Observable<ValidationErrors | null>   {
+    const userId = control.value;
+    if (userId) {
+     return this.accountService.validData(userId, '1').pipe(
+       map(result => result.isValid ? null : { userAccount: true })
+     );
+   } else {
+    return observableOf(null);
+  }
+ }
 
   getData() {
     const formData = {
-      id: this.employeeInfo.id,
-      isEmployeeOfCompany: this.isEmployeeOfCompany,
+      id: this.accountInfo.id,
       ...this.form.getRawValue(),
+      active: true,
       roles: [],
     };
 
-    if (this.isEmployeeOfCompany) {
-      formData.roles = this.getRoleSelected();
-    }
-
+    formData.roles = this.getRoleSelected();
     return formData;
   }
 
@@ -133,6 +159,13 @@ export class InviteEmployeeComponent implements OnInit {
     });
     
     return childrens;
+  }
+
+  changeRoleLevel(event) {
+    this.roleService.getRoleByLevel(event).subscribe(roles => {
+      this.roles = this.checkedRoleOfEmployee(roles);
+      this.setCheckboxParentAll();
+    });
   }
 
   toggleCompany() {

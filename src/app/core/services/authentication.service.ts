@@ -5,7 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { ApplicationHttpClient } from '@app/core/http';
 
 import { Credential } from '@app/core/models';
-
+import { PERMISSIONS, ROLE } from '@app/shared/constant';
 const CREDENTIAL_STORAGE = 'CREDENTIALS';
 const REMEMBERME_STORAGE = 'REMEMBERME';
 
@@ -78,6 +78,7 @@ export class AuthenticationService {
       return data;
     }
     const credentials: Credential = {
+      id: data.id,
       token: data.token,
       username: data.username,
       email: data.email,
@@ -87,13 +88,29 @@ export class AuthenticationService {
       userId: data.userId,
       signatureImage: data.signatureImage,
       systemConfig: data.systemConfig,
+      permissions: this.setPermissions(data.role),
     };
 
     localStorage.setItem(CREDENTIAL_STORAGE, JSON.stringify(credentials));
 
     this.credentialSubject.next(credentials);
-
     return credentials;
+  }
+
+  setPermissions(roles) {
+    let permissions = {};
+    if (roles) {
+      const userPermissions = roles.permission;
+      userPermissions.forEach((screenName) => {
+          permissions[screenName] = true;
+      });
+
+      if (roles.level === ROLE.CUSTOMER || roles.level === ROLE.USER_CUSTOMER) {
+        permissions[PERMISSIONS.dashboard] = true;
+      }
+    }
+
+    return permissions;
   }
 
   public updateCompanyInStorage(company) {

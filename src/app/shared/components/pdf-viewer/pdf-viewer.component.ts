@@ -16,7 +16,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
   @ViewChild('pdfViewer', { static: true }) pdfViewer;
   @Input() documentSign: any;
   @Input() currentUser: Credential;
-  @Input() isContractSearch: boolean;
   emailAssignment: any;
   employeeSign: any;
   private handlers;
@@ -469,9 +468,6 @@ export class PdfViewComponent implements OnInit, OnDestroy {
     } else if (objSelect.scaleX > SIGNATURE.MAXSCALE) {
       objSelect.scaleY = objSelect.scaleX = SIGNATURE.MAXSCALE;
     }
-
-    // objSelect.isUpdate = true;
-    // this.setSignProperties(objSelect)
   }
 
   fixedDragOut(curent, e, index, dragNPPage) {
@@ -718,21 +714,5 @@ export class PdfViewComponent implements OnInit, OnDestroy {
       canvasSelected.canvasF.setActiveObject(signObjectSelected);
       canvasSelected.canvasF.requestRenderAll();
     }
-  }
-
-  approve() {
-    eventEmitter.emit("authentication:approve");
-  }
-
-  refuseApprove() {
-    eventEmitter.emit("authentication:refuseApprove");
-  }
-
-  sign() {
-    eventEmitter.emit("authentication:sign");
-  }
-
-  refuseSign() {
-    eventEmitter.emit("authentication:refuseSign");
   }
 }

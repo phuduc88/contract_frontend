@@ -4,6 +4,8 @@ import { LayoutComponent } from "@app/shared/layout";
 import {
   PluginSettingComponent,
 } from "./pages";
+import { AuthorizeGuard, UnsavedChangesGuard, NavigationGuard } from '@app/core/guards';
+import { PERMISSIONS } from '@app/shared/constant';
 
 const routes: Routes = [
   {
@@ -12,7 +14,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: PluginSettingComponent
+        component: PluginSettingComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.systemManagement
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       }
     ]
   },

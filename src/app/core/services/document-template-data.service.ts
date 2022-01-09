@@ -23,7 +23,7 @@ export class DocumentTemplateDataService {
   }
 
   public quickViewDocument(documentTemplateId: string, recordUpload: string) {
-    return this.http.get(`/document-template-data/quick-view-document/${ documentTemplateId }/${ documentTemplateId }`);
+    return this.http.get(`/document-template-data/quick-view-document/${ documentTemplateId }/${ recordUpload }`);
   }
 
   public downloadDocument(documentTemplateId: string, recordUpload: string) {

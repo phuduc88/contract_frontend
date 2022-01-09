@@ -59,6 +59,7 @@ import {
   DialogErrorComponent,
   PdfListThumbnailComponent,
   PdfViewComponent,
+  PdfViewOnlyComponent,
   FormDocumentComponent,
   DialogUploadTemplateErrorComponent,
   DialogThreadSingTemplateComponent,
@@ -79,7 +80,9 @@ import {
   RefuseSearchComponent,
   SignContractComponent,
   SignContractTypeComponent,
-  IframeViewerComponent
+  IframeViewerComponent,
+  CancelContractComponent,
+  DialogExtendContractComponent,
 } from "./components";
 
 import {
@@ -157,6 +160,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogErrorComponent,
     PdfListThumbnailComponent,
     PdfViewComponent,
+    PdfViewOnlyComponent,
     FormDocumentComponent,
     DialogUploadTemplateErrorComponent,
     DialogThreadSingTemplateComponent,
@@ -177,7 +181,9 @@ import { SignaturePadModule } from "angular2-signaturepad";
     RefuseSearchComponent,
     SignContractComponent,
     SignContractTypeComponent,
-    IframeViewerComponent
+    IframeViewerComponent,
+    CancelContractComponent,
+    DialogExtendContractComponent,
   ],
   exports: [
     FormsModule,
@@ -214,6 +220,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogErrorComponent,
     PdfListThumbnailComponent,
     PdfViewComponent,
+    PdfViewOnlyComponent,
     FormDocumentComponent,
     DialogUploadTemplateErrorComponent,
     DialogThreadSingTemplateComponent,
@@ -234,7 +241,9 @@ import { SignaturePadModule } from "angular2-signaturepad";
     RefuseSearchComponent,
     SignContractComponent,
     SignContractTypeComponent,
-    IframeViewerComponent
+    IframeViewerComponent,
+    CancelContractComponent,
+    DialogExtendContractComponent,
   ],
   providers: [
     AuthenticationService,
@@ -278,7 +287,9 @@ import { SignaturePadModule } from "angular2-signaturepad";
     RefuseSearchComponent,
     SignContractComponent,
     SignContractTypeComponent,
-    IframeViewerComponent
+    IframeViewerComponent,
+    CancelContractComponent,
+    DialogExtendContractComponent,
   ],
 })
 export class SharedModule {}

@@ -10,6 +10,7 @@ import { PERMISSIONS } from "@app/shared/constant";
 import { LayoutComponent } from "@app/shared/layout";
 import { GeneralSettingsComponent } from "./pages";
 
+
 const routes: Routes = [
   {
     path: "",
@@ -18,6 +19,11 @@ const routes: Routes = [
       {
         path: "",
         component: GeneralSettingsComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.accountManagementInformation
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
     ],
   },

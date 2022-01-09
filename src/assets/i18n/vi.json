@@ -60,8 +60,11 @@
 		"documentStatus.waitsign": "Chờ ký",
 		"documentStatus.finish": "Hoàn thành",
 		"documentStatus.refuse": "Hủy bỏ",
-		"sing.otp": "Ký OTP",
-		"sing.certification": "Ký số"		
+		"sing.certification": "Ký số",
+		"sing.sms": "Ký bằng OTP SMS",	
+		"sing.email": "Ký bằng OTP Email",
+		"roleAction.approve": "Phê duyệt",
+		"roleAction.sign": "Ký chính"
 	},
 	"auth": {
 		"login": {

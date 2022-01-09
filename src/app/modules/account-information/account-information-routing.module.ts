@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '@app/shared/layout';
 import { AccountInformationComponent } from './pages';
+import { AuthorizeGuard, UnsavedChangesGuard, NavigationGuard } from '@app/core/guards';
+import { PERMISSIONS } from '@app/shared/constant';
 
 const routes: Routes = [
   {
@@ -10,7 +12,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: AccountInformationComponent
+        component: AccountInformationComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.accountManagement
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       }
     ]
   }

@@ -4,14 +4,16 @@ import {
   DocumentTemplateService,
   DocumentTemplateDataService,
   SignFlowService,
+  AuthenticationService,
 } from "@app/core/services";
 import {
   DialogUploadTemplateErrorComponent,
   IframeViewerComponent,
   SignatureTemplateComponent,
+  
 } from "@app/shared/components";
 import { NzModalService } from "ng-zorro-antd/modal";
-import { DATE_FORMAT, MIME_TYPE, PAGE_SIZE } from "@app/shared/constant";
+import { DATE_FORMAT, MIME_TYPE, PAGE_SIZE, PERMISSIONS } from "@app/shared/constant";
 import { download } from "@app/shared/utils/download-file";
 import { DomSanitizer } from "@angular/platform-browser";
 @Component({
@@ -23,6 +25,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
   currentStep = 1;
   total: number;
   skip: number;
+  roles: any;
   overloading = false;
   selectedPage: number = 1;
   documents: any;
@@ -32,8 +35,9 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
   parentStyle = {};
   error = [];
   documentTemplate: any;
-
+  pmsConf = PERMISSIONS;
   constructor(
+    private authService: AuthenticationService,
     private modalService: NzModalService,
     private documentTemplateService: DocumentTemplateService,
     private documentTemplateDataService: DocumentTemplateDataService,
@@ -41,7 +45,8 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.roles = this.roleOfUserOnScreen();
     this.getDocumentTemplate();
   }
 
@@ -315,32 +320,36 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
 
   handleQuickView({ data }) {
     this.overloading = true;
-    // this.documentTemplateDataService
-    //   .quickViewDocument(data.documentTemplateId, data.recordUpLoad)
-    //   .subscribe((res) => {
-    //     this.overloading = false;
-    //     console.log(res);
-    //   });
+    this.parentStyle = {
+      "z-index": 99999,
+      opacity: 0.3,
+    };
+    this.documentTemplateDataService
+      .quickViewDocument(data.documentTemplateId, data.recordUpLoad)
+      .subscribe((res) => {       
+        this.ViewPdfTemplate(res.source);
+        this.overloading = false;
+        this.parentStyle = {};
+      });   
+  }
 
-    this.signFlowService.getDetail("1104").subscribe((data: any) => {
-      this.overloading = false;
-      let srcUrl: any = this.sanitizer.bypassSecurityTrustResourceUrl(
-        "data:application/pdf;base64," + data.filesSign[0].data
-      );
+  private ViewPdfTemplate(source) {
+    let srcUrl: any = this.sanitizer.bypassSecurityTrustResourceUrl(
+      "data:application/pdf;base64," + source
+    );
 
-      const modal = this.modalService.create({
-        nzClosable: true,
-        nzTitle: "Tệp PDF",
-        nzStyle: { top: "20px" },
-        nzClassName: "iframe-viewer",
-        nzKeyboard: false,
-        nzContent: IframeViewerComponent,
-        nzOnOk: (data) => console.log("Click ok", data),
-        nzComponentParams: {
-          srcUrl,
-        },
-        nzFooter: [],
-      });
+    const modal = this.modalService.create({
+      nzClosable: true,
+      nzTitle: "Xem nhanh",
+      nzStyle: { top: "20px" },
+      nzClassName: "iframe-viewer",
+      nzKeyboard: false,
+      nzContent: IframeViewerComponent,
+      nzOnOk: (data) => console.log("Click ok", data),
+      nzComponentParams: {
+        srcUrl,
+      },
+      nzFooter: [],
     });
   }
 
@@ -392,5 +401,15 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
         this.overloading = false;
         this.parentStyle = {};
       });
+  }
+
+  private roleOfUserOnScreen() {
+    const permissions = this.authService.currentCredentials.permissions;
+    const roles = {
+      uploadWork : permissions[this.pmsConf.documentTemplateManagementUploadWord],
+      uploadExcel : permissions[this.pmsConf.documentTemplateManagementUploadExcel]
+    }
+
+    return roles;
   }
 }

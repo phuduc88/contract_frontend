@@ -54,8 +54,9 @@
             <div class="flex-grow-1 info_file pr-5">
               <div class="form-row-no-back-ground">
                 <span class="bd-highlight align-self-center mr-1">Người nhận</span>
-                <div class="bd-highlight">
-                  <nz-select nzAllowClear  [(ngModel)]="documentSign.documentType" (ngModelChange)="changeDocumentType($event)" nzPlaceHolder="Loại tài liệu">
+                <div class="bd-highlight" style="text-align: right;">
+                  <span class="bd-highlight align-self-center mr-1" style="font-weight: bold;">Loại tài liệu</span>
+                  <nz-select nzAllowClear [(ngModel)]="documentSign.documentType" (ngModelChange)="changeDocumentType($event)" nzPlaceHolder="Loại tài liệu">
                     <nz-option [nzValue]="documentType.id" [nzLabel]="documentType.documentName"
                       *ngFor="let documentType of documentsType">
                     </nz-option>

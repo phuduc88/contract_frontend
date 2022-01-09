@@ -24,3 +24,5 @@ export * from './publish-api.service';
 export * from './plugin-email.service';
 export * from './plugin-sms.service';
 export * from './plugin-hsm.service';
+export * from './cancel-document.service';
+export * from './document-email.service';

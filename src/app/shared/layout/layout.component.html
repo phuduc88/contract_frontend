@@ -7,95 +7,106 @@
   </div>
   <div class="main-sidebar">
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Tông quan' : ''"
+      <li [hidden]="!permissions[pmsConf.dashboard]" nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Tông quan' : ''"
         [nzSelected]="currentUrl.includes('dashboard')">
         <a [routerLink]="['/dashboard']">
           <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
           <span>Tổng quan</span>
         </a>
       </li>
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Quản lý tài liệu' : ''"
+      <li [hidden]="!permissions[pmsConf.contractManagement]" nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Quản lý tài liệu' : ''"
         [nzSelected]="currentUrl.includes('manage-document')">
         <a [routerLink]="['/manage-documents']">
           <i nz-icon nzType="read" nzTheme="outline"></i>
-          <span>Quản lý tài liệu</span>
+          <span>Quản lý hợp đồng</span>
         </a>
       </li>
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Quản lý mẫu tài liệu' : ''"
+      <li [hidden]="!permissions[pmsConf.documentTemplateManagement]" nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Quản lý mẫu tài liệu' : ''"
         [nzSelected]="currentUrl.includes('manage-template-documents')">
         <a [routerLink]="['/manage-template-documents']">
           <i nz-icon nzType="copy" nzTheme="outline"></i>
           <span>Quản lý mẫu tài liệu</span>
         </a>
       </li>
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Danh sách khách hàng' : ''"
+      <!-- <li nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Danh sách khách hàng' : ''"
         [nzSelected]="currentUrl.includes('customers')">
         <a [routerLink]="['/customers']">
           <i nz-icon nzType="idcard" nzTheme="outline"></i>
           <span>Danh sách khách hàng</span>
         </a>
-      </li>
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Thông tin tài khoản' : ''"
+      </li> -->
+      <!-- <li [hidden]="!permissions[pmsConf.accountManagement]" nz-menu-item nz-tooltip nzTooltipPlacement="left" [nzTooltipTitle]="isCollapsed ? 'Thông tin tài khoản' : ''"
         [nzSelected]="currentUrl.includes('account-information')">
         <a [routerLink]="['/account-information']">
           <i nz-icon nzType="user" nzTheme="outline"></i>
           <span>Thông tin tài khoản</span>
         </a>
-      </li>
-      <li nz-submenu nzTitle="Báo cáo" [nzSelected]="currentUrl.includes('cai-dat-chung')" nzIcon="setting">
+      </li> -->
+
+      <li [hidden]="!permissions[pmsConf.accountManagement]" nz-submenu nzTitle="Thông tin tài khoản" [nzSelected]="currentUrl.includes('account-information')" nzIcon="user">
         <ul>
-          <li nz-menu-item>
+          <li [hidden]="!permissions[pmsConf.accountManagementInformation]" nz-menu-item>
+            <a [routerLink]="['/account-information']">
+              <span>Thông tin tài khoản</span>
+            </a>
+          </li>
+          <li [hidden]="!permissions[pmsConf.accountManagementGeneralSettings]" nz-menu-item>
+            <a [routerLink]="['/cai-dat-chung']">
+              <span>Cài đặt chung</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li [hidden]="!permissions[pmsConf.reportManagement]" nz-submenu nzTitle="Báo cáo" [nzSelected]="currentUrl.includes('cai-dat-chung')" nzIcon="bar-chart">
+        <ul>
+          <li [hidden]="!permissions[pmsConf.reportManagementUseContract]" nz-menu-item>
             <a [routerLink]="['/dashboard/use-contract']">
               <span>Tình hình sử dụng HĐ</span>
             </a>
           </li>
-          <li nz-menu-item>
+          <li [hidden]="!permissions[pmsConf.reportManagementUseSMS]" nz-menu-item>
             <a [routerLink]="['/dashboard/send-sms']">
               <span>Tình hình sử dụng SMS</span>
             </a>
           </li>
-          <li nz-menu-item>
+          <li [hidden]="!permissions[pmsConf.reportManagementCompare]" nz-menu-item>
             <a [routerLink]="['/report/reconciliation']">
               <span>Báo cáo đối soát</span>
             </a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Hệ thống" [nzSelected]="currentUrl.includes('cai-dat-chung')" nzIcon="setting">
+      <li [hidden]="!permissions[pmsConf.systemManagement]" nz-submenu nzTitle="Hệ thống" [nzSelected]="currentUrl.includes('cai-dat-chung')" nzIcon="setting">
         <ul>
-          <li nz-menu-item>
+          <li [hidden]="!permissions[pmsConf.systemManagement]" nz-menu-item>
             <a [routerLink]="['/plugin-settings']">
               <span>Cấu hình hệ thống</span>
             </a>
-          </li>
-          <li nz-submenu nzTitle="Quản lý tài khoản">
-            <ul>
-              <li nz-menu-item>
-                <a [routerLink]="['/cai-dat-chung']">
-                  <span>Cài đặt chung</span>
-                </a>
-              </li>
-            </ul>
-          </li>
+          </li>         
 
         </ul>
       </li>
-
-
-      <li nz-submenu nzTitle="Tra cứu hợp đồng" [nzSelected]="currentUrl.includes('contract-search')" nzIcon="setting">
+       
+      <!-- <li [hidden]="!permissions[pmsConf.researchContractManagement]" nz-submenu nzTitle="Tra cứu hợp đồng" [nzSelected]="currentUrl.includes('contract-search')" nzIcon="file-search">
         <ul>
-          <li nz-menu-item>
-            <a [routerLink]="['/contract-search']">
+          <li [hidden]="!permissions[pmsConf.researchContractManagementSearch]" nz-menu-item>
+            <a [routerLink]="['/contract/search']">
               <span>Tra cứu hợp đồng</span>
             </a>
           </li>
-          <li nz-menu-item>
-            <a [routerLink]="['/contract-search/authentication']">
+          <li [hidden]="!permissions[pmsConf.researchContractManagementAuthen]" nz-menu-item>
+            <a [routerLink]="['/contract/authentication']">
               <span>Xác thực hợp đồng</span>
             </a>
           </li>
         </ul>
-      </li>
+      </li> -->
+      <!-- <li class="">
+        <a class="logout" (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          <span>Đăng xuất</span>
+        </a>
+      </li> -->
 
     </ul>
     <!-- <section class="sidebar">
@@ -158,7 +169,7 @@
       <i class="fa fa-bars" aria-hidden="true"></i>
     </span>
     <div class="nav-link navbar-avatar waves-effect waves-light waves-round" role="button">
-      <div class="header-company-name">{{currentUser.username}}</div>
+      <div class="header-company-name">{{currentUser.company.name}}</div>
     </div>
     <div class="fc-button flex-grow-1 bd-highlight d-flex justify-content-end align-items-center">
       <div id="fc-add" class="fc-icons flyout-button d-flex align-items-center justify-content-center"
@@ -183,7 +194,7 @@
 </div>
 
 <div class="flyout-view flyout-left" id="flyout-account">
-  <div class="header">{{currentUser.email}}</div>
+  <div class="header">{{currentUser.username}}</div>
   <div class="d-flex flex-column bd-highlight p-3">
     <a [routerLink]="['/account-information']">
       <span class="fa fa-user"></span>

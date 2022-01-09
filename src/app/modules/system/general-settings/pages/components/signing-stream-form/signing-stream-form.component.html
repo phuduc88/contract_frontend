@@ -26,7 +26,7 @@
               </nz-radio-group>
           </div>
           <div class="form-row padding-5" *ngIf="item.groupType == groupType.ISCC">
-              <label nz-checkbox [(ngModel)]="item.ISCCFINISH">Chỉ nhận bản sao khi hoàn thành</label>
+              <label nz-checkbox [(ngModel)]="item.isCCFinish">Chỉ nhận bản sao khi hoàn thành</label>
           </div>
           <div class="form-row">
               <div class="form-group form-group-sm " [ngClass]="(item.groupType == groupType.HSMUSB) ? 'col-12' : 'col-6'">

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { PERMISSIONS } from '@app/shared/constant';
 import { LayoutComponent } from '@app/shared/layout';
 import { DocumentsComponent, DocumentDetailComponent } from './pages';
+import { AuthorizeGuard, UnsavedChangesGuard, NavigationGuard } from '@app/core/guards';
 
 const routes: Routes = [
   {
@@ -11,11 +12,21 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DocumentsComponent
+        component: DocumentsComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.contractManagement
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
       {
         path: ":id",
         component: DocumentDetailComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.contractManagementViewDetail
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
     ]
   }

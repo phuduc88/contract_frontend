@@ -61,18 +61,19 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   setPermissions() {
-    const authServiceOfUser = this.authService.currentCredentials.role;
-    if (authServiceOfUser) {
-      const userPermissions = authServiceOfUser.permission;
-      this.permissions = {};
-      userPermissions.forEach((screenName) => {
-        this.permissions[screenName] = true;
-      });
+    this.permissions = this.authService.currentCredentials.permissions;
+    // const authServiceOfUser = this.authService.currentCredentials.role;
+    // if (authServiceOfUser) {
+    //   const userPermissions = authServiceOfUser.permission;
+    //   this.permissions = {};
+    //   userPermissions.forEach((screenName) => {
+    //     this.permissions[screenName] = true;
+    //   });
 
-      if (authServiceOfUser.level === ROLE.CUSTOMER) {
-        this.permissions[PERMISSIONS.downloadSignXMl.R] = true;
-      }
-    }
+    //   if (authServiceOfUser.level === ROLE.CUSTOMER || authServiceOfUser.level === ROLE.USER_CUSTOMER) {
+    //     this.permissions[PERMISSIONS.dashboard] = true;
+    //   }
+    // }
   }
 
   showMenu() {

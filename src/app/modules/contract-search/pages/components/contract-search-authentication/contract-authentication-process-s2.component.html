@@ -2,7 +2,7 @@
   <div [signDocumentFullHeight] [currentStep]="100" class="row"> 
     <div id="mainViewer" [ngClass]="isAuthentication ? 'd-flex col-9 p-0' : 'd-flex col-12 p-0' ">
       <div class="col-sm-12 col-md-10 col-lg-10 content-center p-0">
-        <app-pdf-viewer [isContractSearch]="isContractSearch" [documentSign]="documentSign" [currentUser]="currentUser"></app-pdf-viewer>
+        <app-pdf-viewer-only [isApprove]="isApprove" [documentSign]="documentSign" [currentUser]="currentUser"></app-pdf-viewer-only>
       </div>
       <div class="col-md-2 col-lg-2 content-right p-0">
         <div class="header-right"></div>

@@ -25,18 +25,17 @@
     <div class="flex-grow-1 info_file">
         <div class="form-row-no-back-ground">
           <span class="bd-highlight align-self-center mr-1">Người nhận</span>
-          <div class="bd-highlight">
+          <div class="bd-highlight"style="text-align: right;">
+              <span class="bd-highlight align-self-center mr-1" style="font-weight: bold;">Luồng làm việc</span>
             <nz-select nzShowSearch nzAllowClear [(ngModel)]="threadGroupId" (ngModelChange)="changeThreadGroup($event)" nzPlaceHolder="Chọn luồng làm việc">
               <nz-option [nzValue]="group.id" [nzLabel]="group.name"
                 *ngFor="let group of threadGroups">
               </nz-option>
             </nz-select>
-          </div>
-          <div class="bd-highlight">
             <button class="btn btn-plus" (click)="saveTheardTemplateSign()">
-              <span class="fa fa-save"></span>
-              Lưu luồng ký
-            </button>
+                <span class="fa fa-save"></span>
+                Lưu luồng ký
+              </button>
           </div>
         </div>
       <div class="ml-lg-2">

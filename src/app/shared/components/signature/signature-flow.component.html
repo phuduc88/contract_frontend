@@ -26,7 +26,7 @@
   <hr id="hr-top" class="mt-0" style="display: flex !important" *ngIf="!documentSign.currentStep == 1">
   <div class="container container-custom p-0" *ngIf="documentSign.currentStep === 0">
     <div class="d-flex bd-highlight" style="margin: 15px 0px;">
-      <span class="bd-highlight align-self-center mr-1">Phân loại</span>
+      <span class="bd-highlight align-self-center mr-1">Loại tài liệu</span>
       <div class="bd-highlight">
         <nz-select nzAllowClear  [(ngModel)]="documentSign.documentType" (ngModelChange)="changeDocumentType($event)" nzPlaceHolder="Loại tài liệu">
           <nz-option [nzValue]="documentType.id" [nzLabel]="documentType.documentName"

@@ -5,6 +5,8 @@ import {
   ContractSearchListComponent,
   ContractSearchAuthenticationComponent,
 } from "./pages";
+import { AuthorizeGuard, UnsavedChangesGuard, NavigationGuard } from '@app/core/guards';
+import { PERMISSIONS } from '@app/shared/constant';
 
 const routes: Routes = [
   {
@@ -12,12 +14,22 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: "",
+        path: "search",
         component: ContractSearchListComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.researchContractManagementSearch
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
       {
         path: "authentication",
         component: ContractSearchAuthenticationComponent,
+        canActivate: [ AuthorizeGuard ],
+        data: {
+          expectedPermission: PERMISSIONS.researchContractManagementAuthen
+        },
+        canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
     ],
   },

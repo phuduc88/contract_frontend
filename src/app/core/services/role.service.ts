@@ -15,8 +15,8 @@ export class RoleService {
     return this.http.get('/roles');
   }
 
-  public getRoleOfEmployee() {
-    return this.http.get('/roles/role-by-user');
+  public getRoleByLevel(roleLevel) {
+    return this.http.get( `/roles/role-by-user/${roleLevel}`);
   }
 
 }

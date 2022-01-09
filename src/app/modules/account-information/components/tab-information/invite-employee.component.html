@@ -27,6 +27,9 @@
                               <ng-container *ngIf="control.hasError('pattern')">
                                   Email không hợp lệ
                               </ng-container>
+                              <ng-container *ngIf="control.hasError('emailAccount')">
+                                Email email đã tồn tại trong hệ thống
+                             </ng-container>
                           </ng-template>
                         </nz-form-control>
                       </nz-form-item>
@@ -36,7 +39,7 @@
                       <nz-form-item>
                         <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorUserName">
                           <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateAccount">
-                            <input type="text" nz-input formControlName="userName"/>
+                            <input type="text" nz-input formControlName="loginId"/>
                             <ng-template #addOnBeforeTemplateAccount>
                               <label class="mb-0">Tên đăg nhập <span class="text-danger"> * </span></label>
                             </ng-template>            
@@ -44,6 +47,9 @@
                           <ng-template #errorUserName let-control>
                               <ng-container *ngIf="control.hasError('required')">
                                   Tên đăg nhập không được để trông
+                              </ng-container>
+                              <ng-container *ngIf="control.hasError('userAccount')">
+                                  Tên đăng nhập đã tồn tại trong hệ thống
                               </ng-container>
                           </ng-template>
                         </nz-form-control>
@@ -56,7 +62,7 @@
                       <nz-form-item>
                         <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorFullName">
                           <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateFullName">
-                            <input type="text" nz-input nz-input formControlName="fullName" />
+                            <input type="text" nz-input nz-input formControlName="name" />
                             <ng-template #addOnBeforeTemplateFullName>
                               <label class="mb-0">Họ và tên <span class="text-danger"> * </span></label>
                             </ng-template>           
@@ -74,9 +80,9 @@
                       <nz-form-item>
                           <nz-form-label class="text-left">
                             Loại người dùng</nz-form-label>
-                            <nz-radio-group formControlName="roleLevel" nzName="radiogroup">
-                                <label nz-radio nzValue="1">User</label>
-                                <label nz-radio nzValue="2">Admin</label>
+                            <nz-radio-group  (ngModelChange)="changeRoleLevel($event);" formControlName="roleLevel" nzName="radiogroup">
+                                <label nz-radio nzValue="CUSTOMER">Admin</label>
+                                <label nz-radio nzValue="CLIENT">Khách hàng</label>
                             </nz-radio-group>
                         </nz-form-item>
                         
@@ -158,12 +164,12 @@
                 </div>
                 <div class="invite-employee-permission-table">
                   <table class="table table-bordered table-hover">
-                    <thead>
+                    <!-- <thead>
                       <tr>
                         <th style="width: 90%;">Danh sách quyền</th>
-                        <th *ngIf="(isEmployeeOfCompany)" style="width: 10%;">{{currentUser.company.taxCode}}</th>
+                        <th style="width: 10%;">{{currentUser.company.taxCode}}</th>
                       </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
                       <ng-container *ngFor="let data of roles">
                         <tr class="td-parent">
@@ -174,14 +180,14 @@
                               {{ data.detailFunction }}
                             </span>
                           </td>
-                          <td *ngIf="(isEmployeeOfCompany)"> <input class="check-custom" type="checkbox" [(ngModel)]="data.check" name="permission-{{ data.id }}"
+                          <td> <input class="check-custom" type="checkbox" [(ngModel)]="data.check" name="permission-{{ data.id }}"
                               (click)="parentCheck($event, data)" />
                           </td>
                         </tr>
                         <ng-template [ngIf]="togglePermissionChildren(data)">
                           <tr *ngFor="let children of data.childrens;index as i" class="td-children">
                             <td class="td-children-title">{{ children.detailFunction }}</td>
-                            <td *ngIf="(isEmployeeOfCompany)"> <input class="check-custom" type="checkbox" [(ngModel)]="children.check"
+                            <td> <input class="check-custom" type="checkbox" [(ngModel)]="children.check"
                                 name="permission-{{ data.id }}-{{ children.id }}"
                                 (click)="childrenCheck($event, data.id, children.id)" /></td>
                           </tr>
@@ -200,7 +206,7 @@
         <span class="fa fa-times"></span> Đóng
       </button>
       <button type="button" class="btn btn-success" (click)="save()">
-        <span class="fa fa-paper-plane-o"></span>&nbsp;Tạo tài khoản
+        <span class="fa fa-paper-plane-o"></span>&nbsp; {{lableSave}}
       </button>
     </div>
   </div>

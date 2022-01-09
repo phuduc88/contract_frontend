@@ -42,6 +42,7 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
       });
       return;
     }
+    this.getDocumentName();
     this.validFormEmployeeSign('valid');
   }
 
@@ -236,5 +237,21 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
   private getFileName(files, fileSignId) {
     let fileTemp = files.find((file) => file.id == fileSignId);
     return fileTemp;
+  }
+
+  changeDocumentType(documentsType) {
+    this.getDocumentName();
+  }
+
+  private getDocumentName() {
+    if(!this.documentSign.documentType) {
+      this.documentSign.documentTypeName = null;
+      return;
+    }
+
+    const documentSelected = this.documentsType.find(r => r.id === this.documentSign.documentType);
+    if (documentSelected) {
+      this.documentSign.documentTypeName = documentSelected.documentName;
+    }
   }
 }

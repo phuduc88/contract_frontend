@@ -9,6 +9,7 @@ import { eventEmitter } from "@app/shared/utils/event-emitter";
 export class ManageTemplateDocumentsDropS4Component implements OnInit {
   @Input() documentTemplate: any;
   @Output() onGoBack: EventEmitter<any> = new EventEmitter();
+  @Output() resizeQuickView: EventEmitter<any> = new EventEmitter();
   currentPage = 1;
   ngOnInit() {}
 
@@ -25,6 +26,6 @@ export class ManageTemplateDocumentsDropS4Component implements OnInit {
   }
 
   quickView(data) {
-    console.log(data);
+    this.resizeQuickView.emit({data});
   }
 }

@@ -34,9 +34,9 @@
                     <table class="table-sign-data table table-bordered table-vertical-center table-fixed table-striped">
                       <thead class="text-center">
                         <tr>
-                          <th>Thứ tự ký</th>
-                          <th>Vị trí ký</th>
-                          <th>Trạng thái ký</th>
+                          <th style="width: 226px;">Thứ tự</th>
+                          <th style="width: 240px;">Vị trí ký</th>
+                          <th style="width: 120px;">Trạng thái</th>
                           <th>Hoạt động sau cùng</th>
                         </tr>
                       </thead>
@@ -44,34 +44,30 @@
                         <tr *ngFor="let signData of employeesSign.employeesSignDetail">
                           <td>
                             <span>
-                              Thứ tự ký:
+                              Thứ tự:
                               <strong class="text-danger ng-binding">{{ signData.signIndex }}</strong>
                             </span>
-
                             <br />
-
-                            <span>
+                            <span *ngIf="!signData.isApprove">
                               Ký bằng:
                               <strong class="text-danger">
-                                <span>Ký chính</span>
+                                <span>{{ signTypeView[signData.signType] | translate }}</span>
                               </strong>
+                              <br />
                             </span>
-
-                            <br />
-
                             <span>
-                              Loại chữ ký:
+                              Vai trò:
                               <strong class="text-danger">
-                                <span>{{ signData.signType }}</span>
+                                <span>{{ roleAction[signData.isApprove] | translate }}</span>
                               </strong>
                             </span>
                           </td>
                           <td>
-                            <span>
+                            <span *ngIf="!signData.isApprove">
                               Trang ký: <strong>{{ signData.page }}</strong>
                             </span>
                             <br />
-                            <span>
+                            <span *ngIf="!signData.isApprove">
                               <small class="font-italic">
                                 Tọa độ chữ ký theo x, y: {{ signData.coordinateX }},
                                 {{ signData.coordinateY }}
@@ -79,16 +75,29 @@
                             </span>
                           </td>
                           <td class="text-center">
-                            <i class="text-success fa fa-check ng-scope" *ngIf="signData.signed"></i>
+                            <i class="text-success fa fa-check ng-scope" *ngIf="signData.statusAction === 1"></i>
+                            <div *ngIf="!signData.statusAction">
+                                <strong class="text-danger">
+                                  <span *ngIf="!signData.isApprove">Chờ ký</span>
+                                  <span *ngIf="signData.isApprove">Chờ duyệt</span>
+                                </strong>
+                            </div>
+                            <div *ngIf="signData.statusAction === 2">
+                                <strong class="text-danger">
+                                  <span *ngIf="!signData.isApprove">Từ chối ký</span>
+                                  <span *ngIf="signData.isApprove">Từ chối duyệt</span>
+                               </strong>
+                            </div>
                           </td>
                           <td class="text-center">
-                            <div *ngIf="signData.signed">
-                              <button class="btn btn-success">
+                            <div>
+                              <button *ngIf="signData.signed" class="btn btn-success">
                                 <i class="fa fa-eye pr-1" aria-hidden="true"></i>
                                 Xem chi tiết
                               </button>
-                              <br />
+                              <br />                              
                               {{ signData.lastAccessedTime }}
+                              <p> {{ signData.message }}</p>
                             </div>
                           </td>
                         </tr>

@@ -113,7 +113,7 @@ const routes: Routes = [
       "./modules/system/transactions/transactions.module#TransactionsModule",
   },
   {
-    path: "contract-search",
+    path: "contract",
     loadChildren: "./modules/contract-search/contract-search.module#ContractSearchModule",
   },
 ];

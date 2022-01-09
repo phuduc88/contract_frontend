@@ -16,7 +16,7 @@ const routes: Routes = [
         component: ProductsListComponent,
         canActivate: [ AuthorizeGuard ],
         data: {
-          expectedPermission: PERMISSIONS.increase_labor.R
+          expectedPermission: PERMISSIONS.accountManagement
         },
         canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
@@ -25,7 +25,7 @@ const routes: Routes = [
         component: ProductsSaveComponent,
         canActivate: [ AuthorizeGuard ],
         data: {
-          expectedPermission: PERMISSIONS.increase_labor.C
+          expectedPermission: PERMISSIONS.accountManagement
         },
         canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
@@ -34,7 +34,7 @@ const routes: Routes = [
         component: ProductsSaveComponent,
         canActivate: [ AuthorizeGuard ],
         data: {
-          expectedPermission: PERMISSIONS.increase_labor.U
+          expectedPermission: PERMISSIONS.accountManagement
         },
         canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       }

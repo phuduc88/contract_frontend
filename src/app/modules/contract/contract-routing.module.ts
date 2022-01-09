@@ -16,7 +16,7 @@ const routes: Routes = [
         component: ContractListComponent,
         canActivate: [ AuthorizeGuard ],
         data: {
-          expectedPermission: PERMISSIONS.contract.R
+          expectedPermission: PERMISSIONS.contractManagement
         },
         canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       },
@@ -25,7 +25,7 @@ const routes: Routes = [
         component: ContractEditComponent,
         canActivate: [ AuthorizeGuard ],
         data: {
-          expectedPermission: PERMISSIONS.contract.U
+          expectedPermission: PERMISSIONS.contractManagementCreate
         },
         canDeactivate: [ UnsavedChangesGuard, NavigationGuard ]
       }

@@ -97,6 +97,7 @@ export class SigningStreamFormComponent implements OnInit {
       address: null,
       idNumer: null,
       phoneNumber: null,
+      isCCFinish: false,
       email: null,
       taxCode: null,
       orders: '1',
@@ -154,9 +155,11 @@ export class SigningStreamFormComponent implements OnInit {
       item.address = null;
       item.phoneNumber = null,
       item.idNumber = null;
+      item.isCCFinish = false;
     } else if (groupType ===  this.groupType.ONSIGN) {
       item.taxCode = null;
       item.groupName = null;
+      item.isCCFinish = false;
     } else {
       item.name = null;
       item.address = null;

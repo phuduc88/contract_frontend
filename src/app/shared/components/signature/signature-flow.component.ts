@@ -255,6 +255,7 @@ export class SignatureFlowComponent
       groupType: GROUP_TYPE.HSMUSB,
       isEmployeeSign: true,
       isEmployeeApprove: false,
+      isCCFinish: false,
       address: null,
       idNumer: null,
       phoneNumber: null,
@@ -393,6 +394,7 @@ export class SignatureFlowComponent
         groupType: GROUP_TYPE.HSMUSB,
         isEmployeeSign: true,
         isEmployeeApprove: false,
+        isCCFinish: false,
         address: "",
         idNumer: "",
         phoneNumber: "",
@@ -482,7 +484,7 @@ export class SignatureFlowComponent
       .subscribe((res) => {
         if (res) {
           if (!this.isSaveFile) {
-            this.modalService.success({ nzTitle: "Ký file thành công!" });
+            this.modalService.success({ nzTitle: "Tạo luồng ký thành công!" });
           } else {
             this.modalService.success({ nzTitle: "Lưu thành công!" });
           }
@@ -571,7 +573,6 @@ export class SignatureFlowComponent
       this.loadThreadGroup();
       this.documentSign.threadGroupId = req.id;
     });
-
   }
 
 }

@@ -67,14 +67,15 @@
             </span>
           </label>
         </th>
-        <th class="text-center align-middle">Tiêu đề</th>
-        <th class="text-center align-middle" style="width: 210px;">Thời gian khởi tạo</th>
-        <th class="text-center align-middle" style="width: 150px;">Trạng thái</th>
-        <th class="text-center align-middle" style="width: 350px;">Hành động</th>
+        <th class="text-left align-middle">Tên tài liệu</th>
+        <th class="text-left align-middle">Người tạo</th>
+        <th class="text-center align-middle" style="width: 150px;">Thời gian khởi tạo</th>
+        <th class="text-center align-middle" style="width: 120px;">Thời gian hết hạn</th>
+        <th *ngIf="!(tabSeleted === 4)" class="text-center align-middle" style="width: 280px;">Trạng thái</th>
+        <th class="text-center align-middle" style="width: 80px;">Hành động</th>
       </tr>
     </thead>
     <tbody class="request-table h-100">
-
       <tr *ngFor="let document of documents;" class="bg-white">
         <td class="text-center">
           <label for="cbx_selected_{{document.id}}" class="label-cbx">
@@ -92,11 +93,15 @@
         </td>
         <td>
           <strong class="ng-binding">
-            {{document.title}}
+            {{document.documentName}}
           </strong>
           <p class="text-loss underline-hover mb-2">
-            Người gửi: <span class="ng-binding"><span class="text-primary">
-                {{document.email}}</span> - {{document.senderName}}</span>
+            {{document.documentTypeName}}
+          </p>
+        </td>
+        <td>{{document.email}}
+          <p class="text-loss underline-hover mb-2">
+            {{document.companyName}}
           </p>
         </td>
         <td class="text-center">
@@ -104,47 +109,83 @@
           <small class="text-secondary">#{{document.id}}</small>
         </td>
         <td class="text-center">
-          <div *ngIf="document.status === 3">
+          {{document.expiryDate}} <br>
+        </td>
+        <td *ngIf="!(tabSeleted === 4)" class="text-center">
+          <div *ngIf="document.status === 2">
             <div class="text-success">
               <i class="fa fa-check" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
             </div>
           </div>
-          <div *ngIf="document.status === 2">
-            <div class="text-success">
-              <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
-            </div>
+          <div *ngIf="document.status === 1">
+              <div class="text-waiting-approve" *ngIf="document.processStatus === 1">
+                  Chờ phê duyệt 
+                  <p *ngIf="document.persionActionEmail === currentEmail">Bởi: <span>Tôi</span> </p>
+                  <p *ngIf="document.persionActionEmail !== currentEmail">Bởi: <span>{{document.persionActionEmail}}</span> </p>
+              </div>
+              <div class="text-waiting-sign" *ngIf="document.processStatus === 2">
+                  Chờ ký 
+                  <p *ngIf="document.persionActionEmail === currentEmail">Bởi: <span>Tôi</span> </p>
+                  <p *ngIf="document.persionActionEmail !== currentEmail">Bởi: <span>{{document.persionActionEmail}}</span> </p>
+              </div>
           </div>
-          <div *ngIf="document.status == 1">
-            <div class="text-warning">
-              <a (click)="signDocument(document.id)">
-                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
-              </a>
+          <div *ngIf="document.status == 3">
+            <div class="text-waiting-cancel">
+                <span>{{getDocumentStatusBefore(document)}}</span>
+                <p>Lý do hủy: <span>{{document.reason}}</span> </p>
             </div>
           </div>
           <div *ngIf="document.status == 4">
-            <div class="text-danger">
-              <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
+            <div class="text-waiting-approve">
+                Chờ phê duyệt 
+                <p>Chờ: <span>Tôi</span> </p>
+              <!-- <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }} -->
             </div>
+          </div>
+          <div *ngIf="document.status === 5">
+              <div class="text-waiting-refuse" *ngIf="document.processStatus === 3">
+                  Từ chối phê duyệt 
+                  <p *ngIf="document.persionActionEmail === currentEmail">Từ chối phê duyệt bởi: <span>Tôi</span> </p>
+                  <p *ngIf="document.persionActionEmail !== currentEmail">Từ chối phê duyệt bởi: <span>{{document.persionActionEmail}}</span> </p>
+                  <p>Lý do:<span>{{document.reason}}</span></p>
+              </div>
+              <div class="text-waiting-refuse" *ngIf="document.processStatus === 4">
+                <p *ngIf="document.persionActionEmail === currentEmail">Từ chối ký duyệt bởi: <span>Tôi</span> </p>
+                <p *ngIf="document.persionActionEmail !== currentEmail">Từ chối ký duyệt bởi: <span>{{document.persionActionEmail}}</span> </p>
+                <p>Lý do:<span>{{document.reason}}</span></p>
+              </div>
+          </div>
+          <div *ngIf="document.status == 0"> 
+              <button type="button" class="btn btn-link btn-sm m-1 ng-scope" (click)="continue(document.id)">
+              <img src="/assets/img/hand-writing-with-ballpen.svg" style="width: 16px;"> Tiếp tục
+            </button>
           </div>
         </td>
         <td class="text-right">
           <div class="btn-group btn-sm">
-            <button type="button" class="btn btn-link btn-sm m-1 ng-scope" (click)="viewDetail(document)"
+            <!-- <button type="button" class="btn btn-link btn-sm m-1 ng-scope" (click)="viewDetail(document)"
               title="Xem chi tiết" autocomplete="off">
               <i class="fa fa-eye" aria-hidden="true"></i>
               &nbsp;Xem chi tiết
-            </button>
-            <button type="button" class="btn btn-link btn-sm m-1 ng-scope" (click)="continue(document.id)"
-              *ngIf="document.status == 1">
-              <img src="/assets/img/hand-writing-with-ballpen.svg" style="width: 16px;"> Tiếp tục
-            </button>
+            </button> -->
+            
             <div>
               <button type="button" class="btn-more m-1" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <i class="fa fa-ellipsis-v text-primary" style="font-size: 22px;" aria-hidden="true"></i>
               </button>
               <div class="dropdown-menu" x-placement="bottom-start">
-                <div><a class="dropdown-item" (click)="downloadFile(item)">Tải xuống</a>
+                <div><a class="dropdown-item" (click)="viewDetail(document)">Xem chi tiết</a>
+                  <a class="dropdown-item" (click)="quickView(document)">Xem nhanh</a>
+                  <a class="dropdown-item" (click)="downloadDocument(document)">Tải xuống</a>
+                  <a *ngIf="(document.userCreate === userCreate && (document.status === 0 || document.status === 5 || document.status === 4))" class="dropdown-item" (click)="deleteDocument(document)">Xóa</a>
+                  <a *ngIf="(document.persionActionEmail === currentEmail && document.processStatus === 1 && (document.status === 0 || document.status === 1))" class="dropdown-item" (click)="approveDocument(document)">Phê duyệt</a>
+                  <a *ngIf="(document.persionActionEmail === currentEmail && document.processStatus === 2 && (document.status === 0 || document.status === 1))" class="dropdown-item" (click)="singDocument(document)">Ký tài liệu</a>
+                  <a *ngIf="((document.status == 1 || document.status == 2) && document.userCreate === userCreate)" class="dropdown-item" (click)="cancelDocument(document)">Hủy bỏ</a>
+                  <a *ngIf="((document.status == 1 || document.status == 2) && document.userCreate === userCreate)" class="dropdown-item" (click)="sendEamilNotification(document)">Gửi email nhắc nhở</a>
+                  <a *ngIf="(document.status == 3 && document.userCreate === userCreate)" class="dropdown-item" (click)="restoreDocument(document)">Khôi phục tài liệu</a>
+                  <a *ngIf="(document.status == 4 && document.userCreate === userCreate)" class="dropdown-item" (click)="extendDocument(document)">Gia hạn</a>
+                  <a *ngIf="(document.status == 3)" class="dropdown-item" (click)="downloadCancelDocument(document)">Xem biên bản hủy</a>
                 </div>
               </div>
             </div>

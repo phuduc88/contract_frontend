@@ -3,6 +3,7 @@ import { AuthenticationService,  SignOfUserService } from '@app/core/services';
 import { Credential } from '@app/core/models';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SignaturePadComponent } from '@app/shared/components';
+import { PERMISSIONS } from '@app/shared/constant';
 
 @Component({
   selector: 'app-account-information',
@@ -13,6 +14,8 @@ export class AccountInformationComponent implements OnInit {
   isTabSignature: boolean;
   isTabInfomation: boolean;
   currentUser: Credential;
+  permissions: any;
+  pmsConf = PERMISSIONS;
   signPadOfUsers: any = [];
   constructor(private authService: AuthenticationService,
     private modalService: NzModalService,
@@ -22,6 +25,8 @@ export class AccountInformationComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
+    this.permissions = this.authService.currentCredentials.permissions;
+
     this.loadSignPadOfUser();
     this.tabSettingsClick(1);
   }
@@ -35,10 +40,6 @@ export class AccountInformationComponent implements OnInit {
       case 2:
         this.isTabSignature = false;
         this.isTabInfomation = true;
-        break;
-      case 3:
-        this.isTabSignature = false;
-        this.isTabInfomation = false;
         break;
     }
   }

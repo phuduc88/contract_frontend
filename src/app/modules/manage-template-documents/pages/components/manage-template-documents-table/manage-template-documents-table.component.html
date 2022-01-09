@@ -12,7 +12,7 @@
               <div class="p-2 bd-highlight">
                   <nz-select nzShowSearch nzAllowClear 
                   formControlName="documentType"
-                    nzPlaceHolder="Tất cả phân loại">
+                    nzPlaceHolder="Tất cả loại tài liệu">
                       <nz-option [nzValue]="document.id" [nzLabel]="document.documentName"
                         *ngFor="let document of documentsType">
                       </nz-option>
@@ -76,8 +76,8 @@
               <td>
                 <div [innerHtml]="data.infomation"></div>
               </td>
-              <td>
-                <button nz-button nzType="link" (click)="viewDetail(data)" class="text-success">
+              <td style="text-align: right;">
+                <button [hidden]="!roles.uploadExcel"  nz-button nzType="link" (click)="viewDetail(data)" class="text-success">
                   <i class="fa fa-files-o pr-1" aria-hidden="true"></i>
                   Tệp tin đã tạo
                 </button>
@@ -88,8 +88,8 @@
                     <i class="fa fa-ellipsis-v" style="font-size: 22px;color: #2CA01C;" aria-hidden="true"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" (click)="editDocumentTemplate(data)">Cài đặt thông tin người nhận</a>
-                    <a class="dropdown-item" (click)="delete(data, i)">Xóa</a>
+                    <a [hidden]="!roles.uploadWork" class="dropdown-item" (click)="editDocumentTemplate(data)">Cài đặt thông tin người nhận</a>
+                    <a [hidden]="!roles.uploadWork" class="dropdown-item" (click)="delete(data, i)">Xóa</a>
                     <a class="dropdown-item" (click)="downloadTemplate(data)">Tải xuống Mẫu</a>
                     <a class="dropdown-item" (click)="downloadBookmark(data)">Tải xuống file Excel dữ liệu bookmark mẫu</a>
                   </div>
@@ -103,11 +103,11 @@
   </div>
 </div>
 
-<nz-dropdown-menu #menu0="nzDropdownMenu">
+<!-- <nz-dropdown-menu #menu0="nzDropdownMenu">
   <ul nz-menu>
     <li nz-menu-item>Xem tài liệu liên quan</li>
     <li nz-menu-item>Xóa</li>
     <li nz-menu-item>Tải xuống mẫu</li>
     <li nz-menu-item> Tải xuống file Excel dữ liệu bookmark mẫu</li>
   </ul>
-</nz-dropdown-menu>
+</nz-dropdown-menu> -->

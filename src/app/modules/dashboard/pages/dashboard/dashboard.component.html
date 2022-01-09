@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="row" style="height: 180px;">
+  <div *ngIf="!isClient" class="row" style="height: 180px;">
     <div class="col-6">
       <div class="drop" (click)="showDialogDocumentSign()">
         <div>
@@ -111,7 +111,7 @@
   </div>
 
   <div class="row pt-4 justify-content-center">
-    <div class="col-12 col-sm-12 col-xl-6">
+    <div *ngIf="!isClient" class="col-12 col-sm-12 col-xl-6">
       <div class="item_panel d-flex" (click)="openSignaturePad()">
         <div class="d-flex align-items-center" style="height: 73.4517px;">
           <div class="text-center">
@@ -124,6 +124,19 @@
         </div>
       </div>
     </div>
+    <div *ngIf="isClient" class="col-12 col-sm-12 col-xl-6">
+        <div class="item_panel d-flex" (click)="openAuthenContract()">
+          <div class="d-flex align-items-center" style="height: 73.4517px;">
+            <div class="text-center">
+              <img src="/assets/img/authen_contract.svg">
+            </div>
+          </div>
+          <div class="flex-grow-1">
+            <p class="mb-2"><strong>Xác thực thực hợp đồng</strong></p>
+            <span>Kiểm tra tính toàn vẹn của hợp đồng</span>
+          </div>
+        </div>
+      </div>
     <div class="col-12 col-md-12 col-xl-6">
       <a class="item_panel d-flex" href="/#/thong-tin-tai-khoan">
         <div class="d-flex align-items-center" style="height: 73.4517px;">

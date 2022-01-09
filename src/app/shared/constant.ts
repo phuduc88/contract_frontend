@@ -11,7 +11,10 @@ export const DATE_FORMAT = {
 export const ROLE = {
   SYSTEMADMIN: "SYSTEMADMIN",
   SALE: "SALE",
+  SALE_EMPLOYER: "SALE_EMPLOYER",
   CUSTOMER: "CUSTOMER",
+  USER_CUSTOMER: "USER_CUSTOMER",
+  CLIENT: "CLIENT",
 };
 
 export const PAGE_SIZE = 10;
@@ -104,137 +107,50 @@ export const EXTENSIONFILEPAD = {
 };
 
 export const DOC_TAB_INDEX = {
-  MYSELFSIGN: 0,
-  DRAFT:1,
-  WAITSIGN: 2,
+  DRAFT:0,
+  PROCESS: 1,
+  FINISH: 2,
   CANCEL: 3,
-  FINISH: 4,  
+  OUTOFDATE: 4,  
+  REFUSE: 5,
 }
 
 export const PERMISSIONS = {
-  regime_approval: {
-    C: "regimeApproval_C",
-    R: "regimeApproval_R",
-    U: "regimeApproval_U",
-    D: "regimeApproval_D",
-  },
-  increase_labor: {
-    C: "increaseLabor_C",
-    R: "increaseLabor_R",
-    U: "increaseLabor_U",
-    D: "increaseLabor_D",
-  },
-  reduction_labor: {
-    C: "reductionLabor_C",
-    R: "reductionLabor_R",
-    U: "reductionLabor_U",
-    D: "reductionLabor_D",
-  },
-  adjust: {
-    C: "adjust_C",
-    R: "adjust_R",
-    U: "adjust_U",
-    D: "adjust_D",
-  },
-  arrears: {
-    C: "arrears_C",
-    R: "arrears_R",
-    U: "arrears_U",
-    D: "arrears_D",
-  },
-  adjust_general: {
-    C: "adjustGeneral_C",
-    R: "adjustGeneral_R",
-    U: "adjustGeneral_U",
-    D: "adjustGeneral_D",
-  },
-  company_change: {
-    C: "companyChange_C",
-    R: "companyChange_R",
-    U: "companyChange_U",
-    D: "companyChange_D",
-  },
-  health_insurance_card: {
-    C: "healthInsuranceCard_C",
-    R: "healthInsuranceCard_R",
-    U: "healthInsuranceCard_U",
-    D: "healthInsuranceCard_D",
-  },
-  reissue_insurance_card: {
-    C: "reissueInsuranceCard_C",
-    R: "reissueInsuranceCard_R",
-    U: "reissueInsuranceCard_U",
-    D: "reissueInsuranceCard_D",
-  },
-  sicknesses_approval: {
-    C: "sicknessesApproval_C",
-    R: "sicknessesApproval_R",
-    U: "sicknessesApproval_U",
-    D: "sicknessesApproval_D",
-  },
-  maternity_approval: {
-    C: "maternityApproval_C",
-    R: "maternityApproval_R",
-    U: "maternityApproval_U",
-    D: "maternityApproval_D",
-  },
-  healthRecovery_approval: {
-    C: "healthRecoveryApproval_C",
-    R: "healthRecoveryApproval_R",
-    U: "healthRecoveryApproval_U",
-    D: "healthRecoveryApproval_D",
-  },
-  employees: {
-    C: "employees_C",
-    R: "employees_R",
-    U: "employees_U",
-    D: "employees_D",
-  },
-  agencies: {
-    C: "agencies_C",
-    R: "agencies_R",
-    U: "agencies_U",
-    D: "agencies_D",
-  },
-  customer: {
-    C: "customer_C",
-    R: "customer_R",
-    U: "customer_U",
-    D: "customer_D",
-  },
-  account: {
-    C: "account_C",
-    R: "account_R",
-    U: "account_U",
-    D: "account_D",
-  },
-  product: {
-    C: "product_C",
-    R: "product_R",
-    U: "product_U",
-    D: "product_D",
-  },
-  emailServer: {
-    C: "emailServer_C",
-    R: "emailServer_R",
-    U: "emailServer_U",
-    D: "emailServer_D",
-  },
-  emailActive: {
-    C: "emailActive_C",
-    R: "emailActive_R",
-    U: "emailActive_U",
-    D: "emailActive_D",
-  },
-  contract: {
-    C: "contract_C",
-    R: "contract_R",
-    U: "contract_U",
-    D: "contract_D",
-  },
-  downloadSignXMl: {
-    R: "downloadSignXMl_R",
-  },
+    dashboard :  "dashboard",
+    accountManagement :  "accountManagement",
+    accountManagementCreate :  "accountManagementCreate",
+    accountManagementDelete :  "accountManagementDelete",
+    accountManagementInformation :  "accountManagementInformation",
+    accountManagementPermision :  "accountManagementPermision",
+    accountManagementGeneralSettings :  "accountManagementGeneralSettings",
+    contractManagement :  "contractManagement",
+    contractManagementApprove :  "contractManagementApprove",
+    contractManagementCancel :  "contractManagementCancel",
+    contractManagementCreate :  "contractManagementCreate",
+    contractManagementDelete :  "contractManagementDelete",
+    contractManagementDownload :  "contractManagementDownload",
+    contractManagementQuickView :  "contractManagementQuickView",
+    contractManagementRefuse :  "contractManagementRefuse",
+    contractManagementSendEmail :  "contractManagementSendEmail",
+    contractManagementSign :  "contractManagementSign",
+    contractManagementViewDetail :  "contractManagementViewDetail",
+    documentTemplateManagement :  "documentTemplateManagement",
+    documentTemplateManagementUploadExcel :  "documentTemplateManagementUploadExcel",
+    documentTemplateManagementUploadWord :  "documentTemplateManagementUploadWord",
+    reportManagement :  "reportManagement",
+    reportManagementCompare :  "reportManagementCompare",
+    reportManagementUseContract :  "reportManagementUseContract",
+    reportManagementUseSMS :  "reportManagementUseSMS",
+    researchContractManagement :  "researchContractManagement",
+    researchContractManagementAuthen :  "researchContractManagementAuthen",
+    researchContractManagementSearch :  "researchContractManagementSearch",
+    signManagement :  "signManagement",
+    signManagementUseHSM :  "signManagementUseHSM",
+    systemManagement :  "systemManagement",
+    systemManagementConfigEmail :  "systemManagementConfigEmail",
+    systemManagementConnnection :  "systemManagementConnnection",
+    systemManagementHSM :  "systemManagementHSM",
+    systemManagementSMS :  "systemManagementSMS",
 };
 export const ErrorMessage = {
   0: "common.gender.male",
@@ -245,6 +161,7 @@ export const ErrorMessage = {
 export const errorMessages = {
   0: "Nam",
   8: "Dữ liệu không hợp lệ",
+  11: "Chưa đính kèm file, vui lòng kiểm tra lại file đính kèm",
   2005: "Mật khẩu cũ không khớp, vui lòng kiểm tra lại",
   2040: "NLĐ đã có hồ sơ, bạn không thể xóa",
   2001: "Sai Tên đăng nhập hoặc Mật khẩu. Vui lòng thử lại!",
@@ -441,16 +358,26 @@ export const CLIENT_TYPE = [
 export const SIGN_TYPE = [
   {
     key: 1,
-    name: "common.sing.otp"
+    name: "common.sing.certification"
   },
   {
     key: 2,
-    name: "common.sing.certification"
+    name: "common.sing.sms"
+  },
+  {
+    key: 3,
+    name: "common.sing.email"
   },
 ];
 export const SIGN_TYPE_VIEW =  {
-  1: "common.sing.otp",
-  2: "common.sing.certification",
+  1: "common.sing.certification",
+  2: "common.sing.sms",
+  3: "common.sing.email",
+}
+
+export const ROLE_ACTION =  {
+  false: "common.roleAction.sign",
+  true: "common.roleAction.approve",
 }
 
 export const DOCUMENT_STATUS = [

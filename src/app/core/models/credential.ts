@@ -8,4 +8,6 @@ export class Credential {
   role: any;
   signatureImage: any;
   systemConfig: any;
+  permissions: any;
+  id: number;
 }
