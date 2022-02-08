@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, OnDestroy, Input } from "@angular/core";
 @Component({
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html",
   styleUrls: ["./bar-chart.component.less"],
 })
-export class BarChartComponent implements OnInit, OnDestroy {
+export class BarChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() options: any;
 
   config = {
@@ -36,8 +36,13 @@ export class BarChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    Object.assign(this.config, { ...this.options });
   }
 
+  ngOnChanges(changes) { 
+    if (changes && changes.options.currentValue) { 
+      Object.assign(this.config, { ...changes.options.currentValue});
+    }
+
+  }
   ngOnDestroy() {}
 }

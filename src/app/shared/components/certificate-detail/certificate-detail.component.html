@@ -1,0 +1,17 @@
+<div class="page-container">
+    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+      <div class="page-customer">   
+        <div nz-row nzGutter="10">
+          <div nz-col [nzSpan]="24">
+            {{employeeSignDetail.certificateInfo}}
+          </div>
+        </div>
+      <!-- End row   -->
+      </div>
+    </nz-spin>
+</div>
+  <div class="igning-stream-form__footer" *nzModalFooter>
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Đồng ý
+    </button>
+  </div>      

@@ -8,6 +8,15 @@ export const DATE_FORMAT = {
   FULL: "DD/MM/YYYY",
 };
 
+export const hubConfig  = {
+  // host: "http://127.0.0.1:19898/",
+  // hubProxy : "invoiceHub",
+  // notificeEvent : "resCommand",
+  host: "http://localhost:18080",
+  hubProxy : "handlerHub",
+  notificeEvent : "reponseResult",
+}
+
 export const ROLE = {
   SYSTEMADMIN: "SYSTEMADMIN",
   SALE: "SALE",
@@ -18,7 +27,7 @@ export const ROLE = {
 };
 
 export const PAGE_SIZE = 10;
-export const schemaSign = "mbhxh:token,declarationId";
+export const schemaSign = "newTelSign:token,contractId";
 
 export const GENDER = {
   0: "common.gender.male",
@@ -158,10 +167,17 @@ export const ErrorMessage = {
   2040: "common.errorMessenger.employeeIsExistDeclatation",
 };
 
+export const HumCommand = {
+  toekInfo: "ToekInfo",
+  signDocument: "SignDocument",
+};
+
 export const errorMessages = {
   0: "Nam",
   8: "Dữ liệu không hợp lệ",
   11: "Chưa đính kèm file, vui lòng kiểm tra lại file đính kèm",
+  12: "Mã xác thực không đúng, hoặc hết hạn.Vui lòng thử lại!",
+  13: "Hợp đồng đã được ký hoặc đang đợi người khác ký số!",
   2005: "Mật khẩu cũ không khớp, vui lòng kiểm tra lại",
   2040: "NLĐ đã có hồ sơ, bạn không thể xóa",
   2001: "Sai Tên đăng nhập hoặc Mật khẩu. Vui lòng thử lại!",
@@ -175,6 +191,10 @@ export const errorMessages = {
   3021: "Đơn vị chưa đăng ký sử dụng dịch vụ IVAN Của MBHXH, Vui lòng tạo hồ sơ đăng ký IVAN trước khi tạo hồ sơ thay đổi",
   5053: "Không được để trống",
   5061: "Lỗi trong quá trình lưu dữ liệu",
+  9002: "Token hết hạn vui lòng đăng nhập lại",
+  9003: "Token hết hạn vui lòng đăng nhập lại",
+  9004: "Ký số hợp đồng lỗi",
+  9005: "Dữ liệu không hợp lệ",
 };
 
 export const TIME_PICKERS = {
@@ -358,21 +378,31 @@ export const CLIENT_TYPE = [
 export const SIGN_TYPE = [
   {
     key: 1,
-    name: "common.sing.certification"
+    name: "common.sing.sim"
   },
   {
     key: 2,
-    name: "common.sing.sms"
+    name: "common.sing.token"
   },
   {
     key: 3,
+    name: "common.sing.hsm"
+  },
+  {
+    key: 4,
+    name: "common.sing.sms"
+  },
+  {
+    key: 5,
     name: "common.sing.email"
   },
 ];
 export const SIGN_TYPE_VIEW =  {
-  1: "common.sing.certification",
-  2: "common.sing.sms",
-  3: "common.sing.email",
+  1: "common.sing.sim",
+  2: "common.sing.token",
+  3: "common.sing.hsm",
+  4: "common.sing.sms",
+  5: "common.sing.email",
 }
 
 export const ROLE_ACTION =  {

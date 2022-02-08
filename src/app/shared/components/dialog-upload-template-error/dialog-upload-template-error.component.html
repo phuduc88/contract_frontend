@@ -3,7 +3,8 @@
     <div class="modal-content">
       <div class="modal-body">
           <div class="block_email" *ngFor="let item of errors;">
-              <p><strong>{{('common.error.code.' + item.errorCode)|translate}}</strong> {{item.message}}</p>
+              <p>
+                {{'common.error.code.row'|translate}} <strong>{{item.order}}</strong>, {{'common.error.code.column'|translate}}  <strong>{{item.message}}</strong>, {{('common.error.code.' + item.errorCode)|translate}} </p>
           </div>
       </div>
     </div>

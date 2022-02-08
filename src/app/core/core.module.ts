@@ -24,6 +24,8 @@ import {
   PluginSMSService,
   CancelDocumentService,
   DocumentEmailService,
+  HubService,
+  ReportSummaryService,
 } from './services';
 
 @NgModule({
@@ -53,6 +55,8 @@ import {
     PluginSMSService,
     CancelDocumentService,
     DocumentEmailService,
+    HubService,
+    ReportSummaryService,
   ],
   declarations: []
 })

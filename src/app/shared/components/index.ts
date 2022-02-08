@@ -48,3 +48,5 @@ export * from './sign-contract/sign-contract-type/sign-contract-type.component';
 export * from './iframe-viewer/iframe-viewer.component';
 export * from './cancel-contract/cancel-contract.component';
 export * from './extend-expiry-contract/extend-expiry-contract.component';
+export * from './certificate-detail/certificate-detail.component';
+export * from './verified-code/verified-code.component';

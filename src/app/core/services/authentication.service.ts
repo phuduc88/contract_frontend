@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-
-import { ApplicationHttpClient } from '@app/core/http';
-
+import { ApplicationHttpClient } from '@app/core/http'
 import { Credential } from '@app/core/models';
 import { PERMISSIONS, ROLE } from '@app/shared/constant';
+
 const CREDENTIAL_STORAGE = 'CREDENTIALS';
 const REMEMBERME_STORAGE = 'REMEMBERME';
 
@@ -13,7 +12,8 @@ const REMEMBERME_STORAGE = 'REMEMBERME';
 export class AuthenticationService {
   private credentialSubject: BehaviorSubject<Credential>;
   public credentials: Observable<Credential>;
-
+  public hubProxy: any;
+  public statusConnetionHub: boolean = false;
   constructor(private http: ApplicationHttpClient) {
     this.credentialSubject = new BehaviorSubject<Credential>(JSON.parse(localStorage.getItem(CREDENTIAL_STORAGE)));
     this.credentials = this.credentialSubject.asObservable();
@@ -137,5 +137,5 @@ export class AuthenticationService {
 
   public getAutoLogin() {
     return JSON.parse(localStorage.getItem(REMEMBERME_STORAGE));
-  }
+  } 
 }

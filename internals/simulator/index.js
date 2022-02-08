@@ -2,7 +2,7 @@ const cors = require('cors')
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
-
+console.log(path);
 const rootDir = path.resolve(__dirname)
 
 const app = express()

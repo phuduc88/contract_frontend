@@ -1,19 +1,6 @@
 <div class="sign-contract-type-container">
 
   <form nz-form [formGroup]="signTypeForm" (ngSubmit)="handleSubmit()" class="login-page">
-    <nz-form-item>
-      <nz-form-label class="text-left">Loại phương thức ký</nz-form-label>
-      <nz-form-control class="imput-margin-left">
-        <nz-radio-group formControlName="typeValue">
-          <label nz-radio nzValue="SIM">Sim CA</label>
-          <label nz-radio nzValue="USB">Usb Token</label>
-          <label nz-radio nzValue="HSM">HSM</label>
-          <label nz-radio nzValue="REMOTE">Remote signing</label>
-        </nz-radio-group>
-      </nz-form-control>
-    </nz-form-item>
-
-
     <div class="sim-ca" *ngIf="typeValue ==='SIM'">
       <div nz-row nzGutter="10">
         <div nz-col [nzSpan]="8">

@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { Component, OnInit, OnDestroy, OnChanges, Input } from "@angular/core";
 @Component({
   selector: "app-pie-chart",
   templateUrl: "./pie-chart.component.html",
   styleUrls: ["./pie-chart.component.less"],
 })
-export class PieChartComponent implements OnInit, OnDestroy {
+export class PieChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() options: any;
 
   config = {
@@ -27,25 +27,29 @@ export class PieChartComponent implements OnInit, OnDestroy {
   constructor() {}
 
   onSelect(data): void {
-    console.log("Item clicked", JSON.parse(JSON.stringify(data)));
+    // console.log("Item clicked", JSON.parse(JSON.stringify(data)));
   }
 
   onActivate(data): void {
-    console.log("Activate", JSON.parse(JSON.stringify(data)));
+    // console.log("Activate", JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data): void {
-    console.log("Deactivate", JSON.parse(JSON.stringify(data)));
+    // console.log("Deactivate", JSON.parse(JSON.stringify(data)));
   }
 
   ngOnInit() {
-    Object.assign(this.config, { ...this.options });
+    // Object.assign(this.config, { ...this.options });
+  }
+
+  ngOnChanges(changes) {
+    if (changes && changes.options.currentValue) { 
+      Object.assign(this.config, { ...changes.options.currentValue});
+    }
   }
 
   labelFormatting(name) {
     let self: any = this;
-    console.log(self);
-
     let item = self.series.filter((x) => x.name == name);
     let total = self.series.reduce((sum, item) => sum + item.value, 0);
  

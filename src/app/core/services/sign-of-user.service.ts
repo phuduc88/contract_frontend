@@ -26,6 +26,10 @@ export class SignOfUserService {
     return this.http.get(`/sign-of-user/${ id }`);
   }
 
+  public getSignDefaul() {
+    return this.http.get(`/sign-of-user/sign-default`);
+  }
+
   public create(body, options = {}) {
     return this.http.post('/sign-of-user', body, options);
   }

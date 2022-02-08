@@ -5,9 +5,7 @@
       <span class="pl-1" >Quay lại</span>
     </button>
   </div>
-
   <hr />
-
   <div class="document-detail-infomation">
     <div class="document-detail-infomation__status">
       <h6 class="text-success font-weight-bold">
@@ -77,6 +75,7 @@
     <app-document-detail-sign-documents
     [filesSign] = "filesSign"
     [documentSign] = "document"
+    (onViewCertificate) = "viewCertificate($event)"
     ></app-document-detail-sign-documents>
   </div>
 </div>

@@ -26,7 +26,7 @@
           </label>
         </div>
       </div>
-      <div class="modal-footer d-flex bd-highlight">
+      <div class="d-flex bd-highlight" *nzModalFooter>
         <div class="flex-grow-1 bd-highlight">
           <button class="btn btn-secondary" (click)="signaturePadClear()">
             <span class="fa fa-eraser"></span> Xóa
@@ -34,9 +34,12 @@
         </div>
         <div class="bd-highlight">
           <div class="btn-group">
-            <button type="button" class="btn btn-success" (click)="signatureSave()">
-              <span class="fa fa-arrow-right"></span>&nbsp;Lưu
+            <button type="button"  *ngIf="(isSign)"   class="btn btn-success" (click)="signatureSave()">
+              <span class="fa fa-arrow-right"></span>&nbsp;Áp dụng chứ ký
             </button>
+            <button type="button"  *ngIf="!(isSign)"   class="btn btn-success" (click)="signatureSave()">
+                <span class="fa fa-arrow-right"></span>&nbsp;Lưu
+              </button>
           </div>
         </div>
       </div>

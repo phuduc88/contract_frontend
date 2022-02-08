@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output,EventEmitter } from "@angular/core";
 import {  SIGN_TYPE_VIEW, ROLE_ACTION } from "@app/shared/constant";
 
 @Component({
@@ -9,6 +9,7 @@ import {  SIGN_TYPE_VIEW, ROLE_ACTION } from "@app/shared/constant";
 export class DocumentDetailSignDocumentsComponent implements OnInit, OnChanges {
   @Input() filesSign: any;
   @Input() documentSign: any;
+  @Output() onViewCertificate: EventEmitter<any> = new EventEmitter();
   numberDocument: any;
   signTypeView = SIGN_TYPE_VIEW;
   roleAction = ROLE_ACTION;
@@ -25,9 +26,10 @@ export class DocumentDetailSignDocumentsComponent implements OnInit, OnChanges {
     if (changes.documentSign && changes.documentSign.currentValue) {
       this.processStatus  = changes.documentSign.currentValue.processStatus;
       this.persionActionEmail  = changes.documentSign.currentValue.persionActionEmail;
-      // this.reason = changes.documentSign.currentValue.reason;
-      // this.isCancel = changes.documentSign.currentValue.isCancel;
-      // this.userCreate = changes.documentSign.currentValue.userCreate;
     }
+  }
+
+  viewCertificate(signData) {
+    this.onViewCertificate.emit(signData);
   }
 }

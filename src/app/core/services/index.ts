@@ -26,3 +26,5 @@ export * from './plugin-sms.service';
 export * from './plugin-hsm.service';
 export * from './cancel-document.service';
 export * from './document-email.service';
+export * from './hub.service';
+export * from './report-summary.service';

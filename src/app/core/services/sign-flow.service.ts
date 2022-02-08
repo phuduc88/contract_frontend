@@ -78,6 +78,10 @@ export class SignFlowService {
     return this.http.post(`/document-sign/sign/${ documentId }`, {});
   }
 
+  signDocumentVerifiedCode(code) {
+    return this.http.post(`/document-sign/sign-with-verified-code/${ code }`, {});
+  }
+
   public downloadFileSign(documentId: string ) {
     return this.http.getFile(`/document-sign/dowload-sign-temp/${ documentId }`, {
       headers: {
@@ -136,6 +140,8 @@ export class SignFlowService {
     });
     return filesFomat;
   }
+
+  
 
   public documentAction(id, body, options = {}) {
     return this.http.post(`/document-sign/action/${id}`, body, options);

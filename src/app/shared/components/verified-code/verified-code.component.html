@@ -1,0 +1,37 @@
+<div class="page-container">
+  <form nz-form [formGroup]="formVerifiedCode" class="companyAgencies-form">
+    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+      <div class="page-customer">   
+        <!-- Start row   -->
+        <div nz-row>
+            <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorEmail">
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateEmail">
+                        <input type="text" nz-input nz-input formControlName="code" />
+                        <ng-template #addOnBeforeTemplateEmail>
+                          <label class="mb-0">Mã xác thực</label>
+                        </ng-template>           
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item> 
+            </div> 
+            <div class="notification">
+                  <p>Mã xác thực được gửi tới <b>{{verified.device}}</b> vui lòng kiểm tra và lấy mã xác thực
+                  <!-- <br/><a (click) = "sendVerifiedCode()">Gửi lại mã xác thực</a>  -->
+                </p>
+            </div> 
+        </div>
+      </div>
+    </nz-spin>
+  </form>
+</div>
+  <div class="igning-stream-form__footer" *nzModalFooter>      
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Đóng
+    </button>
+    <button nz-button nzType="default" (click)="save()" class="btn-success">
+        <i nz-icon nzType="highlight" nzTheme="outline"></i>
+        Xác thực
+      </button>
+  </div>      

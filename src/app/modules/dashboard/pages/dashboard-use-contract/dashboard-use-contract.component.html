@@ -1,5 +1,31 @@
 <div class="dashboard-use-contract dashboard-chart">
   <div class="dashboard-use-contract_container p-2">
+    <div class="row info">
+      <div class="col">
+        <div class="card contract-not-use">
+          <div class="card-body contract-not-use-body">
+            <h5 class="contract-not-use-title font-weight-bold">Số hợp đồng đã đăng ký</h5>
+            <h2 class="contract-not-use-value contract-color font-weight-bold">9,949</h2>
+            <hr class="contract-color" />
+          </div>
+        </div>
+
+      </div>
+      <div class="col">
+        <div class="card sms-account">
+          <div class="card-body sms-account-body">
+            <h5 class="sms-account-title font-weight-bold">Số hợp đồng chưa sử dụng</h5>
+            <h2 class="sms-account-value sms-color font-weight-bold">9,949</h2>
+            <hr class="sms-color" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lable">
+      <div>
+        Hôm nay 
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <div class="card">
@@ -23,7 +49,7 @@
     <div class="row mt-2">
       <div class="col">
         <div class="card">
-          <h5 class="card-header">Hợp đồng chờ người dùng xử lý</h5>
+          <h5 class="card-header">Hợp đồng theo doanh nghiệp</h5>
           <div class="card-body">
             <app-pie-chart [options]="optionsContractCompany"></app-pie-chart>
           </div>

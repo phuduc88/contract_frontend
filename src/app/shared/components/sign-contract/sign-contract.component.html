@@ -1,51 +1,131 @@
 <div class="sign-contract-container">
+  <form nz-form [formGroup]="signTypeForm" class="login-page">
   <div nz-row nzGutter="10">
     <div nz-col [nzSpan]="24">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" class="text-left">Bạn đang sử dụng loại nào</nz-form-label>
-        <nz-form-control [nzSpan]="18" [nzErrorTip]="nameTpl" class="imput-margin-left">
-          <nz-radio-group [(ngModel)]="typeValue">
-            <label nz-radio nzValue="A">USB Token</label>
-            <label nz-radio nzValue="B">Server signing</label>
-            <label nz-radio nzValue="C">Thay đổi phương thức ký</label>
+        <nz-form-label [nzSpan]="24" class="text-left">Bạn đang sử dụng loại nào</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="nameTpl" class="imput-margin-left">
+          <nz-radio-group formControlName="typeSign" (ngModelChange) = "changeTypeSign($event)">
+            <label nz-radio *ngFor="let item of sinTypes" [nzValue]="item.key">{{ item.name | translate }}</label>
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
-  <div class="server-signing" *ngIf="typeValue === 'B'">
+  <!-- Sim -CA -->
+  <div class="sim-ca" *ngIf="typeSign == 1">
+      <div nz-row nzGutter="10">
+        <div nz-col [nzSpan]="8">
+          <nz-form-item class="pb-2">
+            <nz-form-control [nzErrorTip]="mobileTpl">
+              <nz-input-group nzAddOnBefore="+84">
+                <input type="text" formControlName="mobile" nz-input placeholder="Số điện thoại" />
+                <ng-template #mobileTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Số điện thoại không được trống
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('pattern')">
+                    Số điện thoại không hợp lệ
+                  </ng-container>
+                </ng-template>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
 
-    <div nz-row nzGutter="10" class="d-flex justify-content-center">
-      <div nz-col nzMd="12">
-        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
-          <div class="pass-code-container d-flex">
-            <input type="text" nz-input placeholder="Pass Code" />
-            <span class="show-pass d-flex align-items-center">
-              <i nz-icon nzType="eye-invisible" nzTheme="outline"></i>
-            </span>
+        </div>
+
+        <div nz-col [nzSpan]="16">
+          <button nz-button nzType="default">Thông tin chứng ký số</button>
+        </div>
+      </div>
+  </div>
+  <!-- End Sim CA -->
+  <!-- USB Token -->
+  <div class="usb-token" *ngIf="typeSign == 2">
+      <div nz-row nzGutter="10">
+        <div nz-col [nzSpan]="8" class="d-flex align-items-center">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8" nzFor="uploadType">Cách tải lên</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <nz-select formControlName="uploadType" nzPlaceHolder="Chọn cách tải lên">
+                <nz-option nzValue="usbToken" nzLabel="Tải từ usb-token"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
+
+        <div nz-col [nzSpan]="16" class="usb-token-info">
+          <button class="usb-token-control mb-2" (click)="viewCerfication()" nz-button nzType="default">Tải lên từ usb-token</button>
+          <div class="error text-danger" *ngIf="(showError)">
+            <p>Không thể kết nối với USB Token.Vui lòng kiểm tra lại môi trường máy tính theo các bước sau và thử lại:
+            </p>
+            <p>- Kiểm tra việc cắm usb token vào máy tính</p>
+            <p>- Kiểm tra việc cài công cụ chữ ký số bằng cách tải tool ký số <a href="/setup.exe"><strong>tại đây</strong></a> và cài
+              vào máy tính</p>
+
           </div>
-
-        </nz-input-group>
-        <ng-template #addOnBeforeTemplate>
-          <i nz-icon nzType="lock" nzTheme="outline"></i>
-        </ng-template>
-      </div>
-
-    </div>
-
-    <div nz-row nzGutter="10" class="pt-3">
-      <div nz-col nzMd="24" class="footer-botton d-flex justify-content-center">
-        <button class="mr-2" nz-button nzType="default">
-          Đăng nhập
-        </button>
+          <div class="error text-danger" *ngIf="(showCerfitication)">
+              {{cerficationInfo}}
+          </div>
+        </div>
       </div>
     </div>
+ <!-- Edn USB Token -->
+ <!-- End OTP SMS -->
+ <div class="sim-ca" *ngIf="typeSign == 4">
+  <div nz-row nzGutter="10">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item class="pb-2">
+        <nz-form-control [nzErrorTip]="mobileTpl">
+          <nz-input-group nzAddOnBefore="+84">
+            <input type="text" formControlName="mobile" nz-input placeholder="Số điện thoại" />
+            <ng-template #mobileTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Số điện thoại không được trống
+              </ng-container>
+              <ng-container *ngIf="control.hasError('pattern')">
+                Số điện thoại không hợp lệ
+              </ng-container>
+            </ng-template>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
   </div>
-
-
-  <div class="sign-contract-type" *ngIf="typeValue === 'C'"> 
-      <app-sign-contract-type></app-sign-contract-type>
+</div>
+<!-- End OTP SMS -->
+<!-- End OTP Email -->
+<div class="sim-ca" *ngIf="typeSign == 5">
+  <div nz-row nzGutter="10">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item class="pb-2">
+        <nz-form-control [nzErrorTip]="emailTpl">
+            <nz-input-group nzAddOnBefore="Địa chỉ email">
+                <input type="text" formControlName="email" nz-input placeholder="Email" />
+                <ng-template #emailTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Địa chỉ email không được để trống
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('pattern')">
+                    Địa chỉ email không hợp lệ
+                  </ng-container>
+                </ng-template> 
+            </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
   </div>
-
+</div>
+<!-- End OTP SMS -->
+  <div class="igning-stream-form__footer" *nzModalFooter>
+      <button nz-button (click)="dismiss()" nzType="default">
+        <i nz-icon nzType="stop"></i>Hủy bỏ
+      </button>
+      <button nz-button nzType="default" [disabled]= "!typeSign" (click)="save()" class="btn-success">
+        <i nz-icon nzType="save"></i>Ký số
+      </button>
+  </div>     
+  </form> 
 </div>

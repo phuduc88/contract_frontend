@@ -1,0 +1,58 @@
+<div nz-row class="cancel-contract">
+  <form nz-form [formGroup]="formRefuse" class="cancel-contract__form">
+    <div class="page-container-cancel-contract">
+      <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+        <div nz-row nzGutter="10">
+          <div nz-col [nzSpan]="24">
+            <span class="note">Bằng cách hủy tài liệu này, bạn đang hủy tất cả các hoạt động ký kết còn lại.
+              Người nhận sau khi xong sẽ nhận được thông báo qua email bao gồm lý do hủy của bạn,
+              Người nhận chưa ký sẽ không thể xem hoặc ký các tài liệu kèm theo.
+            </span>
+          </div>
+        </div>
+        <div nz-row nzGutter="10">
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" class="text-left"><span>Lý do</span> &nbsp; <span class="text-danger">*</span>
+              </nz-form-label>
+              <nz-form-control [nzSpan]="24" [nzErrorTip]="reasonTpl" class="imput-margin-left">
+                <textarea [nzAutosize]="{ minRows: 3, maxRows: 6 }" formControlName="reason" nz-input placeholder="Lý do"></textarea>
+                <ng-template #reasonTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    Lý do không để trống
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row nzGutter="10">
+            <div nz-col [nzSpan]="24">
+              <span class="text-left">Chứng từ hủy bỏ</span>
+            </div>
+            <div nz-col [nzSpan]="24">
+                <nz-upload 
+                    [(nzFileList)]="fileList"                    
+                    [nzBeforeUpload]="beforeUpload">
+                    <button nz-button>
+                      <i nz-icon nzType="upload"></i>
+                      Chọn tệp
+                    </button>
+                  </nz-upload>
+            </div>
+        </div>
+
+        <div nz-row nzGutter="10" *nzModalFooter>
+          <div nz-col nzMd="24" class="footer-botton d-flex justify-content-center">
+            <button class="mr-2" nz-button (click)="dismiss()" nzType="default">
+              <i nz-icon nzType="close-circle"></i>Đóng
+            </button>
+            <button nz-button nzType="primary" (click)="save()">
+              <i nz-icon nzType="save"></i>Hủy bỏ luồng ký
+            </button>
+          </div>
+        </div>
+      </nz-spin>
+    </div>
+  </form>
+</div>

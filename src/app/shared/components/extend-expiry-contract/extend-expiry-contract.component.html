@@ -1,0 +1,67 @@
+<div class="page-container">
+  <form nz-form [formGroup]="formExtenContract" class="companyAgencies-form">
+    <nz-spin [nzSpinning]="isSpinning" class="page-company__main__spinning">
+      <div class="page-customer">   
+        <!-- Start row   -->
+        <div nz-row>
+            <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorEmail">
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeTemplateEmail">
+                        <input type="text" class="readOnly" nz-input nz-input formControlName="timeDocumentExpire" />
+                        <ng-template #addOnBeforeTemplateEmail>
+                          <label class="mb-0">Ngày hết hạn hiện tại</label>
+                        </ng-template>           
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item> 
+            </div>  
+            <div nz-col class="break-item" [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorEmail">
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeExpiryDate">
+                        <input type="text" class="readOnly" nz-input nz-input formControlName="expiryDate" />
+                        <ng-template #addOnBeforeExpiryDate>
+                          <label class="mb-0">Hết hạn lúc</label>
+                        </ng-template>           
+                      </nz-input-group>                       
+                    </nz-form-control>
+                  </nz-form-item> 
+            </div>   
+            <div nz-col style="padding-top:10px;" [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorEmail">
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeNumberDayExtents">
+                        <input type="text" (ngModelChange)="changeNumberDayExtents($event);" nz-input nz-input formControlName="numberDayExtents" />
+                        <ng-template #addOnBeforeNumberDayExtents>
+                          <label class="mb-0">Số ngày để gia hạn thêm <span class="text-danger"> * </span></label>
+                        </ng-template>           
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item> 
+            </div>  
+            <div nz-col class="break-item" [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-control class="margin-left-1p" [nzSpan]="24" [nzErrorTip]="errorEmail">
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeExpiryDateBeforeExtents">
+                        <input type="text" class="readOnly" nz-input nz-input formControlName="expiryDateBeforeExtents" />
+                        <ng-template #addOnBeforeExpiryDateBeforeExtents>
+                          <label class="mb-0">Thời gian hết hạn sau khi gia hạn</label>
+                        </ng-template>           
+                      </nz-input-group>                       
+                    </nz-form-control>
+                  </nz-form-item> 
+            </div>         
+        </div>
+      </div>
+    </nz-spin>
+  </form>
+</div>
+  <div class="igning-stream-form__footer" *nzModalFooter>      
+    <button nz-button (click)="dismiss()" nzType="default">
+      <i nz-icon nzType="stop"></i>Đóng
+    </button>
+    <button nz-button nzType="default" (click)="save()" class="btn-success">
+        <i nz-icon nzType="save"></i>Gia hạn
+      </button>
+  </div>      

@@ -58,9 +58,10 @@
               <th style="width: 50px;">STT</th>
               <th style="width: 150px;">Thời gian khởi tạo</th>
               <th style="width: 130px;">Người khởi tạo</th>
-              <th>Tệp tin</th>
-              <th style="width: 160px;">Thông tin thêm</th>
-              <th style="width: 250px;">Hành động</th>
+              <th>Tệp tài liệu</th>
+              <th style="width: 160px;">Phân loại</th>
+              <th style="width: 200px;">Thông tin thêm</th>
+              <th style="width: 210px;">Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -74,7 +75,14 @@
                 </strong>
               </td>
               <td>
-                <div [innerHtml]="data.infomation"></div>
+                  {{ data.documentTypeName }}
+              </td>
+              <td>
+                <div>
+                  Kích thước tệp : <strong>{{data.fileSize}}</strong> KB<br/>
+                  Tổng số trang : <strong>{{data.numberPages}}</strong> <br/>
+                  Tổng số vị trí ký : <strong>{{data.numberSign}}</strong> <br/>
+                </div>
               </td>
               <td style="text-align: right;">
                 <button [hidden]="!roles.uploadExcel"  nz-button nzType="link" (click)="viewDetail(data)" class="text-success">

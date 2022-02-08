@@ -18,6 +18,7 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
   draw: number = 1;
   upload: number = 2;
   dataSign: any;
+  isSign: boolean = false;
   imageUpload: any;
   private signaturePadOptions: any = {
     minWidth: 0.5,
@@ -34,13 +35,15 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
     this.isDraw = this.signPadOfUse.isDraw;
+    this.isSign = this.signPadOfUse.isSign;
+     
     if (!this.isDraw) {
       this.imageUpload = this.getSourceForSign();
     }
   }
 
   ngAfterViewInit() {
-
+     
     if (this.isDraw) {
       this.signaturePad.fromDataURL(this.getSourceForSign());
     }
@@ -98,15 +101,15 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private createSignPad() {
     const signPadOfUse = this.getData();
-    this.signOfUserService.create(signPadOfUse).subscribe((data) => {
-      this.saveSignPadToLocationStore(signPadOfUse.data);
+    this.signOfUserService.create(signPadOfUse).subscribe((result) => {
+      this.saveSignPadToLocationStore(result.data);
       this.showDialogSuccess(this);
     });
   }
   private updateSignPad() {
     const signPadOfUse = this.getData();
-    this.signOfUserService.update(this.signPadOfUse.id, signPadOfUse).subscribe((data) => {
-      this.saveSignPadToLocationStore(signPadOfUse.data);
+    this.signOfUserService.update(this.signPadOfUse.id, signPadOfUse).subscribe((result) => {
+      this.saveSignPadToLocationStore(result.data);
       this.showDialogSuccess(this);
     });
   }
@@ -124,6 +127,10 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
       isDraw: this.isDraw,
       useDefault: this.signPadOfUse.useDefault,
     };
+    
+    if(this.signPadOfUse.isSign) {
+      signPadOfUse.useDefault = this.signPadOfUse.isSign;
+    }
     return signPadOfUse;
   }
 
@@ -142,13 +149,20 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   signaturePadClear() {
-    this.signaturePad.clear();
+    if(this.signaturePad) {
+      this.signaturePad.clear();
+    }
   }
 
   private showDialogSuccess(currentDialog) {
+    let contenMessgae = 'Đã lưu chữ ký của bạn thành công';
+    if (this.isSign) {
+      contenMessgae = 'Áp dụng chứ ký thành công';
+    }
+
     this.modalService.success({
       nzTitle: 'Chữ ký của bạn',
-      nzContent: 'Đã lưu chữ ký của bạn thành công ',
+      nzContent: contenMessgae,
       nzOnOk: () => { currentDialog.modal.destroy(); }
     });
   }

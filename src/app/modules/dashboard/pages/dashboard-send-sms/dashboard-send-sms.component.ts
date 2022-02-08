@@ -16,19 +16,19 @@ export class DashboardSendSmsComponent implements OnInit, OnDestroy {
             value: "100",
           },
           {
-            name: new Date("2018-02-01T00:00:00"),
+            name: new Date("2018-01-02T00:00:00"),
             value: "200",
           },
           {
-            name: new Date("2018-03-01T00:00:00"),
+            name: new Date("2018-01-03T00:00:00"),
             value: "150",
           },
           {
-            name: new Date("2018-04-01T00:00:00"),
+            name: new Date("2018-01-04T00:00:00"),
             value: "50",
           },
           {
-            name: new Date("2018-05-01T00:00:00"),
+            name: new Date("2018-01-05T00:00:00"),
             value: "100",
           },
         ],
@@ -42,19 +42,19 @@ export class DashboardSendSmsComponent implements OnInit, OnDestroy {
             value: "5",
           },
           {
-            name: new Date("2018-02-01T00:00:00"),
+            name: new Date("2018-01-02T00:00:00"),
             value: "4",
           },
           {
-            name: new Date("2018-03-01T00:00:00"),
+            name: new Date("2018-01-03T00:00:00"),
             value: "1",
           },
           {
-            name: new Date("2018-04-01T00:00:00"),
+            name: new Date("2018-01-04T00:00:00"),
             value: "3",
           },
           {
-            name: new Date("2018-05-01T00:00:00"),
+            name: new Date("2018-01-05T00:00:00"),
             value: "2",
           },
         ],

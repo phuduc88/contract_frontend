@@ -4,6 +4,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthenticationService } from '@app/core/services';
 import { eventEmitter } from '@app/shared/utils/event-emitter';
 import { PERMISSIONS, ROLE } from '@app/shared/constant';
+import { SignatureFlowComponent } from '@app/shared/components';
 import { 
   DialogChangePasswordComponent 
 } from '@app/shared/components';
@@ -144,6 +145,36 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.handleLogout();
     // this.authService.logout();
     // this.router.navigate(['/auth/login'], { replaceUrl: true });
+  }
+
+  modalSignDocument() {
+    const documentSignTemp = {
+      id: null,
+      myselfSign: false,
+      currentStep: 0,
+      documentType: null,
+      employeesSign: [],
+      filesSign: [],
+      listSign: []
+    }
+    this.showDocumentSign(documentSignTemp);
+  }
+
+  showDocumentSign(documentSign) {
+    this.modalService.create({
+      nzClosable: false,
+      nzTitle: 'Chọn tài liệu',
+      nzStyle: { top: 0 },
+      nzClassName: "signature-flow",
+      nzKeyboard: false,
+      nzContent: SignatureFlowComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: [],
+      nzComponentParams: {
+        documentSign,
+      }
+    });
   }
 
   dialogChangePassword() {

@@ -82,6 +82,5 @@ export class AccountService {
   public sendEmail(body, options = {}) {
     return this.http.post('/accounts/send-mail-account', body, options);
   }
- 
    
 }

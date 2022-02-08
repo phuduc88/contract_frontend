@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService,  SignOfUserService } from '@app/core/services';
+import { AuthenticationService,  SignOfUserService, HubService } from '@app/core/services';
 import { Credential } from '@app/core/models';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SignaturePadComponent } from '@app/shared/components';
 import { PERMISSIONS } from '@app/shared/constant';
+import { eventEmitter } from '@app/shared/utils/event-emitter';
 
 @Component({
   selector: 'app-account-information',
@@ -17,16 +18,17 @@ export class AccountInformationComponent implements OnInit {
   permissions: any;
   pmsConf = PERMISSIONS;
   signPadOfUsers: any = [];
+  newhubProxy: any;
   constructor(private authService: AuthenticationService,
     private modalService: NzModalService,
-    private signOfUserService: SignOfUserService,
+    private signOfUserService: SignOfUserService,   
+    private hubService: HubService,
   ) {
   }
 
   ngOnInit() {
     this.currentUser = this.authService.currentCredentials;
     this.permissions = this.authService.currentCredentials.permissions;
-
     this.loadSignPadOfUser();
     this.tabSettingsClick(1);
   }
@@ -43,10 +45,10 @@ export class AccountInformationComponent implements OnInit {
         break;
     }
   }
-  openSignaturePad(signPadOfUse) {
-    
+  openSignaturePad(signPadOfUse) {    
     const modal = this.modalService.create({
       nzClosable: true,
+      nzWidth: 750,
       nzTitle: 'Chữ ký của bạn',
       nzClassName: "signature-pad-custom",
       nzContent: SignaturePadComponent,
@@ -61,7 +63,7 @@ export class AccountInformationComponent implements OnInit {
       this.loadSignPadOfUser();
     });
   }
-
+ 
   private delete(item) {
     this.modalService.confirm({
       nzTitle: 'Bạn có chắc chắn muốn xóa?',
@@ -86,6 +88,5 @@ export class AccountInformationComponent implements OnInit {
     this.signOfUserService.filter({}).subscribe((item) => {
       this.signPadOfUsers = item.data;
     });
-  }
-  
+  }  
 }

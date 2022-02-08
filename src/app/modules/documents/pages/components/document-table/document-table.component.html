@@ -114,7 +114,7 @@
         <td *ngIf="!(tabSeleted === 4)" class="text-center">
           <div *ngIf="document.status === 2">
             <div class="text-success">
-              <i class="fa fa-check" aria-hidden="true"></i>&nbsp;{{ status[document.status] | translate }}
+              <i class="fa fa-check" aria-hidden="true"></i>&nbsp;{{ getDocumentStatusBefore(document)}}
             </div>
           </div>
           <div *ngIf="document.status === 1">
@@ -181,8 +181,8 @@
                   <a *ngIf="(document.userCreate === userCreate && (document.status === 0 || document.status === 5 || document.status === 4))" class="dropdown-item" (click)="deleteDocument(document)">Xóa</a>
                   <a *ngIf="(document.persionActionEmail === currentEmail && document.processStatus === 1 && (document.status === 0 || document.status === 1))" class="dropdown-item" (click)="approveDocument(document)">Phê duyệt</a>
                   <a *ngIf="(document.persionActionEmail === currentEmail && document.processStatus === 2 && (document.status === 0 || document.status === 1))" class="dropdown-item" (click)="singDocument(document)">Ký tài liệu</a>
-                  <a *ngIf="((document.status == 1 || document.status == 2) && document.userCreate === userCreate)" class="dropdown-item" (click)="cancelDocument(document)">Hủy bỏ</a>
-                  <a *ngIf="((document.status == 1 || document.status == 2) && document.userCreate === userCreate)" class="dropdown-item" (click)="sendEamilNotification(document)">Gửi email nhắc nhở</a>
+                  <a *ngIf="((document.status == 1) && document.userCreate === userCreate)" class="dropdown-item" (click)="cancelDocument(document)">Hủy bỏ</a>
+                  <a *ngIf="((document.status == 1) && document.userCreate === userCreate)" class="dropdown-item" (click)="sendEamilNotification(document)">Gửi email nhắc nhở</a>
                   <a *ngIf="(document.status == 3 && document.userCreate === userCreate)" class="dropdown-item" (click)="restoreDocument(document)">Khôi phục tài liệu</a>
                   <a *ngIf="(document.status == 4 && document.userCreate === userCreate)" class="dropdown-item" (click)="extendDocument(document)">Gia hạn</a>
                   <a *ngIf="(document.status == 3)" class="dropdown-item" (click)="downloadCancelDocument(document)">Xem biên bản hủy</a>

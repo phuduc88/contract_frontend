@@ -83,6 +83,8 @@ import {
   IframeViewerComponent,
   CancelContractComponent,
   DialogExtendContractComponent,
+  CertificateDetailComponent,
+  VerifiedCodeComponent,
 } from "./components";
 
 import {
@@ -184,6 +186,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     IframeViewerComponent,
     CancelContractComponent,
     DialogExtendContractComponent,
+    CertificateDetailComponent,
+    VerifiedCodeComponent,
   ],
   exports: [
     FormsModule,
@@ -244,6 +248,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     IframeViewerComponent,
     CancelContractComponent,
     DialogExtendContractComponent,
+    CertificateDetailComponent,
+    VerifiedCodeComponent,
   ],
   providers: [
     AuthenticationService,
@@ -290,6 +296,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     IframeViewerComponent,
     CancelContractComponent,
     DialogExtendContractComponent,
+    CertificateDetailComponent,
+    VerifiedCodeComponent,
   ],
 })
 export class SharedModule {}

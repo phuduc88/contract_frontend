@@ -1,0 +1,40 @@
+<div class="control-file">
+  <div class="col-sm-12 col-md-12 col-lg-12 m-auto p-0 d-flex">
+    <div id="toolbarButtonLeft" class="toolbarButton-Toggle-left"></div>
+    <div id="first" (click) = "firstPage()" class="mybtn first-page"></div>
+    <div id="prev" (click) = "prevPage()" class="mybtn previous-page"></div>
+    <input nz-input  [(ngModel)]="pageNum" (change)= "changePageNumber()" class="pageNum"  />
+    <span class="p-1">/ <span id="page_count">{{totalPage}}</span></span>
+    <div id="next" (click) = "nextPage()" class="mybtn next-page"></div>
+    <div id="last" (click) = "lastPage()" class="mybtn last-page"></div>
+    <div id="zoomIn" (click) = "zoomInView()" class="zoom-in"></div>
+    <div id="zoomOut" (click) = "zoomOutView()" class="zoom-out"></div>
+    <div id="toolbarButtonRight" class="toolbarButton-Toggle-right"></div>
+    <div>
+      <button nz-button nzType="default" *ngIf="isApprove" class="mr-3" (click)="approve()">
+        Phê duyệt
+      </button>
+      <button nz-button nzType="default" *ngIf="isApprove" class="mr-3" (click)="refuseApprove()">
+        Từ chối
+      </button>      
+      <button nz-button nzType="default" *ngIf="!isApprove" class="mr-3" (click)="sign()">
+        Ký
+      </button>
+      <button  *ngIf="!isApprove"  class="mr-3" nz-button nzType="default" (click)="refuseSign()">
+        Từ chối
+      </button>
+      <button  *ngIf="!isApprove && !hasSignPad"  nz-button nzType="default" (click)="openSignPad()">
+          Chứ ký của bạn
+      </button>
+    </div>
+
+  </div>
+</div>
+<div class="content-pdf-viewer" [pdfViewerFullHeight]>
+  <div class="pdf-loading">
+    <img src="/assets/img/oval.svg" />
+  </div>
+  <div class="pdfscroll">
+    <div #pdfViewer class="content-canvas"></div>
+  </div>
+</div>

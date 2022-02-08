@@ -77,11 +77,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.modalService.create({
       nzClosable: true,
+      nzWidth: 750,
       nzTitle: 'Chữ ký của bạn',
       nzClassName: "signature-pad-custom",
       nzContent: SignaturePadComponent,
       nzViewContainerRef: this.viewContainerRef,
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzOnOk: () => { },
       nzFooter: [],
       nzComponentParams: {
         signPadOfUse

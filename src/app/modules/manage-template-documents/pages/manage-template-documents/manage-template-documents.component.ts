@@ -83,6 +83,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
             this.documentTemplate.employeesSign = [];
             this.showSignatureFlowDialog(this.documentTemplate);
           }
+          eventEmitter.emit('clear:fileUpload', file);
           this.overloading = false;
           this.parentStyle = {};
         });
@@ -125,6 +126,11 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
   }
 
   handleUploadFileBookmark(data) {
+    this.overloading = true;
+    this.parentStyle = {
+      "z-index": 99999,
+      opacity: 0.3,
+    };
     this.documentTemplateService
       .uploadFileData(this.documentTemplate.id, data.file.target.files)
       .subscribe((res) => {
@@ -138,6 +144,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
             res.result.documentData
           );
         }
+        eventEmitter.emit('clear:fileUpload', data.file);
         this.overloading = false;
         this.parentStyle = {};
       });
@@ -150,9 +157,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
         this.error = res.error;
         if (this.error.length > 0) {
           this.showDialogError(this.error);
-        } else {
-          console.log(res);
-        }
+        }  
         this.overloading = false;
         this.parentStyle = {};
       });

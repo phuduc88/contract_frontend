@@ -147,7 +147,6 @@ export class SignatureFlowComponent
       width: sign.width,
       height: sign.height,
     };
-
     signUtils.resize2img(img, option, "png", (result) => {
       img.src = result;
     });

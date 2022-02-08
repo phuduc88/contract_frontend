@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewContainerRef } from "@angular/core";
 import {
   AuthenticationService,
   SignFlowService,
@@ -26,7 +26,7 @@ import { DomSanitizer } from "@angular/platform-browser";
   templateUrl: "./documents.component.html",
   styleUrls: ["./documents.component.less"],
 })
-export class DocumentsComponent implements OnInit {
+export class DocumentsComponent implements OnInit, OnDestroy {
   currentUser: Credential;
   documents: any;
   skip: number;
@@ -35,6 +35,7 @@ export class DocumentsComponent implements OnInit {
   tabSeleted: number = 0;
   emailOfUser: string = '';
   filter: any = {};
+  private handlers;
   constructor(
     private authService: AuthenticationService,
     private modalService: NzModalService,
@@ -51,6 +52,11 @@ export class DocumentsComponent implements OnInit {
     this.currentUser = this.authService.currentCredentials;
     this.emailOfUser = this.currentUser.email;
     this.filterDocuments();
+    this.handlers = [
+      eventEmitter.on("loadDocument:sign", () => {
+        this.filterDocuments();
+      })
+    ];
   }
 
   filterDocuments(skip = 0, take = PAGE_SIZE) {
@@ -346,7 +352,6 @@ export class DocumentsComponent implements OnInit {
     signUtils.resize2img(img, option, "png", (result) => {
       img.src = result;
     });
-
     return img;
   }
 
@@ -406,6 +411,10 @@ export class DocumentsComponent implements OnInit {
     this.signFlowService.delete(document.id).subscribe((res) => {
       this.filterDocuments();
     });
+  }
+
+  ngOnDestroy() {
+    eventEmitter.destroy(this.handlers);
   }
 
   extendDocument(documentSing) {

@@ -8,7 +8,7 @@ import { AuthenticationService,
 } from '@app/core/services';
 import orderBy from 'lodash/orderBy';
 import { PAGE_SIZE, MIME_TYPE } from '@app/shared/constant';
-import { IframeViewerComponent } from "@app/shared/components";
+import { IframeViewerComponent, CertificateDetailComponent } from "@app/shared/components";
 import { download } from '@app/shared/utils/download-file';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -133,6 +133,21 @@ export class DocumentDetailComponent implements OnInit {
       this.modalService.success({
         nzTitle: 'Gửi email thành công'
       });
+    });
+  }
+
+  viewCertificate(employeeSignDetail) {
+    const modal = this.modalService.create({
+      nzClosable: true,
+      nzWidth: 650,
+      nzTitle: 'Thông tin chứng chỉ',
+      nzClassName: "signature-pad-custom",
+      nzContent: CertificateDetailComponent,
+      nzOnOk: () => { },
+      nzComponentParams: {
+        employeeSignDetail
+      },
+      nzFooter: []
     });
   }
 
