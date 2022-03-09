@@ -13,11 +13,14 @@
           <i class="fa fa-check" aria-hidden="true"></i>
           <span class="pl-1">{{documentStatusView}}</span>
         </label>
+        <label class="text-refuse" *ngIf="documentStatus === 5">         
+          <i class="fa fa-ban" aria-hidden="true"></i>
+          <span class="pl-1">{{documentStatusView}}</span>
+        </label>
         <label class="text-warning" *ngIf="documentStatus === 0">
           <i class="fa fa-pencil" aria-hidden="true"></i>
           <span class="pl-1">{{documentStatusView}}</span>
         </label>
-
         <label class="text-warning" *ngIf="documentStatus === 1">
           <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
           <span class="pl-1">{{documentStatusView}}</span>
@@ -54,6 +57,10 @@
       <div class="document-info">
         Loại tài liệu:
         <span class="text-info ng-binding">{{documentTypeName}}</span>
+      </div>
+      <div *ngIf="documentStatus=== 5" class="document-info">
+        <b>Lý do: </b>
+        <span class="text-info ng-binding">{{this.reason}}</span>
       </div>
     </div>
   </div>

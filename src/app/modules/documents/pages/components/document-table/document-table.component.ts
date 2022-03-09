@@ -236,8 +236,12 @@ export class DocumentTableComponent implements OnInit {
       return 'Chờ phê duyệt';
     }
 
-    if (document.processStatus == 2) {
+    if (document.processStatus === 2 && document.oldStatus === 1 ) {
       return 'Chờ ký';
+    }
+
+    if (document.processStatus === 2 && document.oldStatus === 2 ) {
+      return 'Hoàn thành';
     }
 
     return '';

@@ -40,6 +40,9 @@
     <button nz-button nzType="default" class="btn btn-secondary mr-1" (click)="dismiss()">
         <i nz-icon nzType="close"></i>Đóng
     </button>
+    <button *ngIf="documentTypeInfo.id" nz-button nzType="primary" class="btn-delete ant-btn" (click)="delete()">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>Xóa
+   </button>
     <button nz-button nzType="primary" class="btn-success ant-btn" (click)="save()">
         <i nz-icon nzType="save" nzTheme="outline"></i>Lưu
     </button>

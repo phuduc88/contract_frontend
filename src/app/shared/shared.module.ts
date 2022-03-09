@@ -85,6 +85,7 @@ import {
   DialogExtendContractComponent,
   CertificateDetailComponent,
   VerifiedCodeComponent,
+  DialogChangeFileNameComponent,
 } from "./components";
 
 import {
@@ -188,6 +189,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogExtendContractComponent,
     CertificateDetailComponent,
     VerifiedCodeComponent,
+    DialogChangeFileNameComponent,
   ],
   exports: [
     FormsModule,
@@ -250,6 +252,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogExtendContractComponent,
     CertificateDetailComponent,
     VerifiedCodeComponent,
+    DialogChangeFileNameComponent,
   ],
   providers: [
     AuthenticationService,
@@ -298,6 +301,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
     DialogExtendContractComponent,
     CertificateDetailComponent,
     VerifiedCodeComponent,
+    DialogChangeFileNameComponent,
   ],
 })
 export class SharedModule {}

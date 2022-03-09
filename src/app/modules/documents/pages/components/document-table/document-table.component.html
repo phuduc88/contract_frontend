@@ -69,9 +69,10 @@
         </th>
         <th class="text-left align-middle">Tên tài liệu</th>
         <th class="text-left align-middle">Người tạo</th>
-        <th class="text-center align-middle" style="width: 150px;">Thời gian khởi tạo</th>
-        <th class="text-center align-middle" style="width: 120px;">Thời gian hết hạn</th>
-        <th *ngIf="!(tabSeleted === 4)" class="text-center align-middle" style="width: 280px;">Trạng thái</th>
+        <th *ngIf="!(tabSeleted === 1)"  class="text-center align-middle" style="width: 150px;">Thời gian khởi tạo</th>
+        <th *ngIf="!(tabSeleted === 2 || tabSeleted === 1)" class="text-center align-middle" style="width: 120px;">Thời gian hết hạn</th>
+        <th *ngIf="!(tabSeleted === 4 || tabSeleted === 2 || tabSeleted === 1)" class="text-center align-middle" style="width: 280px;">Trạng thái</th>
+        <th *ngIf="(tabSeleted === 2)" class="text-center align-middle" style="width: 280px;">Bản sao</th>
         <th class="text-center align-middle" style="width: 80px;">Hành động</th>
       </tr>
     </thead>
@@ -104,14 +105,14 @@
             {{document.companyName}}
           </p>
         </td>
-        <td class="text-center">
+        <td *ngIf="!(tabSeleted === 1)"  class="text-center">
           {{document.dateCreate}} <br>
           <small class="text-secondary">#{{document.id}}</small>
         </td>
-        <td class="text-center">
+        <td *ngIf="!(tabSeleted === 2 || tabSeleted === 1)" class="text-center">
           {{document.expiryDate}} <br>
         </td>
-        <td *ngIf="!(tabSeleted === 4)" class="text-center">
+        <td *ngIf="!(tabSeleted === 4 || tabSeleted === 2 || tabSeleted === 1)" class="text-center">
           <div *ngIf="document.status === 2">
             <div class="text-success">
               <i class="fa fa-check" aria-hidden="true"></i>&nbsp;{{ getDocumentStatusBefore(document)}}
@@ -155,11 +156,14 @@
                 <p>Lý do:<span>{{document.reason}}</span></p>
               </div>
           </div>
-          <div *ngIf="document.status == 0"> 
+          <!-- <div *ngIf="document.status == 0"> 
               <button type="button" class="btn btn-link btn-sm m-1 ng-scope" (click)="continue(document.id)">
               <img src="/assets/img/hand-writing-with-ballpen.svg" style="width: 16px;"> Tiếp tục
             </button>
-          </div>
+          </div> -->
+        </td>
+        <td *ngIf="(tabSeleted === 2)" class="text-center"> 
+          <i *ngIf="document.isCCFinish" class="fa fa-check" aria-hidden="true"></i>&nbsp;
         </td>
         <td class="text-right">
           <div class="btn-group btn-sm">
@@ -175,17 +179,19 @@
                 <i class="fa fa-ellipsis-v text-primary" style="font-size: 22px;" aria-hidden="true"></i>
               </button>
               <div class="dropdown-menu" x-placement="bottom-start">
-                <div><a class="dropdown-item" (click)="viewDetail(document)">Xem chi tiết</a>
+                <div>
+                  <a class="dropdown-item" *ngIf="!document.status == 0" (click)="viewDetail(document)">Xem chi tiết</a>
+                  <a class="dropdown-item" *ngIf="(document.status == 0 && document.userCreate === userCreate)" (click)="continue(document.id)">Tiếp tục</a>
                   <a class="dropdown-item" (click)="quickView(document)">Xem nhanh</a>
                   <a class="dropdown-item" (click)="downloadDocument(document)">Tải xuống</a>
                   <a *ngIf="(document.userCreate === userCreate && (document.status === 0 || document.status === 5 || document.status === 4))" class="dropdown-item" (click)="deleteDocument(document)">Xóa</a>
                   <a *ngIf="(document.persionActionEmail === currentEmail && document.processStatus === 1 && (document.status === 0 || document.status === 1))" class="dropdown-item" (click)="approveDocument(document)">Phê duyệt</a>
                   <a *ngIf="(document.persionActionEmail === currentEmail && document.processStatus === 2 && (document.status === 0 || document.status === 1))" class="dropdown-item" (click)="singDocument(document)">Ký tài liệu</a>
-                  <a *ngIf="((document.status == 1) && document.userCreate === userCreate)" class="dropdown-item" (click)="cancelDocument(document)">Hủy bỏ</a>
+                  <a *ngIf="((document.status == 1 || document.status == 2) && document.userCreate === userCreate)" class="dropdown-item" (click)="cancelDocument(document)">Hủy bỏ</a>
                   <a *ngIf="((document.status == 1) && document.userCreate === userCreate)" class="dropdown-item" (click)="sendEamilNotification(document)">Gửi email nhắc nhở</a>
                   <a *ngIf="(document.status == 3 && document.userCreate === userCreate)" class="dropdown-item" (click)="restoreDocument(document)">Khôi phục tài liệu</a>
                   <a *ngIf="(document.status == 4 && document.userCreate === userCreate)" class="dropdown-item" (click)="extendDocument(document)">Gia hạn</a>
-                  <a *ngIf="(document.status == 3)" class="dropdown-item" (click)="downloadCancelDocument(document)">Xem biên bản hủy</a>
+                  <a *ngIf="(document.status == 3 && document.hasFileCancel)" class="dropdown-item" (click)="downloadCancelDocument(document)">Xem biên bản hủy</a>
                 </div>
               </div>
             </div>

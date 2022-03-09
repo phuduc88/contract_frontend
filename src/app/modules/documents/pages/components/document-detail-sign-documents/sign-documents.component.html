@@ -26,9 +26,9 @@
                     <small> {{ employeesSign.email }}</small>
 
                     <br>
-                    <span class="text-info font-italic">
+                    <!-- <span class="text-info font-italic">
                       Bao gồm <strong> {{ employeesSign.employeesSignDetail.length }}</strong> chữ ký
-                    </span>
+                    </span> -->
                   </td>
                   <td>
                     <table class="table-sign-data table table-bordered table-vertical-center table-fixed table-striped">
@@ -75,17 +75,18 @@
                             </span>
                           </td>
                           <td class="text-center">
-                            <i class="text-success fa fa-check ng-scope" *ngIf="signData.statusAction === 1"></i>
-                            <div *ngIf="!signData.statusAction">
+                            <i class="text-success fa fa-check ng-scope" *ngIf="employeesSign.approve"></i>
+                            <div *ngIf="!employeesSign.action">
                                 <strong class="text-danger" *ngIf="!signData.signed">
                                   <span *ngIf="!signData.isApprove">Chờ ký</span>
                                   <span *ngIf="signData.isApprove">Chờ duyệt</span>
                                 </strong>
                             </div>
-                            <div *ngIf="signData.statusAction === 2">
+                            <div *ngIf="employeesSign.action && !employeesSign.approve">
                                 <strong class="text-danger">
-                                  <span *ngIf="!signData.isApprove">Từ chối ký</span>
-                                  <span *ngIf="signData.isApprove">Từ chối duyệt</span>
+                                    <span>Từ chối</span>
+                                  <!-- <span *ngIf="!signData.isApprove">Từ chối ký</span>
+                                  <span *ngIf="signData.isApprove">Từ chối duyệt</span> -->
                                </strong>
                             </div>
                           </td>
@@ -97,7 +98,7 @@
                               </button>
                               <br />                              
                               {{ signData.lastAccessedTime }}
-                              <p> {{ signData.message }}</p>
+                              <p style="font-style: italic;" *ngIf="!employeesSign.approve && employeesSign.action "> <b>Lý do: </b> {{ signData.message }}</p>
                             </div>
                           </td>
                         </tr>

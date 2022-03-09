@@ -102,7 +102,7 @@ export class ManageDocumentsTableComponent implements OnInit, OnChanges {
   }
 
   quickView(data) {
-    this.onQuickView.emit({
+     this.onQuickView.emit({
       data,
     });
   }

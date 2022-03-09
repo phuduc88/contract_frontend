@@ -73,24 +73,27 @@
                 </div>
 
                 <div class="tab-content" *ngIf="tab.id === 2">
-                    <ol class="noselect" cdkDropList (cdkDropListDropped)="drop($event)">
-                        <li cdkDrag class="m-2 p-1 text-left border border-primary rounded"
-                            style="cursor: pointer; font-size: 12px"
+                    <ol class="noselect"> <!--cdkDropList (cdkDropListDropped)="drop($event)"-->
+                        <li class="m-2 p-1 text-left border border-primary rounded"
+                            style="font-size: 12px"
                             *ngFor="let item of employeesSign; let page = index">
-                            <p>
+                            <p *ngIf="isTemplate">
+                                {{ item.email }}
+                            </p>
+                            <p *ngIf="!isTemplate">
                                 {{ item.groupName }}
                                 <br />
                                 {{ item.email }}
                             </p>
                             <p>
-                                Hình thức <b class="approve" *ngIf="!item.isEmployeeSign">Duyệt</b>
-                                <b class="sign" *ngIf="item.isEmployeeSign">Ký số</b>
+                                Hình thức <b class="approve" *ngIf="!item.isEmployeeSign">Xét duyệt</b>
+                                <b class="sign" *ngIf="item.isEmployeeSign">Ký</b>
                             </p>
                             <p *ngIf="item.isEmployeeSign">
-                                Phương thức ký: <b *ngIf="item.singType" class="sign">{{ signTypeView[item.singType] | translate }}</b>
+                                Hình thức ký: <b *ngIf="item.singType" class="sign">{{ signTypeView[item.singType] | translate }}</b>
                             </p>
                             <div>
-                                <p>
+                                <p *ngIf="!isTemplate">
                                     Mã số thuế: {{ item.taxCode }}
                                     <br />
                                     Địa chỉ: {{ item.address }}
@@ -102,7 +105,7 @@
                 <div class="tab-content" *ngIf="tab.id === 3">
                     <ol class="noselect">
                         <li class="m-2 p-1 text-left border border-primary rounded"
-                            style="cursor: pointer; font-size: 12px"
+                            style="font-size: 12px"
                             *ngFor="let sign of documentSign.listSign; let page = index">
                             <strong>{{sign.name}}</strong>
                             <br />
@@ -115,9 +118,7 @@
                             </span>
                             <br />
                             <span class="text-muted">
-                                Loại:
-                                <span class="{{sign.signType === 1 ? 'text-primary' : 'text-warning'}}">Ký
-                                    {{ sign.signType === 1 ? 'thường' : 'nháy' }}</span>
+                                Hình thức ký: <b class="sign">{{ signTypeView[sign.methodSign] | translate }}</b>
                             </span>
                             <br />
                             <span>Trang: <span class="text-muted">{{sign.signIndex}}</span></span>
@@ -135,8 +136,11 @@
                 </button>
             </div>
             <div class="d-flex justify-content-between">
-                <button type="button" (click)="save()" class="btn btn-success">
+                <button type="button"  *ngIf="!isTemplate" (click)="save()" class="btn btn-success">
                     Gửi <span class="fa fa-send"></span>
+                </button>
+                <button type="button" *ngIf="isTemplate" (click)="save()" class="btn btn-success">
+                    Lưu <span class="fa fa-send"></span>
                 </button>
             </div>
         </div>

@@ -163,7 +163,7 @@ export class SignaturePadComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalService.success({
       nzTitle: 'Chữ ký của bạn',
       nzContent: contenMessgae,
-      nzOnOk: () => { currentDialog.modal.destroy(); }
+      nzOnOk: () => { currentDialog.modal.destroy({result: true}); }
     });
   }
 

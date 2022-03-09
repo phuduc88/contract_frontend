@@ -15,6 +15,7 @@ import {  SIGN_TYPE_VIEW } from "@app/shared/constant";
 })
 export class SignatureFlowSaveComponent implements OnInit {
   @Input() documentSign: any;
+  @Input() isTemplate: any;
   formDocument: FormGroup;
   employeesSign: any;
   currentUser: Credential;
@@ -70,13 +71,13 @@ export class SignatureFlowSaveComponent implements OnInit {
     this.modal.destroy(data);
   }
 
-  drop(event: CdkDragDrop<string[]>) {    
-    moveItemInArray(
-      this.employeesSign,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
+  // drop(event: CdkDragDrop<string[]>) {    
+  //   moveItemInArray(
+  //     this.employeesSign,
+  //     event.previousIndex,
+  //     event.currentIndex
+  //   );
+  // }
 
   tabs = [
     {

@@ -32,6 +32,7 @@ export class DocumentDetailComponent implements OnInit {
   documentTypeName: any;
   documentStatusBefore: string = '';
   documentStatusView: string = '';
+  reason: string = '';
   constructor(
     private route: ActivatedRoute,
     private modalService: NzModalService,
@@ -62,6 +63,7 @@ export class DocumentDetailComponent implements OnInit {
       this.employeesSign = data.employeesSign;
       this.documentTypeId = data.documentType;
       this.documentStatus = data.status;
+      this.reason = data.reason;
       this.documentTypeName = data.documentTypeName;
       this.documentStatusBefore = this.getDocumentStatusBefore(data);
       this.filesSign = this.mergeFileSign(data.filesSign);
@@ -208,8 +210,12 @@ export class DocumentDetailComponent implements OnInit {
       return 'Chờ phê duyệt';
     }
 
-    if (document.processStatus == 2) {
+    if (document.processStatus === 2 && document.oldStatus === 1 ) {
       return 'Chờ ký';
+    }
+
+    if (document.processStatus === 2 && document.oldStatus === 2 ) {
+      return 'Hoàn thành';
     }
 
     return '';
@@ -244,8 +250,12 @@ export class DocumentDetailComponent implements OnInit {
       return 'Chờ phê duyệt';
     }
 
-    if (document.processStatus == 2) {
+    if (document.processStatus === 2 && document.status === 1 ) {
       return 'Chờ ký';
+    }
+
+    if (document.processStatus === 2 && document.status === 2 ) {
+      return 'Hoàn thành';
     }
 
     return '';

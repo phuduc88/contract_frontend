@@ -14,6 +14,7 @@ export class DocumentDetailSignDocumentsComponent implements OnInit, OnChanges {
   signTypeView = SIGN_TYPE_VIEW;
   roleAction = ROLE_ACTION;
   processStatus: any;
+  documentStatus: any;
   persionActionEmail: any;
 
   ngOnInit() {}
@@ -25,6 +26,7 @@ export class DocumentDetailSignDocumentsComponent implements OnInit, OnChanges {
 
     if (changes.documentSign && changes.documentSign.currentValue) {
       this.processStatus  = changes.documentSign.currentValue.processStatus;
+      this.documentStatus = changes.documentSign.currentValue.status;
       this.persionActionEmail  = changes.documentSign.currentValue.persionActionEmail;
     }
   }

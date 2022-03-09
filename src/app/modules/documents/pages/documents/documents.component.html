@@ -46,7 +46,7 @@
   <nz-spin [nzSpinning]="isSpinning" class="register__spinning">
   <div class="formWapper">
     <app-document-form (onFormSearch) = "hendlFormSearch($event)"></app-document-form>
-    <app-document-table 
+    <app-document-table
       [documents]="documents" 
       [tabSeleted] = "tabSeleted"
       (onPageChange) = "handlePageChange($event)"

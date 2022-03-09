@@ -88,6 +88,14 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
     }
   }
 
+  changeGroupType(data, currentItem) {
+    if(data === 3) {
+      currentItem.isEmployeeSign = null;
+    } else {
+      currentItem.isEmployeeSign = true;
+    }
+  }
+
   taxInvalid() {
     this.modalService.warning({
       nzTitle: 'Không tìm thấy mã số thuế cần tìm'
@@ -124,7 +132,7 @@ export class FormEployeeSingComponent implements OnInit, OnDestroy, AfterViewIni
     if (isDuplicate) {
       result.push({
         columnName: 'Email',
-        message: 'Có sự trùng lặp địa người nhận (chỉ Email), vui lòng kiểm tra lại!',
+        message: 'Trùng lặp địa người nhận (chỉ Email), vui lòng kiểm tra lại!',
         note: '',
       });
     }

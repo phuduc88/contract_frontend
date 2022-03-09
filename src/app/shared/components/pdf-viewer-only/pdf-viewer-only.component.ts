@@ -368,7 +368,7 @@ export class PdfViewOnlyComponent implements OnInit, OnDestroy {
   }
 
   private checkHasSignPad() {
-    if (this.currentUser != null  &&  this.currentUser.signatureImage) {
+    if (this.currentUser != null && this.currentUser.signatureImage) {
       this.hasSignPad = true;
     } else {
       this.hasSignPad = false;
@@ -376,6 +376,7 @@ export class PdfViewOnlyComponent implements OnInit, OnDestroy {
   }
 
   changeSignOfUser(data) {
+    this.hasSignPad = !data;
     this.canvasFs.forEach(cv => {
       var activeObject = cv.canvasF.getObjects();
       if (activeObject.length) {

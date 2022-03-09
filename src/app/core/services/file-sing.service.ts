@@ -17,6 +17,10 @@ export class FileSignService {
     return this.http.post(`/file-sign/${ id }`, body, options);
   }
 
+  public renameFile(id, body, options = {}) {
+    return this.http.post(`/file-sign/rename/${ id }`, body, options);
+  }
+
   public delete(id) {
     return this.http.delete(`/file-sign/${ id }`);
   }

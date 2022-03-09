@@ -5,6 +5,7 @@ import { Credential } from "@app/core/models";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
 import signUtils from "@app/shared/utils/sign";
 import orderBy from 'lodash/orderBy';
+import { Router } from '@angular/router';
 import { SignatureFlowSaveComponent } from "../signature/signature-save/signature-flow-save.component";
 @Component({
   selector: "app-signature-template",
@@ -21,7 +22,8 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
     private modalService: NzModalService,
     private authService: AuthenticationService,
     private documentTemplateService: DocumentTemplateService,
-    private documentTypeService: DocumentTypeService
+    private documentTypeService: DocumentTypeService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -42,8 +44,9 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
       });
       return;
     }
+    
     this.getDocumentName();
-    this.validFormEmployeeSign('valid');
+    this.validFormEmployeeSign('valid');    
   }
 
   addEmployeeSing(formVale) {
@@ -59,7 +62,14 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
 
   private handleFormValid(formValue) {
     this.documentSign.employeesSign = formValue.employeesSign;
+    if(!this.documentSign.employeesSign || this.documentSign.employeesSign.length < 1) {
+      this.modalService.warning({
+        nzTitle: "Vui lòng thêm thông tin người nhận!",
+      });
+      return;
+    }
     this.documentSign.listSign = [];
+    this.documentSign.emailAssignment = null;
     this.documentSign.currentStep = 2;
   }
 
@@ -106,8 +116,10 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
           type: "primary",
           shape: "round",
           onClick: () => {
+            this.deleteDocumentTem()
             modalConfirm.destroy();
             this.modal.destroy();
+            this.router.navigate(['/manage-documents']);
           },
         },
         {
@@ -148,9 +160,14 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
     const currrentListSign = [...this.documentSign.listSign];
     const listSignCopy = [];
     currrentListSign.forEach((item, index) => {
+      const eSign = this.documentSign.employeesSign.find(e => e.email === item.emailAssignment);
+      if (eSign) {
+        item.methodSign = eSign.singType;
+      }
       item.signIndex = (index + 1);
       listSignCopy.push(item);
     });
+
     this.documentSign.listSign = listSignCopy;
   }
 
@@ -158,7 +175,7 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
     const modal = this.modalService.create({
       nzClosable: true,
       nzMaskClosable: false,
-      nzTitle: "Xem lại và gửi",
+      nzTitle: "Xem lại và lưu",
       nzStyle: { top: 0 },
       nzClassName: "signature-flow-save",
       nzKeyboard: false,
@@ -167,6 +184,7 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
       nzFooter: [],
       nzComponentParams: {
         documentSign: this.documentSign,
+        isTemplate: true,
       },
     });
 
@@ -183,6 +201,14 @@ export class SignatureTemplateComponent implements OnInit, OnDestroy {
     return this.documentSign.listSign.filter(
       (sign) => sign.emailAssignment == emailAssignment
     );
+  }
+
+  private deleteDocumentTem() {
+    if (this.documentSign.isCreateNew) {
+      this.documentTemplateService.delete(this.documentSign.id).subscribe(res => {
+        console.log(res);
+      });
+    }
   }
 
   private serviceSignPosition() {

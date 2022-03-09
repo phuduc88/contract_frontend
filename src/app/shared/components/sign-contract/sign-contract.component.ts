@@ -18,9 +18,11 @@ export class SignContractComponent implements OnInit, OnDestroy {
   signTypeForm: FormGroup;
   private hubProxy: any;
   showError: boolean = false;
+  isSpinning: boolean = false;
   showCerfitication: boolean = false;
   cerficationInfo: any;
   sinTypes = SIGN_TYPE;
+  private handlers;
   constructor(
     private modal: NzModalRef,
     private formBuilder: FormBuilder,
@@ -38,6 +40,11 @@ export class SignContractComponent implements OnInit, OnDestroy {
       typeSign: [{ value: this.employeesSign.singType, disabled: (this.employeesSign.singType)} ,[Validators.required]],
       // typeSign: [this.employeesSign.singType],
     });
+    this.handlers = [
+      eventEmitter.on("saveData:error", () => {
+         this.isSpinning = false;
+      })
+    ];
     this.setValidControl(this.employeesSign.singType);
   }
 
@@ -53,6 +60,7 @@ export class SignContractComponent implements OnInit, OnDestroy {
   }
 
   viewCerfication() {
+    this.isSpinning = true;
     this.hubProxy = this.hubService.getHubProxy();
     if (this.hubProxy == null || this.hubProxy.connection.state !== 1) {
       this.showError = true;
@@ -80,9 +88,11 @@ export class SignContractComponent implements OnInit, OnDestroy {
  private detailCerInfo(data) {
     this.showCerfitication = true;
     this.cerficationInfo = data.subject;
+    this.isSpinning = false;
   }
 
   private resultSign(data) {
+    this.isSpinning = false;
     if(!data.status) {
       return;
     }
@@ -102,7 +112,6 @@ export class SignContractComponent implements OnInit, OnDestroy {
     if (this.signTypeForm.invalid) {
       return;
     }
-
     switch(this.typeSign) {
       case 1: //Ký SIM
         this.signSIM();
@@ -113,10 +122,13 @@ export class SignContractComponent implements OnInit, OnDestroy {
       case 3: // HSM
         this.signHSM();
         break;
-      case 4: // OTP SMS
+      case 4: // Remote signing
         this.signOtpSMS();
         break;
-      case 5: // OTP Email
+      case 5: // OTP SMS
+        this.signOtpSMS();
+        break;
+      case 6: // OTP Email
         this.signEmail();
         break;
       default:
@@ -143,10 +155,12 @@ export class SignContractComponent implements OnInit, OnDestroy {
   }
 
   private singDocumentHub() {
-    const argum = `${ this.currentUser.token },${ this.employeesSign.documentSignId },${ HumCommand.signDocument }`;
+    this.isSpinning = true;
+    const argum = `${ this.currentUser.token },${ this.employeesSign.documentSignId },${ HumCommand.signDocument },${ HumCommand.rootAPI }`;
     this.hubProxy.invoke("processMessage", argum).done(() => {
     }).fail((error) => {
       this.showError = true;
+      this.isSpinning = false;
     });;
   }
   
@@ -156,13 +170,15 @@ export class SignContractComponent implements OnInit, OnDestroy {
     const link = document.createElement('a');
     link.href = shemaSign.replace('contractId', '');
     link.click();
+    this.isSpinning = false;
   }
 
   private getCerfiticationHub() {   
-    const argum = `${ this.currentUser.token },0,${ HumCommand.toekInfo }`;
+    const argum = `${ this.currentUser.token },0,${ HumCommand.toekInfo },${ HumCommand.rootAPI }`;
     this.hubProxy.invoke("processMessage", argum).done(() => {
     }).fail((error) => {
       this.showError = true;
+      this.isSpinning = false;
     });
   }
 
@@ -227,11 +243,15 @@ export class SignContractComponent implements OnInit, OnDestroy {
         this.signTypeForm.get('email').clearValidators();
         this.signTypeForm.get('mobile').clearValidators();
         break;
-      case 4: // OTP SMS
+      case 4: // HSM
+        this.signTypeForm.get('email').clearValidators();
+        this.signTypeForm.get('mobile').clearValidators();
+        break;
+      case 5: // OTP SMS
         this.signTypeForm.get('mobile').setValidators([Validators.required, Validators.pattern(REGEX.PHONE_NUMBER)]);
         this.signTypeForm.get('email').clearValidators();
         break;
-      case 5: // OTP Email
+      case 6: // OTP Email
         this.signTypeForm.get('email').setValidators([Validators.required, Validators.pattern(REGEX.EMAIL)]);
         this.signTypeForm.get('mobile').clearValidators();
         break;

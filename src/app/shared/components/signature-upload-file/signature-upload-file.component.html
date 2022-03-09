@@ -8,8 +8,6 @@
       <div class="flex-grow-1 info_file d-flex align-items-center">
         <div>
           <p style="margin-top: 0px;">{{file.fileName}}</p>
-          <!-- DUCLV -> em dịnh nghĩa stype cho imput này nhé -->
-          <!-- <p style="margin-top: 0px;"> <input type="text" class="form-control" [(ngModel)]="file.fileName"></p> -->
           <span>{{file.fileSize}} Kb</span>
         </div>
       </div>
@@ -17,8 +15,8 @@
         <div class="dropdown">
           <span class="fa fa-ellipsis-v" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <!-- <a class="dropdown-item" (click)="UploadOtherFile(file)">Tải lên file
-                        khác</a> -->
+            <a class="dropdown-item" (click)="uploadOtherFile(file, i)">Tải lên file
+                        khác</a>
             <a class="dropdown-item" (click)="removeFile(file, i)">Xóa file</a>
             <a class="dropdown-item" (click)="renameFile(file, i)">Đổi tên file</a>
           </div>

@@ -31,7 +31,7 @@
               <th style="width: 50px;">STT</th>
               <th style="width: 150px;">Thời gian khởi tạo</th>               
               <th>Tệp tin</th>
-              <th style="width: 160px;">Thông tin thêm</th>
+              <th style="width: 160px;">Thông tin thêm 01</th>
               <th style="width: 280px;">Hành động</th>
             </tr>
           </thead>
@@ -45,7 +45,11 @@
                 </strong>
               </td>
               <td>
-                <div [innerHtml]="data.infomation"></div>
+                <div>
+                  Order : {{data.recordUpLoad}} 
+                  <br/>
+                  Kích thước tệp: {{data.fileSize}} 
+                </div>
               </td>
               <td>
                 <button nz-button nzType="link" (click)="quickView(data)" class="text-success">
@@ -59,7 +63,7 @@
                     <i class="fa fa-ellipsis-v" style="font-size: 22px;color: #2CA01C;" aria-hidden="true"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" (click)="viewBookmarks(data)">Xem chi tiết bookmarks</a>
+                    <!-- <a class="dropdown-item" (click)="viewBookmarks(data)">Xem chi tiết bookmarks</a> -->
                     <a class="dropdown-item" (click)="deleteBookmark(data, i)">Xóa</a>
                     <a class="dropdown-item" (click)="downloadTemplateBookmark(data)">Tải xuống Mẫu</a>
                   </div>
@@ -72,12 +76,3 @@
     </div>
   </div>
 </div>
-
-<nz-dropdown-menu #menu0="nzDropdownMenu">
-  <ul nz-menu>
-    <li nz-menu-item>Xem tài liệu liên quan</li>
-    <li nz-menu-item>Xóa</li>
-    <li nz-menu-item>Tải xuống mẫu</li>
-    <li nz-menu-item> Tải xuống file Excel dữ liệu bookmark mẫu</li>
-  </ul>
-</nz-dropdown-menu>

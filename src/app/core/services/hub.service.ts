@@ -10,28 +10,23 @@ import { errorMessages } from '@app/shared/constant';
 export class HubService {
 
   private hubProxy: any;
-  constructor(private http: ApplicationHttpClient) {
+  constructor() {
   }
 
   public connectHub(callBack) {
-    const options = {
-        crossDomain: true,
+    const options = {         
         'Content-Type': 'application/json',
-        'Accept':'*/*'
+        'Accept':'*/*',
+        qs: {
+          'Access-Control-Allow-Private-Network': true 
+        }
 		};
 
-    // const conn = new signalR.HubConnection('/signalr', {
-    //   headers: {
-    //       'Accept-Language': 'en-US'
-    //   }
-    // });
-    // const connectionHub = hubConnection(hubConfig.host, options);
-    const connectionHub = hubConnection(hubConfig.host);
+    const connectionHub = hubConnection(hubConfig.host, options);
     const hubProxy = connectionHub.createHubProxy(hubConfig.hubProxy);
     hubProxy.on(hubConfig.notificeEvent, (result) => {
       callBack(this.convertToObject(result));
     });
-
     connectionHub.start()
     .done((data: any) =>{        
         console.log('Now connected, connection ID=' + connectionHub.id);  
@@ -59,16 +54,16 @@ export class HubService {
 
     throw {
       code: data.code,
-      message: this.getMessageErrorByErrorCode(data.code),
+      message: this.getMessageErrorByErrorCode(data),
     };
   }
 
-  private getMessageErrorByErrorCode(errorCode) {
-    const message = errorMessages[errorCode];
+  private getMessageErrorByErrorCode(data) {
+    const message = errorMessages[data.code];
 
     if (!message) {
-      eventEmitter.emit('saveData:error', errorMessages[8]);
-      return errorMessages[8];
+      eventEmitter.emit('saveData:error', data.message);
+      return  data.message;
     }
 
     eventEmitter.emit('saveData:error', message);

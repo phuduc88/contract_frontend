@@ -279,7 +279,9 @@ export class ContractAuthenticationProcessS2Component implements OnInit {
     });
 
     modal.afterClose.subscribe(result => {
-
+      if(!result) {
+        return;
+      }
      this.updateSignOfUserOnDocument();
      if(showDialogSign) {
        this.showDialogSign();

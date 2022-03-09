@@ -80,6 +80,7 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
           } else {
             this.currentStep = goStep;
             this.documentTemplate = res.result;
+            this.documentTemplate.isCreateNew = true;
             this.documentTemplate.employeesSign = [];
             this.showSignatureFlowDialog(this.documentTemplate);
           }
@@ -90,11 +91,11 @@ export class ManageTemplateDocumentsComponent implements OnInit, OnDestroy {
     }, 200);
   }
 
-  private showSignatureFlowDialog(documentSign) {
+  private showSignatureFlowDialog(documentSign) {    
     const modal = this.modalService.create({
       nzStyle: { top: 0 },
       nzClosable: true,
-      nzTitle: "Ký tài liệu",
+      nzTitle: "Cấu hình chữ ký",
       nzClassName: "signature-flow-dialog",
       nzContent: SignatureTemplateComponent,
       nzOnOk: (data) => console.log("Click ok", data),

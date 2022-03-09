@@ -127,6 +127,10 @@ export class ManageTemplateDocumentsTableComponent implements OnInit, OnChanges 
   }
 
   viewDetail(data) {
+    if(!data.numberSign || data.numberSign === 0) {
+      this.editDocumentTemplate(data);
+      return;
+    }
     this.onViewDetail.emit({
       data
     })

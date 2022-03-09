@@ -50,3 +50,4 @@ export * from './cancel-contract/cancel-contract.component';
 export * from './extend-expiry-contract/extend-expiry-contract.component';
 export * from './certificate-detail/certificate-detail.component';
 export * from './verified-code/verified-code.component';
+export * from './dialog-change-file-name/dialog-change-file-name.component';

@@ -36,13 +36,16 @@
       </div>
       <div class="bd-highlight">
         <button class="btn btn-plus" (click)="addDocumentType()">
-          <span class="fa fa-plus"></span>
+          <span *ngIf="!documentSign.documentType" class="fa fa-plus"></span>
+          <span *ngIf="documentSign.documentType" class="fa fa-edit"></span>
         </button>
       </div>
     </div>
 
     <app-signature-upload-file [filesSign]="documentSign.filesSign" [documentId]="documentSign.id"
-      [documentType]="documentSign.documentType" (changeFilesUpload)="changeFilesUpload($event)">
+      [documentType]="documentSign.documentType" 
+      (onChangeFilesUpload)="changeFilesUpload($event)"
+      (onChangeFilesName)="changeFileName($event)">
     </app-signature-upload-file>
 
   </div>

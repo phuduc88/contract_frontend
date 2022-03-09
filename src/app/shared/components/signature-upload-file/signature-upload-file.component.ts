@@ -4,7 +4,6 @@ import * as $ from 'jquery';
 import 'jqueryui';
 import { SignFlowService, FileSignService } from "@app/core/services";
  
-
 @Component({
   selector: 'app-signature-upload-file',
   templateUrl: './signature-upload-file.component.html',
@@ -14,11 +13,12 @@ export class SignatureUploadFileComponent implements OnInit, OnDestroy, AfterVie
   @Input() filesSign: any = [];
   @Input() documentId:any;
   @Input() documentType:any;
-  @Output() changeFilesUpload: EventEmitter<any> = new EventEmitter();
+  @Output() onChangeFilesUpload: EventEmitter<any> = new EventEmitter();
+  @Output() onChangeFilesName: EventEmitter<any> = new EventEmitter();
   isSpinning: boolean;
   constructor(
     private signFlowService: SignFlowService,
-    private fileSignService: FileSignService,
+    private fileSignService: FileSignService,     
   ) 
   {}
 
@@ -72,7 +72,7 @@ export class SignatureUploadFileComponent implements OnInit, OnDestroy, AfterVie
   private fomatFileUpload(filesSign) {
     const filesSignCopy = [...this.filesSign] || [];
     this.filesSign = filesSignCopy.concat(filesSign);
-    this.changeFilesUpload.emit({
+    this.onChangeFilesUpload.emit({
       filesSign: this.filesSign,
       documentId: this.documentId
     });
@@ -83,22 +83,22 @@ export class SignatureUploadFileComponent implements OnInit, OnDestroy, AfterVie
       const filesSignCopy = [...this.filesSign];
       filesSignCopy.splice(index, 1);
       this.filesSign = filesSignCopy;
-      this.changeFilesUpload.emit({
+      this.onChangeFilesUpload.emit({
         filesSign: this.filesSign,
         documentId: this.documentId
       });
     });
   }
 
+  uploadOtherFile(file, index) {
+    this.removeFile(file, index);
+    $('#files').trigger('click');
+  }
+
   renameFile(file, index) {
-    this.fileSignService.update(file.id, file).subscribe((data) => {
-      const filesSignCopy = [...this.filesSign];
-      filesSignCopy[index] = file;
-      this.filesSign = filesSignCopy;
-      this.changeFilesUpload.emit({
-        filesSign: this.filesSign,
-        documentId: this.documentId
-      });
-    });
+    this.onChangeFilesName.emit({
+      file,
+      index
+    });    
   }
 }

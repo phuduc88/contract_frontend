@@ -34,7 +34,6 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     // set page title
     this.subscription = this.translateService.get('auth.login.pageTitle').subscribe(text => {
       this.titleService.setTitle(text);

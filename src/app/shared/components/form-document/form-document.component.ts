@@ -13,6 +13,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   styleUrls: ['./form-document.component.less']
 })
 export class FormDocumentComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Input() documentTypeInfo: any;
   documetForm: FormGroup;
   constructor(
     private modal: NzModalRef,
@@ -24,9 +25,9 @@ export class FormDocumentComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.documetForm = this.formBuilder.group({
-      documentName: ['',[Validators.required] ],
-      description: [''],
-      isDefault: [false],
+      documentName: [this.documentTypeInfo.documentName,[Validators.required] ],
+      description: [this.documentTypeInfo.description],
+      isDefault: [this.documentTypeInfo.isDefault],
     });
   }
 
@@ -45,11 +46,42 @@ export class FormDocumentComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const data = this.documetForm.getRawValue();
+    if(!this.documentTypeInfo.id) {
+      this.createDocumentType(data);
+    } else {
+      this.updateDocumentType(this.documentTypeInfo.id, data);
+    }
+  }
+
+  delete()
+  {
+    this.modalService.confirm({
+      nzTitle: 'Bạn có chắc chắn muốn xóa?',
+      nzOkText: 'Xóa',
+      nzCancelText: 'Không',
+      nzOkType: 'danger',
+      nzOnOk: () => {
+        this.documentTypeService.delete(this.documentTypeInfo.id).subscribe((res) => {
+          this.documentTypeInfo.action = 3;
+          this.modal.destroy(this.documentTypeInfo);
+        });
+      }
+    });
+  }
+
+  private createDocumentType(data) {
     this.documentTypeService.create(data).subscribe((res) => {
+      res.action = 1;
       this.modal.destroy(res);
     });
   }
 
+  private updateDocumentType(id, data) {
+    this.documentTypeService.update(id, data).subscribe((res) => {
+      res.action = 2;
+      this.modal.destroy(res);
+    });
+  }
 
 
   ngAfterViewInit() {

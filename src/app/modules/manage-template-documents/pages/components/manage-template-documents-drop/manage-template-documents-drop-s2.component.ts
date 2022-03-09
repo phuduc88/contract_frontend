@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { eventEmitter } from "@app/shared/utils/event-emitter";
-
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: "app-manage-template-documents-drop-s2",
   templateUrl: "./manage-template-documents-drop-s2.component.html",
@@ -15,7 +15,12 @@ export class ManageTemplateDocumentsDropS2Component implements OnInit {
   @Output() resizeDownloadTemplateBookmark: EventEmitter<any> = new EventEmitter();
   @Output() resizeQuickView: EventEmitter<any> = new EventEmitter();
   @Output() onGoBack: EventEmitter<any> = new EventEmitter();
-  ngOnInit() {}
+  constructor( private modalService: NzModalService,){
+
+  }
+  ngOnInit() {
+    this.showConfirm();
+  }
 
   changeFileSuccess(event) {
     this.onUploadFileBookmark.emit({file: event, goStep: 3,});
@@ -24,9 +29,14 @@ export class ManageTemplateDocumentsDropS2Component implements OnInit {
   goBack() {
     this.onGoBack.emit({goStep: 1});
   }
-
   
   downloadFileTemplateBookmark(documentTemplate) {
+    if(!this.documentTemplate.numberSign || this.documentTemplate.numberSign === 0) {
+      this.modalService.warning({
+        nzTitle: 'Chưa cấu hình thông tin người nhận'
+      });
+      return;
+    }
     this.onDowloadFileBookmark.emit(documentTemplate);
   }
 
@@ -37,7 +47,13 @@ export class ManageTemplateDocumentsDropS2Component implements OnInit {
   handleDownloadTemplateBookmark(data) {
     this.resizeDownloadTemplateBookmark.emit(data)
   }
-
+  showConfirm() {
+    if(this.documentTemplate.documentData.length === 0 && this.documentTemplate.filesSign === null) {
+      this.modalService.warning({
+        nzTitle: 'Chưa có tài liệu nào được tạo'
+      });
+    }
+  }
   handleQuickView(data) {
     this.resizeQuickView.emit(data)
   }

@@ -12,7 +12,7 @@
      (onGoBack)="handleGoBack($event)"
     (resizeViewDetail)="handleViewDetail($event)" *ngIf="currentStep === 1">
   </app-manage-template-documents-drop>
-  <app-manage-template-documents-drop-s2 [documentTemplate]="documentTemplate" 
+  <app-manage-template-documents-drop-s2 app-manage-template-documents-drop-s2 [documentTemplate]="documentTemplate" 
     (onGoBack)="handleGoBack($event)"
     (onDowloadFileBookmark)="handleDownloadFileTemplateBookmark($event)"
     (onUploadFileBookmark)="handleUploadFileBookmark($event)" 

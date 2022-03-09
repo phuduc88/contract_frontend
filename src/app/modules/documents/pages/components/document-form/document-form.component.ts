@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef, Input, Output, EventEmitter } from
 import { AuthenticationService, DocumentTypeService } from '@app/core/services';
 import { Credential } from '@app/core/models';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { DOCUMENT_STATUS, TIME_PICKERS} from '@app/shared/constant';
+import { USER_ACTION, TIME_PICKERS} from '@app/shared/constant';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogChooseDateComponent } from '@app/shared/components';
 import { eventEmitter } from '@app/shared/utils/event-emitter';
@@ -18,7 +18,7 @@ export class DocumentFormComponent implements OnInit {
   private handlers;
   formSearch: FormGroup;
   documentsType: any;
-  documentStatus = DOCUMENT_STATUS;
+  userAction = USER_ACTION;
   timepickers = TIME_PICKERS;
   dateFrom: any = '';
   dateTo: any = '';
@@ -35,7 +35,7 @@ export class DocumentFormComponent implements OnInit {
   ngOnInit() {
     this.formSearch = this.formBuilder.group({
       keyWord: [''],
-      status: [''],
+      userAction: [null],
       documentType: [''],
       dateView: [''],
     });
@@ -131,7 +131,7 @@ export class DocumentFormComponent implements OnInit {
   clearvalueOfForm() {
     this.formSearch.patchValue({
       keyWord: '',
-      status: '',
+      userAction: null,
       documentType: '',
       dateView: '',
     });

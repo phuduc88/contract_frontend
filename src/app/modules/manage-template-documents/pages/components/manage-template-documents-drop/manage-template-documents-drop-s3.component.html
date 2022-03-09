@@ -77,13 +77,13 @@
                   <tbody>
                     <tr *ngFor="let data of documentTemplate.dataBookmarks;index as i">
                       <td class="text-center">
-                        <input type="text" [(ngModel)]="data.recordUpLoad" />
+                        <input type="text" readonly [(ngModel)]="data.recordUpLoad" />
                       </td>
                       <td class="text-center">
-                        <input type="text" class="mw-300" [(ngModel)]="data.originFileName" />
+                        <input type="text" readonly class="mw-300" [(ngModel)]="data.originFileName" />
                       </td>
                       <td class="text-center" *ngFor="let column of headerColumn">
-                        <input type="text" class="mw-150" [(ngModel)]="data[column.colunmName]"  />
+                        <input type="text" class="mw-150" disabled [(ngModel)]="data[column.colunmName]"  />
                       </td>
                       <td>
                         <button type="button" (click)="delete(data,i)" class="btn btn-link btn-sm ng-binding" style="color: black"

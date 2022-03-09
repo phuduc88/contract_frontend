@@ -1,7 +1,12 @@
-  <div class="block_email" *ngFor="let item of employeesSign; let i = index">
-      <div class="form-row">
+  <div class="group_block_email" *ngFor="let item of employeesSign; let i = index">
+      <div class="number_item">
+        <input type="text" class="form-control" [(ngModel)]="item.orders" 
+        (ngClass)="{true : 'border border-danger'}[myForm.orders.$error.required]" />
+      </div>
+      <div class="block_email">
+        <div class="form-row">
           <div class="col-6">
-              <nz-radio-group [(ngModel)]="item.groupType">
+              <nz-radio-group (ngModelChange)="changeGroupType($event, item)"  [(ngModel)]="item.groupType">
                 <label nz-radio [nzValue]=1>Tổ chức</label>
                 <label nz-radio [nzValue]=2>Cá nhân</label>
                 <label nz-radio [nzValue]=3>Người nhận bản sao</label>
@@ -16,8 +21,6 @@
               <label nz-radio [nzValue]="true">Người ký</label>
               <label nz-radio [nzValue]="false">Người xét duyệt</label>
           </nz-radio-group>
-          <!-- <label nz-checkbox [(ngModel)]="item.isEmployeeSign">Người ký</label>
-          <label nz-checkbox [(ngModel)]="item.isEmployeeApprove">Người xét duyệt</label> -->
       </div>
       <div class="form-row padding-5" *ngIf="item.groupType == groupType.ISCC">
           <label nz-checkbox [(ngModel)]="item.isCCFinish">Chỉ nhận bản sao khi hoàn thành</label>
@@ -101,6 +104,7 @@
         <div class="form-row padding-5" *ngIf="item.groupType == groupType.HSMUSB && (item.clientId || 0) === 0">
           <label nz-checkbox [(ngModel)]="item.addCustomer">Thêm vào danh sách khách hàng</label>
         </div>
+      </div>
   </div>
   <small class="text-danger">*Lưu ý: thông tin đánh dấu sao (*) là thông tin bắt buộc, không được để trống</small>
   <div class="mt-2">

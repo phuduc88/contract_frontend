@@ -15,8 +15,10 @@ export class DocumentDetailRecipientListComponent implements OnInit, OnChanges {
   @Output() onDownloadDocumentCancel: EventEmitter<any> = new EventEmitter();
   
   isCancel: boolean = false;
+  hasFileCancel: boolean = false;
   userCreate: any;
   reason: string = '';
+  emailCreate: any;
   userId: any;
   constructor(
     private authService: AuthenticationService,
@@ -30,7 +32,9 @@ export class DocumentDetailRecipientListComponent implements OnInit, OnChanges {
     if (changes.documentSign && changes.documentSign.currentValue) {
       this.reason = changes.documentSign.currentValue.reason;
       this.isCancel = changes.documentSign.currentValue.isCancel;
+      this.hasFileCancel = changes.documentSign.currentValue.hasFileCancel;
       this.userCreate = changes.documentSign.currentValue.userCreate;
+      this.emailCreate = changes.documentSign.currentValue.email;
     }
   }
 

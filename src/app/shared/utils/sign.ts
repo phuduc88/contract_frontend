@@ -55,7 +55,6 @@ export default {
     if (!base64String) {
       return;
     }
-
     const chatFirst = base64String.charAt(0);
     const extension = GetExtensionImageBase64(chatFirst);
     return extension + base64String;

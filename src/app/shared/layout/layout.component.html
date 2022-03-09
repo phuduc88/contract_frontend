@@ -69,11 +69,11 @@
               <span>Tình hình sử dụng SMS</span>
             </a>
           </li>
-          <li [hidden]="!permissions[pmsConf.reportManagementCompare]" nz-menu-item>
+          <!-- <li [hidden]="!permissions[pmsConf.reportManagementCompare]" nz-menu-item>
             <a [routerLink]="['/report/reconciliation']">
               <span>Báo cáo đối soát</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li [hidden]="!permissions[pmsConf.systemManagement]" nz-submenu nzTitle="Hệ thống" [nzSelected]="currentUrl.includes('cai-dat-chung')" nzIcon="setting">
@@ -177,7 +177,7 @@
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </div>
 
-      <a href="" target="_blank" style="text-decoration: none;">
+      <a href="https://hopdong.newtel.vn/" target="_blank" title="Hỗ trợ" style="text-decoration: none;">
         <div id="fc-help" class="fc-icons d-flex align-items-center justify-content-center">
           <span class="fa fa-question-circle-o"></span>
         </div>

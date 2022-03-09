@@ -95,20 +95,18 @@
         <signature-flow-s3 [documentSign]="documentSign"></signature-flow-s3>
       </div>
     </div>
-
-
   </div>
 
   <div class="signature-flow-footer modal-footer">
     <div class="btn-group">
-      <button type="button" class="btn btn-secondary mr-2" (click)="prevStep(1)">
+      <button type="button" class="btn btn-secondary mr-2" *ngIf="documentSign.currentStep !== 1" (click)="prevStep(1)">
         Quay lại <span class="fa fa-arrow-left"></span>
       </button>
       <button type="button" class="btn btn-success" (click)="nextStep(2)" *ngIf="documentSign.currentStep === 1">
         Tiếp theo <span class="fa fa-arrow-right"></span>
       </button>
       <button type="button" class="btn btn-success" *ngIf="documentSign.currentStep === 2" (click)="saveAndSendEmail()" >
-        Cấu hình email và xem <span class="fa fa-paper-plane-o"></span>
+        Cấu hình email và lưu <span class="fa fa-paper-plane-o"></span>
       </button>
 
     </div>
